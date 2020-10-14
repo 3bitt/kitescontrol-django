@@ -1,0 +1,14 @@
+#  Ignore all files in parent directory
+/*
+
+# Don't ignore src folder and other exceptional files
+!src/
+!requirements.txt
+!.gitignore
+
+# Ignore cache and db
+__pycache__
+db.sqlite3
+
+# Ignore migrations folder - Uncomment if working in team
+# migrations/
