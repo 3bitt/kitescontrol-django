@@ -7,8 +7,10 @@ class ListStudentView(ListView):
     queryset = Student.objects.all().order_by('-register_date')
     context_object_name = 'students'
     # model = Student
-    template_name = 'list.html'
+    template_name = 'student/student_list.html'
 
 
 class CreateStudentView(CreateView):
     model = Student
+    template_name = 'student/student_create.html'
+    fields = '__all__'
