@@ -1,10 +1,10 @@
-#  Ignore all files in parent directory
-/*
+#  Ignore
+.vscode/
 
 # Don't ignore src folder and other exceptional files
-!src/
 !requirements.txt
 !.gitignore
+!apps/
 
 # Ignore cache and db
 __pycache__
