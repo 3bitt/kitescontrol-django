@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
+{% load bulma_tags %}
+
+{% block content_title %}
+    Dodaj Studenta
+{% endblock content_title%}
 
 {% block content %}
 
 <form action='.' method='POST'>
     {% csrf_token %}
-elo
-    {{ form.as_p }}
+    {{form.name}}
+    {{ form|bulma }}
+    
 
     <input type="submit" value="Save">
 </form>

@@ -7,13 +7,16 @@
             <a class="back-link" href="{% url 'dashboard:dashboard-home' %}"><b><-- Back</b></a>
         </div>
     </div>
-                
+
+{% block content_title %}
+    Studenci
+{% endblock content_title %}
           
 {% block content %}
     <div class="section">
         <div class="columns">
             <div class="column is-3">
-                <a href="{% url 'dashboard:dashboard-home' %}"    
+                <a href="{% url 'student:student-create' %}"    
                     <button class="button is-medium">
                         Dodaj Kursanta &emsp;
                         <span class="icon has-text-success">
@@ -44,7 +47,7 @@
         <tr>
         <td>{{forloop.counter}}</td>
         <td>
-            <a href="#" title="">{{student}}</a> 
+            <a href="{{ student.get_absolute_url }}" title="">{{student}}</a> 
         </td>
         <td>
             {{student.weight}}

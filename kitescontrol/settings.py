@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bulma',
+    'django_simple_bulma',
     'fontawesome_5',
 
     'dashboard',
@@ -62,8 +63,10 @@ MIDDLEWARE = [
 ]
 
 STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # 'django.contrib.staticfiles.finders'
+  'django.contrib.staticfiles.finders.FileSystemFinder',
+  'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+
+  'django_simple_bulma.finders.SimpleBulmaFinder',
 ]
 
 ROOT_URLCONF = 'kitescontrol.urls'
@@ -135,7 +138,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+SITE_ROOT = 'staticfiles'
 STATICFILES_DIRS = (
     os.path.join(SITE_ROOT, 'static'),
     )
