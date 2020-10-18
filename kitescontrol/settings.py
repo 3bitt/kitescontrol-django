@@ -18,7 +18,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 # Modification to make /apps subfolder work
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-sys.path.insert(0, os.path.join(BASE_DIR, '../apps'))
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bulma',
+    'fontawesome_5',
 
     'dashboard',
     'instructor',
@@ -57,6 +59,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # 'django.contrib.staticfiles.finders'
 ]
 
 ROOT_URLCONF = 'kitescontrol.urls'
@@ -128,3 +135,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+STATICFILES_DIRS = (
+    os.path.join(SITE_ROOT, 'static'),
+    )

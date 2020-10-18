@@ -1,17 +1,67 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Student's List</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='styles/list.css'>
-    
-</head>
-<body>
+{% extends 'dashboard/base.html' %}
 
-    {% for student in students %}
-    <p>{{student}}</p>
-    {% endfor %}
-</body>
-</html>
+
+{% block content_area %}
+    <div class="columns">
+        <div class="column is-1">
+            <a class="back-link" href="{% url 'dashboard:dashboard-home' %}"><b><-- Back</b></a>
+        </div>
+    </div>
+                
+          
+{% block content %}
+    <div class="section">
+        <div class="columns">
+            <div class="column is-3">
+                <a href="{% url 'dashboard:dashboard-home' %}"    
+                    <button class="button is-medium">
+                        Dodaj Kursanta &emsp;
+                        <span class="icon has-text-success">
+                            <i class="fas fa-user-plus"></i>
+                        </span>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <table class="table is-striped is-hoverable">
+    <thead>
+        <tr>
+        <th title="Number">#</th>
+        <th title="Name">Kursant</th>
+        <th title="Weight">Waga</th>
+        <th title="birthDate">Data urodzenia</th>
+        <th title="mobileNumber">Telefon</th>
+        <th title="ikoLevel">Poziom IKO</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr>
+        <td>{{forloop.counter}}</td>
+        <td>
+            <a href="#" title="">{{student}}</a> 
+        </td>
+        <td>
+            {{student.weight}}
+        </td>
+        <td>
+            {{student.birth_date}}
+        </td>
+        <td>
+            {{student.mobile_number}}
+        </td>
+        <td>
+            {{student.iko_level}}
+        </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% endblock content %}
+
+{% endblock content_area %}
