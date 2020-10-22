@@ -7,14 +7,16 @@
 {% endblock extra_css %}
 
 {% block content_title %}
-    Dodaj Studenta
+    <section class="section">Title Placeholder</section> 
 {% endblock content_title%}
 
 {% block content %}
     <div class="columns">
-        <div class="column is-5">
+        <div class="column ">
             <form action='.' method='POST'>
                 {% csrf_token %}
+
+
 
                 {{ form }}
 
