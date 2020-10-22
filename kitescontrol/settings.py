@@ -69,12 +69,22 @@ STATICFILES_FINDERS = [
   'django_simple_bulma.finders.SimpleBulmaFinder',
 ]
 
+BULMA_SETTINGS = {
+    "extensions": [
+        "bulma-calendar",
+    ],
+}
+
+
+
 ROOT_URLCONF = 'kitescontrol.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,8 +147,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+SITE_ROOT = os.path.dirname(os.path.dirname(__file__))
+
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
-SITE_ROOT = 'staticfiles'
 STATICFILES_DIRS = (
     os.path.join(SITE_ROOT, 'static'),
     )

@@ -1,19 +1,28 @@
 {% extends 'base.html' %}
-{% load bulma_tags %}
+{% comment %} {% load bulma_tags %} {% endcomment %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'student/css/student_create.css' %}">
+{% endblock extra_css %}
 
 {% block content_title %}
     Dodaj Studenta
 {% endblock content_title%}
 
 {% block content %}
+    <div class="columns">
+        <div class="column is-5">
+            <form action='.' method='POST'>
+                {% csrf_token %}
 
-<form action='.' method='POST'>
-    {% csrf_token %}
-    {{form.name}}
-    {{ form|bulma }}
-    
+                {{ form }}
 
-    <input type="submit" value="Save">
-</form>
+                
 
-{% endblock %}
+                <input type="submit" value="Save">
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

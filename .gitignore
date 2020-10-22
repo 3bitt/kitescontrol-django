@@ -1,6 +1,6 @@
 #  Ignore
 .vscode/
-
+staticfiles/
 # Don't ignore src folder and other exceptional files
 !requirements.txt
 !.gitignore
