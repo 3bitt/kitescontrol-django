@@ -1,3 +1,37 @@
-.error{
-    font: outline;
+
+.form-background{
+    background-color: #eef8ff;
+    border-radius: 5px;
+    box-shadow:1px 1px 6px 1px #c5d1d8;
+    
+}
+
+.form-section-title{
+    background-color: #a9d5f5c4;
+    border-radius: 5px;
+    font-size: 2rem;
+    box-shadow: 0px 0px 3px 1px #839caf;
+}
+
+.form-student-details-section{
+    background-color: #caddecc4;
+    border-radius: 5px;
+    box-shadow: 3px 0px 7px 0px #c5d1d8;
+}
+
+.form-stay-details-section{
+    border-radius: 5px;
+    box-shadow: 3px 0px 7px 0px #c5d1d8;
+}
+
+
+.short-field{
+    width: 30%;
+}
+
+.medium-field{
+    width: 60%;
+}
+.long-field{
+    width: 80%;
 }
