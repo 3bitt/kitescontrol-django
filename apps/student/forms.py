@@ -68,5 +68,4 @@ class StudentCreateForm(ModelForm):
         help_texts = {
         }
 
-    def clean_name:
-        
+
