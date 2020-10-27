@@ -7,21 +7,21 @@ from .models import Student
 class StudentCreateForm(ModelForm):
     class Meta:
         model = Student
-        fields = '__all__'
+        exclude = ['register_date']
 
         widgets = {
             'name': forms.TextInput(attrs = {
-                'class': 'input'
+                'class': 'input required'
             }),
             'surname': forms.TextInput(attrs = {
-                'class': 'input'
+                'class': 'input required'
             }),
             'birth_date': forms.DateInput(attrs = {
-                'class': 'input',
+                'class': 'input required',
                 'type': 'date'
             }),
             'weight': forms.NumberInput(attrs = {
-                'class': 'input',
+                'class': 'input required',
                 'type': 'number'
             }),
             'wetsuit_size': forms.Select(attrs= {
@@ -44,7 +44,7 @@ class StudentCreateForm(ModelForm):
                 'class': 'input',
             }),
             'mobile_number': forms.NumberInput(attrs = {
-                'class': 'input',
+                'class': 'input required',
                 'type': 'text'
             }),
             'stay_location': forms.TextInput(attrs = {
@@ -67,3 +67,6 @@ class StudentCreateForm(ModelForm):
 
         help_texts = {
         }
+
+    def clean_name:
+        

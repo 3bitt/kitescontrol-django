@@ -16,8 +16,13 @@
 .form-student-details-section{
     background-color: #caddecc4;
     border-radius: 5px;
-    box-shadow: 3px 0px 7px 0px #c5d1d8;
+    box-shadow: 3px 0px 7px 0px #92999d;
 }
+
+.form-student-details-section .field:not(:last-child) .control label{
+    font-weight: bold;
+}
+
 
 .form-stay-details-section{
     border-radius: 5px;

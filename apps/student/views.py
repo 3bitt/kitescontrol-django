@@ -16,7 +16,7 @@ class StudentCreateView(CreateView):
     template_name = 'student/student_create.html'
     # fields = '__all__'
     form_class = StudentCreateForm
-    # success_url = ''
+    success_url = ''
 
 
 class StudentDetailView(DetailView):
