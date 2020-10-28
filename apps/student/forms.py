@@ -11,17 +11,17 @@ class StudentCreateForm(ModelForm):
 
         widgets = {
             'name': forms.TextInput(attrs = {
-                'class': 'input required'
+                'class': 'input'
             }),
             'surname': forms.TextInput(attrs = {
-                'class': 'input required'
+                'class': 'input'
             }),
             'birth_date': forms.DateInput(attrs = {
-                'class': 'input required',
+                'class': 'input',
                 'type': 'date'
             }),
             'weight': forms.NumberInput(attrs = {
-                'class': 'input required',
+                'class': 'input',
                 'type': 'number'
             }),
             'wetsuit_size': forms.Select(attrs= {
@@ -68,4 +68,11 @@ class StudentCreateForm(ModelForm):
         help_texts = {
         }
 
+    def clean_name(self):
+            given_name = self.cleaned_data.get('name')
+            if not given_name.isalpha():
+                raise forms.ValidationError("Name can contain only letters")
+            else:
+                return given_name
 
+    

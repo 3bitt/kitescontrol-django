@@ -26,6 +26,8 @@
                             <div class="control long-field">
                                 {{form.name.label_tag}}
                                 {{form.name}}
+                                <p class="help is-danger">{{form.name.errors|striptags }}</p>
+                                
                             </div>
                         </div>
 
@@ -42,6 +44,13 @@
                             </div>
                         </div>
 
+                        <div class="field medium-field">
+                            <div class="control">
+                                {{form.mobile_number.label_tag}}
+                                {{form.mobile_number}}
+                            </div>
+                        </div>
+
                         <div class="field short-field">
                             <div class="control">
                                 {{form.weight.label_tag}}
@@ -49,12 +58,7 @@
                             </div>
                         </div>
 
-                        <div class="field medium-field">
-                            <div class="control">
-                                {{form.mobile_number.label_tag}}
-                                {{form.mobile_number}}
-                            </div>
-                        </div>
+
 
                         <div class="field long-field">
                             <div class="control">

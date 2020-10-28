@@ -19,7 +19,7 @@
     box-shadow: 3px 0px 7px 0px #92999d;
 }
 
-.form-student-details-section .field:not(:last-child) .control label{
+.form-student-details-section .field:nth-child(-n+5) .control label{
     font-weight: bold;
 }
 
