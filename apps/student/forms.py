@@ -42,10 +42,12 @@ class StudentCreateForm(ModelForm):
             }),
             'email_address': forms.EmailInput(attrs = {
                 'class': 'input',
+                'type': 'email'
             }),
             'mobile_number': forms.NumberInput(attrs = {
                 'class': 'input required',
-                'type': 'text'
+                'type': 'text',
+                'placeholder': '+48 123456789'
             }),
             'stay_location': forms.TextInput(attrs = {
                 'class': 'input',
@@ -66,13 +68,14 @@ class StudentCreateForm(ModelForm):
         }
 
         help_texts = {
+            # 'mobile_number': "Ex. +48 123456789 or 123456789"
         }
 
-    def clean_name(self):
-            given_name = self.cleaned_data.get('name')
-            if not given_name.isalpha():
-                raise forms.ValidationError("Name can contain only letters")
-            else:
-                return given_name
+    # def clean_name(self):
+    #         given_name = self.cleaned_data.get('name')
+    #         if not given_name.isalpha():
+    #             raise forms.ValidationError("Name can contain only letters")
+    #         else:
+    #             return given_name
 
     

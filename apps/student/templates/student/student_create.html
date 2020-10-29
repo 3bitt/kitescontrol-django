@@ -13,7 +13,7 @@
 {% block content %}
     <div class="columns">
         <div class="column ">
-            <form action='.' method='POST'>
+            <form method='POST'>
                 {% csrf_token %}
                 <div class="columns is-5 is-variable form-background">
                     <div class="column form-student-details-section">
@@ -35,12 +35,14 @@
                             <div class="control">
                                 {{form.surname.label_tag}}
                                 {{form.surname}}
+                                <p class="help is-danger">{{form.surname.errors|striptags }}</p>
                             </div>
                         </div>
                         <div class="field medium-field">
                             <div class="control">
                                 {{form.birth_date.label_tag}}
                                 {{form.birth_date}}
+                                <p class="help is-danger">{{form.birth_date.errors|striptags }}</p>
                             </div>
                         </div>
 
@@ -48,6 +50,10 @@
                             <div class="control">
                                 {{form.mobile_number.label_tag}}
                                 {{form.mobile_number}}
+                                    {% if form.mobile_number.help_text %}
+                                        <p class="help">{{ form.mobile_number.help_text|safe }}</p>
+                                    {% endif %}
+                                <p class="help is-danger">{{form.mobile_number.errors|striptags }}</p>
                             </div>
                         </div>
 
@@ -55,6 +61,7 @@
                             <div class="control">
                                 {{form.weight.label_tag}}
                                 {{form.weight}}
+                                <p class="help is-danger">{{form.weight.errors|striptags }}</p>
                             </div>
                         </div>
 
@@ -64,6 +71,7 @@
                             <div class="control">
                                 {{form.email_address.label_tag}}
                                 {{form.email_address}}
+                                <p class="help is-danger">{{form.email_address.errors|striptags }}</p>
                             </div>
                         </div>
                     </div>
@@ -78,18 +86,21 @@
                             <div class="control">
                                 {{form.arrival_date.label_tag}}
                                 {{form.arrival_date}}
+                                <p class="help is-danger">{{form.arrival_date.errors|striptags }}</p>
                             </div>
                         </div>
                         <div class="field medium-field">
                             <div class="control">
                                 {{form.leave_date.label_tag}}
                                 {{form.leave_date}}
+                                <p class="help is-danger">{{form.leave_date.errors|striptags }}</p>
                             </div>
                         </div>
                         <div class="field long-field">
                             <div class="control">
                                 {{form.stay_location.label_tag}}
                                 {{form.stay_location}}
+                                <p class="help is-danger">{{form.stay_location.errors|striptags }}</p>
                             </div>
                         </div>
                     </div>
@@ -104,31 +115,37 @@
                             <div class="control">
                                 {{form.wetsuit_size.label_tag}}
                                 {{form.wetsuit_size}}
+                                <p class="help is-danger">{{form.wetsuit_size.errors|striptags }}</p>
                             </div>
                         </div>
                         <div class="field short-field">
                             <div class="control">
                                 {{form.harness_size.label_tag}}
                                 {{form.harness_size}}
+                                <p class="help is-danger">{{form.harness_size.errors|striptags }}</p>
                             </div>
                         </div>
                         <div class="field medium-field">
                             <div class="control">
                                 {{form.iko_id.label_tag}}
                                 {{form.iko_id}}
+                                <p class="help is-danger">{{form.iko_id.errors|striptags }}</p>
                             </div>
                         </div>
                         <div class="field short-field">
                             <div class="control">
                                 {{form.iko_level.label_tag}}
                                 {{form.iko_level}}
+                                <p class="help is-danger">{{form.iko_level.errors|striptags }}</p>
                             </div>
                         </div>       
                     </div>
 
                 </div>
 
-                <input class="button is-success" type="submit" value="Save">
+                <input class="button is-success" 
+                    type="submit" 
+                    value="Save">
             </form>
         </div>
     </div>

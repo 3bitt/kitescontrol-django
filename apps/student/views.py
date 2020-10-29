@@ -1,7 +1,8 @@
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, DeleteView
 from django.shortcuts import get_object_or_404
 from .forms import StudentCreateForm
 from .models import Student
+from django.urls import reverse_lazy
 
 class StudentListView(ListView):
 
@@ -16,7 +17,7 @@ class StudentCreateView(CreateView):
     template_name = 'student/student_create.html'
     # fields = '__all__'
     form_class = StudentCreateForm
-    success_url = ''
+    success_url = reverse_lazy('student:student-list')
 
 
 class StudentDetailView(DetailView):
@@ -27,3 +28,8 @@ class StudentDetailView(DetailView):
     def get_object(self):
         id_ = self.kwargs.get('id')
         return get_object_or_404(Student, id=id_)
+
+class StudentDeleteView(DeleteView):
+    model = Student
+    template_name = 'student/student_delete.html'
+    success_url = reverse_lazy('student:student-list')
