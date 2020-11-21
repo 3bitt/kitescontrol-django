@@ -46,11 +46,14 @@ INSTALLED_APPS = [
     'django_simple_bulma',
     'fontawesome_5',
 
+    'account',
     'dashboard',
     'instructor',
     'student',
     'lesson'
 ]
+
+AUTH_USER_MODEL = 'account.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
