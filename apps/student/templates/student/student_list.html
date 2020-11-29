@@ -1,18 +1,14 @@
 {% extends 'base.html' %}
 
 
-{% block content_area %}
+{% block content %}
     <div class="columns">
         <div class="column is-1">
             <a class="back-link" href="{% url 'dashboard:dashboard-home' %}"><b> Back</b></a>
         </div>
     </div>
-
-{% block content_title %}
-    Studenci
-{% endblock content_title %}
           
-{% block content %}
+
     <div class="section">
         <div class="columns">
             <div class="column is-3">
@@ -72,4 +68,3 @@
     </table>
 {% endblock content %}
 
-{% endblock content_area %}

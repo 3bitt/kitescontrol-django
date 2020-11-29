@@ -1,27 +1,23 @@
 {% extends 'base.html' %}
-{% comment %} {% load bulma_tags %} {% endcomment %}
+
 {% load static %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'student/css/student_create.css' %}">
 {% endblock extra_css %}
 
-{% block content_title %}
-    <section class="section">Title Placeholder</section> 
-{% endblock content_title%}
-
 {% block content %}
-    <div class="columns">
-        <div class="column ">
-            <form method='POST'>
-                {% csrf_token %}
-                <div class="columns is-5 is-variable form-background">
-                    <div class="column form-student-details-section">
-                        <nav class="level form-section-title">
-                            <p class="level-item has-text-centered">Dane Kontaktowe</p>
-                        </nav>
+    <div class="container">
+        <form method='POST'>
+        {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <div class="form-student-details-section">
+                        <div class="level form-section-title">
+                            <p class="">Dane Kontaktowe</p>
+                        </div>
 
-{% comment %}   STUDENT DETAILS INFO     {% endcomment %}
+                        {% comment %}   STUDENT DETAILS INFO     {% endcomment %}
                         <div class="field">
                             <div class="control long-field">
                                 {{form.name.label_tag}}
@@ -75,12 +71,13 @@
                             </div>
                         </div>
                     </div>
-
-{% comment %}   STAY INFO     {% endcomment %}
+                </div>
+                <div class="col">
+                    {% comment %}   STAY INFO     {% endcomment %}
                     <div class="column form-stay-details-section">
-                        <nav class="level form-section-title">
+                        <div class="level form-section-title">
                             <p class="level-item has-text-centered">Dostępność</p>
-                        </nav>
+                        </div>
 
                         <div class="field medium-field">
                             <div class="control">
@@ -104,8 +101,9 @@
                             </div>
                         </div>
                     </div>
-
-{% comment %}   KITE INFO     {% endcomment %}
+                </div>
+                <div class="col">
+                    {% comment %}   KITE INFO     {% endcomment %}
                     <div class="column">
                         <nav class="level form-section-title">
                             <p class="level-item has-text-centered">Kite</p>
@@ -140,14 +138,14 @@
                             </div>
                         </div>       
                     </div>
-
                 </div>
-
+            </div>
+            <div class="row">
                 <input class="button is-success" 
                     type="submit" 
                     value="Save">
-            </form>
-        </div>
+            </div>  
+        </form>       
     </div>
 
 {% endblock content %}

@@ -42,10 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bulma',
-    'django_simple_bulma',
     'fontawesome_5',
-
+    'bootstrap4',
     'account',
     'dashboard',
     'instructor',
@@ -68,15 +66,9 @@ MIDDLEWARE = [
 STATICFILES_FINDERS = [
   'django.contrib.staticfiles.finders.FileSystemFinder',
   'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-
-  'django_simple_bulma.finders.SimpleBulmaFinder',
 ]
 
-BULMA_SETTINGS = {
-    "extensions": [
-        "bulma-calendar",
-    ],
-}
+
 
 
 
