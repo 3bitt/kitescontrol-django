@@ -2,7 +2,6 @@ asgiref==3.2.10
 astroid==2.4.2
 beautifulsoup4==4.9.3
 Django==3.1.2
-django-bootstrap4==2.3.1
 django-fontawesome-5==1.0.18
 importlib-metadata==2.1.0
 isort==5.6.4

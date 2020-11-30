@@ -35,7 +35,18 @@ class Student(models.Model):
         blank=False, 
         validators=[validate_name])
     birth_date = models.DateField(null=True, blank=False)
+    mobile_number = models.CharField(
+        max_length=20, 
+        null=True, 
+        blank=False,
+        validators=[validate_mobile])
+    email_address = models.CharField(max_length=40, null=True, blank=True)
     weight = models.FloatField(null=True, blank=True)
+    arrival_date = models.DateField(null=True, blank=True)
+    leave_date = models.DateField(null=True, blank=True)
+    stay_location = models.CharField(max_length=40, null=True, blank=True)
+    own_car = models.BooleanField(null=True,blank=True)
+    kite_elsewhere = models.BooleanField(null=True,blank=True)
     wetsuit_size = models.CharField(
         max_length=3, 
         null=True, 
@@ -46,15 +57,6 @@ class Student(models.Model):
         null=True, 
         blank=True, 
         choices=HARNESS_SIZES)
-    arrival_date = models.DateField(null=True, blank=True)
-    leave_date = models.DateField(null=True, blank=True)
-    email_address = models.CharField(max_length=40, null=True, blank=True)
-    mobile_number = models.CharField(
-        max_length=20, 
-        null=True, 
-        blank=False,
-        validators=[validate_mobile])
-    stay_location = models.CharField(max_length=40, null=True, blank=True)
     iko_id = models.IntegerField(null=True, blank=True)
     iko_level = models.CharField(max_length=30, null=True, blank=True)
     comment = models.CharField(max_length=255, null=True, blank=True)

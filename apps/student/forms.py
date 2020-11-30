@@ -45,7 +45,7 @@ class StudentCreateForm(ModelForm):
                 'type': 'email'
             }),
             'mobile_number': forms.NumberInput(attrs = {
-                'class': 'input required',
+                'class': 'input',
                 'type': 'text',
                 'placeholder': '+48 123456789'
             }),
@@ -53,13 +53,21 @@ class StudentCreateForm(ModelForm):
                 'class': 'input',
                 'type': 'text'
             }),
+            'own_car': forms.CheckboxInput(attrs = {
+                'class': 'input',
+                'type': 'checkbox'
+            }),
+            'kite_elsewhere': forms.CheckboxInput(attrs = {
+                'class': 'input',
+                'type': 'checkbox'
+            }),
             'iko_id': forms.NumberInput(attrs = {
                 'class': 'input',
-                'type': 'text'
+                'type': 'number'
             }),
             'iko_level': forms.NumberInput(attrs = {
                 'class': 'input',
-                'type': 'text',
+                'type': 'number',
             }),
             'comment': forms.TextInput(attrs = {
                 'class': 'input',

@@ -1,10 +1,35 @@
 {% extends 'base.html' %}
 
 
-{% block content_title %}
-{{student}}
-{% endblock content_title %}
 
 {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-5">
+            <div class="field">
+                <div>Imie
+                    <div>{{student.name}} {{student.surname}}</div>
+</div>
+            </div>
+                <div class="field">
+                <p>{{student.birth_date}}</p>
+                <p>{{student.mobile_number}}</p>
+                <p>{{student.weight}}</p>                
+                <p>{{student.email_address}}</p>                
+                <p>{{student.arrival_date}}</p>                
+                <p>{{student.leave_date}}</p>                
+                <p>{{student.stay_location}}</p>                
+                <p>{{student.own_car}}</p>                
+                <p>{{student.kite_elsewhere}}</p>                
+                <p>{{student.wetsuit_size}}</p>                
+                <p>{{student.harness_size}}</p>                
+                <p>{{student.iko_id}}</p>                
+                <p>{{student.iko_level}}</p>                
+                <p>{{student.comment}}</p>                
+                <p>{{student.register_date}}</p>                
+            </div>
+        </div>
+    </div>
+</div>
 <p>{{student.name}}</p>
 {% endblock content %}

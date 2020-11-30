@@ -2,15 +2,15 @@
 
 {% block content %}
 
-<div class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-        <form action="student/delete/" method="POST">{% csrf_token %}
-            <p>Are you sure you want to delete "{{ object }}"?</p>
-            
-    </div>
-    <input type="submit" value="Confirm">
-    </form>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form method="POST">{% csrf_token %}
+                <p>Are you sure you want to delete "{{ object }}"?</p>
+                <input class="btn btn-danger" type="submit" value="Usuń">
+            </form>
+        </div>
+    </div>    
 </div>
 
 {% endblock content %}

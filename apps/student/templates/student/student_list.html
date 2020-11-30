@@ -1,29 +1,34 @@
 {% extends 'base.html' %}
+{% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'student/css/student_list.css' %}">
+{% endblock extra_css %}
 
 {% block content %}
 <div class="container-fluid">
-    <div class="row">
+    <div class="row mt-2">
         <div class="col-1">
             <a class="back-link" href="{% url 'dashboard:dashboard-home' %}"><b> Back</b></a>
         </div>         
 
         <div class="col">
             <a href="{% url 'student:student-create' %}">    
-                <button class="button is-medium">
-                    Dodaj Kursanta &emsp;
-                    <span class="icon has-text-success">
-                        <i class="fas fa-user-plus"></i>
-                    </span>
+                <button type="button" class="btn btn-success">
+                        <i class="fas fa-user-plus mr-1"></i>
+                        Dodaj Kursanta
                 </button>
             </a>
         </div>
+
         <div class="col">
             <div>Szukaj kursanta</div>
+
         </div>
+
     </div>
 
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center mt-5">
         <div class="col-8">
             <table class="table table-sm">
             <thead>
@@ -57,10 +62,8 @@
                 <td>
                 </td>
                 <td>
-                    <a href="{% url 'student:student-delete'  %}" method="GET">
-                        <span class="icon has-text-danger">
-                            <i class="fas fa-times"></i>
-                        </span>
+                    <a href="{% url 'student:student-delete' student.id  %}" method="GET">
+                            <i class="fas fa-times delete-icon"></i>
                     </a>
                 </td>
                 </tr>

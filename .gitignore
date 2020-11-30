@@ -9,6 +9,6 @@ staticfiles/
 # Ignore cache and db
 __pycache__
 db.sqlite3
-
+static/fontawesome_5/*
 # Ignore migrations folder - Uncomment if working in team
 # migrations/
