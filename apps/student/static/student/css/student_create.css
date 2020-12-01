@@ -1,4 +1,10 @@
 
+.form-box{
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 1px #839caf;
+}
+
 .form-background{
     background-color: #eef8ff;
     border-radius: 5px;
@@ -12,9 +18,10 @@
 .form-section-title{
     background-color: #a9d5f5c4;
     border-radius: 5px;
+    box-shadow: 0px 0px 3px 1px #839caf;
     font-size: 1.3rem;
     padding: 2px;
-    box-shadow: 0px 0px 3px 1px #839caf;
+
 }
 
 .form-student-details-section{

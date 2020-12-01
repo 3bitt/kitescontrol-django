@@ -10,7 +10,7 @@
     <div class="container">
         <form method='POST'>
         {% csrf_token %}
-            <div class="row mt-3">
+            <div class="row mt-3 form-box">
                 <div class="col">
                     <div class="col section form-student-details-section">
                         <div class="row form-section-title">
@@ -20,7 +20,8 @@
                         {% comment %}   STUDENT DETAILS INFO     {% endcomment %}
                         <div class="row mt-3 justify-content-between align-items-start">
                             <div class="col-4 required">
-                                {{form.name.label_tag}}
+                                <label for="name">Imię:</label>
+                                {% comment %} {{form.name.label_tag}} {% endcomment %}
                             </div>
                             <div class="col align-self-end">
                                 {{form.name}}
@@ -30,7 +31,8 @@
                         
                         <div class="row justify-content-between align-items-start">
                             <div class="col-4 required">
-                                {{form.surname.label_tag}}
+                                <label for="name">Nazwisko:</label>
+                                {% comment %} {{form.surname.label_tag}} {% endcomment %}
                             </div>
                             <div class="col">
                                 {{form.surname}}
@@ -40,7 +42,8 @@
 
                         <div class="row justify-content-between align-items-start">
                             <div class="col-4 required">
-                                {{form.birth_date.label_tag}}
+                                <label for="name">Data urodzenia:</label>
+                                {% comment %} {{form.birth_date.label_tag}} {% endcomment %}
                             </div>
                             <div class="col">
                                 {{form.birth_date}}
@@ -50,7 +53,8 @@
 
                         <div class="row justify-content-between align-items-start">
                             <div class="col-4 pr-0 required">
-                                {{form.mobile_number.label_tag}}
+                                <label for="name">Nr telefonu:</label>
+                                {% comment %} {{form.mobile_number.label_tag}} {% endcomment %}
                             </div>
                             <div class="col">
                                 {{form.mobile_number}}
@@ -63,7 +67,8 @@
 
                         <div class="row justify-content-between align-items-start">
                             <div class="col-4">
-                                {{form.weight.label_tag}}
+                                <label for="name">Waga:</label>
+                                {% comment %} {{form.weight.label_tag}} {% endcomment %}
                             </div>
                             <div class="col">
                                 {{form.weight}}
@@ -91,7 +96,8 @@
 
                         <div class="row mt-3 justify-content-between align-items-start">
                             <div class="col-4">
-                                {{form.arrival_date.label_tag}}
+                                <label for="name">Data przyjazdu:</label>
+                                {% comment %} {{form.arrival_date.label_tag}} {% endcomment %}
                             </div>
                             <div class="col">
                                 {{form.arrival_date}}
@@ -101,7 +107,8 @@
 
                         <div class="row justify-content-between align-items-start">
                             <div class="col-4">
-                                {{form.leave_date.label_tag}}
+                                <label for="name">Data odjazdu:</label>
+                                {% comment %} {{form.leave_date.label_tag}} {% endcomment %}
                             </div>
                             <div class="col">
                                 {{form.leave_date}}
@@ -111,7 +118,8 @@
 
                         <div class="row justify-content-between align-items-start">
                             <div class="col-4">
-                                {{form.stay_location.label_tag}}
+                                <label for="name">Miejsce pobytu:</label>
+                                {% comment %} {{form.stay_location.label_tag}} {% endcomment %}
                             </div>
                             <div class="col">
                                 {{form.stay_location}}
@@ -119,8 +127,9 @@
                             </div>
                         </div>
                         <div class="row justify-content-between align-items-start">
-                            <div class="col-4">
-                                {{form.own_car.label_tag}}
+                            <div class="col-6">
+                                <label for="name">Własny samochód:</label>
+                                {% comment %} {{form.own_car.label_tag}} {% endcomment %}
                             </div>
                             <div class="col">
                                 {{form.own_car}}
@@ -128,8 +137,9 @@
                             </div>
                         </div>
                         <div class="row justify-content-between align-items-start">
-                            <div class="col-4">
-                                {{form.kite_elsewhere.label_tag}}
+                            <div class="col-6">
+                                <label for="name">Wyjazdy:</label>
+                                {% comment %} {{form.kite_elsewhere.label_tag}} {% endcomment %}
                             </div>
                             <div class="col">
                                 {{form.kite_elsewhere}}
@@ -147,7 +157,8 @@
 
                         <div class="row mt-3 justify-content-between align-items-start">
                             <div class="col-5">
-                                {{form.wetsuit_size.label_tag}}
+                                <label for="name">Rozmiar pianki:</label>
+                                {% comment %} {{form.wetsuit_size.label_tag}} {% endcomment %}
                             </div>
                             <div class="col">
                                 {{form.wetsuit_size}}
@@ -157,7 +168,8 @@
                         
                         <div class="row justify-content-between align-items-start">
                             <div class="col-5">
-                                {{form.harness_size.label_tag}}
+                                <label for="name">Rozmiar trapezu:</label>
+                                {% comment %} {{form.harness_size.label_tag}} {% endcomment %}
                             </div>
                             <div class="col">
                                 {{form.harness_size}}
@@ -167,7 +179,8 @@
 
                         <div class="row justify-content-between align-items-start">
                             <div class="col-4">
-                                {{form.iko_id.label_tag}}
+                                <label for="name">Numer IKO:</label>
+                                {% comment %} {{form.iko_id.label_tag}} {% endcomment %}
                             </div>
                             <div class="col">
                                 {{form.iko_id}}
@@ -177,7 +190,8 @@
 
                         <div class="row justify-content-between align-items-start">
                             <div class="col-4">
-                                {{form.iko_level.label_tag}}
+                                <label for="name">Poziom IKO:</label>
+                                {% comment %} {{form.iko_level.label_tag}} {% endcomment %}
                             </div>
                             <div class="col">
                                 {{form.iko_level}}
