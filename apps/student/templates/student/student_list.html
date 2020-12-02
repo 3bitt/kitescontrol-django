@@ -7,12 +7,9 @@
 
 {% block content %}
 <div class="container-fluid">
-    <div class="row mt-2">
-        <div class="col-1">
-            <a class="back-link" href="{% url 'dashboard:dashboard-home' %}"><b> Back</b></a>
-        </div>         
+    <div class="row mt-2">       
 
-        <div class="col">
+        <div class="col-auto">
             <a href="{% url 'student:student-create' %}">    
                 <button type="button" class="btn btn-success">
                         <i class="fas fa-user-plus mr-1"></i>
@@ -21,13 +18,46 @@
             </a>
         </div>
 
-        <div class="col">
-            <div>Szukaj kursanta</div>
+        <div class="col-auto">
+            <div class="row search-tile">
+            
+                <div class="col-auto">
+
+                    <div class="row mb-3 justify-content-center">
+                        <form type="GET" action="{% url 'student:student-search' %}">
+                        <b>Szukaj kursanta</b>
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="col-auto ">
+                            <label for="s_name">Imię lub nazwisko:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input class="text-field" type="text" name="s_name" value="{{student_name_user_input}}">
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-between">
+                        <div class="col-auto ">
+                            <label for="s_mobile">Nr telefonu:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input class="text-field" type="text" name="s_mobile" value="{{mobile_num_user_input}}">
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-auto button-col">
+                    <button type="submit" class="btn btn-info">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         </div>
 
-    </div>
 
+    </div>
+{% if student_list %}
     <div class="row justify-content-md-center mt-5">
         <div class="col-8">
             <table class="table table-sm">
@@ -44,7 +74,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for student in students %}
+                {% for student in student_list %}
                 <tr>
                 <th scope="col">{{forloop.counter}}</td>
                 <td>
@@ -72,6 +102,13 @@
             </table>
         </div>
     </div>
+{% endif %}
+{{ query }}
+{% if student_search %}
+    {% for stud in student_search %}
+        {{ stud.birth_date }}
+    {% endfor %}
+{% endif %}
 </div>
 {% endblock content %}
 

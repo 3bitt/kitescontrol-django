@@ -1,6 +1,11 @@
 from django.contrib import admin
 from django.urls import path
-from .views import StudentCreateView, StudentListView, StudentDetailView, StudentDeleteView
+from .views import (
+    StudentCreateView,
+    StudentListView,
+    StudentDetailView,
+    StudentDeleteView,
+    StudentSearchView )
 
 app_name = 'student'
 urlpatterns = [
@@ -8,5 +13,7 @@ urlpatterns = [
     path('create/', StudentCreateView.as_view(), name='student-create'),
     path('<int:id>/', StudentDetailView.as_view(), name='student-detail'),
     path('delete/<int:pk>/', StudentDeleteView.as_view(), name='student-delete'),
+    path('q', StudentSearchView.as_view(), name='student-search'),
+
     
 ]

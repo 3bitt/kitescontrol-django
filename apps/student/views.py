@@ -3,14 +3,33 @@ from django.shortcuts import get_object_or_404
 from .forms import StudentCreateForm
 from .models import Student
 from django.urls import reverse_lazy
+from django.db.models import Q
 
 class StudentListView(ListView):
 
-    queryset = Student.objects.all().order_by('-register_date')
-    context_object_name = 'students'
+    queryset = Student.objects.all().order_by('-register_date')[:30]
+    context_object_name = 'student_list'
     # model = Student
     template_name = 'student/student_list.html'
 
+class StudentSearchView(ListView):
+
+    context_object_name = 'student_list'
+    template_name = 'student/student_list.html'
+
+    def get_queryset(self):
+        q = Student.objects.filter(
+            Q(mobile_number__contains=self.request.GET['s_mobile']),
+            Q(name__contains=self.request.GET['s_name']) |
+            Q(surname__contains=self.request.GET['s_name'])
+            )
+        return q
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['mobile_num_user_input'] = self.request.GET['s_mobile']
+        context['student_name_user_input'] = self.request.GET['s_name']
+        return context
 
 class StudentCreateView(CreateView):
     model = Student
@@ -21,13 +40,13 @@ class StudentCreateView(CreateView):
 
 
 class StudentDetailView(DetailView):
-    # queryset = Student.objects.all()
+    queryset = Student.objects.all()
     template_name = 'student/student_detail.html'
     context_object_name = 'student'
 
-    def get_object(self):
-        id_ = self.kwargs.get('id')
-        return get_object_or_404(Student, id=id_)
+    # def get_object(self):
+    #     id_ = self.kwargs.get('id')
+    #     return get_object_or_404(Student, id=id_)
 
 class StudentDeleteView(DeleteView):
     model = Student
