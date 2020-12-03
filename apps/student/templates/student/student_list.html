@@ -48,7 +48,9 @@
             
                 <div class="col-auto">
                     <div class="flex-row align-self-start">
-                        <button type="button" class="btn btn-outline-danger">Reset</button>
+                        <a href="{% url 'student:student-list' %}">
+                            <button type="button" class="btn btn-outline-danger">Reset</button>
+                        </a>
                     </div>
                     <div class="flex-row align-self-end mt-4">
                         <button type="submit" class="btn btn-info">Szukaj</button>

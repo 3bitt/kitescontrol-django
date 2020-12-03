@@ -4,6 +4,7 @@ from .forms import StudentCreateForm
 from .models import Student
 from django.urls import reverse_lazy
 from django.db.models import Q
+from django.db.models.functions import Trim
 
 class StudentListView(ListView):
 
@@ -17,14 +18,16 @@ class StudentSearchView(ListView):
     context_object_name = 'student_list'
     template_name = 'student/student_list.html'
 
+    # Queryset using query params in search
     def get_queryset(self):
         q = Student.objects.filter(
             Q(mobile_number__contains=self.request.GET['s_mobile']),
             Q(name__contains=self.request.GET['s_name']) |
             Q(surname__contains=self.request.GET['s_name'])
-            )
+            ).order_by('-register_date')
         return q
 
+    # Populate context with user input so template can display it in search fields
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['mobile_num_user_input'] = self.request.GET['s_mobile']
