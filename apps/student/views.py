@@ -37,7 +37,6 @@ class StudentSearchView(ListView):
 class StudentCreateView(CreateView):
     model = Student
     template_name = 'student/student_create.html'
-    # fields = '__all__'
     form_class = StudentCreateForm
     success_url = reverse_lazy('student:student-list')
 
@@ -46,7 +45,6 @@ class StudentDetailView(DetailView):
     queryset = Student.objects.all()
     template_name = 'student/student_detail.html'
     context_object_name = 'student'
-
     editMode = False
 
 

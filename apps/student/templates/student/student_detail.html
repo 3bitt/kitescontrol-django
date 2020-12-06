@@ -13,7 +13,7 @@
             <a href={% if view.editMode %}"{{request.META.HTTP_REFERER|escape}}"
                     {% else %} "{% url 'student:student-list' %}"
                     {% endif %}>
-                <button class="btn btn-sm btn-info">
+                <button class="btn btn-sm btn-warning">
                 <i class="fas fa-undo-alt"></i>
                 Powrót
                 </button>
@@ -23,7 +23,8 @@
             <a href={% if view.editMode %} "#" {% else %}
                 "{% url 'student:student-detail-edit' student.id %}"
                 {% endif %}>
-                <button class="btn btn-sm btn-warning">
+                <button class="btn btn-sm btn-info hidden" 
+                {% if view.editMode %}hidden{%endif%}>
                 <i class="far fa-edit"></i>
                 Edytuj
                 </button>
