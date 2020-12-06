@@ -9,3 +9,9 @@ label{
     font-weight: bold;
     margin: 0;
 }
+.icon-true{
+    color: green;
+}
+.icon-false{
+    color: rgb(177, 0, 0);
+}

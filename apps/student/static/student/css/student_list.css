@@ -17,3 +17,10 @@
 .button-col{
     align-self: flex-end;
 }
+
+.icon-true{
+    color: green;
+}
+.icon-false{
+    color: rgb(177, 0, 0);
+}

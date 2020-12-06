@@ -49,13 +49,13 @@
                 
                 <dt class="col-5 col-sm-3 col-lg-2">Nr telefonu:</dt>
                 <dd class="col-auto">
-                    <span>{{student.mobile_number}}</span>
+                    <span>{{student.mobile_number|default_if_none:"--"}}</span>
                 </dd>
                 <div class="w-100"></div>
                 
                 <dt class="col-5 col-sm-3 col-lg-2">Waga:</dt>
                 <dd class="col-auto">
-                    <span>{{student.weight}}</span>
+                    <span>{{student.weight|default_if_none:"--"}}</span>
                 </dd>
                 <div class="w-100"></div>
 
@@ -63,31 +63,35 @@
                     <hr/>
                 </dt>
                 <dd class="col-auto">
-                    <span>{{student.email_address}}</span>
+                    <span>{{student.email_address|default_if_none:"--"}}</span>
                 </dd>
                 <div class="w-100"></div>                
 
                 <dt class="col-5 col-sm-3 col-lg-2">Data przyjazdu:</dt>
                 <dd class="col-auto">
-                    <span>{{student.arrival_date}}</span>
+                    <span>{{student.arrival_date|default_if_none:"--"}}</span>
                 </dd>
                 <div class="w-100"></div>
 
                 <dt class="col-5 col-sm-3 col-lg-2">Data odjazdu:</dt>
                 <dd class="col-auto">
-                    <span>{{student.leave_date}}</span>
+                    <span>{{student.leave_date|default_if_none:"--"}}</span>
                 </dd>
                 <div class="w-100"></div>
 
                 <dt class="col-5 col-sm-3 col-lg-2">Miejsce pobytu:</dt>
                 <dd class="col-auto">
-                    <span>{{student.stay_location}}</span>
+                    <span>{{student.stay_location|default_if_none:"--"}}</span>
                 </dd>
                 <div class="w-100"></div>
 
                 <dt class="col-5 col-sm-3 col-lg-2">Samochód:</dt>
                 <dd class="col-auto">
-                    <span>{{student.own_car}}</span>
+                    {% if student.own_car %}
+                    <i class="fas fa-check icon-true"></i>
+                    {%else%}
+                    <i class="fas fa-times icon-false"></i>
+                    {%endif%}
                 </dd>
                 <div class="w-100"></div>
 
@@ -95,31 +99,35 @@
                     <hr/>
                 </dt>
                 <dd class="col-auto">
-                    <span>{{student.kite_elsewhere}}</span>
+                    {% if student.kite_elsewhere %}
+                    <i class="fas fa-check icon-true"></i>
+                    {%else%}
+                    <i class="fas fa-times icon-false"></i>
+                    {%endif%}
                 </dd>
                 <div class="w-100"></div>
 
                 <dt class="col-5 col-sm-3 col-lg-2">Rozmiar pianki:</dt>
                 <dd class="col-auto">
-                    <span>{{student.wetsuit_size}}</span>
+                    <span>{{student.wetsuit_size|default_if_none:"--"}}</span>
                 </dd>
                 <div class="w-100"></div>
 
                 <dt class="col-5 col-sm-3 col-lg-2">Rozmiar trapezu:</dt>
                 <dd class="col-auto">
-                    <span>{{student.harness_size}}</span>
+                    <span>{{student.harness_size|default_if_none:"--"}}</span>
                 </dd>
                 <div class="w-100"></div>
 
                 <dt class="col-5 col-sm-3 col-lg-2">Numer IKO:</dt>
                 <dd class="col-auto">
-                    <span>{{student.iko_id}}</span>
+                    <span>{{student.iko_id|default_if_none:"--"}}</span>
                 </dd>
                 <div class="w-100"></div>
 
                 <dt class="col-5 col-sm-3 col-lg-2">Poziom IKO:</dt>
                 <dd class="col-auto">
-                    <span>{{student.iko_level}}</span>
+                    <span>{{student.iko_level|default_if_none:"--"}}</span>
                 </dd>
             </dl>
         </div>

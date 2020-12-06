@@ -72,9 +72,14 @@
                 <tr>
                 <th scope="col" title="Number">#</th>
                 <th scope="col" title="Name">Kursant</th>
-                <th scope="col" title="Weight">Waga</th>
-                <th scope="col" title="birthDate">Data urodzenia</th>
-                <th scope="col" title="mobileNumber">Telefon</th>
+                <th scope="col" title="Weight">Data urodzenia</th>
+                <th scope="col" title="birthDate">Telefon</th>
+                <th scope="col" title="mobileNumber">Waga</th>
+                <th scope="col" title="ikoLevel">E-mail</th>
+                <th scope="col" title="ikoLevel">Pobyt</th>
+                <th scope="col" title="ikoLevel">Auto</th>
+                <th scope="col" title="ikoLevel">Wyjazdy</th>
+                <th scope="col" title="ikoLevel">IKO</th>
                 <th scope="col" title="ikoLevel">Poziom IKO</th>
                 <th scope="col" title="actions">Actions</th>
 
@@ -88,15 +93,39 @@
                     <a href="{{ student.get_absolute_url }}">{{student}}</a> 
                 </td>
                 <td>
-                    {{student.weight}}
+                    {{student.birth_date|date:"d-m-Y"}}
                 </td>
                 <td>
-                    {{student.birth_date}}
+                    {{student.mobile_number|default_if_none:"--"}}             
                 </td>
                 <td>
-                    {{student.mobile_number}}
+                    {{student.weight|default_if_none:"--"}}
                 </td>
                 <td>
+                    {{student.email_address|default_if_none:"--"}}
+                </td>
+                <td>
+                    {{student.stay_location|default_if_none:"--"}}
+                </td>
+                <td>
+                    {% if student.own_car %}
+                    <i class="fas fa-check icon-true"></i>
+                    {%else%}
+                    <i class="fas fa-times icon-false"></i>
+                    {%endif%}
+                </td>
+                <td>
+                    {% if student.kite_elsewhere %}
+                    <i class="fas fa-check icon-true"></i>
+                    {%else%}
+                    <i class="fas fa-times icon-false"></i>
+                    {%endif%}
+                </td>
+                <td>
+                    {{student.iko_id|default_if_none:"--"}}
+                </td>
+                <td>
+                    {{student.iko_level|default_if_none:"--"}}
                 </td>
                 <td>
                     <a href="{% url 'student:student-delete' student.id  %}" method="GET">
