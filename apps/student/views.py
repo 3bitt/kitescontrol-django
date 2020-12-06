@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, ListView, DetailView, DeleteView
+from django.views.generic import CreateView, ListView, DetailView, DeleteView,UpdateView
 from django.shortcuts import get_object_or_404
 from .forms import StudentCreateForm
 from .models import Student
@@ -47,9 +47,17 @@ class StudentDetailView(DetailView):
     template_name = 'student/student_detail.html'
     context_object_name = 'student'
 
-    # def get_object(self):
-    #     id_ = self.kwargs.get('id')
-    #     return get_object_or_404(Student, id=id_)
+    editMode = False
+
+
+class StudentUpdateView(UpdateView):
+    model = Student
+    template_name = 'student/student_detail.html'
+    editMode = False
+    form_class = StudentCreateForm
+
+    def get_success_url(self):
+        return reverse_lazy('student:student-detail', kwargs={'pk': self.kwargs['pk']})
 
 class StudentDeleteView(DeleteView):
     model = Student

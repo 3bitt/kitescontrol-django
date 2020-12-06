@@ -5,13 +5,15 @@ from .views import (
     StudentListView,
     StudentDetailView,
     StudentDeleteView,
-    StudentSearchView )
+    StudentSearchView,
+    StudentUpdateView, )
 
 app_name = 'student'
 urlpatterns = [
     path('', StudentListView.as_view(), name='student-list'),
     path('create/', StudentCreateView.as_view(), name='student-create'),
-    path('<int:id>/', StudentDetailView.as_view(), name='student-detail'),
+    path('<int:pk>/', StudentDetailView.as_view(), name='student-detail'),
+    path('<int:pk>/edit/', StudentUpdateView.as_view(editMode=True), name='student-detail-edit' ),
     path('delete/<int:pk>/', StudentDeleteView.as_view(), name='student-delete'),
     path('q', StudentSearchView.as_view(), name='student-search'),
 

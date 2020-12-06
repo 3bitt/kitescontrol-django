@@ -1,35 +1,273 @@
 {% extends 'base.html' %}
+{% load static %}
 
-
-
+{% block extra_css  %}
+<link rel="stylesheet" href="{% static 'student/css/student_detail.css' %}">
+{% endblock extra_css %}
+    
 {% block content %}
-<div class="container">
+<div class="container-fluid mt-3">
+
     <div class="row">
-        <div class="col-5">
-            <div class="field">
-                <div>Imie
-                    <div>{{student.name}} {{student.surname}}</div>
-</div>
-            </div>
-                <div class="field">
-                <p>{{student.birth_date}}</p>
-                <p>{{student.mobile_number}}</p>
-                <p>{{student.weight}}</p>                
-                <p>{{student.email_address}}</p>                
-                <p>{{student.arrival_date}}</p>                
-                <p>{{student.leave_date}}</p>                
-                <p>{{student.stay_location}}</p>                
-                <p>{{student.own_car}}</p>                
-                <p>{{student.kite_elsewhere}}</p>                
-                <p>{{student.wetsuit_size}}</p>                
-                <p>{{student.harness_size}}</p>                
-                <p>{{student.iko_id}}</p>                
-                <p>{{student.iko_level}}</p>                
-                <p>{{student.comment}}</p>                
-                <p>{{student.register_date}}</p>                
-            </div>
+        <div class="col-auto">
+            <a href={% if view.editMode %}"{{request.META.HTTP_REFERER|escape}}"
+                    {% else %} "{% url 'student:student-list' %}"
+                    {% endif %}>
+                <button class="btn btn-sm btn-info">
+                <i class="fas fa-undo-alt"></i>
+                Powrót
+                </button>
+            </a>
+        </div>
+        <div class="col-auto">
+            <a href={% if view.editMode %} "#" {% else %}
+                "{% url 'student:student-detail-edit' student.id %}"
+                {% endif %}>
+                <button class="btn btn-sm btn-warning">
+                <i class="far fa-edit"></i>
+                Edytuj
+                </button>
+            </a>
         </div>
     </div>
+
+    {% if not view.editMode %}
+    <div class="row mt-4">
+        <div class="col">
+            <dl class="row">
+            
+                <dt class="col-5 col-sm-3 col-lg-2">Imię i nazwisko:</dt>
+                <dd class="col-auto">{{student.name}} {{student.surname}}</dd>
+                <div class="w-100"></div>
+                
+                <dt class="col-5 col-sm-3 col-lg-2">Data urodzenia:</dt>
+                <dd class="col-auto">
+                    <span>{{student.birth_date}}</span>
+                </dd>
+                <div class="w-100"></div>
+                
+                <dt class="col-5 col-sm-3 col-lg-2">Nr telefonu:</dt>
+                <dd class="col-auto">
+                    <span>{{student.mobile_number}}</span>
+                </dd>
+                <div class="w-100"></div>
+                
+                <dt class="col-5 col-sm-3 col-lg-2">Waga:</dt>
+                <dd class="col-auto">
+                    <span>{{student.weight}}</span>
+                </dd>
+                <div class="w-100"></div>
+
+                <dt class="col-5 col-sm-3 col-lg-2">E-mail:
+                    <hr/>
+                </dt>
+                <dd class="col-auto">
+                    <span>{{student.email_address}}</span>
+                </dd>
+                <div class="w-100"></div>                
+
+                <dt class="col-5 col-sm-3 col-lg-2">Data przyjazdu:</dt>
+                <dd class="col-auto">
+                    <span>{{student.arrival_date}}</span>
+                </dd>
+                <div class="w-100"></div>
+
+                <dt class="col-5 col-sm-3 col-lg-2">Data odjazdu:</dt>
+                <dd class="col-auto">
+                    <span>{{student.leave_date}}</span>
+                </dd>
+                <div class="w-100"></div>
+
+                <dt class="col-5 col-sm-3 col-lg-2">Miejsce pobytu:</dt>
+                <dd class="col-auto">
+                    <span>{{student.stay_location}}</span>
+                </dd>
+                <div class="w-100"></div>
+
+                <dt class="col-5 col-sm-3 col-lg-2">Samochód:</dt>
+                <dd class="col-auto">
+                    <span>{{student.own_car}}</span>
+                </dd>
+                <div class="w-100"></div>
+
+                <dt class="col-5 col-sm-3 col-lg-2">Wyjazdy:
+                    <hr/>
+                </dt>
+                <dd class="col-auto">
+                    <span>{{student.kite_elsewhere}}</span>
+                </dd>
+                <div class="w-100"></div>
+
+                <dt class="col-5 col-sm-3 col-lg-2">Rozmiar pianki:</dt>
+                <dd class="col-auto">
+                    <span>{{student.wetsuit_size}}</span>
+                </dd>
+                <div class="w-100"></div>
+
+                <dt class="col-5 col-sm-3 col-lg-2">Rozmiar trapezu:</dt>
+                <dd class="col-auto">
+                    <span>{{student.harness_size}}</span>
+                </dd>
+                <div class="w-100"></div>
+
+                <dt class="col-5 col-sm-3 col-lg-2">Numer IKO:</dt>
+                <dd class="col-auto">
+                    <span>{{student.iko_id}}</span>
+                </dd>
+                <div class="w-100"></div>
+
+                <dt class="col-5 col-sm-3 col-lg-2">Poziom IKO:</dt>
+                <dd class="col-auto">
+                    <span>{{student.iko_level}}</span>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    {% comment %} If in Edit Mode {% endcomment %}
+    {% else %}
+    <form method="post">
+    {% csrf_token %}
+    <div class="row mt-4">
+
+        <div class="col-auto">
+            <div class="row mb-2">
+                <div class="col">
+                    <label class="d-flex" for="name">Imię:</label>
+                </div>   
+                <div class="col-auto">
+                    {{form.name}}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="surname">Nazwisko:</label>
+                </div> 
+                <div class="col-auto">
+                    {{form.surname}}
+                </div>
+            </div>        
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="birth_date">Data urodzenia:</label>
+                </div>  
+                <div class="col-auto">
+                    {{form.birth_date}}
+                </div>
+            </div>                    
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="mobile_number">Nr telefonu:</label>
+                </div>  
+                <div class="col-auto">
+                    {{form.mobile_number}}
+                </div>
+            </div>                    
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="weight">Waga:</label>
+                </div>   
+                <div class="col-auto">
+                    {{form.weight}}
+                </div>     
+            </div>                    
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="email_address">E-mail:</label>
+                </div>
+                <div class="col-auto">
+                    {{form.email_address}}
+                </div>
+            </div>
+            <hr/>
+            {% comment %} HR {% endcomment %}
+                                
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="arrival_date">Data przyjazdu:</label>
+                </div>
+                <div class="col-auto">
+                    {{form.arrival_date}}
+                </div>
+            </div>                    
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="leave_date">Data odjazdju:</label>
+                </div>
+                <div class="col-auto">
+                    {{form.leave_date}}
+                </div>                        
+            </div>                    
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="stay_location">Miejsce pobytu:</label>
+                </div>
+                <div class="col-auto">
+                    {{form.stay_location}}
+                </div>                        
+            </div>                    
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="own_car">Samochód:</label>
+                </div>
+                <div class="col-auto">
+                    {{form.own_car}}
+                </div>                        
+            </div>                    
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="kite_elsewhere">Wyjazdy:</label>
+                </div>
+                <div class="col-auto">
+                    {{form.kite_elsewhere}}
+                </div>                        
+            </div>
+            <hr/>
+
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="wetsuit_size">Rozmiar pianki:</label>
+                </div>
+                <div class="col-auto">
+                    {{form.wetsuit_size}}
+                </div>                        
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="harness_size">Rozmiar trapezu:</label>
+                </div>
+                <div class="col-auto">
+                    {{form.harness_size}}
+                </div>                        
+            </div>                    
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="iko_id">Numer IKO:</label>
+                </div>
+                <div class="col">
+                    {{form.iko_id}}
+                </div>                        
+            </div>                    
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="iko_level">Poziom IKO:</label>
+                </div>
+                <div class="col">
+                    {{form.iko_level}}
+                </div>                        
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <button class="btn btn-success submit-btn" type="submit">
+                    Zapisz
+                    </button>
+                </div>
+            </div>
+        </div> 
+             
+        </div>
+     
+    </div>
+    </form>
+        {% endif %}    
 </div>
-<p>{{student.name}}</p>
 {% endblock content %}
