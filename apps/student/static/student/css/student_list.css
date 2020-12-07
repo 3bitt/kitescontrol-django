@@ -1,12 +1,8 @@
-.delete-icon{
-    color: tomato;
-}
-
-.search-tile{
+.search-div{
     background-color: #b5e1e7;
     border-radius: 5px;
     box-shadow:1px 1px 6px 1px #b7bfc4;
-    padding: 5px;
+    /* padding: 5px; */
 }
 
 .text-field{
@@ -22,5 +18,9 @@
     color: green;
 }
 .icon-false{
-    color: rgb(177, 0, 0);
+    color: #b10000;
+}
+.delete-link{
+    text-decoration: none;
+    color: #c70000;
 }

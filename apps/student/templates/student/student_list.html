@@ -9,7 +9,7 @@
 <div class="container-fluid">
     <div class="row mt-2">       
 
-        <div class="col-auto">
+        <div class="col col-md-2">
             <a href="{% url 'student:student-create' %}">    
                 <button type="button" class="btn btn-success">
                         <i class="fas fa-user-plus mr-1"></i>
@@ -18,21 +18,23 @@
             </a>
         </div>
 
-        <div class="col-auto">
-            <div class="row search-tile">
-            
-                <div class="col-auto">
+        <div class="col search-div">
+        <form type="GET" action="{% url 'student:student-search' %}">
+            <div class="row search-tile justify-content-start mb-2">
+                <div class="col-auto border-bottom border-dark">
+                    
+                    <b>Wyszukiwarka</b>
+                </div>
+            </div>
 
-                    <div class="row mb-3 justify-content-center">
-                        <form type="GET" action="{% url 'student:student-search' %}">
-                        <b>Szukaj kursanta</b>
-                    </div>
+            <div class="row search-fields">
+                <div class="col-auto">
                     <div class="row justify-content-between">
                         <div class="col-auto ">
                             <label for="s_name">Imię lub nazwisko:</label>
                         </div>
                         <div class="col-auto">
-                            <input class="text-field" type="text" name="s_name" value="{{student_name_user_input}}">
+                            <input class="text-field" type="text" name="name" value="{{name_input}}">
                         </div>
                     </div>
 
@@ -41,12 +43,47 @@
                             <label for="s_mobile">Nr telefonu:</label>
                         </div>
                         <div class="col-auto">
-                            <input class="text-field" type="text" name="s_mobile" value="{{mobile_num_user_input}}">
+                            <input class="text-field" type="text" name="mobile" value="{{mobile_input}}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <label for="s_kite_trip">Wyjazdy:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="checkbox" name="trip" value="True" {% if trip_input %}checked{%endif%}>
+                        </div>
+                        <div class="col-auto">
+                            <label for="s_own_car">Mobilny:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="checkbox" name="car" value="True" {% if car_input %}checked{%endif%}>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-auto">
+                    <div class="row justify-content-between">
+                        <div class="col-auto ">
+                            <label for="s_weight_gt">Waga powyżej:</label>
+                            <i class="fas fa-level-up-alt"></i>
+                        </div>
+                        <div class="col-auto">
+                            <input class="text-field" type="number" name="weight_gt" value="{{weight_gt_input}}">
+                        </div>
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="col-auto ">
+                            <label for="s_weight_le">Waga poniżej:</label>
+                            <i class="fas fa-level-down-alt"></i>
+                        </div>
+                        <div class="col-auto">
+                            <input class="text-field" type="number" name="weight_le" value="{{weight_le_input}}">
                         </div>
                     </div>
                 </div>
             
-                <div class="col-auto">
+                <div class="col-auto align-items-center">
                     <div class="flex-row align-self-start">
                         <a href="{% url 'student:student-list' %}">
                             <button type="button" class="btn btn-outline-danger">Reset</button>
@@ -55,12 +92,13 @@
                     <div class="flex-row align-self-end mt-4">
                         <button type="submit" class="btn btn-info">Szukaj</button>
                     </div>
-                    </form>
-                </div>
+                </div>                
             </div>
+        </form>    
         </div>
+    </div>
 
-        </div>
+</div>
 
 
     </div>
@@ -128,8 +166,8 @@
                     {{student.iko_level|default_if_none:"--"}}
                 </td>
                 <td>
-                    <a href="{% url 'student:student-delete' student.id  %}" method="GET">
-                            <i class="fas fa-times delete-icon"></i>
+                    <a class="delete-link" href="{% url 'student:student-delete' student.id  %}" method="GET">
+                            Usuń
                     </a>
                 </td>
                 </tr>

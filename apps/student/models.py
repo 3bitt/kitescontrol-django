@@ -41,12 +41,12 @@ class Student(models.Model):
         blank=False,
         validators=[validate_mobile])
     email_address = models.CharField(max_length=40, null=True, blank=True)
-    weight = models.FloatField(null=True, blank=True)
+    weight = models.FloatField(null=True, blank=True, default=0)
     arrival_date = models.DateField(null=True, blank=True)
     leave_date = models.DateField(null=True, blank=True)
     stay_location = models.CharField(max_length=40, null=True, blank=True)
-    own_car = models.BooleanField(null=True,blank=True)
-    kite_elsewhere = models.BooleanField(null=True,blank=True)
+    own_car = models.BooleanField(null=True,blank=True, default=False)
+    kite_elsewhere = models.BooleanField(null=True,blank=True,default=False)
     wetsuit_size = models.CharField(
         max_length=3, 
         null=True, 
