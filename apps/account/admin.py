@@ -26,7 +26,7 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'password1', 'password2')}
+            'fields': ('username', 'password1', 'password2', 'active', 'staff', 'admin')}
         ),
     )
     search_fields = ('username',)
@@ -43,4 +43,4 @@ class UserAdmin(BaseUserAdmin):
 #     #     model = User
 
 admin.site.register(User, UserAdmin)
-admin.site.unregister(Group)
+# admin.site.unregister(Group)

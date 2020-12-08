@@ -5,16 +5,19 @@ from .models import Student
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.db.models.functions import Trim
+from account.views import UserAccessMixin
 
-class StudentListView(ListView):
+class StudentListView(UserAccessMixin, ListView):
 
     queryset = Student.objects.all().order_by('-register_date')[:30]
     context_object_name = 'student_list'
     # model = Student
     template_name = 'student/student_list.html'
-    
+    permission_required = ''
 
-class StudentSearchView(ListView):
+class StudentSearchView(UserAccessMixin, ListView):
+
+    permission_required = ''
 
     context_object_name = 'student_list'
     template_name = 'student/student_list.html'
@@ -44,30 +47,35 @@ class StudentSearchView(ListView):
         print(self.request.GET)
         return context
 
-class StudentCreateView(CreateView):
+class StudentCreateView(UserAccessMixin, CreateView):
     model = Student
     template_name = 'student/student_create.html'
     form_class = StudentCreateForm
     success_url = reverse_lazy('student:student-list')
+    permission_required = ''
 
 
-class StudentDetailView(DetailView):
+
+class StudentDetailView(UserAccessMixin, DetailView):
     queryset = Student.objects.all()
     template_name = 'student/student_detail.html'
     context_object_name = 'student'
     editMode = False
+    permission_required = ''
 
 
-class StudentUpdateView(UpdateView):
+class StudentUpdateView(UserAccessMixin, UpdateView):
     model = Student
     template_name = 'student/student_detail.html'
     editMode = False
     form_class = StudentCreateForm
+    permission_required = ''
 
     def get_success_url(self):
         return reverse_lazy('student:student-detail', kwargs={'pk': self.kwargs['pk']})
 
-class StudentDeleteView(DeleteView):
+class StudentDeleteView(UserAccessMixin, DeleteView):
     model = Student
     template_name = 'student/student_delete.html'
     success_url = reverse_lazy('student:student-list')
+    permission_required = ''

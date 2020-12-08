@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.forms import AuthenticationForm
 
 from .models import User
 
@@ -73,3 +74,6 @@ class UserAdminChangeForm(forms.ModelForm):
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
+
+class LoginAuthenticateForm(AuthenticationForm):
+    pass
