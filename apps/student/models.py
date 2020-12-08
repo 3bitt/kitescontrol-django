@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from .validators import validate_name, validate_mobile
+from .validators import *
 
 
 
@@ -13,7 +13,11 @@ class Student(models.Model):
         ('M', 'M'),
         ('L', 'L'),
         ('XL', 'XL'),
-        ('XXL', 'XXL')
+        ('XXL', 'XXL'),
+        ('S-128', 'S-128'),
+        ('M-140', 'M-140'),
+        ('L-146', 'L-146'),
+        ('XL-152', 'XL-152'),
     )
     HARNESS_SIZES = (
         ('XS', 'XS'),
@@ -29,34 +33,41 @@ class Student(models.Model):
         null=False, 
         blank=False, 
         validators=[validate_name])
+
     surname = models.CharField(
         max_length=30, 
         null=False, 
         blank=False, 
         validators=[validate_name])
+
     birth_date = models.DateField(null=True, blank=False)
+
     mobile_number = models.CharField(
         max_length=20, 
         null=True, 
         blank=False,
         validators=[validate_mobile])
+
     email_address = models.CharField(max_length=40, null=True, blank=True)
     weight = models.FloatField(null=True, blank=True, default=0)
-    arrival_date = models.DateField(null=True, blank=True)
-    leave_date = models.DateField(null=True, blank=True)
+    arrival_date = models.DateField(null=True, blank=True, validators=[validate_arrival_date])
+    leave_date = models.DateField(null=True, blank=True, validators=[validate_leave_date])
     stay_location = models.CharField(max_length=40, null=True, blank=True)
     own_car = models.BooleanField(null=True,blank=True, default=False)
     kite_elsewhere = models.BooleanField(null=True,blank=True,default=False)
+
     wetsuit_size = models.CharField(
-        max_length=3, 
+        max_length=6, 
         null=True, 
         blank=True, 
         choices=WETSUIT_SIZES)
+
     harness_size = models.CharField(
         max_length=3, 
         null=True, 
         blank=True, 
         choices=HARNESS_SIZES)
+
     iko_id = models.IntegerField(null=True, blank=True)
     iko_level = models.CharField(max_length=30, null=True, blank=True)
     comment = models.CharField(max_length=255, null=True, blank=True)

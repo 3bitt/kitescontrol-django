@@ -69,9 +69,10 @@ class StudentCreateForm(ModelForm):
                 'class': 'input',
                 'type': 'number',
             }),
-            'comment': forms.TextInput(attrs = {
+            'comment': forms.Textarea(attrs = {
                 'class': 'input',
-                'type': 'text'
+                'rows': 3,
+                'cols': 23
             }),
         }
 
