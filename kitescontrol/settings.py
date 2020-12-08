@@ -144,6 +144,7 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(SITE_ROOT, 'static'),
+<<<<<<< HEAD
     ]
 
 LOGIN_URL = 'account:login'
@@ -155,3 +156,8 @@ LOGOUT_REDIRECT_URL = 'account:login'
 CSRF_COOKIE_AGE = 259200
 # CSRF_COOKIE_SECURE = True
 # SESSION_COOKIE_SECURE = True
+=======
+    )  
+LOGIN_REDIRECT_URL = '/'
+
+>>>>>>> gitignorev2
