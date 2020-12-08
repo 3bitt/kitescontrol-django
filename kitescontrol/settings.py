@@ -143,4 +143,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(SITE_ROOT, 'static'),
     )  
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/ '
