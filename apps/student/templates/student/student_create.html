@@ -3,224 +3,224 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'student/css/student_create.css' %}">
+<link rel="stylesheet" href="{% static 'student/css/student_create.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
-    <div class="container">
-        <form method='POST'>
-        {% csrf_token %}
-            <div class="row mt-3 form-box">
-                <div class="col">
-                    <div class="col section form-student-details-section">
-                        <div class="row form-section-title">
-                            <div>Dane Kontaktowe</div>
-                        </div>
+<div class="container">
+  <form method='POST'>
+    {% csrf_token %}
+    <div class="row mt-3 form-box">
+      <div class="col">
+        <div class="col section form-student-details-section">
+          <div class="row form-section-title">
+            <div>Dane Kontaktowe</div>
+          </div>
 
-                        {% comment %}   STUDENT DETAILS INFO     {% endcomment %}
-                        <div class="row mt-3 justify-content-between align-items-start">
-                            <div class="col-4 required">
-                                <label for="name">Imię:</label>
-                                {% comment %} {{form.name.label_tag}} {% endcomment %}
-                            </div>
-                            <div class="col align-self-end">
-                                {{form.name}}
-                                <p class="help is-danger">{{form.name.errors|striptags }}</p>
-                            </div>
-                        </div>
-                        
-                        <div class="row justify-content-between align-items-start">
-                            <div class="col-4 required">
-                                <label for="surname">Nazwisko:</label>
-                                {% comment %} {{form.surname.label_tag}} {% endcomment %}
-                            </div>
-                            <div class="col">
-                                {{form.surname}}
-                                <p class="help is-danger">{{form.surname.errors|striptags }}</p>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-between align-items-start">
-                            <div class="col-4 required">
-                                <label for="birth_date">Data urodzenia:</label>
-                                {% comment %} {{form.birth_date.label_tag}} {% endcomment %}
-                            </div>
-                            <div class="col">
-                                {{form.birth_date}}
-                                <p class="help is-danger">{{form.birth_date.errors|striptags }}</p>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-between align-items-start">
-                            <div class="col-4 pr-0 required">
-                                <label for="mobile_number">Nr telefonu:</label>
-                                {% comment %} {{form.mobile_number.label_tag}} {% endcomment %}
-                            </div>
-                            <div class="col">
-                                {{form.mobile_number}}
-                                    {% if form.mobile_number.help_text %}
-                                        <p class="help">{{ form.mobile_number.help_text|safe }}</p>
-                                    {% endif %}
-                                <p class="help is-danger">{{form.mobile_number.errors|striptags }}</p>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-between align-items-start">
-                            <div class="col-4">
-                                <label for="weight">Waga:</label>
-                                {% comment %} {{form.weight.label_tag}} {% endcomment %}
-                            </div>
-                            <div class="col">
-                                {{form.weight}}
-                                <p class="help is-danger">{{form.weight.errors|striptags }}</p>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-between align-items-start">
-                            <div class="col-4">
-                                <label for="email_address">E-mail:</label>
-                                {% comment %} {{form.email_address.label_tag}} {% endcomment %}
-                            </div>
-                            <div class="col"> 
-                                {{form.email_address}}
-                                <p class="help is-danger">{{form.email_address.errors|striptags }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    {% comment %}   STAY INFO     {% endcomment %}
-                    <div class="col section form-stay-details-section">
-                        <div class="row form-section-title">
-                            <div>Dostępność</div>
-                        </div>
-
-                        <div class="row mt-3 justify-content-between align-items-start">
-                            <div class="col-4">
-                                <label for="name">Data przyjazdu:</label>
-                                {% comment %} {{form.arrival_date.label_tag}} {% endcomment %}
-                            </div>
-                            <div class="col">
-                                {{form.arrival_date}}
-                                <p class="help is-danger">{{form.arrival_date.errors|striptags }}</p>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-between align-items-start">
-                            <div class="col-4">
-                                <label for="name">Data odjazdu:</label>
-                                {% comment %} {{form.leave_date.label_tag}} {% endcomment %}
-                            </div>
-                            <div class="col">
-                                {{form.leave_date}}
-                                <p class="help is-danger">{{form.leave_date.errors|striptags }}</p>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-between align-items-start">
-                            <div class="col-4">
-                                <label for="name">Miejsce pobytu:</label>
-                                {% comment %} {{form.stay_location.label_tag}} {% endcomment %}
-                            </div>
-                            <div class="col">
-                                {{form.stay_location}}
-                                <p class="help is-danger">{{form.stay_location.errors|striptags }}</p>
-                            </div>
-                        </div>
-                        <div class="row justify-content-between align-items-start">
-                            <div class="col-6">
-                                <label for="name">Własny samochód:</label>
-                                {% comment %} {{form.own_car.label_tag}} {% endcomment %}
-                            </div>
-                            <div class="col">
-                                {{form.own_car}}
-                                <p class="help is-danger">{{form.stay_location.errors|striptags }}</p>
-                            </div>
-                        </div>
-                        <div class="row justify-content-between align-items-start">
-                            <div class="col-6">
-                                <label for="name">Wyjazdy:</label>
-                                {% comment %} {{form.kite_elsewhere.label_tag}} {% endcomment %}
-                            </div>
-                            <div class="col">
-                                {{form.kite_elsewhere}}
-                                <p class="help is-danger">{{form.stay_location.errors|striptags }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    {% comment %}   KITE INFO     {% endcomment %}
-                    <div class="col section form-stay-details-section">
-                        <div class="row form-section-title">
-                            <div>Kite</div>
-                        </div>
-
-                        <div class="row mt-3 justify-content-between align-items-start">
-                            <div class="col-5">
-                                <label for="name">Rozmiar pianki:</label>
-                                {% comment %} {{form.wetsuit_size.label_tag}} {% endcomment %}
-                            </div>
-                            <div class="col">
-                                {{form.wetsuit_size}}
-                                <p class="help is-danger">{{form.wetsuit_size.errors|striptags }}</p>
-                            </div>
-                        </div>
-                        
-                        <div class="row justify-content-between align-items-start">
-                            <div class="col-5">
-                                <label for="name">Rozmiar trapezu:</label>
-                                {% comment %} {{form.harness_size.label_tag}} {% endcomment %}
-                            </div>
-                            <div class="col">
-                                {{form.harness_size}}
-                                <p class="help is-danger">{{form.harness_size.errors|striptags }}</p>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-between align-items-start">
-                            <div class="col-4">
-                                <label for="name">Numer IKO:</label>
-                                {% comment %} {{form.iko_id.label_tag}} {% endcomment %}
-                            </div>
-                            <div class="col">
-                                {{form.iko_id}}
-                                <p class="help is-danger">{{form.iko_id.errors|striptags }}</p>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-between align-items-start">
-                            <div class="col-4">
-                                <label for="name">Poziom IKO:</label>
-                                {% comment %} {{form.iko_level.label_tag}} {% endcomment %}
-                            </div>
-                            <div class="col">
-                                {{form.iko_level}}
-                                <p class="help is-danger">{{form.iko_level.errors|striptags }}</p>
-                            </div>
-                        </div>
-
-                    </div>       
-                </div>
+          {% comment %} STUDENT DETAILS INFO {% endcomment %}
+          <div class="row mt-3 justify-content-between align-items-start">
+            <div class="col-4 required">
+              <label for="name">Imię:</label>
+              {% comment %} {{form.name.label_tag}} {% endcomment %}
             </div>
+            <div class="col align-self-end">
+              {{form.name}}
+              <p class="help is-danger">{{form.name.errors|striptags }}</p>
+            </div>
+          </div>
 
-            <div class="row mt-3">
-                <div class="col-2">
-                    <a href="{% url 'student:student-list' %}">
-                        <button class="btn btn-warning" type="button">
-                            <i class="fas fa-undo-alt"></i>
-                            Powrót
-                        </button>
-                    </a>
-                </div>
-                <div class="col-1">
-                    <button class="btn btn-success submit-btn" type="submit">
-                        <i class="fas fa-plus"></i>
-                        Dodaj
-                    </button>
-                </div>
-            </div>  
-        </form>
+          <div class="row justify-content-between align-items-start">
+            <div class="col-4 required">
+              <label for="surname">Nazwisko:</label>
+              {% comment %} {{form.surname.label_tag}} {% endcomment %}
+            </div>
+            <div class="col">
+              {{form.surname}}
+              <p class="help is-danger">{{form.surname.errors|striptags }}</p>
+            </div>
+          </div>
+
+          <div class="row justify-content-between align-items-start">
+            <div class="col-4 required">
+              <label for="birth_date">Data urodzenia:</label>
+              {% comment %} {{form.birth_date.label_tag}} {% endcomment %}
+            </div>
+            <div class="col">
+              {{form.birth_date}}
+              <p class="help is-danger">{{form.birth_date.errors|striptags }}</p>
+            </div>
+          </div>
+
+          <div class="row justify-content-between align-items-start">
+            <div class="col-4 pr-0 required">
+              <label for="mobile_number">Nr telefonu:</label>
+              {% comment %} {{form.mobile_number.label_tag}} {% endcomment %}
+            </div>
+            <div class="col">
+              {{form.mobile_number}}
+              {% if form.mobile_number.help_text %}
+              <p class="help">{{ form.mobile_number.help_text|safe }}</p>
+              {% endif %}
+              <p class="help is-danger">{{form.mobile_number.errors|striptags }}</p>
+            </div>
+          </div>
+
+          <div class="row justify-content-between align-items-start">
+            <div class="col-4">
+              <label for="weight">Waga:</label>
+              {% comment %} {{form.weight.label_tag}} {% endcomment %}
+            </div>
+            <div class="col">
+              {{form.weight}}
+              <p class="help is-danger">{{form.weight.errors|striptags }}</p>
+            </div>
+          </div>
+
+          <div class="row justify-content-between align-items-start">
+            <div class="col-4">
+              <label for="email_address">E-mail:</label>
+              {% comment %} {{form.email_address.label_tag}} {% endcomment %}
+            </div>
+            <div class="col">
+              {{form.email_address}}
+              <p class="help is-danger">{{form.email_address.errors|striptags }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        {% comment %} STAY INFO {% endcomment %}
+        <div class="col section form-stay-details-section">
+          <div class="row form-section-title">
+            <div>Dostępność</div>
+          </div>
+
+          <div class="row mt-3 justify-content-between align-items-start">
+            <div class="col-4">
+              <label for="name">Data przyjazdu:</label>
+              {% comment %} {{form.arrival_date.label_tag}} {% endcomment %}
+            </div>
+            <div class="col">
+              {{form.arrival_date}}
+              <p class="help is-danger">{{form.arrival_date.errors|striptags }}</p>
+            </div>
+          </div>
+
+          <div class="row justify-content-between align-items-start">
+            <div class="col-4">
+              <label for="name">Data odjazdu:</label>
+              {% comment %} {{form.leave_date.label_tag}} {% endcomment %}
+            </div>
+            <div class="col">
+              {{form.leave_date}}
+              <p class="help is-danger">{{form.leave_date.errors|striptags }}</p>
+            </div>
+          </div>
+
+          <div class="row justify-content-between align-items-start">
+            <div class="col-4">
+              <label for="name">Miejsce pobytu:</label>
+              {% comment %} {{form.stay_location.label_tag}} {% endcomment %}
+            </div>
+            <div class="col">
+              {{form.stay_location}}
+              <p class="help is-danger">{{form.stay_location.errors|striptags }}</p>
+            </div>
+          </div>
+          <div class="row justify-content-between align-items-start">
+            <div class="col-6">
+              <label for="name">Własny samochód:</label>
+              {% comment %} {{form.own_car.label_tag}} {% endcomment %}
+            </div>
+            <div class="col">
+              {{form.own_car}}
+              <p class="help is-danger">{{form.stay_location.errors|striptags }}</p>
+            </div>
+          </div>
+          <div class="row justify-content-between align-items-start">
+            <div class="col-6">
+              <label for="name">Wyjazdy:</label>
+              {% comment %} {{form.kite_elsewhere.label_tag}} {% endcomment %}
+            </div>
+            <div class="col">
+              {{form.kite_elsewhere}}
+              <p class="help is-danger">{{form.stay_location.errors|striptags }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        {% comment %} KITE INFO {% endcomment %}
+        <div class="col section form-stay-details-section">
+          <div class="row form-section-title">
+            <div>Kite</div>
+          </div>
+
+          <div class="row mt-3 justify-content-between align-items-start">
+            <div class="col-5">
+              <label for="name">Rozmiar pianki:</label>
+              {% comment %} {{form.wetsuit_size.label_tag}} {% endcomment %}
+            </div>
+            <div class="col">
+              {{form.wetsuit_size}}
+              <p class="help is-danger">{{form.wetsuit_size.errors|striptags }}</p>
+            </div>
+          </div>
+
+          <div class="row justify-content-between align-items-start">
+            <div class="col-5">
+              <label for="name">Rozmiar trapezu:</label>
+              {% comment %} {{form.harness_size.label_tag}} {% endcomment %}
+            </div>
+            <div class="col">
+              {{form.harness_size}}
+              <p class="help is-danger">{{form.harness_size.errors|striptags }}</p>
+            </div>
+          </div>
+
+          <div class="row justify-content-between align-items-start">
+            <div class="col-4">
+              <label for="name">Numer IKO:</label>
+              {% comment %} {{form.iko_id.label_tag}} {% endcomment %}
+            </div>
+            <div class="col">
+              {{form.iko_id}}
+              <p class="help is-danger">{{form.iko_id.errors|striptags }}</p>
+            </div>
+          </div>
+
+          <div class="row justify-content-between align-items-start">
+            <div class="col-4">
+              <label for="name">Poziom IKO:</label>
+              {% comment %} {{form.iko_level.label_tag}} {% endcomment %}
+            </div>
+            <div class="col">
+              {{form.iko_level}}
+              <p class="help is-danger">{{form.iko_level.errors|striptags }}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
+
+    <div class="row mt-3">
+      <div class="col-2">
+        <a href="{% url 'student:student-list' %}">
+          <button class="btn btn-warning" type="button">
+            <i class="fas fa-undo-alt"></i>
+            Powrót
+          </button>
+        </a>
+      </div>
+      <div class="col-1">
+        <button class="btn btn-success submit-btn" type="submit">
+          <i class="fas fa-plus"></i>
+          Dodaj
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
 
 {% endblock content %}
