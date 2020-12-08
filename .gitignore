@@ -8,7 +8,7 @@ static/fontawesome_5/*
 
 
 staticfiles/
-
+kitescontrol/settings.py
 
 !requirements.txt
 !.gitignore
@@ -16,4 +16,3 @@ staticfiles/
 
 
 
-kitescontrol/settings.py
