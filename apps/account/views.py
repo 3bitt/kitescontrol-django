@@ -10,7 +10,6 @@ class UserAccessMixin(PermissionRequiredMixin):
     login_url = 'account:login'
 
     def dispatch(self, request, *args, **kwargs):
-        print(self.request.user.is_authenticated)
         if (not self.request.user.is_authenticated):
             return redirect_to_login(self.request.get_full_path(),
                                     self.get_login_url(), self.get_redirect_field_name())

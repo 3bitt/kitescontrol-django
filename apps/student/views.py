@@ -32,7 +32,6 @@ class StudentSearchView(UserAccessMixin, ListView):
             Q(own_car=self.request.GET.get('car', False)) | Q(own_car=True),
             Q(kite_elsewhere=self.request.GET.get('trip', False)) | Q(kite_elsewhere=True)
             ).order_by('-register_date')
-        # print(q[0].own_car)
         return q
 
     # Populate context with user input so template can display it in search fields
@@ -44,7 +43,6 @@ class StudentSearchView(UserAccessMixin, ListView):
         context['weight_le_input'] = self.request.GET['weight_le']
         context['car_input'] = self.request.GET.get('car', False)
         context['trip_input'] = self.request.GET.get('trip', False)
-        print(self.request.GET)
         return context
 
 class StudentCreateView(UserAccessMixin, CreateView):
