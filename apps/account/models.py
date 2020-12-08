@@ -4,17 +4,16 @@ from django.contrib.auth.models import (
 )
 
 class UserManager(BaseUserManager):
-    def create_user(self, full_name, username, password=None, is_active=True, is_staff=False, is_admin=False):
+    def create_user(self, username, password=None, is_active=True, is_staff=False, is_admin=False):
         if not username:
             raise ValueError('Username is required')
         if not password:
             raise ValueError('Password is required')
-        if not full_name:
-            raise ValueError('Name is required')
+        # if not full_name:
+        #     raise ValueError('Name is required')
 
         user_obj = self.model(
-            username = username,
-            full_name = full_name 
+            username = username
         )
         user_obj.set_password(password)
         user_obj.active = is_active
@@ -24,20 +23,18 @@ class UserManager(BaseUserManager):
         user_obj.save(using=self._db)
         return user_obj
     
-    def create_staffuser(self, username, full_name, password=None):
+    def create_staffuser(self, username, password=None):
         user = self.create_user(
             username,
-            full_name,
             password=password,
         )
         user.staff = True
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, full_name, password=None):
+    def create_superuser(self, username, password=None):
         user = self.create_user(
             username,
-            full_name,
             password=password,
         )
         user.staff = True
@@ -48,14 +45,13 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     username = models.CharField(max_length=40, unique=True)
-    full_name = models.CharField(max_length=255, blank=True, null=True)
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['full_name']
+    # REQUIRED_FIELDS = ['full_name']
 
     objects = UserManager()
     
