@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'student/css/student_list.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mt-2">       
+
+        <div class="col col-md-2">
+            <a href="{% url 'student:student-create' %}">    
+                <button type="button" class="btn btn-success">
+                        <i class="fas fa-user-plus mr-1"></i>
+                        Dodaj Kursanta
+                </button>
+            </a>
+        </div>
+
+        <div class="col search-div">
+        <form type="GET" action="{% url 'student:student-search' %}">
+            <div class="row search-tile justify-content-start mb-2">
+                <div class="col-auto border-bottom border-dark">
+                    
+                    <b>Wyszukiwarka</b>
+                </div>
+            </div>
+
+            <div class="row search-fields">
+                <div class="col-auto">
+                    <div class="row justify-content-between">
+                        <div class="col-auto ">
+                            <label for="s_name">Imię lub nazwisko:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input class="text-field" type="text" name="name" value="{{name_input}}">
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-between">
+                        <div class="col-auto ">
+                            <label for="s_mobile">Nr telefonu:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input class="text-field" type="text" name="mobile" value="{{mobile_input}}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <label for="s_kite_trip">Wyjazdy:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="checkbox" name="trip" value="True" {% if trip_input %}checked{%endif%}>
+                        </div>
+                        <div class="col-auto">
+                            <label for="s_own_car">Mobilny:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="checkbox" name="car" value="True" {% if car_input %}checked{%endif%}>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-auto">
+                    <div class="row justify-content-between">
+                        <div class="col-auto ">
+                            <label for="s_weight_gt">Waga powyżej:</label>
+                            <i class="fas fa-level-up-alt"></i>
+                        </div>
+                        <div class="col-auto">
+                            <input class="text-field" type="number" name="weight_gt" value="{{weight_gt_input}}">
+                        </div>
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="col-auto ">
+                            <label for="s_weight_le">Waga poniżej:</label>
+                            <i class="fas fa-level-down-alt"></i>
+                        </div>
+                        <div class="col-auto">
+                            <input class="text-field" type="number" name="weight_le" value="{{weight_le_input}}">
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-auto align-items-center">
+                    <div class="flex-row align-self-start">
+                        <a href="{% url 'student:student-list' %}">
+                            <button type="button" class="btn btn-outline-danger">Reset</button>
+                        </a>
+                    </div>
+                    <div class="flex-row align-self-end mt-4">
+                        <button type="submit" class="btn btn-info">Szukaj</button>
+                    </div>
+                </div>                
+            </div>
+        </form>    
+        </div>
+    </div>
+
+</div>
+
+
+    </div>
+{% if student_list %}
+    <div class="row justify-content-md-center mt-5">
+        <div class="col-8">
+            <table class="table table-sm">
+            <thead>
+                <tr>
+                <th scope="col" title="Number">#</th>
+                <th scope="col" title="Name">Kursant</th>
+                <th scope="col" title="Weight">Data urodzenia</th>
+                <th scope="col" title="birthDate">Telefon</th>
+                <th scope="col" title="mobileNumber">Waga</th>
+                <th scope="col" title="ikoLevel">E-mail</th>
+                <th scope="col" title="ikoLevel">Pobyt</th>
+                <th scope="col" title="ikoLevel">Auto</th>
+                <th scope="col" title="ikoLevel">Wyjazdy</th>
+                <th scope="col" title="ikoLevel">IKO</th>
+                <th scope="col" title="ikoLevel">Poziom IKO</th>
+                <th scope="col" title="actions">Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in student_list %}
+                <tr>
+                <th scope="col">{{forloop.counter}}</td>
+                <td>
+                    <a href="{{ student.get_absolute_url }}">{{student}}</a> 
+                </td>
+                <td>
+                    {{student.birth_date|date:"d-m-Y"}}
+                </td>
+                <td>
+                    {{student.mobile_number|default_if_none:"--"}}             
+                </td>
+                <td>
+                    {{student.weight|default_if_none:"--"}}
+                </td>
+                <td>
+                    {{student.email_address|default_if_none:"--"}}
+                </td>
+                <td>
+                    {{student.stay_location|default_if_none:"--"}}
+                </td>
+                <td>
+                    {% if student.own_car %}
+                    <i class="fas fa-check icon-true"></i>
+                    {%else%}
+                    <i class="fas fa-times icon-false"></i>
+                    {%endif%}
+                </td>
+                <td>
+                    {% if student.kite_elsewhere %}
+                    <i class="fas fa-check icon-true"></i>
+                    {%else%}
+                    <i class="fas fa-times icon-false"></i>
+                    {%endif%}
+                </td>
+                <td>
+                    {{student.iko_id|default_if_none:"--"}}
+                </td>
+                <td>
+                    {{student.iko_level|default_if_none:"--"}}
+                </td>
+                <td>
+                    <a class="delete-link" href="{% url 'student:student-delete' student.id  %}" method="GET">
+                            Usuń
+                    </a>
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}
+{{ query }}
+{% if student_search %}
+    {% for stud in student_search %}
+        {{ stud.birth_date }}
+    {% endfor %}
+{% endif %}
+</div>
+{% endblock content %}
+
