@@ -49,7 +49,7 @@ class Student(models.Model):
         validators=[validate_mobile])
 
     email_address = models.CharField(max_length=40, null=True, blank=True)
-    weight = models.FloatField(null=True, blank=True, default=0)
+    weight = models.FloatField(null=True, blank=True, default=0, validators=[validate_weight])
     arrival_date = models.DateField(null=True, blank=True, validators=[validate_arrival_date])
     leave_date = models.DateField(null=True, blank=True, validators=[validate_leave_date])
     stay_location = models.CharField(max_length=40, null=True, blank=True)

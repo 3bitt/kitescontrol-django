@@ -77,7 +77,7 @@ class StudentCreateForm(ModelForm):
         }
 
         help_texts = {
-            # 'mobile_number': "Ex. +48 123456789 or 123456789"
+            'mobile_number': "minimum 9 cyfr"
         }
 
     # def clean_name(self):

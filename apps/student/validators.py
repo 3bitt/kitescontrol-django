@@ -14,18 +14,17 @@ def validate_mobile(value):
     return value
 
 def validate_weight(value):
-  if value < 0:
-    raise ValidationError('Weight can\'t be negative!)')
-  return value
-
+    if value < 0:
+        raise ValidationError('Weight can\'t be negative!')
+    return value
 
 arrival_date = datetime.date(datetime.now())
 
 def validate_arrival_date(value):
-  arrival_date = value
-  return value
+    arrival_date = value
+    return value
 
 def validate_leave_date(value):
-  if value < arrival_date:
-    raise ValidationError('Leave date can\'t be less than arrival date')
-  return value
+    if value < arrival_date:
+      raise ValidationError('Leave date can\'t be less than arrival date')
+    return value

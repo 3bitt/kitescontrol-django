@@ -42,3 +42,6 @@
 .submit-btn{
     width: 5.5rem;
 }
+.error-text{
+  color: red;
+}
