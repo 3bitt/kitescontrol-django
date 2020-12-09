@@ -144,8 +144,10 @@ STATICFILES_DIRS = [
     os.path.join(SITE_ROOT, 'static'),
     ]
 
+LOGIN_URL = 'account:login'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'account:login'
+
 
 # 3 days
 CSRF_COOKIE_AGE = 259200
