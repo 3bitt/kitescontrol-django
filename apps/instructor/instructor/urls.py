@@ -3,14 +3,19 @@ from django.urls import path
 from django.contrib.auth.decorators import login_required
 from .views import (
     InstructorHomeView,
+    InstructorListView,
+    InstructorCreateView,
+    InstructorUpdateView,
+    InstructorDetailView
     )
 
 app_name = 'instructor'
 urlpatterns = [
-path('', login_required(InstructorHomeView.as_view()), name='instructor-home'),
-    # path('create/', StudentCreateView.as_view(), name='student-create'),
-    # path('<int:pk>/', StudentDetailView.as_view(), name='student-detail'),
-    # path('<int:pk>/edit/', StudentUpdateView.as_view(editMode=True), name='student-detail-edit' ),
+    path('', login_required(InstructorHomeView.as_view()), name='instructor-home'),
+    path('list', login_required(InstructorListView.as_view()), name='instructor-list'),
+    path('create/', InstructorCreateView.as_view(), name='instructor-create'),
+    path('<int:pk>/', InstructorDetailView.as_view(), name='instructor-detail'),
+    path('<int:pk>/edit/', InstructorUpdateView.as_view(editMode=True), name='instructor-detail-edit' ),
     # path('delete/<int:pk>/', StudentDeleteView.as_view(), name='student-delete'),
     # path('q', StudentSearchView.as_view(), name='student-search'),
 

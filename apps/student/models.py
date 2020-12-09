@@ -1,6 +1,12 @@
 from django.db import models
 from django.urls import reverse
-from .validators import *
+from .validators import (
+    validate_name,
+    validate_mobile,
+    validate_weight,
+    validate_arrival_date,
+    validate_leave_date,
+)
 
 
 
@@ -29,22 +35,22 @@ class Student(models.Model):
     )
 
     name = models.CharField(
-        max_length=30, 
-        null=False, 
-        blank=False, 
+        max_length=30,
+        null=False,
+        blank=False,
         validators=[validate_name])
 
     surname = models.CharField(
-        max_length=30, 
-        null=False, 
-        blank=False, 
+        max_length=30,
+        null=False,
+        blank=False,
         validators=[validate_name])
 
     birth_date = models.DateField(null=True, blank=False)
 
     mobile_number = models.CharField(
-        max_length=20, 
-        null=True, 
+        max_length=20,
+        null=True,
         blank=False,
         validators=[validate_mobile])
 
@@ -57,15 +63,15 @@ class Student(models.Model):
     kite_elsewhere = models.BooleanField(null=True,blank=True,default=False)
 
     wetsuit_size = models.CharField(
-        max_length=6, 
-        null=True, 
-        blank=True, 
+        max_length=6,
+        null=True,
+        blank=True,
         choices=WETSUIT_SIZES)
 
     harness_size = models.CharField(
-        max_length=3, 
-        null=True, 
-        blank=True, 
+        max_length=3,
+        null=True,
+        blank=True,
         choices=HARNESS_SIZES)
 
     iko_id = models.IntegerField(null=True, blank=True)
@@ -79,4 +85,3 @@ class Student(models.Model):
 
     def get_absolute_url(self):
         return reverse("student:student-detail", kwargs={"pk": self.pk})
-    

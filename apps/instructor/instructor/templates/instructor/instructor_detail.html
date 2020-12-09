@@ -1,0 +1,336 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css  %}
+<link rel="stylesheet" href="{% static 'css/instructor_detail.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+
+  <div class="row">
+    <div class="col-auto">
+      <a href={% if view.editMode %}"{{request.META.HTTP_REFERER|escape}}"
+        {% else %} "{% url 'instructor:instructor-list' %}" {% endif %}>
+        <button class="btn btn-sm btn-warning">
+          <i class="fas fa-undo-alt"></i>
+          Powrót
+        </button>
+      </a>
+    </div>
+    <div class="col-auto">
+      <a href={% if view.editMode %} "#" {% else %} "{% url 'instructor:instructor-detail-edit' instructor.id %}"
+        {% endif %}>
+        <button class="btn btn-sm btn-info hidden" {% if view.editMode %}hidden{%endif%}>
+          <i class="far fa-edit"></i>
+          Edytuj
+        </button>
+      </a>
+    </div>
+  </div>
+
+  {% if not view.editMode %}
+  <div class="row mt-4">
+    <div class="col">
+      <dl class="row">
+
+        <dt class="col-5 col-sm-3 col-lg-2">Imię i nazwisko:</dt>
+        <dd class="col-auto">{{instructor.name}} {{instructor.surname}}</dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Data urodzenia:</dt>
+        <dd class="col-auto">
+          <span>{{instructor.birth_date}}</span>
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Nr telefonu:</dt>
+        <dd class="col-auto">
+          <span>{{instructor.mobile_number|default_if_none:"--"}}</span>
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Waga:</dt>
+        <dd class="col-auto">
+          <span>{{instructor.weight|default_if_none:"--"}}</span>
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">E-mail:
+          <hr />
+        </dt>
+        <dd class="col-auto">
+          <span>{{instructor.email_address|default_if_none:"--"}}</span>
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Data przyjazdu:</dt>
+        <dd class="col-auto">
+          <span>{{instructor.available_from|default_if_none:"--"}}</span>
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Data odjazdu:</dt>
+        <dd class="col-auto">
+          <span>{{instructor.available_to|default_if_none:"--"}}</span>
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Numer IKO:</dt>
+        <dd class="col-auto">
+          <span>{{instructor.iko_id|default_if_none:"--"}}</span>
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Poziom IKO:</dt>
+        <dd class="col-auto">
+          <span>{{instructor.iko_level|default_if_none:"--"}}</span>
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Prawo jazdy:
+        <hr />
+        </dt>
+        <dd class="col-auto">
+          {% if instructor.driving_licence %}
+          <i class="fas fa-check icon-true"></i>
+          {%else%}
+          <i class="fas fa-times icon-false"></i>
+          {%endif%}
+        </dd>
+        <div class="w-100"></div>
+        
+
+        <dt class="col-5 col-sm-3 col-lg-2">Lekcje po angielsku:
+        </dt>
+        <dd class="col-auto">
+          {% if instructor.english_lessons %}
+          <i class="fas fa-check icon-true"></i>
+          {%else%}
+          <i class="fas fa-times icon-false"></i>
+          {%endif%}
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Lekcje z dziećmi:</dt>
+        <dd class="col-auto">
+          {% if instructor.kids_lessons %}
+          <i class="fas fa-check icon-true"></i>
+          {%else%}
+          <i class="fas fa-times icon-false"></i>
+          {%endif%}
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Lekcje grupowe:</dt>
+        <dd class="col-auto">
+          {% if instructor.group_lessons %}
+          <i class="fas fa-check icon-true"></i>
+          {%else%}
+          <i class="fas fa-times icon-false"></i>
+          {%endif%}
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Dzienny limit godzin:</dt>
+        <dd class="col-auto">
+          <span>{{instructor.daily_hour_limit}}</span>
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Stawka indywidualna:</dt>
+        <dd class="col-auto">
+          <span>{{instructor.pay_rate_single|default_if_none:"--"}}</span>
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Stawka grupowa:</dt>
+        <dd class="col-auto">
+          <span>{{instructor.pay_rate_group|default_if_none:"--"}}</span>
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Regulamin:</dt>
+        <dd class="col-auto">
+          {% if instructor.tc_accepted_flag %}
+          <i class="fas fa-check icon-true"></i>
+          {%else%}
+          <i class="fas fa-times icon-false"></i>
+          {%endif%}
+        </dd>
+        <div class="w-100"></div>
+      </dl>
+    </div>
+  </div>
+  {% comment %} If in Edit Mode {% endcomment %}
+  {% else %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="row mt-4">
+
+      <div class="col-auto">
+        <div class="row mb-2">
+          <div class="col">
+            <label class="d-flex" for="name">Imię:</label>
+          </div>
+          <div class="col-auto">
+            {{form.name}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="surname">Nazwisko:</label>
+          </div>
+          <div class="col-auto">
+            {{form.surname}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="birth_date">Data urodzenia:</label>
+          </div>
+          <div class="col-auto">
+            {{form.birth_date}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="mobile_number">Nr telefonu:</label>
+          </div>
+          <div class="col-auto">
+            {{form.mobile_number}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="weight">Waga:</label>
+          </div>
+          <div class="col-auto">
+            {{form.weight}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="email_address">E-mail:</label>
+          </div>
+          <div class="col-auto">
+            {{form.email_address}}
+          </div>
+        </div>
+        <hr />
+        {% comment %} HR {% endcomment %}
+
+        <div class="row mb-2">
+          <div class="col">
+            <label for="arrival_date">Data przyjazdu:</label>
+          </div>
+          <div class="col-auto">
+            {{form.available_from}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="leave_date">Data odjazdju:</label>
+          </div>
+          <div class="col-auto">
+            {{form.available_to}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="iko_id">Numer IKO:</label>
+          </div>
+          <div class="col-auto">
+            {{form.iko_id}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="iko_id">Poziom IKO:</label>
+          </div>
+          <div class="col-auto">
+            {{form.iko_level}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="own_car">Prawo jazdy:</label>
+          </div>
+          <div class="col">
+            {{form.driving_licence}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="own_car">Lekcje po angielsku:</label>
+          </div>
+          <div class="col">
+            {{form.english_lessons}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="own_car">Lekcje z dziećmi:</label>
+          </div>
+          <div class="col">
+            {{form.kids_lessons}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="own_car">Lekcje grupowe:</label>
+          </div>
+          <div class="col">
+            {{form.group_lessons}}
+          </div>
+        </div>
+        <div class="row g-3 mb-2">
+          <div class="col">
+            <label for="kite_elsewhere">Dzienny limit godzin:</label>
+          </div>
+          <div class="col-auto">
+            {{form.daily_hour_limit}}
+          </div>
+        </div>
+        <hr />
+
+        <div class="row mb-2">
+          <div class="col">
+            <label for="wetsuit_size">Stawka indywidualna:</label>
+          </div>
+          <div class="col-auto">
+            {{form.pay_rate_single}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="harness_size">Stawka grupowa:</label>
+          </div>
+          <div class="col-auto">
+            {{form.pay_rate_group}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="iko_id">Regulamin:</label>
+          </div>
+          <div class="col">
+            {{form.tc_accepted_flag}}
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <button class="btn btn-success submit-btn" type="submit">
+              Zapisz
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+</div>
+</form>
+{% endif %}
+</div>
+{% endblock content %}
