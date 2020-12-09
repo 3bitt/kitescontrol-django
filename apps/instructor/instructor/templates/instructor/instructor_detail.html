@@ -19,15 +19,43 @@
       </a>
     </div>
     <div class="col-auto">
-      <a href={% if view.editMode %} "#" {% else %} "{% url 'instructor:instructor-detail-edit' instructor.id %}"
-        {% endif %}>
-        <button class="btn btn-sm btn-info hidden" {% if view.editMode %}hidden{%endif%}>
+      <a href="{% url 'instructor:instructor-detail-edit' instructor.id %}">
+        <button class="btn btn-sm btn-info hidden" 
+        {% if view.editMode %}hidden{%endif%}>
           <i class="far fa-edit"></i>
           Edytuj
         </button>
       </a>
     </div>
+    <div class="col-auto ml-5">
+        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal"
+        {% if view.editMode %}hidden{%endif%}>
+              Usuń
+        </button>
+    </div>
   </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="exampleModalLabel">Usuwasz</h5> <h5 class="modal-title ml-2"> {{instructor.name}} {{instructor.surname}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Czy na pewno chcesz usunąć tego instruktora ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Powrót</button>
+        <form method="POST" action="{% url 'instructor:instructor-delete' instructor.id %}">
+          {% csrf_token %}<input class="btn btn-danger" type="submit" value="Usuń">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
   {% if not view.editMode %}
   <div class="row mt-4">

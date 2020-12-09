@@ -6,7 +6,8 @@ from .views import (
     InstructorListView,
     InstructorCreateView,
     InstructorUpdateView,
-    InstructorDetailView
+    InstructorDetailView,
+    InstructorDeleteView
     )
 
 app_name = 'instructor'
@@ -16,7 +17,7 @@ urlpatterns = [
     path('create/', InstructorCreateView.as_view(), name='instructor-create'),
     path('<int:pk>/', InstructorDetailView.as_view(), name='instructor-detail'),
     path('<int:pk>/edit/', InstructorUpdateView.as_view(editMode=True), name='instructor-detail-edit' ),
-    # path('delete/<int:pk>/', StudentDeleteView.as_view(), name='student-delete'),
+    path('delete/<int:pk>/', InstructorDeleteView.as_view(), name='instructor-delete'),
     # path('q', StudentSearchView.as_view(), name='student-search'),
 
 

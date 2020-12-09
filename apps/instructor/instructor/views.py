@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
-from django.views.generic import ListView, CreateView,DetailView,UpdateView
+from django.views.generic import ListView, CreateView,DetailView,UpdateView,DeleteView
 from .models import Instructor
 from .forms import InstructorCreateForm
 from django.urls import reverse_lazy
@@ -35,3 +35,7 @@ class InstructorUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('instructor:instructor-detail', kwargs={'pk': self.kwargs['pk']})
+
+class InstructorDeleteView(DeleteView):
+    model = Instructor
+    success_url = reverse_lazy('instructor:instructor-list')
