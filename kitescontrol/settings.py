@@ -140,10 +140,10 @@ SITE_ROOT = os.path.dirname(os.path.dirname(__file__))
 
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
+STATICFILES_DIRS = [
     os.path.join(SITE_ROOT, 'static'),
-    )
-  
+    ]
+
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
