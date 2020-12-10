@@ -9,7 +9,6 @@ staticfiles/
 
 admin.py
 staticfiles/
-settings.py
 
 !requirements.txt
 !.gitignore
