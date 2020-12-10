@@ -1,15 +1,10 @@
 #  Ignore
 .vscode/
-staticfiles/
-# Don't ignore src folder and other exceptional files
-!__init__.py
 
-!requirements.txt
-!.gitignore
-!apps/
 
-# Ignore cache and db
-__pycache__
+__pycache__/
+**/migrations/[0-9]*.py
+
 db.sqlite3
 static/fontawesome_5/*
-**/migrations/
+staticfiles/
