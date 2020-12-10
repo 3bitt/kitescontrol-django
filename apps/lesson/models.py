@@ -1,6 +1,6 @@
 from django.db import models
 
-from instructor.models import Instructor
+from instructor.instructor.models import Instructor
 from student.models import Student
 
 # Create your models here.
