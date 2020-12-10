@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'account',
     'dashboard',
     'instructor.instructor',
+    'instructor.task',
+
     'student',
     'lesson'
 ]
