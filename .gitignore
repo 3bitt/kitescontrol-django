@@ -7,9 +7,7 @@ static/fontawesome_5/*
 **/migrations/*
 
 admin.py
-
 staticfiles/
-kitescontrol/settings.py
 
 !requirements.txt
 !.gitignore
