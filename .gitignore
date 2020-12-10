@@ -11,5 +11,4 @@ __pycache__
 db.sqlite3
 static/fontawesome_5/*
 **/migrations/**
-# Ignore migrations folder - Uncomment if working in team
-# migrations/
+migrations/
