@@ -18,7 +18,6 @@ from django.urls import path, include
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('dashboard.urls')),
     path('student/', include('student.urls')),
     path('instructor/', include('instructor.instructor.urls')),
