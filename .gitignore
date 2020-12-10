@@ -1,0 +1,19 @@
+#  Ignore
+.vscode/
+# Ignore cache and db
+__pycache__/
+db.sqlite3
+fontawesome_5/
+staticfiles/
+**/migrations/*
+
+admin.py
+staticfiles/
+settings.py
+
+!requirements.txt
+!.gitignore
+!apps/
+
+
+

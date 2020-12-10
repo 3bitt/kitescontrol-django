@@ -1,0 +1,17 @@
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.733);
+}
+
+label{
+    font-weight: bold;
+    margin: 0;
+}
+.icon-true{
+    color: green;
+}
+.icon-false{
+    color: rgb(177, 0, 0);
+}

@@ -1,0 +1,48 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static '/css/instructor_list.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container-fluid">
+
+  <div class="row mt-3">
+
+    <div class="col">
+      <a href="{% url 'instructor:instructor-create' %}">
+        <button type="button" class="btn btn-sm btn-success sm">
+          <i class="fas fa-user-plus mr-1"></i>
+          Dodaj instruktora
+        </button>
+      </a>
+    </div>
+
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-lg-7">  
+      <div class="row">
+        {%for instr in instructor_list%}
+        
+          <div class="instr-tile border rounded mx-3 p-2 mt-3">
+            <a href="{% url 'instructor:instructor-detail' instr.id %}">
+              <span class="instr-name"><strong>{{instr}}</strong></span>
+            </a>
+            <div class="d-flex justify-content-center">
+              <span class="instr-rank rounded px-1">{{instr.iko_level}}</span>
+            </div>
+            <div> 
+              <span>Tel.</span>
+              {{instr.mobile_number}}
+            </div>
+          </div>
+
+        {%endfor%}
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock content %}
