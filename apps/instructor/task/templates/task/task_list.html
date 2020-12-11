@@ -30,22 +30,92 @@
   {%if current_date in tasks_dates%}
   <div class="row">
     
-    <div class="col">
-      <div class="row mb-1 border-bottom border-dark">
+    <div class="col-6">
+      <div class="row mb-2 ">
         <div class="col task-planned">
           Zaplanowane
         </div>
       </div>
         {% for task in tasks %}
         {%if task.deadline_date == current_date and task.completed_flag == False %}
-          <div class="row">
-            <div class="col">
-              <strong>{{task.title}}</strong>
+          <div class="row task-item mb-2 mr-1 p-2 border border-grey rounded shadow-sm">
+            <div class="col-auto">
+              {%for instr in task.instructor.all%}
+              <strong>{{instr}}</strong><br>
+              {%endfor%}
+            </div>
+            <div class="col task-desc">
+              <strong>{{task.title}}</strong><br>
               {{task.description}}
             </div>
-            <div class="col">
-              {{task.value}}
-              {{task.deadline_date}}
+            <div class="col-auto">
+              <div class="row align-items-center">
+                <div class="col-auto">
+                  <div>
+                    <i class="fas fa-coins mr-2 coin"></i>
+                    {{task.value}}
+                  </div>
+                </div>
+                <div class="col-auto p-0 ml-auto">
+                  <button type="button" class="btn btn-sm btn-success">
+                    <i class="fa fa-sm fa-check"></i>
+                  </button>
+                </div>
+              </div>
+                
+              <div class="row">
+                <div class="col-auto">
+                  <i class="far fa-clock"></i>
+                  {{task.deadline_date}}
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        {%endif%}
+        {% endfor %}
+      </div>
+    
+    
+    <div class="col-6">
+      <div class="row mb-2 ">
+        <div class="col task-finished">
+          Zakończone
+        </div>
+      </div>
+        {% for task in tasks %}
+        {%if task.deadline_date == current_date and task.completed_flag == True %}
+          <div class="row task-item mb-2 ml-1 p-2 border border-grey rounded shadow-sm">
+            <div class="col-auto">
+              {%for instr in task.instructor.all%}
+              <strong>{{instr}}</strong><br>
+              {%endfor%}
+            </div>
+            <div class="col task-desc">
+              <strong>{{task.title}}</strong><br>
+              {{task.description}}
+            </div>
+            <div class="col-auto">
+              <div class="row align-items-center">
+                <div class="col-auto">
+                  <div>
+                    <i class="fas fa-coins mr-2 coin"></i>
+                    {{task.value}}
+                  </div>
+                </div>
+                <div class="col-auto p-0 ml-auto">
+                  <button type="button" class="btn btn-sm btn-danger">
+                    <i class="fa fa-sm fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <i class="far fa-clock"></i>
+                  {{task.deadline_date}}
+                </div>
+              </div>
+              
             </div>
           </div>
         {%endif%}

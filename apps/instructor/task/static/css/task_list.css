@@ -1,3 +1,20 @@
 .task-planned{
-  background-color: rgba(255, 216, 144, 0.74);
+  border-bottom: 3px solid orange;
 }
+.task-finished{
+  border-bottom: 3px solid rgb(6, 173, 0);  
+}
+.task-item{
+  background-color: rgba(247, 247, 247, 0.89)
+}
+.task-desc{
+  border-right: 1px solid #bbbfc2;
+  border-left: 1px solid #bbbfc2;
+}
+.coin{
+  color: rgb(241, 201, 23);
+}
+
+/* .ii{
+  background-color: rgba(255, 216, 144, 0.74);
+} */
