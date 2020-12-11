@@ -1,31 +1,160 @@
-{% extends 'base.html'%}
+{% extends 'instructor/instructor_home.html'%}
 {% load static %}
 
 {% block extra_css %}
+{{block.super}}
+<link rel="stylesheet" href="{% static 'css/task_list.css' %}">
 {% endblock extra_css %}
 
-{% block content %}
+{% block sub_content %}
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-auto">
-      <div>
-      <a href="{% url 'task:task-create' %}">
-        <button class="btn btn-sm btn-success">Dodaj zadanie</button>
-      </a>
-      </div>
-    </div>
+<div class="row mb-3 border-bottom border-grey">
+  <div class="col">
+    <h3>Zadania</h3>
   </div>
-  <div class="row">
-    <div class="col">
-    {%for task in tasks%}
-    {{task.title}}
-    {%for instr in task.instructor.all%}
-    {{instr}}
-    {%endfor%}
-    {%endfor%}
+</div>
+<div class="row mb-3">
+  <div class="col-auto">
+    <div>
+    <a href="{% url 'task:task-create' %}">
+      <button class="btn btn-sm btn-success">Dodaj zadanie</button>
+    </a>
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col">
+    <h4>Dzisiaj</h4>
+  </div>
+</div>
+  {%if current_date in tasks_dates%}
+  <div class="row">
+    
+    <div class="col">
+      <div class="row mb-1 border-bottom border-dark">
+        <div class="col task-planned">
+          Zaplanowane
+        </div>
+      </div>
+        {% for task in tasks %}
+        {%if task.deadline_date == current_date and task.completed_flag == False %}
+          <div class="row">
+            <div class="col">
+              <strong>{{task.title}}</strong>
+              {{task.description}}
+            </div>
+            <div class="col">
+              {{task.value}}
+              {{task.deadline_date}}
+            </div>
+          </div>
+        {%endif%}
+      {% endfor %}
+    </div>
+    
+    <div class="col">
+    
+    </div>
+  </div>
+      
 
-{% endblock content %}
+  {%else%}
+    Brak zadań na dziś
+  {%endif%}
+
+    
+  <div class="col">
+    columna
+
+  </div>
+</div>
+
+
+{% endblock sub_content %}
+
+{% comment %} NESTED TABLE EXAMPLE {% endcomment %}
+  {%if current_date in tasks_dates%}
+    <table class="table table-sm">
+        <thead>
+          <tr>
+          <th scope="col">Zaplanowane</th>
+          <th scope="col">Zakończone</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+        <td colspan="1">
+          <table class="table table-bordered table-sm">
+          <thead>
+            <tr>
+              <th>Opis</th>
+              <th>Osoby</th>
+              <th>Wartość</th>
+              <th>Deadline</th>
+            </tr>
+          </thead>
+            <tbody>
+            {% for task in tasks %}
+              {%if task.deadline_date == current_date%}
+              <tr>
+                <td>
+                  {{task.title}}<br>
+                  {{task.description}}
+                </td>
+                <td>
+                {%for instr in task.instructor.all%}
+                  {{instr}}
+                {%endfor%}
+                </td>
+                <td>
+                  {{task.value}}
+                </td>
+                <td>
+                  {{task.deadline_date}}
+                </td>
+              </tr>
+              {%endif%}
+            {% endfor %}
+            </tbody>
+          </table>
+        </td>
+        </tr>
+
+
+        </tbody>
+      </table>
+  {%else%}
+    Brak zadań na dziś
+  {%endif%}
+
+
+  {% comment %} TABLE {% endcomment %}
+
+    {%if current_date in tasks_dates%}
+    <table class="table table-sm">
+        <thead>
+          <tr>
+          <th scope="col" style="width: 50%">Zaplanowane</th>
+          <th scope="col" style="width: 50%">Zakończone</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+          {%if task.deadline_date == current_date%}
+          <tr>
+            <td class="shadow-sm">
+              <div class="col-auto task-item">
+              <strong>{{task.title}}</strong>
+              </div>
+              <div>{{task.description}}</div>
+
+            </td>
+          </tr>
+          {%endif%}
+        {% endfor %}
+        </tbody>
+      </table>
+  {%else%}
+    Brak zadań na dziś
+  {%endif%}

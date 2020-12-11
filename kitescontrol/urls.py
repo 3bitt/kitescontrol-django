@@ -22,6 +22,6 @@ urlpatterns = [
     path('', include('dashboard.urls')),
     path('student/', include('student.urls')),
     path('instructor/', include('instructor.instructor.urls')),
-    path('task/', include('instructor.task.urls')),
+    path('instructor/task/', include('instructor.task.urls')),
     path('auth/', include('account.urls'))
 ]
