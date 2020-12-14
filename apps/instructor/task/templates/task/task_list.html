@@ -8,7 +8,7 @@
 
 {% block sub_content %}
 
-<div class="row mb-3 border-bottom border-grey">
+<div class="row mb-5 border-bottom border-grey">
   <div class="col-auto">
     <h3>Zadania</h3>
   </div>
@@ -28,7 +28,7 @@
   </div>
 </div>
   {%if current_date in tasks_dates%}
-  <div class="row">
+  <div class="row mb-5">
     
     <div class="col-6 border-right border-dark">
       <div class="row mb-2 ">
@@ -49,29 +49,35 @@
               {{task.description}}
             </div>
             <div class="col-auto">
-              <div class="row align-items-center">
+              <div class="row gy-1 align-items-center">
                 <div class="col-auto">
                   <div>
                     <i class="fas fa-coins mr-2 coin"></i>
                     {{task.value}}
                   </div>
                 </div>
-                <div class="col-auto p-0 ml-auto">
-                  <button type="button" class="btn btn-sm btn-success">
-                    <i class="fa fa-sm fa-check fa-xs"></i>
-                  </button>
-                </div>
+                
               </div>
                 
-              <div class="row align-items-center">
+              <div class="row gx-5 align-items-center">
                 <div class="col-auto">
                   <i class="far fa-clock"></i>
                   {{task.deadline_date}}
                 </div>
-                <div class="col-auto p-0 ml-auto">
-                  <button type="button" class="btn btn-sm btn-warning">
+              </div>
+              <div class="row mt-2">
+                <div class="col-auto px-1 ml-auto  border rounded bg-warning">
+                  <a href="{% url 'task:task-edit' task.id %}" title="Edytuj">
                     <i class="fa fa-sm fa-edit fa-xs"></i>
-                  </button>
+                  </a>
+                </div>
+                <div class="col-auto px-1 ml-3 border rounded bg-success">
+                  <a href="{% url 'task:task-update-status' task.id %}" title="Zakończ">
+                    <form action="{% url 'task:task-update-status' task.id %}" method='post'>
+                    {% csrf_token %}
+                    <input type="submit" value=""></form>
+                    <i class="fa fa-sm fa-check fa-xs"></i>
+                  </a>
                 </div>
               </div>
               
@@ -127,21 +133,72 @@
       {% endfor %}
     </div>
     
-    <div class="col">
+    {% comment %} <div class="col">
     
-    </div>
+    </div> {% endcomment %}
   </div>
       
 
   {%else%}
-    Brak zadań na dziś
+  <div class="row p-2 justify-content-center border-bottom">
+    <div class="col-auto text-secondary">
+      <h5>Brak zadań na dziś</h5>
+    </div>
+  </div>
+  
   {%endif%}
 
-    
-  <div class="col">
-    columna
-
+<div class="row mb-3 mt-5">
+  <div class="col-auto border-bottom border-dark">
+    <h4>Historia</h4>
   </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <table class="table table-sm table-striped table-hover">
+      <thead>
+      <tr>
+        <th>Tytuł</th>
+        <th>Opis</th>
+        <th>Dodane</th>
+        <th>Instruktor</th>
+        <th>
+        <i class="fa fa-coins text-warning"></i>
+        Hajs</th>
+        <th>
+        <i class="far fa-clock"></i>
+        Do kiedy</th>
+        <th>Zrobione</th>
+      </tr>
+      </thead>
+      <tbody>
+        {%for task in tasks%}
+        <tr>
+          <td>{{task.title}}</td>
+          <td>{{task.description}}</td>
+          <td>{{task.created_date}}</td>
+          <td>{%for instr in task.instructor.all%}
+            {{instr}}<br>
+            {%endfor%}
+          </td>
+          <td>{{task.value}}</td>
+          <td>{{task.deadline_date}}</td>
+          <td>
+          {%if task.completed_flag%}
+          <i class="fa fa-check text-success"></i>
+          {%else%}
+          <i class="fa fa-times text-danger"></i>
+          {%endif%}
+          {{task.completed_date|default_if_none:"--"}}</td>
+        </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+  
 </div>
 
 
