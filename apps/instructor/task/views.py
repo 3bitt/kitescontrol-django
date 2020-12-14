@@ -16,6 +16,10 @@ class TaskListView(ListView):
         context["tasks_dates"] = self.queryset.values_list('deadline_date',flat=True).distinct()
         return context
 
+class TaskDetailView(DetailView):
+    model = Task
+    template_name = 'task/task_detail.html'
+
 class TaskCreateView(CreateView):
     model = Task
     template_name = 'task/task_create.html'
@@ -53,6 +57,8 @@ class TaskUpdateView(UpdateView):
             return super().post(self, request, *args, **kwargs)
 
 
+
 class TaskDeleteView(DeleteView):
     model = Task
     success_url = reverse_lazy('task:task-list')
+

@@ -12,7 +12,7 @@
   <div class="row">
 
     <div class="col-auto">
-      <a href="{% url 'task:task-list' %}">
+      <a href="{{ request.META.HTTP_REFERER }}">
         <button class="btn btn-sm btn-warning">
         <i class="fa fa-undo-alt"></i>
         Powrót</button>

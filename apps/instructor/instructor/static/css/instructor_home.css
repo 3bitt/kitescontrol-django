@@ -14,7 +14,7 @@
   background-color: #c0c0c0;
   box-shadow:1px 1px 3px 1px #b7bfc4;
 }
-a, a:hover {
+a,a:hover{
   text-decoration: none;
   color: initial;
 }

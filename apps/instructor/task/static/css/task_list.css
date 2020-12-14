@@ -5,14 +5,19 @@
   border-bottom: 3px solid rgb(6, 173, 0);  
 }
 .task-item{
-  background-color: rgba(247, 247, 247, 0.89)
+  background-color: rgba(247, 247, 247, 0.89);
+  border: 1px solid #cc9c0e;
 }
 .task-desc{
   border-right: 1px solid #bbbfc2;
   border-left: 1px solid #bbbfc2;
 }
+.task-link{
+  color: #0844e9;
+  text-decoration: underline;
+}
 .coin{
-  color: rgb(241, 201, 23);
+  color: #ffc107;
 }
 .submit-button-done{
   background: none;
@@ -37,8 +42,8 @@
 }
 .submit-button-undone:hover, .submit-button-edit:hover{
   outline: 1px solid #ffc107;
-  color: #f5bc11;
-  background-color: #faefcf;
+  color:  #bd910d;
+  background-color: #fff1d0;
 }
 /* .ii{
   background-color: rgba(255, 216, 144, 0.74);

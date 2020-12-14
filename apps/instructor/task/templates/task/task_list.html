@@ -33,12 +33,12 @@
     <div class="col-6 border-right border-dark">
       <div class="row mb-2 ">
         <div class="col task-planned">
-          Zaplanowane
+          <h6>Zaplanowane</h6>
         </div>
       </div>
         {% for task in tasks %}
         {%if task.deadline_date == current_date and task.completed_flag == False %}
-          <div class="row task-item mb-2 mr-1 p-2 border border-warning rounded shadow-sm">
+          <div class="row task-item mb-2 mr-1 p-2 rounded shadow-sm">
             <div class="col-4">
               {%for instr in task.instructor.all%}
               <strong>{{instr}}</strong><br>
@@ -62,7 +62,7 @@
               <div class="row gx-5 align-items-center">
                 <div class="col-auto">
                   <i class="far fa-clock"></i>
-                  {{task.deadline_date}}
+                  {{task.deadline_date|date:"d-m-Y"}}
                 </div>
               </div>
               <div class="row mt-2">
@@ -93,7 +93,7 @@
     <div class="col-6 border-left border-dark">
       <div class="row mb-2 ">
         <div class="col task-finished">
-          Zakończone
+          <h6>Zakończone</h6>
         </div>
       </div>
         {% for task in tasks %}
@@ -130,7 +130,7 @@
               <div class="row">
                 <div class="col">
                   <i class="far fa-clock"></i>
-                  {{task.deadline_date}}
+                  {{task.deadline_date|date:"d-m-Y"}}
                 </div>
               </div>
               
@@ -166,6 +166,7 @@
     <table class="table table-sm table-striped table-hover">
       <thead>
       <tr>
+        <th>#</th>
         <th>Tytuł</th>
         <th>Opis</th>
         <th>Dodane</th>
@@ -182,22 +183,27 @@
       <tbody>
         {%for task in tasks%}
         <tr>
-          <td>{{task.title}}</td>
+        <td>{{task.id}}</td>
+          <td>
+            <a class="task-link" href="{% url 'task:task-detail' task.id %}">
+            {{task.title}}
+            </a>
+          </td>
           <td>{{task.description}}</td>
-          <td>{{task.created_date}}</td>
+          <td>{{task.created_date|date:"d-m-Y"}}</td>
           <td>{%for instr in task.instructor.all%}
             {{instr}}<br>
             {%endfor%}
           </td>
           <td>{{task.value}}</td>
-          <td>{{task.deadline_date}}</td>
+          <td>{{task.deadline_date|date:"d-m-Y"}}</td>
           <td>
           {%if task.completed_flag%}
           <i class="fa fa-check text-success"></i>
           {%else%}
           <i class="fa fa-times text-danger"></i>
           {%endif%}
-          {{task.completed_date|default_if_none:"--"}}</td>
+          {{task.completed_date|date:"d-m-Y"|default_if_none:"--"}}</td>
         </tr>
         {%endfor%}
       </tbody>
@@ -210,90 +216,3 @@
 
 
 {% endblock sub_content %}
-
-{% comment %} NESTED TABLE EXAMPLE {% endcomment %}
-  {%if current_date in tasks_dates%}
-    <table class="table table-sm">
-        <thead>
-          <tr>
-          <th scope="col">Zaplanowane</th>
-          <th scope="col">Zakończone</th>
-          </tr>
-        </thead>
-        <tbody>
-
-        <tr>
-        <td colspan="1">
-          <table class="table table-bordered table-sm">
-          <thead>
-            <tr>
-              <th>Opis</th>
-              <th>Osoby</th>
-              <th>Wartość</th>
-              <th>Deadline</th>
-            </tr>
-          </thead>
-            <tbody>
-            {% for task in tasks %}
-              {%if task.deadline_date == current_date%}
-              <tr>
-                <td>
-                  {{task.title}}<br>
-                  {{task.description}}
-                </td>
-                <td>
-                {%for instr in task.instructor.all%}
-                  {{instr}}
-                {%endfor%}
-                </td>
-                <td>
-                  {{task.value}}
-                </td>
-                <td>
-                  {{task.deadline_date}}
-                </td>
-              </tr>
-              {%endif%}
-            {% endfor %}
-            </tbody>
-          </table>
-        </td>
-        </tr>
-
-
-        </tbody>
-      </table>
-  {%else%}
-    Brak zadań na dziś
-  {%endif%}
-
-
-  {% comment %} TABLE {% endcomment %}
-
-    {%if current_date in tasks_dates%}
-    <table class="table table-sm">
-        <thead>
-          <tr>
-          <th scope="col" style="width: 50%">Zaplanowane</th>
-          <th scope="col" style="width: 50%">Zakończone</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for task in tasks %}
-          {%if task.deadline_date == current_date%}
-          <tr>
-            <td class="shadow-sm">
-              <div class="col-auto task-item">
-              <strong>{{task.title}}</strong>
-              </div>
-              <div>{{task.description}}</div>
-
-            </td>
-          </tr>
-          {%endif%}
-        {% endfor %}
-        </tbody>
-      </table>
-  {%else%}
-    Brak zadań na dziś
-  {%endif%}
