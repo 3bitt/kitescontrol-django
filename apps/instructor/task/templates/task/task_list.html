@@ -38,8 +38,8 @@
       </div>
         {% for task in tasks %}
         {%if task.deadline_date == current_date and task.completed_flag == False %}
-          <div class="row task-item mb-2 mr-1 p-2 border border-grey rounded shadow-sm">
-            <div class="col px-1">
+          <div class="row task-item mb-2 mr-1 p-2 border border-warning rounded shadow-sm">
+            <div class="col-4">
               {%for instr in task.instructor.all%}
               <strong>{{instr}}</strong><br>
               {%endfor%}
@@ -66,18 +66,20 @@
                 </div>
               </div>
               <div class="row mt-2">
-                <div class="col-auto px-1 ml-auto  border rounded bg-warning">
-                  <a href="{% url 'task:task-edit' task.id %}" title="Edytuj">
-                    <i class="fa fa-sm fa-edit fa-xs"></i>
-                  </a>
+                <div class="col-auto px-1 ml-auto">
+                  <form action="{% url 'task:task-edit' task.id %}" method='get'>
+                        <button type="submit" class="submit-button-edit" title="Edytuj">
+                        <i class="fa fa-edit"></i>
+                      </button>
+                    </form>
                 </div>
-                <div class="col-auto px-1 ml-3 border rounded bg-success">
-                  <a href="{% url 'task:task-update-status' task.id %}" title="Zakończ">
-                    <form action="{% url 'task:task-update-status' task.id %}" method='post'>
+                <div class="col-auto px-1 ml-3 ">
+                  <form action="{% url 'task:task-update-status' task.id %}" method='post'>
                     {% csrf_token %}
-                    <input type="submit" value=""></form>
-                    <i class="fa fa-sm fa-check fa-xs"></i>
-                  </a>
+                      <button type="submit" class="submit-button-done" title="Zakończ">
+                        <i class="fa fa-check "></i>
+                      </button>
+                    </form>
                 </div>
               </div>
               
@@ -96,8 +98,8 @@
       </div>
         {% for task in tasks %}
         {%if task.deadline_date == current_date and task.completed_flag == True %}
-          <div class="row task-item mb-2 ml-1 p-2 border border-grey rounded shadow-sm">
-            <div class="col-auto">
+          <div class="row task-item mb-2 ml-1 p-2 border border-success rounded shadow-sm">
+            <div class="col-4">
               {%for instr in task.instructor.all%}
               <strong>{{instr}}</strong><br>
               {%endfor%}
@@ -115,9 +117,14 @@
                   </div>
                 </div>
                 <div class="col-auto p-0 ml-auto">
-                  <button type="button" class="btn btn-sm btn-danger">
-                    <i class="fa fa-sm fa-times"></i>
-                  </button>
+                  
+                    <form action="{% url 'task:task-update-status' task.id %}" method='post'>
+                    {% csrf_token %}
+                      <button type="submit" class="submit-button-undone" title="Cofnij do zaplanowanych">
+                        <i class="fa fa-undo-alt"></i>
+                      </button>
+                    </form>
+                  
                 </div>
               </div>
               <div class="row">

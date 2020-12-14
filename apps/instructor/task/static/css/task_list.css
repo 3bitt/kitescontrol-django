@@ -14,7 +14,32 @@
 .coin{
   color: rgb(241, 201, 23);
 }
-
+.submit-button-done{
+  background: none;
+  border: none;
+  color: #28a745;
+  cursor: pointer;
+  font-size: 1em;
+  outline: 1px dashed #28a745;
+}
+.submit-button-done:hover{
+  outline: 1px solid #28a745;
+  color: #1e8837;
+  background-color: #b5f5c4;
+}
+.submit-button-undone, .submit-button-edit{
+  background: none;
+  border: none;
+  color: #bd910d;
+  cursor: pointer;
+  font-size: 1em;
+  outline: 1px dashed #ffc107;
+}
+.submit-button-undone:hover, .submit-button-edit:hover{
+  outline: 1px solid #ffc107;
+  color: #f5bc11;
+  background-color: #faefcf;
+}
 /* .ii{
   background-color: rgba(255, 216, 144, 0.74);
 } */

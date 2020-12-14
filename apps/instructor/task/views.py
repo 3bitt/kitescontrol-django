@@ -41,8 +41,12 @@ class TaskUpdateView(UpdateView):
     def post(self, request, *args, **kwargs):
         if self.update_status == True:
             self.object = self.get_object()
-            self.object.completed_date = date.today()
-            self.object.completed_flag = True
+            if self.object.completed_flag == False:
+                self.object.completed_date = date.today()
+                self.object.completed_flag = True
+            else:
+                self.object.completed_date = None
+                self.object.completed_flag = False
             self.object.save()
             return redirect('task:task-list')
         else:
