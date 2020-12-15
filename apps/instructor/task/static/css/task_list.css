@@ -1,0 +1,50 @@
+.task-planned{
+  border-bottom: 3px solid orange;
+}
+.task-finished{
+  border-bottom: 3px solid rgb(6, 173, 0);  
+}
+.task-item{
+  background-color: rgba(247, 247, 247, 0.89);
+  border: 1px solid #cc9c0e;
+}
+.task-desc{
+  border-right: 1px solid #bbbfc2;
+  border-left: 1px solid #bbbfc2;
+}
+.task-link{
+  color: #0844e9;
+  text-decoration: underline;
+}
+.coin{
+  color: #ffc107;
+}
+.submit-button-done{
+  background: none;
+  border: none;
+  color: #28a745;
+  cursor: pointer;
+  font-size: 1em;
+  outline: 1px dashed #28a745;
+}
+.submit-button-done:hover{
+  outline: 1px solid #28a745;
+  color: #1e8837;
+  background-color: #b5f5c4;
+}
+.submit-button-undone, .submit-button-edit{
+  background: none;
+  border: none;
+  color: #bd910d;
+  cursor: pointer;
+  font-size: 1em;
+  outline: 1px dashed #ffc107;
+}
+.submit-button-undone:hover, .submit-button-edit:hover{
+  outline: 1px solid #ffc107;
+  color:  #bd910d;
+  background-color: #fff1d0;
+}
+/* .ii{
+  background-color: rgba(255, 216, 144, 0.74);
+} */

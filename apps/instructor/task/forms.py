@@ -18,9 +18,10 @@ class TaskCreateForm(ModelForm):
                 'class': 'input form-control',
                 'type': 'text'
             }),
-            'descritpion': forms.TextInput(attrs={
+            'description': forms.Textarea(attrs = {
                 'class': 'input form-control',
-                'type': 'text'
+                'rows': 3,
+                'cols': 23
             }),
             # 'instructor': forms.CheckboxSelectMultiple(),
             'value': forms.NumberInput(attrs={
@@ -32,7 +33,7 @@ class TaskCreateForm(ModelForm):
                 'type': 'date'
             }),
             'completed_flag': forms.CheckboxInput(attrs={
-                'class': 'input form-control',
+                'class': 'input ',
                 'type': 'checkbox'
             })
         }

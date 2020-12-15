@@ -1,0 +1,91 @@
+{% extends 'instructor/instructor_home.html'%}
+{% load static %}
+
+{% block extra_css  %}
+{{block.super}}
+<link rel="stylesheet" href="{% static 'task/css/task_detail.css' %}">
+{% endblock extra_css %}
+    
+{% block sub_content %}
+
+
+<div class="row">
+
+  <div class="col-auto">
+    <a href="{% url 'task:task-list' %}">
+      <button class="btn btn-warning btn-sm">
+      <i class="fa fa-undo-alt"></i>
+      Powrót</button>
+    </a>
+  </div>
+
+  <div class="col">
+  
+    <div class="row">
+      <div class="col-auto">
+        <h4>Zadanie nr {{task.id}}</h4>
+      </div>
+      <div class="col-auto">
+        <a href="{% url 'task:task-edit' task.id %}">
+          <button class="btn btn-warning btn-sm">Edytuj</button>
+        </a>
+      </div>
+    </div>
+    
+    <div class="row mt-3">
+      <div class="col-sm-10 col-lg-5">
+        <div class="row">
+          <div class="col">
+            <label>Tytuł:</label>
+          </div>
+          <div class="col">{{task.title}}</div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label>Opis:</label>
+          </div>
+          <div class="col">{{task.description}}</div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label>Instruktor:</label>
+          </div>
+          <div class="col">
+            {%for instr in task.instructor.all%}
+            {{instr}}
+            {%endfor%}  
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label>Wartość:</label>
+          </div>
+          <div class="col">{{task.value}}</div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label>Do kiedy:</label>
+          </div>
+          <div class="col">{{task.deadline_date}}</div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label>Zrobione?</label>
+          </div>
+          <div class="col">
+            {%if task.completed_flag%}
+            <i class="fa fa-check text-success"></i>
+            {%else%}
+            <i class="fa fa-times text-danger"></i>
+            {%endif%}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+{%endblock sub_content%}
