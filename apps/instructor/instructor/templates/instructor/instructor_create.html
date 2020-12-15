@@ -100,16 +100,6 @@
               <p class="error-text small">{{form.iko_id.errors|striptags }}</p>
             </div>
           </div>
-
-          <div class="row justify-content-between align-items-start">
-            <div class="col-4">
-              <label for="email_address">Prawo jazdy:</label>
-            </div>
-            <div class="col">
-              {{form.driving_licence}}
-              <p class="error-text small">{{form.driving_licence.errors|striptags }}</p>
-            </div>
-          </div>
         </div>
       </div>
       <div class="col">
@@ -141,6 +131,16 @@
 
           <div class="row justify-content-between align-items-start">
             <div class="col-6">
+              <label for="email_address">Prawo jazdy:</label>
+            </div>
+            <div class="col">
+              {{form.driving_licence}}
+              <p class="error-text small">{{form.driving_licence.errors|striptags }}</p>
+            </div>
+          </div>
+
+          <div class="row justify-content-between align-items-start">
+            <div class="col-6">
               <label for="name">Lekcje po angielsku:</label>
             </div>
             <div class="col">
@@ -166,11 +166,29 @@
             </div>
           </div>
 
-          <div class="row justify-content-between align-items-start">
-            <div class="col-6">
+          <div class="row input-group">
+            <div class="col-4">
+              <label for="name">Stawka godzinowa:</label>
+            </div>
+            <div class="col-3">
+              {{form.pay_rate_single}}
+            </div>
+          </div>
+
+          <div class="row input-group">
+            <div class="col-4">
+              <label for="name">Stawka grupowa:</label>
+            </div>
+            <div class="col-3">
+              {{form.pay_rate_group}}
+            </div>
+          </div>
+
+          <div class="row input-group">
+            <div class="col-4">
               <label for="name">Dzienny limit godzin:</label>
             </div>
-            <div class="col">
+            <div class="col-3">
               {{form.daily_hour_limit}}
             </div>
           </div>           

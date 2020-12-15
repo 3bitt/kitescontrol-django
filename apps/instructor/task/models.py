@@ -10,4 +10,4 @@ class Task(models.Model):
     deadline_date = models.DateField(null=False)
     completed_date = models.DateField(null=True, blank=True)
     completed_flag = models.BooleanField(default=False)
-    created_date = models.DateField(auto_now_add=True)
+    created_date = models.DateTimeField(auto_now_add=True)

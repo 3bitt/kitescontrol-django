@@ -1,9 +1,12 @@
 
 .instr-tile{
-  box-shadow:1px 1px 3px 1px #b7bfc4;
+  /* box-shadow:1px 1px 3px 1px #b7bfc4; */
 }
 .instr-name{
   font-size: 1.2rem;
+}
+.instr-name:hover{
+  text-decoration: underline;
 }
 .instr-rank{
   background-color: #e6bd3736;

@@ -9,8 +9,11 @@ import os, sys
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
-with open('/home/batoniczny/secret_key.txt') as f:
-    SECRET_KEY = f.read().strip()
+try:
+    with open('/home/batoniczny/secret_key.txt') as f:
+        SECRET_KEY = f.read().strip()
+except FileNotFoundError:
+    pass
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -125,7 +128,7 @@ USE_TZ = True
 SITE_ROOT = os.path.dirname(os.path.dirname(__file__))
 
 STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
+STATIC_URL = '/staticfiles/'
 STATICFILES_DIRS = [
     os.path.join(SITE_ROOT, 'static'),
     ]
@@ -139,3 +142,15 @@ LOGOUT_REDIRECT_URL = 'account:login'
 CSRF_COOKIE_AGE = 259200
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
+if os.environ.get('DJANGO_DEVELOPMENT') is not None and os.environ.get('DJANGO_DEVELOPMENT') == 'True':
+    from .settings_dev import (
+        SECRET_KEY,
+        DEBUG,
+        ALLOWED_HOSTS,
+        INSTALLED_APPS,
+        STATIC_ROOT,
+        STATIC_URL,
+        CSRF_COOKIE_SECURE,
+        SESSION_COOKIE_SECURE
+    )
