@@ -5,6 +5,9 @@
 .instr-name{
   font-size: 1.2rem;
 }
+.instr-name:hover{
+  text-decoration: underline;
+}
 .instr-rank{
   background-color: #e6bd3736;
   color: #614f00;
