@@ -143,7 +143,7 @@ CSRF_COOKIE_AGE = 259200
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
-if os.environ.get('DJANGO_DEVELOPMENT') is not None:
+if os.environ.get('DJANGO_DEVELOPMENT') is not None and os.environ.get('DJANGO_DEVELOPMENT') == 'True':
     from .settings_dev import (
         SECRET_KEY,
         DEBUG,
