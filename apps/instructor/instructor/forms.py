@@ -1,8 +1,10 @@
 from django.forms import ModelForm
 from django import forms
 from .models import Instructor
+from account.models import User
 
 class InstructorCreateForm(ModelForm):
+    user = forms.ModelChoiceField(queryset=User.objects.all(), required=False)
     class Meta:
         model = Instructor
         exclude = [
@@ -83,6 +85,7 @@ class InstructorCreateForm(ModelForm):
                 'class': 'input',
                 'type': 'checkbox'
             }),
+
         }
 
         help_texts = {

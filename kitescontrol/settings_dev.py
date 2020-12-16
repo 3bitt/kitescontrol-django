@@ -71,6 +71,12 @@ STATICFILES_FINDERS = [
 
 ROOT_URLCONF = 'kitescontrol.urls'
 
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader'
+
+)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -156,3 +162,15 @@ LOGOUT_REDIRECT_URL = 'account:login'
 CSRF_COOKIE_AGE = 259200
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
+
+# SMTP Configuration
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'wordsyourlast@gmail.com'
+EMAIL_HOST_PASSWORD = 'gjwlamywrsarnmnn'
+
+
+# https://www.youtube.com/redirect?v=sFPcd6myZrY&redir_token=QUFFLUhqbklmbm9aQWlVTll0dXBWZF91UFpUUXhzR3JtUXxBQ3Jtc0trYTJmWnVvajdtZlRSZU12Q0dyS21QRVhkVlgyYUlEX2F2bmt4c045VjFQYmNQN2J4TjRGWktQdVdUb2UwQVpJMVQ3b25Mak9qR2xzZTFTZUd6RmJ3N3hxV0JZMUtURDVIdzJDMl9lRjZVQkJCZFE5RQ%3D%3D&event=video_description&q=https%3A%2F%2Fmyaccount.google.com%2Flesssecureapps
