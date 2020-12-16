@@ -149,8 +149,15 @@ if os.environ.get('DJANGO_DEVELOPMENT') is not None and os.environ.get('DJANGO_D
         DEBUG,
         ALLOWED_HOSTS,
         INSTALLED_APPS,
+        TEMPLATE_LOADERS,
         STATIC_ROOT,
         STATIC_URL,
         CSRF_COOKIE_SECURE,
-        SESSION_COOKIE_SECURE
+        SESSION_COOKIE_SECURE,
+        EMAIL_BACKEND,
+        EMAIL_HOST,
+        EMAIL_PORT,
+        EMAIL_USE_TLS,
+        EMAIL_HOST_USER,
+        EMAIL_HOST_PASSWORD
     )

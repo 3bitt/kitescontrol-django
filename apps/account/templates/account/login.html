@@ -10,18 +10,27 @@
 </head>
 <body>
 
-<div class="login-container">
-    <h2>Login</h2>
+<div class="login-container border shadow-sm">
+    <h2 class="text">Login</h2>
     <form method="POST" action="{% url 'account:login' %}">
     {% csrf_token %}
-        <div class="row">
+        <div class="row mt-3">
+
             <div class="col-md-12">            
                 <input type="text" class="form-control" name='username' placeholder="Username">
             </div>
-            <div class="col-md-12 mt-1">
+
+            <div class="col-md-12 my-2">
                 <input type="password" class="form-control" name="password" placeholder="Password">
             </div>
-            <div class="col-md-12 mt-3">
+
+            <div class="col-md-12 text justify-items-center">
+              <a href="{% url 'account:reset_password' %}">
+                <small>Reset password</small>
+              </a>
+            </div>
+
+            <div class="col-md-12 mt-4">
                 <input type="submit" class="btn btn-block btn-login" >
                 
             </div>

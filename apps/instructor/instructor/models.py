@@ -7,7 +7,7 @@ from .validators import (
     validate_available_from,
     validate_available_to
 )
-
+from account.models import User
 # Create your models here.
 
 
@@ -27,7 +27,7 @@ class Instructor(models.Model):
     nickname = models.CharField(max_length=30, null=True, blank=True)
     birth_date = models.DateField(null=False, blank=False)
     mobile_number = models.CharField(max_length=20, null=True, blank=True, validators=[validate_mobile])
-    email_address = models.CharField(max_length=40, null=True, blank=True)
+    email_address = models.CharField(max_length=60, null=False, blank=False, unique=True)
     weight = models.FloatField(null=True, blank=True, validators=[validate_weight])
     available_from = models.DateField(null=True, blank=True, validators=[validate_available_from])
     available_to = models.DateField(null=True, blank=True, validators=[validate_available_to])
@@ -43,6 +43,7 @@ class Instructor(models.Model):
     tc_accepted_date = models.DateField(null=True, blank=True)
     tc_accepted_flag = models.BooleanField(null=True, default=False)
     active = models.BooleanField(blank=True, default=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True)
     register_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
