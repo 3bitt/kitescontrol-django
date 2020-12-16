@@ -57,6 +57,12 @@ STATICFILES_FINDERS = [
 
 ROOT_URLCONF = 'kitescontrol.urls'
 
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+
+)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -142,6 +148,13 @@ LOGOUT_REDIRECT_URL = 'account:login'
 CSRF_COOKIE_AGE = 259200
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'wordsyourlast@gmail.com'
+EMAIL_HOST_PASSWORD = 'gjwlamywrsarnmnn'
 
 if os.environ.get('DJANGO_DEVELOPMENT') is not None and os.environ.get('DJANGO_DEVELOPMENT') == 'True':
     from .settings_dev import (
