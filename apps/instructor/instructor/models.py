@@ -43,7 +43,7 @@ class Instructor(models.Model):
     tc_accepted_date = models.DateField(null=True, blank=True)
     tc_accepted_flag = models.BooleanField(null=True, default=False)
     active = models.BooleanField(blank=True, default=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     register_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
