@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'dashboard',
-    'instructor.instructor',
+    'instructor.instructor.apps.InstructorConfig',
     'instructor.task',
 
     'student',

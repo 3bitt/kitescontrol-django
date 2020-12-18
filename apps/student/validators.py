@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 import re
-from datetime import datetime
+from datetime import date
 
 def validate_name(value):
     if not value.isalpha():
@@ -18,9 +18,10 @@ def validate_weight(value):
         raise ValidationError('Weight can\'t be negative!')
     return value
 
-arrival_date = datetime.date(datetime.now())
+arrival_date = date.today()
 
 def validate_arrival_date(value):
+    global arrival_date
     arrival_date = value
     return value
 
