@@ -51,3 +51,15 @@ class Instructor(models.Model):
 
     def get_absolute_url(self):
         return reverse("instructor:instructor-detail", kwargs={"pk": self.pk})
+
+    def save(self, *args, **kwargs):
+        # When creating or updating instructor check if user with the same email already exists
+        # If not, then create it, if User exists take it
+        user, created = User.objects.filter(
+            email__iexact=self.email_address).get_or_create(
+                email=self.email_address,
+                defaults = {'email': User.objects.normalize_email(self.email_address),'password': User.objects.make_random_password(length=20), 'is_active' :True, 'staff':False, 'admin':False}
+                )
+
+        self.user = user
+        super().save(*args, **kwargs)

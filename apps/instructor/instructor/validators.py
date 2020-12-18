@@ -1,11 +1,16 @@
-from django.core.exceptions import ValidationError
 import re
+from django.core.exceptions import ValidationError
 from datetime import datetime
 
 def validate_name(value):
     if not value.isalpha():
         raise ValidationError('Only letters are allowed')
     return value
+
+# def validate_email_address(value):
+#     if User.objects.filter(email__iexact=value) is None:
+#         raise ValidationError('This email already exists')
+#     return value
 
 def validate_mobile(value):
     regexp = r'^(\+\d{1,3}[- ]?)?\d{9}$'

@@ -196,7 +196,7 @@
   <form method="post">
     {% csrf_token %}
     <div class="row mt-4">
-
+      
       <div class="col-auto">
         <div class="row mb-2">
           <div class="col">
@@ -244,6 +244,7 @@
           </div>
           <div class="col-auto">
             {{form.email_address}}
+            <p class="text-danger small">{{form.email_address.errors|striptags }}</p>
           </div>
         </div>
         <hr />
@@ -255,14 +256,16 @@
           </div>
           <div class="col-auto">
             {{form.available_from}}
+            <p class="text-danger small">{{form.available_from.errors|striptags }}</p>
           </div>
         </div>
         <div class="row mb-2">
           <div class="col">
-            <label for="leave_date">Data odjazdju:</label>
+            <label for="leave_date">Data odjazdu:</label>
           </div>
           <div class="col-auto">
             {{form.available_to}}
+            <p class="text-danger small">{{form.available_to.errors|striptags }}</p>
           </div>
         </div>
         <div class="row mb-2">
