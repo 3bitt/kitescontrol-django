@@ -22,30 +22,6 @@ class InstructorCreateView(CreateView):
     form_class = InstructorCreateForm
     success_url = reverse_lazy('instructor:instructor-list')
 
-    def form_valid(self, form):
-        email = self.request.POST['email_address']
-        user = User.objects.create_user(email=email, password=User.objects.make_random_password(length=20))
-
-        self.model.user = user
-
-        return super(InstructorCreateView, self).form_valid(form)
-
-    # This can be done also in models.py (override save method)
-    # def form_valid(self, request, *args, **kwargs):
-
-    #     # name = self.request.POST['name']
-    #     # name2 = self.request.POST['surname']
-
-    #     # name = name[0].lower()
-    #     # surname = name2.lower()
-    #     # res = name + surname
-
-    #     # UserManager.create_user(res, 'Password@1')
-    #     a = User.objects.filter(username='gasdgas').first()
-    #     print(a)
-    #     return super().post(request, *args, **kwargs)
-
-
 
 class InstructorDetailView(DetailView):
     queryset = Instructor.objects.all()
