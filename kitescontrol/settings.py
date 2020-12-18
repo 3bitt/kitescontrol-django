@@ -1,5 +1,5 @@
-import os, sys
-
+import os, sys, json
+from django.core.exceptions import ImproperlyConfigured
 # from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -10,13 +10,21 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 try:
-    with open('/home/batoniczny/secret_key.txt') as f:
-        SECRET_KEY = f.read().strip()
+    with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+        secrets = json.load(secrets_file)
 except FileNotFoundError:
-    pass
+    raise FileNotFoundError('Configuration file is missing')
 
-# SECURITY WARNING: don't run with debug turned on in production!
+def get_secret(setting, secrets=secrets):
+    """Get secret setting or fail with ImproperlyConfigured"""
+    try:
+        return secrets[setting]
+    except KeyError:
+        raise ImproperlyConfigured("Set the {} setting".format(setting))
+
+
 DEBUG = False
+SECRET_KEY = get_secret('SECRET_KEY')
 
 ALLOWED_HOSTS = ['batoniczny.pythonanywhere.com']
 
@@ -153,8 +161,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'wordsyourlast@gmail.com'
-EMAIL_HOST_PASSWORD = 'gjwlamywrsarnmnn'
+EMAIL_HOST_USER = get_secret('EMAIL_HOST_USER'),
+EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASS'),
 
 if os.environ.get('DJANGO_DEVELOPMENT') is not None and os.environ.get('DJANGO_DEVELOPMENT') == 'True':
     from .settings_dev import (
