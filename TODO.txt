@@ -1,0 +1,2 @@
+### Instructor
+- dodać sygnał przy updejcie instruktora - jesli zmieniany jest email to zmien rowniez email uzytkownika
