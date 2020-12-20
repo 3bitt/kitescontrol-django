@@ -8,4 +8,5 @@ db.sqlite3
 static/fontawesome_5/*
 staticfiles/
 /secrets.json
-/TODO.txt
+TODO.txt
+TODO2.txt

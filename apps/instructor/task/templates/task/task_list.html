@@ -24,132 +24,73 @@
 
 <div class="row mb-2">
   <div class="col-auto border-bottom border-dark">
-    <h4>Dzisiaj</h4>
+    <h4>Zlecone</h4>
   </div>
 </div>
-  {%if current_date in tasks_dates%}
+  {%if False in tasks_complete_statuses %}
   <div class="row mb-5">
     
-    <div class="col-6 border-right border-dark">
-      <div class="row mb-2 ">
-        <div class="col task-planned">
-          <h6>Zaplanowane</h6>
-        </div>
-      </div>
-        {% for task in tasks %}
-        {%if task.deadline_date == current_date and task.completed_flag == False %}
-          <div class="row task-item mb-2 mr-1 p-2 rounded shadow-sm">
-            <div class="col-4">
-              {%for instr in task.instructor.all%}
-              <strong>{{instr}}</strong><br>
-              {%endfor%}
+    <div class="col-md-12 border-right border-dark">
+      {% for task in tasks %}
+      {%if task.completed_flag == False %}
+        <div class="row task-item mb-2 mr-1 p-2 rounded shadow-sm">
+          <div class="col-sm-auto col-md-3">
+            {%for instr in task.instructor.all%}
+            <strong>{{instr}}</strong><br>
+            {%endfor%}
+          </div>
+          <div class="col task-desc">
+            <strong>#{{task.id}} - {{task.title}}</strong><br>
+            {{task.description}}
+          </div>
+          <div class="col-auto">
+            <div class="row gy-1 align-items-center">
+              <div class="col-auto">
+                <div>
+                  <i class="fas fa-coins mr-2 coin"></i>
+                  {{task.value}}
+                </div>
+              </div>              
             </div>
-            <div class="col task-desc">
-              <strong>#{{task.id}} - {{task.title}}</strong><br>
-              {{task.description}}
-            </div>
-            <div class="col-auto">
-              <div class="row gy-1 align-items-center">
-                <div class="col-auto">
-                  <div>
-                    <i class="fas fa-coins mr-2 coin"></i>
-                    {{task.value}}
-                  </div>
-                </div>
-                
-              </div>
-                
-              <div class="row gx-5 align-items-center">
-                <div class="col-auto">
-                  <i class="far fa-clock"></i>
-                  {{task.deadline_date|date:"d-m-Y"}}
-                </div>
-              </div>
-              <div class="row mt-2">
-                <div class="col-auto px-1 ml-auto">
-                  <form action="{% url 'task:task-edit' task.id %}" method='get'>
-                        <button type="submit" class="submit-button-edit" title="Edytuj">
-                        <i class="fa fa-edit"></i>
-                      </button>
-                    </form>
-                </div>
-                <div class="col-auto px-1 ml-3 ">
-                  <form action="{% url 'task:task-update-status' task.id %}" method='post'>
-                    {% csrf_token %}
-                      <button type="submit" class="submit-button-done" title="Zakończ">
-                        <i class="fa fa-check "></i>
-                      </button>
-                    </form>
-                </div>
-              </div>
               
+            <div class="row gx-5 align-items-center">
+              <div class="col-auto">
+                <i class="far fa-clock"></i>
+                {{task.deadline_date|date:"d-m-Y"}}
+              </div>
             </div>
           </div>
-        {%endif%}
-        {% endfor %}
-      </div>
-    
-    
-    <div class="col-6 border-left border-dark">
-      <div class="row mb-2 ">
-        <div class="col task-finished">
-          <h6>Zakończone</h6>
-        </div>
-      </div>
-        {% for task in tasks %}
-        {%if task.deadline_date == current_date and task.completed_flag == True %}
-          <div class="row task-item mb-2 ml-1 p-2 border border-success rounded shadow-sm">
-            <div class="col-4">
-              {%for instr in task.instructor.all%}
-              <strong>{{instr}}</strong><br>
-              {%endfor%}
-            </div>
-            <div class="col task-desc">
-              <strong>#{{task.id}} - {{task.title}}</strong><br>
-              {{task.description}}
-            </div>
-            <div class="col-auto">
-              <div class="row align-items-center">
-                <div class="col-auto">
-                  <div>
-                    <i class="fas fa-coins mr-2 coin"></i>
-                    {{task.value}}
-                  </div>
-                </div>
-                <div class="col-auto p-0 ml-auto">
-                  
-                    <form action="{% url 'task:task-update-status' task.id %}" method='post'>
-                    {% csrf_token %}
-                      <button type="submit" class="submit-button-undone" title="Cofnij do zaplanowanych">
-                        <i class="fa fa-undo-alt"></i>
-                      </button>
-                    </form>
-                  
-                </div>
+          <div class="col-auto">
+            <div class="row mt-2">
+              <div class="col-auto px-1 ml-auto">
+                <form action="{% url 'task:task-edit' task.id %}" method='get'>
+                      <button type="submit" class="submit-button-edit" title="Edytuj">
+                      <i class="fa fa-edit"></i>
+                    </button>
+                  </form>
               </div>
-              <div class="row">
-                <div class="col">
-                  <i class="far fa-clock"></i>
-                  {{task.deadline_date|date:"d-m-Y"}}
-                </div>
+              <div class="col-auto px-1 ml-3 ">
+                <form action="{% url 'task:task-update-status' task.id %}" method='post'>
+                  {% csrf_token %}
+                    <button type="submit" class="submit-button-done" title="Zakończ">
+                      <i class="fa fa-check "></i>
+                    </button>
+                  </form>
               </div>
-              
             </div>
+            
           </div>
-        {%endif%}
+        </div>
+      {%endif%}
       {% endfor %}
     </div>
-    
-    {% comment %} <div class="col">
-    
-    </div> {% endcomment %}
   </div>
       
 
   {%else%}
   <div class="row p-2 justify-content-center border-bottom">
     <div class="col-auto text-secondary">
-      <h5>Brak zadań na dziś</h5>
+      <h5>Wygląda na to, że wszystko zrobione ;)</h5>
     </div>
   </div>
   
@@ -181,7 +122,7 @@
       </tr>
       </thead>
       <tbody>
-        {%for task in tasks%}
+        {%for task in tasks_completed%}
         <tr>
         <td>{{task.id}}</td>
           <td>
