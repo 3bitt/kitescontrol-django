@@ -13,7 +13,8 @@ class TaskListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["current_date"] = date.today()
-        context["tasks_dates"] = self.queryset.values_list('deadline_date',flat=True).distinct()
+        context["tasks_complete_statuses"] = self.queryset.values_list('completed_flag',flat=True).distinct()
+        context["tasks_completed"] = self.queryset.filter(completed_flag = True)
         return context
 
 class TaskDetailView(DetailView):

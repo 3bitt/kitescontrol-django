@@ -52,6 +52,7 @@ class Student(models.Model):
         max_length=20,
         null=True,
         blank=False,
+        unique=True,
         validators=[validate_mobile])
 
     email_address = models.CharField(max_length=40, null=True, blank=True)
@@ -74,7 +75,7 @@ class Student(models.Model):
         blank=True,
         choices=HARNESS_SIZES)
 
-    iko_id = models.IntegerField(null=True, blank=True)
+    iko_id = models.IntegerField(null=True, blank=True, unique=True)
     iko_level = models.CharField(max_length=30, null=True, blank=True)
     comment = models.CharField(max_length=255, null=True, blank=True)
     register_date = models.DateTimeField(auto_now_add=True)

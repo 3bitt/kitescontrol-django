@@ -65,9 +65,9 @@ class StudentCreateForm(ModelForm):
                 'class': 'input',
                 'type': 'number'
             }),
-            'iko_level': forms.NumberInput(attrs = {
+            'iko_level': forms.TextInput(attrs = {
                 'class': 'input',
-                'type': 'number',
+                'type': 'text',
             }),
             'comment': forms.Textarea(attrs = {
                 'class': 'input',

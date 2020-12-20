@@ -74,6 +74,5 @@ class StudentUpdateView(UserAccessMixin, UpdateView):
 
 class StudentDeleteView(UserAccessMixin, DeleteView):
     model = Student
-    template_name = 'student/student_delete.html'
     success_url = reverse_lazy('student:student-list')
     permission_required = ''
