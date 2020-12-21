@@ -23,6 +23,9 @@
   padding-left: .3rem;
   box-shadow: -1px 0px 0px 0px #adadad, 1px 0px 0px 0px #adadad;
 }
+.current-hour{
+  background-color: #ffcd71;
+}
 
 .lesson-tile{
   padding: .3em;
