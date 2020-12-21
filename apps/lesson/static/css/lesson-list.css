@@ -1,0 +1,229 @@
+.schedule-container{
+  background-color: #a0cdc0;
+}
+
+.hours-container {
+  display: grid;
+  grid-template-columns: repeat(62, 1fr);
+  grid-auto-rows: minmax(25px, auto);
+  grid-template-areas:
+    "INSTR H7 H7-Q1 H7-Q2 H7-Q3 H8 H8-Q1 H8-Q2 H8-Q3 H9 H9-Q1 H9-Q2 H9-Q3 H10 H10-Q1 H10-Q2 H10-Q3 H11 H11-Q1 H11-Q2 H11-Q3 H12 H12-Q1 H12-Q2 H12-Q3 H13 H13-Q1 H13-Q2 H13-Q3 H14 H14-Q1 H14-Q2 H14-Q3 H15 H15-Q1 H15-Q2 H15-Q3 H16 H16-Q1 H16-Q2 H16-Q3 H17 H17-Q1 H17-Q2 H17-Q3 H18 H18-Q1 H18-Q2 H18-Q3 H19 H19-Q1 H19-Q2 H19-Q3 H20 H20-Q1 H20-Q2 H20-Q3 H21 H21-Q1 H21-Q2 H21-Q3 H22"; 
+  border-bottom: 2px solid gray;
+  }
+.lessons-container {
+  display: grid;
+  grid-template-columns: repeat(62, 1fr);
+  grid-auto-rows: minmax(50px, auto);
+  grid-template-areas:
+    "INSTR H7 H7-Q1 H7-Q2 H7-Q3 H8 H8-Q1 H8-Q2 H8-Q3 H9 H9-Q1 H9-Q2 H9-Q3 H10 H10-Q1 H10-Q2 H10-Q3 H11 H11-Q1 H11-Q2 H11-Q3 H12 H12-Q1 H12-Q2 H12-Q3 H13 H13-Q1 H13-Q2 H13-Q3 H14 H14-Q1 H14-Q2 H14-Q3 H15 H15-Q1 H15-Q2 H15-Q3 H16 H16-Q1 H16-Q2 H16-Q3 H17 H17-Q1 H17-Q2 H17-Q3 H18 H18-Q1 H18-Q2 H18-Q3 H19 H19-Q1 H19-Q2 H19-Q3 H20 H20-Q1 H20-Q2 H20-Q3 H21 H21-Q1 H21-Q2 H21-Q3 H22"; 
+  border-bottom: 1px solid gray;
+  }
+
+.hour-tile{
+  padding-left: .3rem;
+  box-shadow: -1px 0px 0px 0px #adadad, 1px 0px 0px 0px #adadad;
+}
+
+.lesson-tile{
+  padding: .3em;
+  margin: 0 .2em 0 .2em;
+  border: 1px solid gray;
+  border-radius: 4px;
+  background-color: lavender;
+}
+
+.INSTR{
+  display: grid;
+  grid-column-start: INSTR;
+  width: 10em;
+  border-right: 1px solid gray;
+
+  align-content: center;
+  text-align: center;
+}
+.H7{
+  grid-column-start: H7;
+}
+.H7-Q1{
+  grid-column-start: H7-Q1;
+}
+.H7-Q2{
+  grid-column-start: H7-Q2;
+}
+.H7-Q3{
+  grid-column-start: H7-Q3;
+}
+.H8{
+  grid-column-start: H8;
+}
+.H8-Q1{
+  grid-column-start: H8-Q1;
+}
+.H8-Q2{
+  grid-column-start: H8-Q2;
+}
+.H8-Q3{
+  grid-column-start: H8-Q3;
+}
+.H9{
+  grid-column-start: H9;
+}
+.H9-Q1{
+  grid-column-start: H9-Q1;
+}
+.H9-Q2{
+  grid-column-start: H9-Q2;
+}
+.H9-Q3{
+  grid-column-start: H9-Q3;
+}
+.H10{
+  grid-column-start: H10;
+}
+.H10-Q1{
+  grid-column-start: H10-Q1;
+}
+.H10-Q2{
+  grid-column-start: H10-Q2;
+}
+.H10-Q3{
+  grid-column-start: H10-Q3;
+}
+.H11{
+  grid-column-start: H11;
+}
+.H11-Q1{
+  grid-column-start: H11-Q1;
+}
+.H11-Q2{
+  grid-column-start: H11-Q2;
+}
+.H11-Q3{
+  grid-column-start: H11-Q3;
+}
+.H12{
+  grid-column-start: H12;
+}
+.H12-Q1{
+  grid-column-start: H12-Q1;
+}
+.H12-Q2{
+  grid-column-start: H12-Q2;
+}
+.H12-Q3{
+  grid-column-start: H12-Q3;
+}
+.H13{
+  grid-column-start: H13;
+}
+.H13-Q1{
+  grid-column-start: H13-Q1;
+}
+.H13-Q2{
+  grid-column-start: H13-Q2;
+}
+.H13-Q3{
+  grid-column-start: H13-Q3;
+}
+.H14{
+  grid-column-start: H14;
+}
+.H14-Q1{
+  grid-column-start: H14-Q1;
+}
+.H14-Q2{
+  grid-column-start: H14-Q2;
+}
+.H14-Q3{
+  grid-column-start: H14-Q3;
+}
+.H15{
+  grid-column-start: H15;
+}
+.H15-Q1{
+  grid-column-start: H15-Q1;
+}
+.H15-Q2{
+  grid-column-start: H15-Q2;
+}
+.H15-Q3{
+  grid-column-start: H15-Q3;
+}
+.H16{
+  grid-column-start: H16;
+}
+.H16-Q1{
+  grid-column-start: H16-Q1;
+}
+.H16-Q2{
+  grid-column-start: H16-Q2;
+}
+.H16-Q3{
+  grid-column-start: H16-Q3;
+}
+.H17{
+  grid-column-start: H17;
+}
+.H17-Q1{
+  grid-column-start: H17-Q1;
+}
+.H17-Q2{
+  grid-column-start: H17-Q2;
+}
+.H17-Q3{
+  grid-column-start: H17-Q3;
+}
+.H18{
+  grid-column-start: H18;
+}
+.H18-Q1{
+  grid-column-start: H18-Q1;
+}
+.H18-Q2{
+  grid-column-start: H18-Q2;
+}
+.H18-Q3{
+  grid-column-start: H18-Q3;
+}
+.H19{
+  grid-column-start: H19;
+}
+.H19-Q1{
+  grid-column-start: H19-Q1;
+}
+.H19-Q2{
+  grid-column-start: H19-Q2;
+}
+.H19-Q3{
+  grid-column-start: H19-Q3;
+}
+.H20{
+  grid-column-start: H20;
+}
+.H20-Q1{
+  grid-column-start: H20-Q1;
+}
+.H20-Q2{
+  grid-column-start: H20-Q2;
+}
+.H20-Q3{
+  grid-column-start: H20-Q3;
+}
+.H21{
+  grid-column-start: H21;
+}
+.H21-Q1{
+  grid-column-start: H21-Q1;
+}
+.H21-Q2{
+  grid-column-start: H21-Q2;
+}
+.H21-Q3{
+  grid-column-start: H21-Q3;
+}
+.H22{
+  grid-column-start: H22;
+}
+
+
+

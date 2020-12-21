@@ -1,0 +1,125 @@
+{%extends 'base.html'%}
+{%load static%}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/lesson-list.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<a href="{% url 'lesson:lesson-create' %}">
+  <button class="btn btn-sm btn-success">Dodaj lekcje</button>
+</a>
+
+
+<p>LEKCJE</p>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="schedule-container col mx-2 pt-2 px-0 border rounded">
+      <div class="hours-container pb-2">
+        <div class="INSTR"></div>
+        {%for i in hours %}
+          <div class="hour-tile H{{i}}" style="grid-column-end: span 4">{{i}}</div>
+        {%endfor%}
+      </div>
+    
+      {%for instr in instructors_with_lessons %}
+      
+      <div class="lessons-container pt-1 pb-1">
+        <div class="INSTR">
+          {{instr}}  
+        </div>
+        {%for lesson in instr.lessons.all%}
+        
+          <div class="lesson-tile {{lesson.get_start_time_class}}" style="grid-column-end: span {{lesson.get_column_span}};">
+            {%for student in lesson.student.all%}
+            <div>{{student}}</div>
+            {%endfor%}
+            {{lesson.start_time|time:'H:i'}} <b>&#183;</b> {{lesson.duration|floatformat}}h
+            {% comment %} <form method="POST" action="{% url 'lesson:lesson-delete' lesson.id %}">
+            {% csrf_token %}<input class="btn btn-sm btn-danger" type="submit" value="Usuń">
+            </form> {% endcomment %}
+          </div>
+        {%endfor%}
+      </div>
+      
+      
+      {%endfor%}
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}
+  
+
+
+
+  {% comment %} ################## FIRST VERSION
+  <div class="container-fluid">
+  <div class="row">
+    <div class="lessons-container">
+      <div class="INSTR"></div>
+      {%for i in hours %}
+        <div class="hour-tile H{{i}}" style="grid-column-end: span 4">{{i}}</div>
+      {%endfor%}
+    </div>
+  </div>
+  {%for instr in instructors_with_lessons %}
+  <div class="row">
+    <div class="lessons-container">
+      <div class="INSTR">
+        {{instr}}  
+      </div>
+      {%for lesson in instr.lessons.all%}
+      
+        <div class="lesson-tile {{lesson.get_start_time_class}}" style="grid-column-end: span {{lesson.get_column_span}};">
+          {{lesson.id}} - {{lesson.start_date}} - {{lesson.start_time|time:'H:i'}} - {{lesson.duration}}
+          <form method="POST" action="{% url 'lesson:lesson-delete' lesson.id %}">
+          {% csrf_token %}<input class="btn btn-danger" type="submit" value="Usuń">
+          </form>
+        </div>
+      {%endfor%}
+    </div>
+  </div>
+  
+  {%endfor%}
+  
+</div>
+  
+   {% endcomment %}
+
+   {% comment %} ################## SECOND VERSION - encapsulated in row
+   
+   <div class="container-fluid">
+  <div class="row">
+    <div class="lessons-container">
+      <div class="INSTR"></div>
+      {%for i in hours %}
+        <div class="hour-tile H{{i}}" style="grid-column-end: span 4">{{i}}</div>
+      {%endfor%}
+    </div>
+  
+  {%for instr in instructors_with_lessons %}
+  <div class="row">
+    <div class="lessons-container">
+      <div class="INSTR">
+        {{instr}}  
+      </div>
+      {%for lesson in instr.lessons.all%}
+      
+        <div class="lesson-tile {{lesson.get_start_time_class}}" style="grid-column-end: span {{lesson.get_column_span}};">
+          {{lesson.id}} - {{lesson.start_date}} - {{lesson.start_time|time:'H:i'}} - {{lesson.duration}}
+          <form method="POST" action="{% url 'lesson:lesson-delete' lesson.id %}">
+          {% csrf_token %}<input class="btn btn-danger" type="submit" value="Usuń">
+          </form>
+        </div>
+      {%endfor%}
+    </div>
+  </div>
+  
+  {%endfor%}
+  </div>
+</div>
+    {% endcomment %}

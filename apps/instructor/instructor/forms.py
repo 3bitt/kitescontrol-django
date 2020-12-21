@@ -4,7 +4,6 @@ from .models import Instructor
 from account.models import User
 
 class InstructorCreateForm(ModelForm):
-    user = forms.ModelChoiceField(queryset=User.objects.all(), required=False)
     class Meta:
         model = Instructor
         exclude = [
