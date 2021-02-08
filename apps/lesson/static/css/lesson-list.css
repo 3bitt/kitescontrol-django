@@ -25,6 +25,8 @@
 }
 .current-hour{
   background-color: #ffcd71;
+  box-shadow: 0px 0px 2px 2px #adadad, 1px 0px 0px 0px #adadad;
+
 }
 
 .lesson-tile{

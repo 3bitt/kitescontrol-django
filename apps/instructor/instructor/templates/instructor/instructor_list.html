@@ -34,7 +34,14 @@
             </div>
             <div class="d-flex justify-content-center">
               {%if instr.user %}
-                <small>({{instr.user}})</small>
+                <small>
+                {% if instr.active %}
+                <i class="fa fa-check fa-sm text-success"></i>
+                {% else %}
+                <i class="fa fa-times fa-sm text-danger"></i>
+                {% endif %}
+                ({{instr.user}})
+                </small>
               {%endif%}
             </div>
             <div class="d-flex justify-content-center">

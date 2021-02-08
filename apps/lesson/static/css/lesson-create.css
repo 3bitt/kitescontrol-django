@@ -1,0 +1,47 @@
+#id_instructor, #id_student, .list-group{
+  list-style: none;
+}
+
+div > label{
+  font-weight: bold;
+}
+
+#id_student{
+  height: 15rem;
+  width: 25rem;
+  overflow-y: scroll;
+}
+#id_instructor{
+  height: 15rem;
+  width: 20rem;
+  overflow-y: scroll;
+
+}
+.lesson-details-col{
+  border: 1px solid gray;
+  padding: 10px;
+  border-radius: 2%;
+}
+.instr-col{
+  border: 1px solid gray;
+  padding: 10px;
+  margin-left: 20px;
+  border-radius: 2%;
+}
+.student-col{
+  border: 1px solid gray;
+  padding: 10px;
+  margin-left: 20px;
+  border-radius: 2%;
+}
+.instr-label{
+  text-align: center;
+  font-size: 1.2em;
+}
+.student-label{
+  text-align: center;
+  font-size: 1.2em;
+}
+
+
+

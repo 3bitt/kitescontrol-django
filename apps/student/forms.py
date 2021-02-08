@@ -5,6 +5,7 @@ from .models import Student
 
 
 class StudentCreateForm(ModelForm):
+
     class Meta:
         model = Student
         exclude = ['register_date']

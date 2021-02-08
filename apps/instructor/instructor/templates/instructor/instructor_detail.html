@@ -188,6 +188,15 @@
           {%endif%}
         </dd>
         <div class="w-100"></div>
+        <dt class="col-5 col-sm-3 col-lg-2">Aktywny:</dt>
+        <dd class="col-auto">
+          {% if instructor.active %}
+          <i class="fas fa-check icon-true"></i>
+          {%else%}
+          <i class="fas fa-times icon-false"></i>
+          {%endif%}
+        </dd>
+        <div class="w-100"></div>
       </dl>
     </div>
   </div>
@@ -348,6 +357,14 @@
           </div>
           <div class="col">
             {{form.tc_accepted_flag}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="iko_id">Aktywny:</label>
+          </div>
+          <div class="col">
+            {{form.active}}
           </div>
         </div>
         <div class="row mt-3">
