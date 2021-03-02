@@ -121,19 +121,22 @@
         </div>
 
         <div class="col-auto student-col">
-            {% comment %} <div class="col">
-              <input type="text" id="student_search_input" placeholder="Szukaj kursanta">
-              <ul class="list-group" id="search_result_list"></ul>
-            </div> {% endcomment %}
-            <div class="row">
-              <div class="col student-label">
-                <label>Student:</label>
-              </div>
+          <div class="row">
+            <div class="col student-label">
+              <label>Student:</label>
             </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input type="text" id="student_search_input" placeholder="Szukaj kursanta">
+              <ul class="student-picked-list mb-1" id="search_result_list"></ul>
+            </div>
+          </div> 
+            
 
           <div class="row mt-2">
             
-            <div class="col-auto">
+            <div class="col-auto elo">
               {{form.student}}
             </div>
           </div>
@@ -149,6 +152,7 @@
 {{ students_query|json_script:"data"}}
 </div>
 <script src="{% static 'js/filter_students.js' %}"></script> {% endcomment %}
+<script src="{% static 'js/lesson_filter_students.js' %}"></script>
 
 
 {% endblock content %}

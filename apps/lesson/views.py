@@ -4,6 +4,7 @@ from django.db.models import Q
 from instructor.instructor.models import Instructor
 from student.models import Student
 from .models import Lesson
+import pytz
 from datetime import date, datetime
 import datetime as datetimeModule
 from .forms import LessonCreateForm
@@ -16,7 +17,8 @@ from django.db.models import OuterRef, Subquery
 from django.db.models import Prefetch
 
 class LessonListView(ListView):
-    current_date = date.today()
+    current_date = datetime.today()
+    # current_date = date.today()
     queryset = Instructor.objects.filter(active=True)
     template_name = 'lesson/lesson_list.html'
     context_object_name = 'instructors_all'
@@ -35,7 +37,7 @@ class LessonListView(ListView):
 
 
 class LessonCreateView(CreateView):
-    current_date = date.today()
+    current_date = datetime.today()
     model = Lesson
     template_name = 'lesson/lesson_create.html'
     form_class = LessonCreateForm

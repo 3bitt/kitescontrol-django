@@ -19,7 +19,7 @@
       <div class="hours-container pb-2">
         <div class="INSTR">{{current_date|date:"d-m-Y"}}</div>
         {%for i in hours %}
-          <div class="hour-tile H{{i}} {%if i == current_time%}current-hour{%endif%}" style="grid-column-end: span 4">{{i}}<small><sup>00</sup></small></div>
+          <div class="hour-tile bold-text H{{i}} {%if i == current_time%}current-hour{%endif%}" style="grid-column-end: span 4">{{i}}<small><sup class="bold-text">00</sup></small></div>
         {%endfor%}
       </div>
     
@@ -31,9 +31,16 @@
         </div>
 
         {%for lesson in instr.lessons.all%}
-          <div class="lesson-tile {{lesson.get_start_time_class}}" style="grid-column-end: span {{lesson.get_column_span}};">
+          <div class="lesson-tile {{lesson.get_start_time_class}}" style="grid-column-end: span {{lesson.get_column_span}}">
             
-            {{lesson.start_time|time:'H:i'}}
+            <div class="d-flex">
+              <div class="mr-3">
+                {{lesson.start_time|time:'H:i'}}
+              </div>
+              <div class="mr-1"><b>K:</b> {{lesson.kite_brand|default_if_none:"<span class='none-equipment'>??</span>"}}</div>
+              <div class=""><b>D:</b> {{lesson.board|default_if_none:"<span class='none-equipment'>??</span>"}}</div>
+            </div>
+            
             {%for student in lesson.student.all%}
             <div>{{student}}</div>
             {%endfor%}

@@ -7,12 +7,12 @@ div > label{
 }
 
 #id_student{
-  height: 15rem;
+  height: 12rem;
   width: 25rem;
   overflow-y: scroll;
 }
 #id_instructor{
-  height: 15rem;
+  height: 12rem;
   width: 20rem;
   overflow-y: scroll;
 
@@ -41,6 +41,14 @@ div > label{
 .student-label{
   text-align: center;
   font-size: 1.2em;
+}
+.student-picked-list{
+  min-height: 2em;
+  max-height: fit-content;
+}
+.student-picked{
+  color: rgb(21, 158, 21);
+  font-weight: bold;
 }
 
 
