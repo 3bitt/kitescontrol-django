@@ -6,6 +6,16 @@ div > label{
   font-weight: bold;
 }
 
+#id_duration{
+  width: 4rem;
+}
+#id_kite_brand{
+  width: 6rem;
+}
+#id_board{
+  width: 6rem;
+}
+
 #id_student{
   height: 12rem;
   width: 25rem;

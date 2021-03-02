@@ -1,5 +1,5 @@
 .schedule-container{
-  background-color: #a0cdc0;
+  background-color: #e7e7e7;
 }
 
 .hours-container {
@@ -23,9 +23,14 @@
   font-weight: bold;
   color: rgb(63, 63, 63);
 }
+
+.lesson-edit-btn * {
+  text-decoration: none;
+  color: #e79600;
+}
 .none-equipment{
   font-weight: bold;
-  color: rgb(231, 150, 0);
+  color: #e70f00;
 }
 
 .hour-tile{
@@ -43,9 +48,25 @@
 .lesson-tile{
   padding: .3em;
   margin: 0 .2em 0 .2em;
+  height: min-content;
   border: 1px solid gray;
   border-radius: 4px;
   background-color: lavender;
+}
+
+.lesson-in-progress{
+  background-color: #a5e0a5;
+}
+
+.lesson-set-in-progress-btn{
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .INSTR{

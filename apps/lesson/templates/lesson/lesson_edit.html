@@ -117,12 +117,12 @@
               {{form.comment}}
             </div>
           </div>
-          <div class="row justify-content-between">
+          <div class="row mt-5 justify-content-between">
             <div class="col-auto">
-              <input class="btn btn-sm btn-success" type="submit" value="Dodaj">
+              <input class="btn btn-sm btn-success" type="submit" value="Zapisz">
             </div>
           </div>
-          
+            
         </div>
 
         <div class="col-auto instr-col">
@@ -160,14 +160,19 @@
           </div>
         </div>
         </form>
+        
+        <div class="col-auto">
+          <form method="post" action="{% url 'lesson:lesson-delete' lesson.id %}">
+            {% csrf_token %}
+            <input class="btn btn-sm btn-danger" type="submit" value="Usuń">
+          </form>
+        </div>
+
       </div>
     </div>
-
   </div>
 </div>
-
 <script src="{% static 'js/lesson_filter_students.js' %}"></script>
 
 
 {% endblock content %}
-  

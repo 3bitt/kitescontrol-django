@@ -31,18 +31,63 @@
         </div>
 
         {%for lesson in instr.lessons.all%}
-          <div class="lesson-tile {{lesson.get_start_time_class}}" style="grid-column-end: span {{lesson.get_column_span}}">
+          <div class="align-self-center lesson-tile 
+                    {{lesson.get_start_time_class}} 
+                    {% if lesson.in_progress%} lesson-in-progress{%endif%}" 
+                    style="grid-column-end: span {{lesson.get_column_span}}">
             
-            <div class="d-flex">
-              <div class="mr-3">
+            <div class="row justify-content-between">
+              <div class="col-auto pl-3 pr-0">
                 {{lesson.start_time|time:'H:i'}}
               </div>
-              <div class="mr-1"><b>K:</b> {{lesson.kite_brand|default_if_none:"<span class='none-equipment'>??</span>"}}</div>
-              <div class=""><b>D:</b> {{lesson.board|default_if_none:"<span class='none-equipment'>??</span>"}}</div>
+
+              <div class="col-auto p-0">
+                {% if not lesson.in_progress %}
+                  <form method="post" action="{% url 'lesson:lesson-set-in-progress' lesson.id %}">
+                    {%csrf_token%}
+                    <button class="lesson-set-in-progress-btn" type="submit">
+                      <i class="fa fa-play fa-sm text-success"></i>
+                    </button>
+                  </form>
+                {%elif lesson.in_progress%}
+                  <form method="post" action="{% url 'lesson:lesson-set-in-progress' lesson.id %}">
+                    {%csrf_token%}
+                    <button class="lesson-set-in-progress-btn" type="submit">
+                      <i class="fa fa-circle fs-sm text-warning"></i>
+                    </button>
+                  </form>
+                  {%endif%}
+
+
+              </div>
+
+              <div class="col-auto pl-0 pr-3 lesson-edit-btn">
+                <a href="{% url 'lesson:lesson-edit' lesson.id %}">
+                  <i class="fa fa-edit fa-sm"></i>
+                </a>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-auto">
+                <small>
+                  <b>K:</b> {{lesson.kite_brand|default_if_none:"<span class='none-equipment'>?</span>"}}
+                </small>
+              </div>
+                
+              <div class="col-auto">
+                <small>
+                  <b>D:</b> {{lesson.board|default_if_none:"<span class='none-equipment'>?</span>"}}
+                </small>
+              </div>              
             </div>
             
             {%for student in lesson.student.all%}
-            <div>{{student}}</div>
+            <div class="row">
+              <div class="col-auto">
+                {{student}}
+              </div>  
+            </div>
             {%endfor%}
             
             {% comment %} <form method="POST" action="{% url 'lesson:lesson-delete' lesson.id %}">

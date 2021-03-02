@@ -11,9 +11,7 @@ class LessonCreateForm(forms.ModelForm):
             'creation_date',
             'paid',
             'in_progress',
-            'kite_brand',
             'kite_size',
-            'board',
             'start_time',
 
             ]
@@ -24,6 +22,8 @@ class LessonCreateForm(forms.ModelForm):
             'duration',
             'status',
             'equipment',
+            'kite_brand',
+            'board',
             'comment'
         ]
         widgets = {

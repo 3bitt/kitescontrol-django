@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from django.db.models import Q
+from django.views.generic.base import View
+from django.views.generic.edit import UpdateView
 from instructor.instructor.models import Instructor
 from student.models import Student
 from .models import Lesson
@@ -73,6 +75,30 @@ class LessonCreateView(CreateView):
         start_time = datetimeModule.time(start_hour,start_minute)
         form.instance.start_time = start_time
         return super().form_valid(form)
+
+class LessonUpdateView(UpdateView):
+    model = Lesson
+    template_name = 'lesson/lesson_edit.html'
+    form_class = LessonCreateForm
+
+    def get_success_url(self):
+        return reverse_lazy('lesson:lesson-list')
+
+class LessonSetInProgressView(View):
+
+    def post(self, request, **kwargs):
+        lesson_id = self.kwargs['pk']
+        lesson = Lesson.objects.get(id=lesson_id)
+        if (lesson.in_progress):
+            lesson.in_progress = False
+            lesson.save()
+        elif (not lesson.in_progress):
+            lesson.in_progress = True
+            lesson.save()
+        else:
+            lesson.in_progress = False
+            lesson.save()
+        return redirect('lesson:lesson-list')
 
 
 class LessonDeleteView(DeleteView):
