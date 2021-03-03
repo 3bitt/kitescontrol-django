@@ -6,6 +6,10 @@ from student.models import Student
 # Create your models here.
 
 
+# LESSON STATUSES:
+# 0 - NOT COMPLETED
+# 1 - COMPLETED
+
 class Lesson(models.Model):
 
     creation_date = models.DateTimeField(auto_now=True)

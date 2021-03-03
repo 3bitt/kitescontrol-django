@@ -9,7 +9,7 @@
   grid-template-areas:
     "INSTR H7 H7-Q1 H7-Q2 H7-Q3 H8 H8-Q1 H8-Q2 H8-Q3 H9 H9-Q1 H9-Q2 H9-Q3 H10 H10-Q1 H10-Q2 H10-Q3 H11 H11-Q1 H11-Q2 H11-Q3 H12 H12-Q1 H12-Q2 H12-Q3 H13 H13-Q1 H13-Q2 H13-Q3 H14 H14-Q1 H14-Q2 H14-Q3 H15 H15-Q1 H15-Q2 H15-Q3 H16 H16-Q1 H16-Q2 H16-Q3 H17 H17-Q1 H17-Q2 H17-Q3 H18 H18-Q1 H18-Q2 H18-Q3 H19 H19-Q1 H19-Q2 H19-Q3 H20 H20-Q1 H20-Q2 H20-Q3 H21 H21-Q1 H21-Q2 H21-Q3 H22"; 
   border-bottom: 2px solid gray;
-  }
+}
 .lessons-container {
   display: grid;
   grid-template-columns: repeat(62, 1fr);
@@ -17,32 +17,15 @@
   grid-template-areas:
     "INSTR H7 H7-Q1 H7-Q2 H7-Q3 H8 H8-Q1 H8-Q2 H8-Q3 H9 H9-Q1 H9-Q2 H9-Q3 H10 H10-Q1 H10-Q2 H10-Q3 H11 H11-Q1 H11-Q2 H11-Q3 H12 H12-Q1 H12-Q2 H12-Q3 H13 H13-Q1 H13-Q2 H13-Q3 H14 H14-Q1 H14-Q2 H14-Q3 H15 H15-Q1 H15-Q2 H15-Q3 H16 H16-Q1 H16-Q2 H16-Q3 H17 H17-Q1 H17-Q2 H17-Q3 H18 H18-Q1 H18-Q2 H18-Q3 H19 H19-Q1 H19-Q2 H19-Q3 H20 H20-Q1 H20-Q2 H20-Q3 H21 H21-Q1 H21-Q2 H21-Q3 H22"; 
   border-bottom: 2px solid gray;
-  }
-
-.bold-text{
-  font-weight: bold;
-  color: rgb(63, 63, 63);
 }
+.INSTR{
+  display: grid;
+  grid-column-start: INSTR;
+  width: 10em;
+  border-right: 1px solid gray;
 
-.lesson-edit-btn * {
-  text-decoration: none;
-  color: #e79600;
-}
-.none-equipment{
-  font-weight: bold;
-  color: #e70f00;
-}
-
-.hour-tile{
-  padding-left: .3rem;
-  box-shadow: -1px 0px 0px 0px #adadad, 1px 0px 0px 0px #adadad;
-  /* font-weight: bold; */
-  font-size: 1.1em;
-}
-.current-hour{
-  background-color: #ffcd71;
-  box-shadow: 0px 0px 2px 2px #adadad, 1px 0px 0px 0px #adadad;
-
+  align-content: center;
+  text-align: center;
 }
 
 .lesson-tile{
@@ -58,7 +41,45 @@
   background-color: #a5e0a5;
 }
 
-.lesson-set-in-progress-btn{
+.lesson-settings-col{
+  position: relative;
+}
+
+.lesson-settings-icon{
+  color: #49494d;
+  cursor: pointer;
+}
+
+.settings-menu{
+  position: absolute;
+  width: max-content;
+  top: -1rem;
+  left: 2.6rem;
+  /* padding: 5px; */
+  border: 1px solid;
+  background-color: #c9c9ce;
+  border-radius: 4px;
+}
+.lesson-settings-menu-item{
+  padding: 2px 5px 2px 5px;
+}
+.lesson-settings-menu-item:hover{
+  background-color: #ececee;
+  border-radius: 4px;
+}
+
+.lesson-edit-link > * {
+  text-decoration: none;
+  color: black;
+}
+.fa-play{
+  color: #05a228;
+}
+.fa-pause{
+  color: #c14040;
+}
+
+.btn_rmv_stl{
   background: none!important;
   border: none;
   padding: 0!important;
@@ -68,16 +89,29 @@
   text-decoration: none;
   cursor: pointer;
 }
-
-.INSTR{
-  display: grid;
-  grid-column-start: INSTR;
-  width: 10em;
-  border-right: 1px solid gray;
-
-  align-content: center;
-  text-align: center;
+.none-equipment{
+  font-weight: bold;
+  color: #e70f00;
 }
+.bold-text{
+  font-weight: bold;
+  color: rgb(63, 63, 63);
+}
+
+
+/* Schedule hours */
+
+.hour-tile{
+  padding-left: .3rem;
+  box-shadow: -1px 0px 0px 0px #adadad, 1px 0px 0px 0px #adadad;
+  /* font-weight: bold; */
+  font-size: 1.1em;
+}
+.current-hour{
+  background-color: #ffcd71;
+  box-shadow: 0px 0px 2px 2px #adadad, 1px 0px 0px 0px #adadad;
+}
+
 .H7{
   grid-column-start: H7;
 }

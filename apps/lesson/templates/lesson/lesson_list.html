@@ -41,31 +41,43 @@
                 {{lesson.start_time|time:'H:i'}}
               </div>
 
-              <div class="col-auto p-0">
-                {% if not lesson.in_progress %}
-                  <form method="post" action="{% url 'lesson:lesson-set-in-progress' lesson.id %}">
-                    {%csrf_token%}
-                    <button class="lesson-set-in-progress-btn" type="submit">
-                      <i class="fa fa-play fa-sm text-success"></i>
-                    </button>
-                  </form>
-                {%elif lesson.in_progress%}
-                  <form method="post" action="{% url 'lesson:lesson-set-in-progress' lesson.id %}">
-                    {%csrf_token%}
-                    <button class="lesson-set-in-progress-btn" type="submit">
-                      <i class="fa fa-circle fs-sm text-warning"></i>
-                    </button>
-                  </form>
-                  {%endif%}
+              {% comment %} LESSON SETTINGS {% endcomment %}
+              <div class="col-auto lesson-settings-col">
+                <i class="fa fa-cog lesson-settings-icon"></i>
 
-
+                <div class="settings-menu" id="settings_menu_{{lesson.id}}" hidden="true">
+                  <div class="lesson-edit-menu-item lesson-settings-menu-item">
+                    <a class="lesson-edit-link" href="{% url 'lesson:lesson-edit' lesson.id %}">
+                      <i class="no-decoration fa fa-edit fa-sm"></i>
+                      <span class="no-decoration">Edytuj</span>
+                    </a>                  
+                  </div>
+                  
+                  {% if not lesson.in_progress %}
+                    <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
+                      <form method="post" action="{% url 'lesson:lesson-set-in-progress' lesson.id %}">
+                        {%csrf_token%}
+                        <button class="btn_rmv_stl" type="submit">
+                          <i class="fa fa-play fa-sm text-success"></i>
+                          <span>Start</span>
+                        </button>
+                      </form>
+                    </div>
+                  {%elif lesson.in_progress%}
+                    <div class="lesson-settings-menu-item">
+                      <form method="post" action="{% url 'lesson:lesson-set-in-progress' lesson.id %}">
+                        {%csrf_token%}
+                        <button class="btn_rmv_stl" type="submit">
+                          <i class="fas fa-pause fs-sm"></i>
+                          <span>Stop</span>
+                        </button>
+                      </form>
+                    </div>
+                    {%endif%}
+                  
+                </div>
               </div>
 
-              <div class="col-auto pl-0 pr-3 lesson-edit-btn">
-                <a href="{% url 'lesson:lesson-edit' lesson.id %}">
-                  <i class="fa fa-edit fa-sm"></i>
-                </a>
-              </div>
             </div>
             
             <div class="row">
@@ -85,7 +97,7 @@
             {%for student in lesson.student.all%}
             <div class="row">
               <div class="col-auto">
-                {{student}}
+                <b>{{student}}</b>
               </div>  
             </div>
             {%endfor%}
@@ -103,76 +115,7 @@
   </div>
 </div>
 
+<script src="{% static 'js/lesson_settings.js' %}"></script>
 
 {% endblock content %}
   
-
-
-
-  {% comment %} ################## FIRST VERSION
-  <div class="container-fluid">
-  <div class="row">
-    <div class="lessons-container">
-      <div class="INSTR"></div>
-      {%for i in hours %}
-        <div class="hour-tile H{{i}}" style="grid-column-end: span 4">{{i}}</div>
-      {%endfor%}
-    </div>
-  </div>
-  {%for instr in instructors_with_lessons %}
-  <div class="row">
-    <div class="lessons-container">
-      <div class="INSTR">
-        {{instr}}  
-      </div>
-      {%for lesson in instr.lessons.all%}
-      
-        <div class="lesson-tile {{lesson.get_start_time_class}}" style="grid-column-end: span {{lesson.get_column_span}};">
-          {{lesson.id}} - {{lesson.start_date}} - {{lesson.start_time|time:'H:i'}} - {{lesson.duration}}
-          <form method="POST" action="{% url 'lesson:lesson-delete' lesson.id %}">
-          {% csrf_token %}<input class="btn btn-danger" type="submit" value="Usuń">
-          </form>
-        </div>
-      {%endfor%}
-    </div>
-  </div>
-  
-  {%endfor%}
-  
-</div>
-  
-   {% endcomment %}
-
-   {% comment %} ################## SECOND VERSION - encapsulated in row
-   
-   <div class="container-fluid">
-  <div class="row">
-    <div class="lessons-container">
-      <div class="INSTR"></div>
-      {%for i in hours %}
-        <div class="hour-tile H{{i}}" style="grid-column-end: span 4">{{i}}</div>
-      {%endfor%}
-    </div>
-  
-  {%for instr in instructors_with_lessons %}
-  <div class="row">
-    <div class="lessons-container">
-      <div class="INSTR">
-        {{instr}}  
-      </div>
-      {%for lesson in instr.lessons.all%}
-      
-        <div class="lesson-tile {{lesson.get_start_time_class}}" style="grid-column-end: span {{lesson.get_column_span}};">
-          {{lesson.id}} - {{lesson.start_date}} - {{lesson.start_time|time:'H:i'}} - {{lesson.duration}}
-          <form method="POST" action="{% url 'lesson:lesson-delete' lesson.id %}">
-          {% csrf_token %}<input class="btn btn-danger" type="submit" value="Usuń">
-          </form>
-        </div>
-      {%endfor%}
-    </div>
-  </div>
-  
-  {%endfor%}
-  </div>
-</div>
-    {% endcomment %}
