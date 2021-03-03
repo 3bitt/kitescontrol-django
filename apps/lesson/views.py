@@ -18,6 +18,11 @@ from django.core.serializers import serialize
 from django.db.models import OuterRef, Subquery
 from django.db.models import Prefetch
 
+# LESSON STATUSES:
+# 0 - CREATED
+# 1 - CONFIRMED
+# 2 - COMPLETED
+
 class LessonListView(ListView):
     current_date = datetime.today()
     # current_date = date.today()
@@ -98,6 +103,25 @@ class LessonSetInProgressView(View):
         else:
             lesson.in_progress = False
             lesson.save()
+        return redirect('lesson:lesson-list')
+
+class LessonConfirmView(View):
+    def post(self,request, **kwargs):
+        lesson_id = self.kwargs['pk']
+        lesson = Lesson.objects.get(id=lesson_id)
+
+        # LESSON STATUSES:
+        # 0 - CREATED
+        # 1 - CONFIRMED
+        # 2 - COMPLETED
+        if (lesson.status == '1'):
+            lesson.status = '0'
+            lesson.save()
+        elif (lesson.status == '0'):
+            lesson.status = '1'
+            lesson.save()
+        else:
+            pass
         return redirect('lesson:lesson-list')
 
 

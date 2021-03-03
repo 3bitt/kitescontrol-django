@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import LessonListView, LessonCreateView, LessonDeleteView, LessonSetInProgressView, LessonUpdateView
+from .views import LessonConfirmView, LessonListView, LessonCreateView, LessonDeleteView, LessonSetInProgressView, LessonUpdateView
 from django.contrib.auth.decorators import login_required
 
 
@@ -11,6 +11,7 @@ urlpatterns = [
     path('<int:pk>/edit/', LessonUpdateView.as_view(), name='lesson-edit' ),
     path('<int:pk>/setInProgress/', LessonSetInProgressView.as_view(), name='lesson-set-in-progress' ),
 
+    path('<int:pk>/confirm/', LessonConfirmView.as_view(), name='lesson-confirm' ),
     path('delete/<int:pk>/', login_required(LessonDeleteView.as_view()), name='lesson-delete'),
     # path('q', StudentSearchView.as_view(), name='student-search'),
 

@@ -121,7 +121,16 @@
             <div class="col-auto">
               <input class="btn btn-sm btn-success" type="submit" value="Zapisz">
             </div>
+            <div class="col-auto">
+              <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal"
+              {% if view.editMode %}hidden{%endif%}>
+                <i class="fa fa-times"></i>
+                Usuń
+              </button>
+            </div>
           </div>
+
+          
             
         </div>
 
@@ -160,18 +169,72 @@
           </div>
         </div>
         </form>
-        
-        <div class="col-auto">
-          <form method="post" action="{% url 'lesson:lesson-delete' lesson.id %}">
-            {% csrf_token %}
-            <input class="btn btn-sm btn-danger" type="submit" value="Usuń">
-          </form>
-        </div>
-
+      
       </div>
     </div>
   </div>
 </div>
+
+
+{% comment %} DELETE LESSON MODAL {% endcomment %}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="exampleModalLabel">Czy na pewno chcesz usunąć tą lekcje ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-auto">
+            Data:
+          </div>
+          <div class="col-auto">
+            {{lesson.start_date|date:'d-m-Y'}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-auto">
+            Godzina:
+          </div>
+          <div class="col-auto">
+            {{lesson.start_time|time:'H:i'}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-auto">
+            Instruktor:
+          </div>
+          <div class="col-auto">
+            {%for instr in lesson.instructor.all%}
+              <div>{{instr}}</div>
+            {%endfor%}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-auto">
+            Kursant:
+          </div>
+          <div class="col-auto">
+            {%for student in lesson.student.all%}
+              <div>{{student}}</div>
+            {%endfor%}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Powrót</button>
+        <form method="POST" action="{% url 'lesson:lesson-delete' lesson.id %}">
+          {% csrf_token %}<input class="btn btn-danger" type="submit" value="Usuń">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script src="{% static 'js/lesson_filter_students.js' %}"></script>
 
 

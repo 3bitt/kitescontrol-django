@@ -54,7 +54,7 @@
   position: absolute;
   width: max-content;
   top: -1rem;
-  left: 2.6rem;
+  left: 1.8rem;
   /* padding: 5px; */
   border: 1px solid;
   background-color: #c9c9ce;
@@ -71,6 +71,10 @@
 .lesson-edit-link > * {
   text-decoration: none;
   color: black;
+}
+.lesson-confirmed-corner-highlight{
+  background-color: #a5e0a5;
+  border-radius: 3px;
 }
 .fa-play{
   color: #05a228;
@@ -298,3 +302,6 @@
 
 
 
+/* background-color: #E5E5F7;
+opacity: 0.4;
+background: repeating-linear-gradient( -45deg, #444CF7, #444CF7 10px, #E5E5F7 10px, #E5E5F7 50px ); */

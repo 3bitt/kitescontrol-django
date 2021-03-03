@@ -33,12 +33,20 @@
         {%for lesson in instr.lessons.all%}
           <div class="align-self-center lesson-tile 
                     {{lesson.get_start_time_class}} 
-                    {% if lesson.in_progress%} lesson-in-progress{%endif%}" 
+                    {% if lesson.in_progress %} lesson-in-progress{%endif%}"
                     style="grid-column-end: span {{lesson.get_column_span}}">
             
             <div class="row m-0 justify-content-between">
-              <div class="col-auto px-1">
+              
+              <div class="col-auto px-1
+                          {% if lesson.status == '1'%} lesson-confirmed-corner-highlight {%endif%}">
                 {{lesson.start_time|time:'H:i'}}
+                {% if lesson.status == '0'%}
+                  <span class="ml-1"><i class="fas fa-question fa-sm text-danger"></i></span> 
+                {%elif lesson.status == '1'%}
+                  <span class="ml-1"><i class="fas fa-check text-success"></i></span>
+                {%endif%}
+
               </div>
 
               {% comment %} LESSON SETTINGS (icon + hidden menu) {% endcomment %}
@@ -52,6 +60,29 @@
                       <span class="no-decoration">Edytuj</span>
                     </a>                  
                   </div>
+
+                  {% if lesson.status == '0' %}
+                    <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
+                      <form method="post" action="{% url 'lesson:lesson-confirm' lesson.id %}">
+                        {%csrf_token%}
+                        <button class="btn_rmv_stl" type="submit">
+                          <i class="fa fa-check text-success"></i>
+                          <span>Potwierdź</span>
+                        </button>
+                      </form>
+                    </div>
+                  {% elif lesson.status == '1' and not lesson.in_progress %}
+                    <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
+                      <form method="post" action="{% url 'lesson:lesson-confirm' lesson.id %}">
+                        {%csrf_token%}
+                        <button class="btn_rmv_stl" type="submit">
+                          <i class="fas fa-question text-danger"></i>
+                          <span>Niepotwierdzona</span>
+                        </button>
+                      </form>
+                    </div>
+                  {%endif%}
+                  
                   
                   {% if not lesson.in_progress %}
                     <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
