@@ -58,8 +58,11 @@
                     <a class="lesson-edit-link" href="{% url 'lesson:lesson-edit' lesson.id %}">
                       <i class="no-decoration fa fa-edit fa-sm"></i>
                       <span class="no-decoration">Edytuj</span>
-                    </a>                  
+                    </a>
+                                      
                   </div>
+
+                  <hr>
 
                   {% if lesson.status == '0' %}
                     <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
@@ -71,6 +74,7 @@
                         </button>
                       </form>
                     </div>
+                    <hr>
                   {% elif lesson.status == '1' and not lesson.in_progress %}
                     <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
                       <form method="post" action="{% url 'lesson:lesson-confirm' lesson.id %}">
@@ -81,7 +85,9 @@
                         </button>
                       </form>
                     </div>
+                    <hr>
                   {%endif%}
+
                   
                   
                   {% if not lesson.in_progress %}
@@ -94,6 +100,7 @@
                         </button>
                       </form>
                     </div>
+                    <!-- <hr> -->
                   {%elif lesson.in_progress%}
                     <div class="lesson-settings-menu-item">
                       <form method="post" action="{% url 'lesson:lesson-set-in-progress' lesson.id %}">
@@ -104,6 +111,7 @@
                         </button>
                       </form>
                     </div>
+                    <!-- <hr> -->
                     {%endif%}
                   
                 </div>

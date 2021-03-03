@@ -56,15 +56,15 @@
   top: -1rem;
   left: 1.8rem;
   /* padding: 5px; */
-  border: 1px solid;
-  background-color: #c9c9ce;
+  border: 2px solid;
+  background-color: lavender;
   border-radius: 4px;
 }
 .lesson-settings-menu-item{
   padding: 2px 5px 2px 5px;
 }
 .lesson-settings-menu-item:hover{
-  background-color: #ececee;
+  background-color: #bcd9f8;
   border-radius: 4px;
 }
 
@@ -100,6 +100,11 @@
 .bold-text{
   font-weight: bold;
   color: rgb(63, 63, 63);
+}
+
+hr {
+  margin-top: .1rem;
+  margin-bottom: .1rem;
 }
 
 
