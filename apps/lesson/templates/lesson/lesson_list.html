@@ -29,20 +29,20 @@
         <div class="INSTR">
           {{instr}}  
         </div>
-
+        {% comment %} LESSON TILE {% endcomment %}
         {%for lesson in instr.lessons.all%}
           <div class="align-self-center lesson-tile 
                     {{lesson.get_start_time_class}} 
                     {% if lesson.in_progress%} lesson-in-progress{%endif%}" 
                     style="grid-column-end: span {{lesson.get_column_span}}">
             
-            <div class="row justify-content-between">
-              <div class="col-auto pl-3 pr-0">
+            <div class="row m-0 justify-content-between">
+              <div class="col-auto px-1">
                 {{lesson.start_time|time:'H:i'}}
               </div>
 
-              {% comment %} LESSON SETTINGS {% endcomment %}
-              <div class="col-auto lesson-settings-col">
+              {% comment %} LESSON SETTINGS (icon + hidden menu) {% endcomment %}
+              <div class="col-auto px-1 lesson-settings-col">
                 <i class="fa fa-cog lesson-settings-icon"></i>
 
                 <div class="settings-menu" id="settings_menu_{{lesson.id}}" hidden="true">
@@ -80,14 +80,14 @@
 
             </div>
             
-            <div class="row">
-              <div class="col-auto">
+            <div class="row m-0">
+              <div class="col-auto px-1">
                 <small>
                   <b>K:</b> {{lesson.kite_brand|default_if_none:"<span class='none-equipment'>?</span>"}}
                 </small>
               </div>
                 
-              <div class="col-auto">
+              <div class="col-auto px-1">
                 <small>
                   <b>D:</b> {{lesson.board|default_if_none:"<span class='none-equipment'>?</span>"}}
                 </small>
@@ -95,8 +95,8 @@
             </div>
             
             {%for student in lesson.student.all%}
-            <div class="row">
-              <div class="col-auto">
+            <div class="row m-0">
+              <div class="col-auto px-1">
                 <b>{{student}}</b>
               </div>  
             </div>

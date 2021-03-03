@@ -29,9 +29,9 @@
 }
 
 .lesson-tile{
-  padding: .3em;
+  /* padding: .3em; */
   margin: 0 .2em 0 .2em;
-  height: min-content;
+  height: max-content;
   border: 1px solid gray;
   border-radius: 4px;
   background-color: lavender;
