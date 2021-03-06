@@ -29,17 +29,18 @@
         <div class="INSTR">
           {{instr}}  
         </div>
-        {% comment %} LESSON TILE {% endcomment %}
-        {%for lesson in instr.lessons.all%}
+          {% comment %} LESSON TILE {% endcomment %}
+          {%for lesson in instr.lessons.all%}
           <div class="align-self-center lesson-tile 
                     {{lesson.get_start_time_class}} 
-                    {% if lesson.in_progress %} lesson-in-progress{%endif%}"
+                    {% if lesson.in_progress %} lesson-in-progress{%endif%}
+                    {% if lesson.completed %} lesson-completed {%endif%}"
                     style="grid-column-end: span {{lesson.get_column_span}}">
             
             <div class="row m-0 justify-content-between">
               
               <div class="col-auto px-1
-                          {% if lesson.status == '1'%} lesson-confirmed-corner-highlight {%endif%}">
+                          {% if lesson.status == '1'%} lessson-confirmed-corner-highlight {%endif%}">
                 {{lesson.start_time|time:'H:i'}}
                 {% if lesson.status == '0'%}
                   <span class="ml-1"><i class="fas fa-question fa-sm text-danger"></i></span> 
@@ -90,7 +91,7 @@
 
                   
                   
-                  {% if not lesson.in_progress %}
+                  {% if not lesson.in_progress and not lesson.completed %}
                     <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
                       <form method="post" action="{% url 'lesson:lesson-set-in-progress' lesson.id %}">
                         {%csrf_token%}
@@ -99,9 +100,10 @@
                           <span>Start</span>
                         </button>
                       </form>
+                      
                     </div>
                     <!-- <hr> -->
-                  {%elif lesson.in_progress%}
+                  {%elif lesson.in_progress and not lesson.completed%}
                     <div class="lesson-settings-menu-item">
                       <form method="post" action="{% url 'lesson:lesson-set-in-progress' lesson.id %}">
                         {%csrf_token%}
@@ -111,13 +113,111 @@
                         </button>
                       </form>
                     </div>
-                    <!-- <hr> -->
-                    {%endif%}
-                  
+                    <hr>
+                  {%endif%}  
+                    
+                  {% if lesson.in_progress and lesson.status == '1' %}
+                    <div class="lesson-settings-menu-item">                      
+                      <button type="button" class="btn_rmv_stl" data-toggle="modal" data-target="#modal_{{lesson.id}}">
+                        <i class="fas fa-flag-checkered"></i>
+                        Zakończ
+                      </button>                      
+                    </div>
+                  {%endif%}
+
                 </div>
               </div>
-
             </div>
+
+            {% comment %} COMPLETE LESSON MODAL {% endcomment %}
+
+          <div class="modal fade" id="modal_{{lesson.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title text-danger" id="exampleModalLabel">Zakończ lekcje</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-3">
+                      Data:
+                    </div>
+                    <div class="col-auto">
+                      {{lesson.start_date|date:'d-m-Y'}}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-3">
+                      Godzina:
+                    </div>
+                    <div class="col-auto">
+                      {{lesson.start_time|time:'H:i'}}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-3">
+                      Instruktor:
+                    </div>
+                    <div class="col-auto">
+                      {%for instr in lesson.instructor.all%}
+                        <div>{{instr}}</div>
+                      {%endfor%}
+                    </div>
+                  </div>
+                  <hr class="complete-lesson-divider">
+                  {% comment %} 
+                  <div class="row">
+                    <div class="col-3">
+                      Kursant:
+                    </div>
+                    <div class="col-auto">
+                      {%for student in lesson.student.all%}
+                        <div>{{student}}</div>
+                      {%endfor%}
+                    </div>
+                  </div> 
+                  {% endcomment %}
+
+                  <form method="POST" action="{% url 'lesson:lesson-complete' pk=lesson.id %}">
+                  {% csrf_token %}
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <b>Czas trwania:</b>
+                    </div>
+                    <div class="col align-self-start">
+                      <input class="input lesson-complete-duration" type="number" id="id_duration" name="duration" value="{{lesson.duration}}" min="0.5" max="6" step="0.5" required>
+                    </div>
+                  </div>
+                  <div class="row my-3 align-items-center">
+                    <div class="col-auto">
+                      <b>Osiągnięty poziom IKO:</b>
+                    </div>
+                  </div>
+                  {%for student in lesson.student.all%}
+                  <div class="row mb-2 align-items-center">
+                    <div class="col">
+                      <div>{{student}}</div>
+                      <span><small>Poziom: {{student.iko_level|default_if_none:"---"}}</small></span>
+                    </div>
+                    <div class="col align-self-start">
+                      <input class="input lesson-complete-level" type="text" maxlength="10"
+                        name="new_iko_level_{{student.id}}" required>
+                    </div>
+                  </div>
+                  {%endfor%}
+                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-warning" data-dismiss="modal">Anuluj</button>
+                    <input class="btn btn-success" type="submit" value="Zakończ">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
             
             <div class="row m-0">
               <div class="col-auto px-1">
@@ -153,6 +253,11 @@
     </div>
   </div>
 </div>
+
+
+
+
+
 
 <script src="{% static 'js/lesson_settings.js' %}"></script>
 

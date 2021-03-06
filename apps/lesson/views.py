@@ -124,6 +124,27 @@ class LessonConfirmView(View):
             pass
         return redirect('lesson:lesson-list')
 
+class LessonCompleteView(View):
+    def post(self, request, **kwargs):
+        lesson_id = self.kwargs['pk']
+        lesson: Lesson = Lesson.objects.get(id=lesson_id)
+        request_dict = self.request.POST
+
+        for key in request_dict:
+            if key.startswith('new_iko_level'):
+                student_id = key.split('_')[-1]
+                for student in lesson.student.all():
+                    print(type(student.id))
+                    print(type(student_id))
+                    if student.id == int(student_id):
+                        student.iko_level = request_dict[key]
+                        student.save()
+
+        lesson.completed = True
+        lesson.status = '2'
+        lesson.save()
+        return redirect('lesson:lesson-list')
+
 
 class LessonDeleteView(DeleteView):
     model = Lesson

@@ -6,8 +6,10 @@ root.addEventListener('click', (event) =>{
      if (event.target != btn.nextElementSibling &&
         !btn.nextElementSibling.getAttribute('hidden') &&
         event.target != btn){
-      btn.nextElementSibling.setAttribute('hidden', 'true')
-    }
+          console.log(btn.nextElementSibling)
+          btn.nextElementSibling.setAttribute('hidden', 'true')
+          // btn.nextElementSibling.removeAttribute('hidden')
+        }
   } 
 });
 

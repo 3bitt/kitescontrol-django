@@ -27,6 +27,7 @@ class Lesson(models.Model):
     board = models.CharField(max_length=30, null=True, blank=True)
     comment = models.CharField(max_length=255, null=True, blank=True)
     in_progress = models.BooleanField(default=False, null=True, blank=True)
+    completed = models.BooleanField(default=False, null=True, blank=True)
 
     # Func used in template
     def get_start_time_class(self):

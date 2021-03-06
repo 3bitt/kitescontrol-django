@@ -40,6 +40,9 @@
 .lesson-in-progress{
   background-color: #a5e0a5;
 }
+.lesson-completed{
+  background-color: #ecbea8;;
+}
 
 .lesson-settings-col{
   position: relative;
@@ -105,6 +108,18 @@
 hr {
   margin-top: .1rem;
   margin-bottom: .1rem;
+}
+
+/* COMPLETE LESSON MODAL */
+.complete-lesson-divider{
+  margin-top: .7rem;
+  margin-bottom: .7rem;
+}
+.lesson-complete-duration{
+  width: 5rem;
+}
+.lesson-complete-level{
+  width: 7rem;
 }
 
 
