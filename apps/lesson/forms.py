@@ -10,7 +10,6 @@ class LessonCreateForm(forms.ModelForm):
         exclude = [
             'creation_date',
             'paid',
-            'in_progress',
             'kite_size',
             'start_time',
 
@@ -24,7 +23,10 @@ class LessonCreateForm(forms.ModelForm):
             'equipment',
             'kite_brand',
             'board',
-            'comment'
+            'comment',
+            'confirmed',
+            'in_progress',
+            'completed'
         ]
         widgets = {
             'start_date': forms.DateInput(attrs={
@@ -45,6 +47,9 @@ class LessonCreateForm(forms.ModelForm):
                 'max': '21:00',
                 'required': False
             }),
+            'confirmed': forms.CheckboxInput(),
+            'in_progress': forms.CheckboxInput(),
+            'completed': forms.CheckboxInput(),
             'instructor': forms.CheckboxSelectMultiple,
             'student': forms.CheckboxSelectMultiple
 

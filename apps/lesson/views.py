@@ -69,11 +69,6 @@ class LessonCreateView(CreateView):
             )
         return context
 
-    # def get_form_kwargs(self):
-    #     form = super(LessonCreateView, self).get_form_kwargs()
-    #     form['duration'] = 2
-    #     return super().get_form_kwargs()
-
     def form_valid(self, form: LessonCreateForm):
         start_hour = int(self.request.POST['start_hour'])
         start_minute = int(self.request.POST['start_minute'])
@@ -89,39 +84,39 @@ class LessonUpdateView(UpdateView):
     def get_success_url(self):
         return reverse_lazy('lesson:lesson-list')
 
-class LessonSetInProgressView(View):
+class LessonStartView(View):
 
     def post(self, request, **kwargs):
         lesson_id = self.kwargs['pk']
         lesson = Lesson.objects.get(id=lesson_id)
         if (lesson.in_progress):
             lesson.in_progress = False
-            lesson.save()
+            lesson.confirmed = False
         elif (not lesson.in_progress):
             lesson.in_progress = True
-            lesson.save()
+            lesson.confirmed = True
         else:
             lesson.in_progress = False
-            lesson.save()
+            lesson.confirmed = False
+        lesson.save()
         return redirect('lesson:lesson-list')
 
 class LessonConfirmView(View):
     def post(self,request, **kwargs):
         lesson_id = self.kwargs['pk']
-        lesson = Lesson.objects.get(id=lesson_id)
+        lesson: Lesson = Lesson.objects.get(id=lesson_id)
 
         # LESSON STATUSES:
         # 0 - CREATED
         # 1 - CONFIRMED
         # 2 - COMPLETED
-        if (lesson.status == '1'):
-            lesson.status = '0'
-            lesson.save()
-        elif (lesson.status == '0'):
-            lesson.status = '1'
-            lesson.save()
+        if (lesson.confirmed ):
+            lesson.confirmed = False
+        elif (not lesson.confirmed):
+            lesson.confirmed = True
         else:
             pass
+        lesson.save()
         return redirect('lesson:lesson-list')
 
 class LessonCompleteView(View):
@@ -134,14 +129,13 @@ class LessonCompleteView(View):
             if key.startswith('new_iko_level'):
                 student_id = key.split('_')[-1]
                 for student in lesson.student.all():
-                    print(type(student.id))
-                    print(type(student_id))
                     if student.id == int(student_id):
                         student.iko_level = request_dict[key]
                         student.save()
 
+        lesson.duration = request_dict['duration']
         lesson.completed = True
-        lesson.status = '2'
+        lesson.in_progress = False
         lesson.save()
         return redirect('lesson:lesson-list')
 

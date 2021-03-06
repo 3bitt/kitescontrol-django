@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import CASCADE, DO_NOTHING
 
 from instructor.instructor.models import Instructor
 from student.models import Student
@@ -20,12 +21,15 @@ class Lesson(models.Model):
     instructor = models.ManyToManyField(Instructor, related_name='lessons')
     duration = models.FloatField(null=False, blank=False)
     paid = models.BooleanField(default=False, null=True, blank=True)
+    # status not used yet
     status = models.CharField(max_length=30, default='0', null=True, blank=True)
     equipment = models.CharField(max_length=30, null=True, blank=True)
     kite_brand = models.CharField(max_length=30, null=True, blank=True)
+    # kite_size not used yet
     kite_size = models.FloatField(null=True, blank=True)
     board = models.CharField(max_length=30, null=True, blank=True)
     comment = models.CharField(max_length=255, null=True, blank=True)
+    confirmed = models.BooleanField(default=False, null=True,blank=True)
     in_progress = models.BooleanField(default=False, null=True, blank=True)
     completed = models.BooleanField(default=False, null=True, blank=True)
 
@@ -47,3 +51,11 @@ class Lesson(models.Model):
     # Func used in template - determine lesson tile span in timetable
     def get_column_span(self):
         return int(self.duration * 4)
+
+
+class LessonDetail(models.Model):
+    lesson_id = models.ForeignKey(Lesson, on_delete=CASCADE)
+    student_id = models.ForeignKey(Student, on_delete=DO_NOTHING)
+    duration = models.FloatField(null=False, blank=False)
+    pay_rate = models.IntegerField(null=True, blank=True)
+    iko_level_achieved = models.CharField(max_length=10, null=True, blank=True)

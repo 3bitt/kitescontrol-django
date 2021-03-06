@@ -40,11 +40,11 @@
             <div class="row m-0 justify-content-between">
               
               <div class="col-auto px-1
-                          {% if lesson.status == '1'%} lessson-confirmed-corner-highlight {%endif%}">
+                          {% if lesson.confirmed %} lessson-confirmed-corner-highlight {%endif%}">
                 {{lesson.start_time|time:'H:i'}}
-                {% if lesson.status == '0'%}
+                {% if not lesson.confirmed %}
                   <span class="ml-1"><i class="fas fa-question fa-sm text-danger"></i></span> 
-                {%elif lesson.status == '1'%}
+                {% elif lesson.confirmed %}
                   <span class="ml-1"><i class="fas fa-check text-success"></i></span>
                 {%endif%}
 
@@ -65,7 +65,7 @@
 
                   <hr>
 
-                  {% if lesson.status == '0' %}
+                  {% if not lesson.confirmed %}
                     <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
                       <form method="post" action="{% url 'lesson:lesson-confirm' lesson.id %}">
                         {%csrf_token%}
@@ -76,7 +76,7 @@
                       </form>
                     </div>
                     <hr>
-                  {% elif lesson.status == '1' and not lesson.in_progress %}
+                  {% elif lesson.confirmed and not lesson.in_progress and not lesson.completed %}
                     <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
                       <form method="post" action="{% url 'lesson:lesson-confirm' lesson.id %}">
                         {%csrf_token%}
@@ -87,9 +87,7 @@
                       </form>
                     </div>
                     <hr>
-                  {%endif%}
-
-                  
+                  {%endif%}                  
                   
                   {% if not lesson.in_progress and not lesson.completed %}
                     <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
@@ -116,7 +114,7 @@
                     <hr>
                   {%endif%}  
                     
-                  {% if lesson.in_progress and lesson.status == '1' %}
+                  {% if lesson.in_progress and lesson.confirmed %}
                     <div class="lesson-settings-menu-item">                      
                       <button type="button" class="btn_rmv_stl" data-toggle="modal" data-target="#modal_{{lesson.id}}">
                         <i class="fas fa-flag-checkered"></i>

@@ -117,6 +117,35 @@
               {{form.comment}}
             </div>
           </div>
+
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <label>Potwierdzona:</label>
+            </div>
+            <div class="col-auto">
+              {{form.confirmed}}
+            </div>
+          </div>
+
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <label>W trakcie:</label>
+            </div>
+            <div class="col-auto">
+              {{form.in_progress}}
+            </div>
+          </div>
+
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <label>Zakończona:</label>
+            </div>
+            <div class="col-auto">
+              {{form.completed}}
+            </div>
+          </div>
+
+
           <div class="row mt-5 justify-content-between">
             <div class="col-auto">
               <input class="btn btn-sm btn-success" type="submit" value="Zapisz">
