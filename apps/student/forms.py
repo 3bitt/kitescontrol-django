@@ -75,6 +75,14 @@ class StudentCreateForm(ModelForm):
                 'rows': 3,
                 'cols': 23
             }),
+            'pay_rate_single': forms.NumberInput(attrs = {
+                'class': 'input short-field',
+                'type': 'number'
+            }),
+            'pay_rate_group': forms.NumberInput(attrs = {
+                'class': 'input short-field',
+                'type': 'number'
+            })
         }
 
         help_texts = {

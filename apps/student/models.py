@@ -78,6 +78,8 @@ class Student(models.Model):
     iko_id = models.IntegerField(null=True, blank=True, unique=True)
     iko_level = models.CharField(max_length=30, null=True, blank=True)
     comment = models.CharField(max_length=255, null=True, blank=True)
+    pay_rate_single = models.IntegerField(null=False, blank=False)
+    pay_rate_group = models.IntegerField(null=False, blank=False)
     register_date = models.DateTimeField(auto_now_add=True)
     # https://stackoverflow.com/questions/34275588/djangorestframework-modelserializer-datetimefield-only-converting-to-current-tim
 

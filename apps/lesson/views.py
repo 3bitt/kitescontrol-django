@@ -5,7 +5,7 @@ from django.views.generic.base import View
 from django.views.generic.edit import UpdateView
 from instructor.instructor.models import Instructor
 from student.models import Student
-from .models import Lesson
+from .models import Lesson, LessonDetail
 import pytz
 from datetime import date, datetime
 import datetime as datetimeModule
@@ -74,7 +74,16 @@ class LessonCreateView(CreateView):
         start_minute = int(self.request.POST['start_minute'])
         start_time = datetimeModule.time(start_hour,start_minute)
         form.instance.start_time = start_time
-        return super().form_valid(form)
+
+        if len(form.cleaned_data['student']) > 1:
+            form.instance.group_lesson = True
+        else:
+            form.instance.group_lesson = False
+
+        response = super(LessonCreateView, self).form_valid(form)
+
+        # return super().form_valid(form)
+        return response
 
 class LessonUpdateView(UpdateView):
     model = Lesson

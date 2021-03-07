@@ -19,6 +19,7 @@ class Lesson(models.Model):
     start_time = models.TimeField(null=False, blank=False)
     student = models.ManyToManyField(Student, related_name='lessons')
     instructor = models.ManyToManyField(Instructor, related_name='lessons')
+    group_lesson = models.BooleanField(null=True, blank=True)
     duration = models.FloatField(null=False, blank=False)
     paid = models.BooleanField(default=False, null=True, blank=True)
     # status not used yet
@@ -54,8 +55,8 @@ class Lesson(models.Model):
 
 
 class LessonDetail(models.Model):
-    lesson_id = models.ForeignKey(Lesson, on_delete=CASCADE)
-    student_id = models.ForeignKey(Student, on_delete=DO_NOTHING)
-    duration = models.FloatField(null=False, blank=False)
+    lesson = models.ForeignKey(Lesson, on_delete=CASCADE)
+    student = models.ForeignKey(Student, on_delete=DO_NOTHING)
+    duration = models.FloatField(null=True, blank=True)
     pay_rate = models.IntegerField(null=True, blank=True)
     iko_level_achieved = models.CharField(max_length=10, null=True, blank=True)

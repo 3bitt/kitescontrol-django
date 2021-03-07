@@ -90,7 +90,7 @@
           </div>
 
           <div class="row mt-3 justify-content-between align-items-start">
-            <div class="col-4">
+            <div class="col-5">
               <label for="name">Data przyjazdu:</label>
             </div>
             <div class="col">
@@ -100,7 +100,7 @@
           </div>
 
           <div class="row justify-content-between align-items-start">
-            <div class="col-4">
+            <div class="col-5">
               <label for="name">Data odjazdu:</label>
             </div>
             <div class="col">
@@ -110,7 +110,7 @@
           </div>
 
           <div class="row justify-content-between align-items-start">
-            <div class="col-4">
+            <div class="col-5">
               <label for="name">Miejsce pobytu:</label>
             </div>
             <div class="col">
@@ -132,6 +132,22 @@
             </div>
             <div class="col">
               {{form.kite_elsewhere}}
+            </div>
+          </div>
+          <div class="row justify-content-between align-items-start">
+            <div class="col-6 required">
+              <label for="name">Stawka indywidualna:</label>
+            </div>
+            <div class="col">
+              {{form.pay_rate_single}}
+            </div>
+          </div>
+          <div class="row justify-content-between align-items-start">
+            <div class="col-6 required">
+              <label for="name">Stawka grupowa:</label>
+            </div>
+            <div class="col">
+              {{form.pay_rate_group}}
             </div>
           </div>
         </div>
