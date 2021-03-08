@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.urls.base import reverse
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from django.db.models import Q
 from django.views.generic.base import View
@@ -7,7 +8,7 @@ from instructor.instructor.models import Instructor
 from student.models import Student
 from .models import Lesson, LessonDetail
 import pytz
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 import datetime as datetimeModule
 from .forms import LessonCreateForm
 from django.urls import reverse_lazy
@@ -32,6 +33,16 @@ class LessonListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # if self.request.GET.get('date'):
+        #     print("got date", self.request.GET.get('date'))
+        #     self.current_date = self.request.GET.get('date')
+        # if context['date']:
+        #     print(context['date'])
+
+        if (self.kwargs):
+            self.current_date = self.kwargs['schedule_date']
+
         today_lessons = Lesson.objects.filter(start_date=self.current_date).order_by('start_time')
         context['instructors_with_lessons'] = self.queryset.prefetch_related(
             Prefetch('lessons', today_lessons)
@@ -39,6 +50,9 @@ class LessonListView(ListView):
         context['hours'] = range(7,22)
         context['current_date'] = self.current_date
         context['current_time'] = datetime.today().hour
+
+        context['previous_date'] = self.current_date - timedelta(days=1)
+        context['next_date'] = datetime.date(self.current_date + timedelta(days=1))
 
         return context
 
@@ -79,6 +93,12 @@ class LessonCreateView(CreateView):
             form.instance.group_lesson = True
         else:
             form.instance.group_lesson = False
+
+        if form.cleaned_data['start_date'] != datetime.date(self.current_date):
+            lesson_date = form.cleaned_data['start_date'].strftime('%d-%m-%Y')
+            self.success_url = reverse_lazy('lesson:lesson-list', kwargs={'schedule_date': lesson_date})
+        else:
+            print("ROWNA SIE")
 
         response = super(LessonCreateView, self).form_valid(form)
 

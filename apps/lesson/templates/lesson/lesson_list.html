@@ -15,7 +15,21 @@
   <div class="row">
     <div class="schedule-container col mx-2 pt-2 px-0 border rounded">
       <div class="hours-container pb-2">
-        <div class="INSTR">{{current_date|date:"d-m-Y"}}</div>
+        
+        <div class=" schedule-date-div INSTR">
+          <div>
+            <a href="{% url 'lesson:lesson-list' %}{{previous_date|date:"d-m-Y"}}">
+              <i class="fas fa-chevron-left"></i>
+            </a>
+          </div>
+          <div>{{current_date|date:"d-m-Y"}}</div>
+          <div>
+            <a href="{% url 'lesson:lesson-list' %}{{next_date|date:"d-m-Y"}}">
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          </div>
+        </div>
+        
         {%for i in hours %}
           <div class="hour-tile bold-text H{{i}} {%if i == current_time%}current-hour{%endif%}" 
           style="grid-column-end: span 4; margin-bottom: calc(-10rem * {{instructors_with_lessons.count}}">{{i}}
@@ -40,19 +54,13 @@
             <div class="row m-0 justify-content-between">
               
               <div class="col-auto px-1
-                          {% if lesson.confirmed %} lessson-confirmed-corner-highlight {%endif%}">
+                {% if lesson.confirmed %} lessson-confirmed-corner-highlight {%endif%}">
                 {{lesson.start_time|time:'H:i'}}
                 {% if not lesson.confirmed %}
                   <span class="ml-1"><i class="fas fa-question fa-sm text-danger"></i></span> 
                 {% elif lesson.confirmed %}
                   <span class="ml-1"><i class="fas fa-check text-success"></i></span>
                 {%endif%}
-                {{lesson.group_lesson}}
-
-                {%if lesson.group_lesson%}
-                <span><i class="fa fa-times"></i></span>
-                {%endif%}
-
               </div>
 
               {% comment %} LESSON SETTINGS (icon + hidden menu) {% endcomment %}

@@ -1,11 +1,26 @@
-from django.urls import path
+from datetime import datetime
+from django.conf.urls import url
+from django.urls import path, re_path
+from django.urls.converters import register_converter
 from .views import LessonCompleteView, LessonConfirmView, LessonListView, LessonCreateView, LessonDeleteView, LessonStartView, LessonUpdateView
 from django.contrib.auth.decorators import login_required
 
 
+class DateConverter:
+    regex = '\d{2}-\d{2}-\d{4}'
+
+    def to_python(self, value):
+        return datetime.strptime(value, '%d-%m-%Y')
+
+    def to_url(self, value):
+        return value
+
+register_converter(DateConverter, 'date')
+
 app_name = 'lesson'
 urlpatterns = [
-    path('', login_required(LessonListView.as_view()), name='lesson-list'),
+    path('schedule/', login_required(LessonListView.as_view()), name='lesson-list'),
+    path('schedule/<date:schedule_date>/', login_required(LessonListView.as_view()), name='lesson-list'),
     path('create/', login_required(LessonCreateView.as_view()), name='lesson-create'),
     # path('<int:pk>/', StudentDetailView.as_view(), name='student-detail'),
     path('<int:pk>/edit/', LessonUpdateView.as_view(), name='lesson-edit' ),
