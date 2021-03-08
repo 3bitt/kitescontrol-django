@@ -31,9 +31,13 @@
         </div>
         
         {%for i in hours %}
-          <div class="hour-tile bold-text H{{i}} {%if i == current_time%}current-hour{%endif%}" 
-          style="grid-column-end: span 4; margin-bottom: calc(-10rem * {{instructors_with_lessons.count}}">{{i}}
-          <small><sup class="bold-text">00</sup></small></div>
+          <div class="hour-tile bold-text H{{i}}" 
+          style="grid-column-end: span 4; margin-bottom: calc(-10rem * {{instructors_with_lessons.count}}">
+            <div class="hour-text {%if i == current_time%}current-hour{%endif%}">
+              {{i}}
+              <small><sup class="bold-text">00</sup></small>
+            </div>
+          </div>
         {%endfor%}
       </div>
     
