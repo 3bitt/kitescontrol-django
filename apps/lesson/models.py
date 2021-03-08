@@ -53,6 +53,14 @@ class Lesson(models.Model):
     def get_column_span(self):
         return int(self.duration * 4)
 
+    def i_dont_wanna_js(self):
+        if (self.start_time.hour >= 20) or \
+            (self.start_time.hour >= 19 and self.duration >= 2.5) or \
+            (self.start_time.hour >= 18 and self.duration > 3):
+            return True
+        else:
+            return False
+
 
 class LessonDetail(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=CASCADE)
@@ -60,3 +68,6 @@ class LessonDetail(models.Model):
     duration = models.FloatField(null=True, blank=True)
     pay_rate = models.IntegerField(null=True, blank=True)
     iko_level_achieved = models.CharField(max_length=10, null=True, blank=True)
+
+    class Meta:
+        unique_together = ['lesson', 'student']

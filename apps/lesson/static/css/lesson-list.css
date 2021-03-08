@@ -1,5 +1,6 @@
 .schedule-container{
   background-color: #e7e7e7;
+  overflow: hidden;
 }
 
 .hours-container {
@@ -64,6 +65,9 @@
   border-radius: 4px;
   z-index: 1;
 }
+.settings-menu-border{
+  transform: rotate3d(0, 0.0, 0.0, 180deg) translateX(-9rem);
+}
 .lesson-settings-menu-item{
   padding: 2px 5px 2px 5px;
 }
@@ -116,11 +120,18 @@ hr {
   margin-top: .7rem;
   margin-bottom: .7rem;
 }
+.lesson-complete-student-row{
+  box-shadow: 0px 0px 1px 1px #caced0;
+}
+.lesson-complete-student-name{
+  font-weight: bold;
+  color: #0a64f0;
+}
 .lesson-complete-duration{
   width: 5rem;
 }
-.lesson-complete-level{
-  width: 7rem;
+.lesson-complete-input{
+  width: 4rem;
 }
 
 

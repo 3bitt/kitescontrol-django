@@ -142,6 +142,22 @@ class LessonCompleteView(View):
                         student.iko_level = request_dict[key]
                         student.save()
 
+                        if lesson.group_lesson:
+                            pay_rate = student.pay_rate_group
+                        else:
+                            pay_rate = student.pay_rate_single
+
+                        lesson_detail_object, created = LessonDetail.objects.update_or_create(
+                            lesson=lesson, student=student,
+                            defaults = {
+                                'lesson': lesson,
+                                'student': student,
+                                'duration': request_dict[f'student_lesson_duration_{student_id}'],
+                                'pay_rate': int(pay_rate),
+                                'iko_level_achieved': request_dict[key]
+                            }
+                        )
+
         lesson.duration = request_dict['duration']
         lesson.completed = True
         lesson.in_progress = False
