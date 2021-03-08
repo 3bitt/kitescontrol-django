@@ -4,7 +4,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 # Modification to make /apps subfolder work
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps/'))
 
 
 with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'instructor.task',
 
     'student',
-    'lesson'
+    'lesson',
+    'lesson_summary',
 ]
 
 AUTH_USER_MODEL = 'account.User'

@@ -1,0 +1,45 @@
+
+.master-container{
+  box-shadow: 1px 1px 5px 2px #cecece;
+  height: 100vh;
+}
+.bold{
+  font-weight: bold;
+}
+.text-green{
+  color: green;
+}
+
+.summary-lesson-tile{
+  box-shadow: 1px 1px 4px 1px #c5d1d8;
+}
+.summary-tile-title{
+  text-align: center;
+  font-size: 1.15rem;
+}
+.shadow-bot{
+  box-shadow: 0px 1px 0px goldenrod;
+}
+.summary-lesson-count{
+  display: grid;
+  align-content: center;
+}
+
+.tile-sum-label{
+  text-align: center;
+  font-size: 1.1rem;
+}
+.lesson-sum-val{
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.space-between{
+  place-content: space-between;
+}
+
+.profit{
+  text-align: center;
+  font-size: 2rem;
+  color: green;
+}

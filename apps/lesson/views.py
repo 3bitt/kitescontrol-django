@@ -29,24 +29,19 @@ class LessonListView(ListView):
     # current_date = date.today()
     queryset = Instructor.objects.filter(active=True)
     template_name = 'lesson/lesson_list.html'
-    context_object_name = 'instructors_all'
+    # context_object_name = 'instructors_all'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # if self.request.GET.get('date'):
-        #     print("got date", self.request.GET.get('date'))
-        #     self.current_date = self.request.GET.get('date')
-        # if context['date']:
-        #     print(context['date'])
-
         if (self.kwargs):
             self.current_date = self.kwargs['schedule_date']
 
-        today_lessons = Lesson.objects.filter(start_date=self.current_date).order_by('start_time')
+        lessons_today = Lesson.objects.filter(start_date=self.current_date).order_by('start_time')
         context['instructors_with_lessons'] = self.queryset.prefetch_related(
-            Prefetch('lessons', today_lessons)
+            Prefetch('lessons', lessons_today)
         )
+
         context['hours'] = range(7,22)
         context['current_date'] = self.current_date
         context['current_time'] = datetime.today().hour

@@ -7,9 +7,20 @@
 
 {% block content %}
 
-<a href="{% url 'lesson:lesson-create' %}">
-  <button class="btn btn-sm btn-success">Dodaj lekcje</button>
-</a>
+<div class="container-fluid m-2">
+  <div class="row">
+    <div class="col-auto">
+      <a href="{% url 'lesson:lesson-create' %}">
+        <button class="btn btn-success">Dodaj lekcje</button>
+      </a>
+    </div>
+    <div class="col-auto ml-5">
+      <a href="{% url 'lesson:lesson_summary:lesson-summary' %}{{current_date|date:"d-m-Y"}}">
+        <button class="btn btn-info">Podsumowanie dnia</button>
+      </a>
+    </div>  
+  </div>
+</div>
 
 <div class="container-fluid">
   <div class="row">
