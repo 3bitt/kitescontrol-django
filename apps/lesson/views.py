@@ -97,8 +97,6 @@ class LessonCreateView(CreateView):
         if form.cleaned_data['start_date'] != datetime.date(self.current_date):
             lesson_date = form.cleaned_data['start_date'].strftime('%d-%m-%Y')
             self.success_url = reverse_lazy('lesson:lesson-list', kwargs={'schedule_date': lesson_date})
-        else:
-            print("ROWNA SIE")
 
         response = super(LessonCreateView, self).form_valid(form)
 
@@ -106,12 +104,24 @@ class LessonCreateView(CreateView):
         return response
 
 class LessonUpdateView(UpdateView):
+    current_date = datetime.today()
     model = Lesson
     template_name = 'lesson/lesson_edit.html'
     form_class = LessonCreateForm
+    success_url = reverse_lazy('lesson:lesson-list')
 
-    def get_success_url(self):
-        return reverse_lazy('lesson:lesson-list')
+    def form_valid(self, form: LessonCreateForm):
+        if form.cleaned_data['start_date'] != datetime.date(self.current_date):
+            lesson_date = form.cleaned_data['start_date'].strftime('%d-%m-%Y')
+            self.success_url = reverse_lazy('lesson:lesson-list', kwargs={'schedule_date': lesson_date})
+
+        response = super(LessonUpdateView, self).form_valid(form)
+
+        # return super().form_valid(form)
+        return response
+
+    # def get_success_url(self):
+    #     return reverse_lazy('lesson:lesson-list')
 
 class LessonStartView(View):
 

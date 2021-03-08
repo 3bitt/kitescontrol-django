@@ -71,3 +71,15 @@ class LessonDetail(models.Model):
 
     class Meta:
         unique_together = ['lesson', 'student']
+
+
+
+
+lista = [
+    [1, 2, 3],
+    [2, 4, 6],
+    [3, 6, 9]
+]
+
+for x in lista:
+    print(x)
