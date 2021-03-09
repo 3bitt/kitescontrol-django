@@ -10,7 +10,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 
-def get_secret(a,b):
+def get_secret(a):
     pass
 # try:
 #     with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
