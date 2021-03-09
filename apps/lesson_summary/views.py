@@ -33,9 +33,9 @@ class LessonSummaryView(ListView):
             Q(lesson__in=lessons_today))
 
         context['profit'] = lesson_detail.values('duration','pay_rate','lesson_id').annotate(
-            to_pay=ExpressionWrapper(
+            lesson_cost=ExpressionWrapper(
                 F('duration') * F('pay_rate'), output_field=FloatField())
-                ).aggregate(total_profit=Sum('to_pay'))
+                ).aggregate(total_profit=Sum('lesson_cost'))
 
 
         context['duration_sum'] = lesson_detail.aggregate(sum=(Sum('duration')))
