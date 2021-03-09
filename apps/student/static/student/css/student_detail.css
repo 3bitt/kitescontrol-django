@@ -15,3 +15,6 @@ label{
 .icon-false{
     color: rgb(177, 0, 0);
 }
+.short-field{
+  width: 5rem;
+}

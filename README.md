@@ -1,0 +1,1 @@
+Aplikacja do zarządzania szkółką kitesurfingową

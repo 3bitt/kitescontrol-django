@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'instructor.task',
 
     'student',
-    'lesson'
+    'lesson',
+    'lesson_summary',
 ]
 
 AUTH_USER_MODEL = 'account.User'

@@ -1,7 +1,7 @@
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, CreateView,DetailView,UpdateView,DeleteView
 from .models import Instructor
-from .forms import InstructorCreateForm
+from .forms import InstructorCreateForm, InstructorEditForm
 from django.urls import reverse_lazy
 # Create your views here.
 
@@ -24,7 +24,7 @@ class InstructorCreateView(CreateView):
 
 
 class InstructorDetailView(DetailView):
-    queryset = Instructor.objects.all()
+    queryset = Instructor.objects.order_by('-register_date')
     template_name = 'instructor/instructor_detail.html'
     context_object_name = 'instructor'
     editMode = False
@@ -34,7 +34,7 @@ class InstructorUpdateView(UpdateView):
     model = Instructor
     template_name = 'instructor/instructor_detail.html'
     editMode = False
-    form_class = InstructorCreateForm
+    form_class = InstructorEditForm
 
     def get_success_url(self):
         return reverse_lazy('instructor:instructor-detail', kwargs={'pk': self.kwargs['pk']})
