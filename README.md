@@ -4,7 +4,7 @@
 Used:
 * Python 3.6.9
 * Django 3.1.2
-
+* Currently working with SQLite for convenience, will be switching to PostgreSQL in near future
 
 Run:
 
