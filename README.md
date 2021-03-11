@@ -11,6 +11,7 @@ Run:
 
 1. Navigate to root directory where manage.py lives
 2. Add environment variable
+
     ``` export DJANGO_DEVELOPMENT=True ```
 4. Create secrets.json file containing:
 
