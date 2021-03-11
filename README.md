@@ -13,7 +13,8 @@ Run:
 2. Add environment variable
 
     ``` export DJANGO_DEVELOPMENT=True ```
-4. Create secrets.json file containing:
+    
+3. Create secrets.json file containing:
 
     ```json
     {"SECRET_KEY": "<your_key>"}
