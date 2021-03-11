@@ -10,20 +10,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 
-def get_secret(a):
-    pass
-# try:
-#     with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
-#         secrets = json.load(secrets_file)
-# except FileNotFoundError:
-#     raise FileNotFoundError('Configuration file is missing')
+try:
+    with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+        secrets = json.load(secrets_file)
+except FileNotFoundError:
+    raise FileNotFoundError('Configuration file is missing')
 
-# def get_secret(setting, secrets=secrets):
-#     """Get secret setting or fail with ImproperlyConfigured"""
-#     try:
-#         return secrets[setting]
-#     except KeyError:
-#         raise ImproperlyConfigured("Set the {} setting".format(setting))
+def get_secret(setting, secrets=secrets):
+    """Get secret setting or fail with ImproperlyConfigured"""
+    try:
+        return secrets[setting]
+    except KeyError:
+        raise ImproperlyConfigured("Set the {} setting".format(setting))
 
 
 DEBUG = False
@@ -46,7 +44,8 @@ INSTALLED_APPS = [
     'instructor.task',
 
     'student',
-    'lesson'
+    'lesson',
+    'lesson_summary',
 ]
 
 AUTH_USER_MODEL = 'account.User'

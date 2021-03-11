@@ -45,3 +45,7 @@
 .error-text{
   color: red;
 }
+
+.short-field{
+  width: 5rem;
+}

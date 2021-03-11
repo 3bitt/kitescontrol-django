@@ -117,8 +117,10 @@
                 <th scope="col" title="ikoLevel">Pobyt</th>
                 <th scope="col" title="ikoLevel">Auto</th>
                 <th scope="col" title="ikoLevel">Wyjazdy</th>
-                <th scope="col" title="ikoLevel">IKO</th>
+                <th scope="col" title="ikoLevel">IKO ID</th>
                 <th scope="col" title="ikoLevel">Poziom IKO</th>
+                <th scope="col" title="ikoLevel">Stawka ind.</th>
+                <th scope="col" title="ikoLevel">Stawka grup.</th>
                 <th scope="col" title="actions">Actions</th>
 
                 </tr>
@@ -164,6 +166,12 @@
                 </td>
                 <td>
                     {{student.iko_level|default_if_none:"--"}}
+                </td>
+                <td>
+                    {{student.pay_rate_single|default_if_none:"--"}}
+                </td>
+                <td>
+                    {{student.pay_rate_group|default_if_none:"--"}}
                 </td>
                 <td>
                     ---

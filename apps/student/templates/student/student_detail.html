@@ -123,7 +123,6 @@
         <div class="w-100"></div>
 
         <dt class="col-5 col-sm-3 col-lg-2">Wyjazdy:
-          <hr />
         </dt>
         <dd class="col-auto">
           {% if student.kite_elsewhere %}
@@ -131,6 +130,21 @@
           {%else%}
           <i class="fas fa-times icon-false"></i>
           {%endif%}
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Stawka indywidualna:
+        </dt>
+        <dd class="col-auto">
+          <span>{{student.pay_rate_single|default_if_none:"--"}}</span>
+        </dd>
+        <div class="w-100"></div>
+
+        <dt class="col-5 col-sm-3 col-lg-2">Stawka grupowa:
+          <hr />
+        </dt>
+        <dd class="col-auto">
+          <span>{{student.pay_rate_group|default_if_none:"--"}}</span>
         </dd>
         <div class="w-100"></div>
 
@@ -255,6 +269,22 @@
           </div>
           <div class="col-auto">
             {{form.kite_elsewhere}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="kite_elsewhere">Stawka indywidualna:</label>
+          </div>
+          <div class="col-auto">
+            {{form.pay_rate_single}}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label for="kite_elsewhere">Stawka grupowa:</label>
+          </div>
+          <div class="col-auto">
+            {{form.pay_rate_group}}
           </div>
         </div>
         <hr />

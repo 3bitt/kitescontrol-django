@@ -1,0 +1,269 @@
+{%extends 'base.html'%}
+{%load static%}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/lesson-create.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row mt-3">
+
+    <div class="col-auto">
+      <div class="row">
+        <div class="col">
+          <a href="{% url 'lesson:lesson-list'%}">
+            <button class="btn btn-sm btn-warning">Powrót</button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-auto">
+      <div class="row">
+
+        
+        <div class="col-auto lesson-details-col">  
+        <form method="post">
+          {%csrf_token%}   
+          
+          
+          <div class="row justify-content-between">     
+            <div class="col-auto">
+              <label>Data:</label>
+            </div>
+            <div class="col-auto">
+              {{form.start_date}}
+            </div>
+          </div>
+
+          <div class="row justify-content-between ">
+            <div class="col-auto mr-auto">
+              <label>Godzina:</label>
+            </div>
+            <div class="col-auto">
+              <select name="start_hour" class="input" >
+              <option value="07">07</option>              
+              <option value="08">08</option>              
+              <option value="09">09</option>              
+              <option value="10">10</option>              
+              <option value="11">11</option>              
+              <option value="12">12</option>              
+              <option value="13">13</option>              
+              <option value="14">14</option>              
+              <option value="15">15</option>              
+              <option value="16">16</option>              
+              <option value="17">17</option>              
+              <option value="18">18</option>              
+              <option value="19">19</option>              
+              <option value="20">20</option>              
+              <option value="21">21</option>    
+              </select>          
+            </div>
+            <div class="col-auto">
+              <select name="start_minute" class="input" >
+              <option value="00">00</option>              
+              <option value="15">15</option>              
+              <option value="30">30</option>              
+              <option value="45">45</option> 
+              </select>            
+            </div>
+            
+          </div>
+
+          {% comment %} <div class="row justify-content-between">
+            <div class="col-auto">
+              <label>Godzina:</label>
+            </div>
+            <div class="col-auto">
+              {{form.start_time}} <br>
+              <small>{{form.start_time.help_text}}</small>
+            </div>
+          </div> {% endcomment %}
+          
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <label>Czas trwania <small>[godzin]</small>:</label>
+            </div>
+            <div class="col-auto">
+              {{form.duration}}
+            </div>
+          </div>
+
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <label>Kite:</label>
+            </div>
+            <div class="col-auto">
+              {{form.kite_brand}}
+            </div>
+          </div>
+
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <label>Deska:</label>
+            </div>
+            <div class="col-auto">
+              {{form.board}}
+            </div>
+          </div>
+
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <label>Komentarz:</label>
+            </div>
+            <div class="col-auto">
+              {{form.comment}}
+            </div>
+          </div>
+
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <label>Potwierdzona:</label>
+            </div>
+            <div class="col-auto">
+              {{form.confirmed}}
+            </div>
+          </div>
+
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <label>W trakcie:</label>
+            </div>
+            <div class="col-auto">
+              {{form.in_progress}}
+            </div>
+          </div>
+
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <label>Zakończona:</label>
+            </div>
+            <div class="col-auto">
+              {{form.completed}}
+            </div>
+          </div>
+
+
+          <div class="row mt-5 justify-content-between">
+            <div class="col-auto">
+              <input class="btn btn-sm btn-success" type="submit" value="Zapisz">
+            </div>
+            <div class="col-auto">
+              <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal">
+                <i class="fa fa-times"></i>
+                Usuń
+              </button>
+            </div>
+          </div>
+
+          
+            
+        </div>
+
+        <div class="col-auto instr-col">
+          <div class="row">
+            <div class="col instr-label">
+              <label>Instruktor:</label>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-auto instr-list">
+              {{form.instructor}}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-auto student-col">
+          <div class="row">
+            <div class="col student-label">
+              <label>Student:</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input type="text" id="student_search_input" placeholder="Szukaj kursanta">
+              <ul class="student-picked-list mb-1" id="search_result_list"></ul>
+            </div>
+          </div> 
+            
+
+          <div class="row mt-2">
+            
+            <div class="col-auto elo">
+              {{form.student}}
+            </div>
+          </div>
+        </div>
+        </form>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% comment %} DELETE LESSON MODAL {% endcomment %}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="exampleModalLabel">Czy na pewno chcesz usunąć tą lekcje ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-auto">
+            Data:
+          </div>
+          <div class="col-auto">
+            {{lesson.start_date|date:'d-m-Y'}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-auto">
+            Godzina:
+          </div>
+          <div class="col-auto">
+            {{lesson.start_time|time:'H:i'}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-auto">
+            Instruktor:
+          </div>
+          <div class="col-auto">
+            {%for instr in lesson.instructor.all%}
+              <div>{{instr}}</div>
+            {%endfor%}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-auto">
+            Kursant:
+          </div>
+          <div class="col-auto">
+            {%for student in lesson.student.all%}
+              <div>{{student}}</div>
+            {%endfor%}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Powrót</button>
+        <form method="POST" action="{% url 'lesson:lesson-delete' lesson.id %}">
+          {% csrf_token %}<input class="btn btn-danger" type="submit" value="Usuń">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="{% static 'js/lesson_filter_students.js' %}"></script>
+
+
+{% endblock content %}
