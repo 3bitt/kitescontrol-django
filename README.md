@@ -12,13 +12,14 @@ Run:
 1. Navigate to root directory where manage.py lives
 2. 
     ``` export DJANGO_DEVELOPMENT=True ```
-4. Create secrets.json file 
+4. Create secrets.json file containing:
 
     ````json
-    {"SECRET_KEY": "<your_key>"
+    {"SECRET_KEY": "<your_key>"}
     ````
     
 4. ``` pip install requirements.txt ```
 5. ``` python manage.py makemigrations ```
 6. ``` python manage.py migrate ```
 7. ``` python manage.py createsuperuser ```
+8. Have fun
