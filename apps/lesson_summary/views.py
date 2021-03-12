@@ -4,9 +4,11 @@ from django.db.models import Q, Sum
 from django.db.models.fields import FloatField
 
 from django.db.models.query import Prefetch
+from django.views.generic.base import View
 from lesson.models import Lesson, LessonDetail
 from instructor.instructor.models import Instructor
 from django.views.generic import ListView
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -22,12 +24,10 @@ class LessonSummaryView(ListView):
         if (self.kwargs):
             self.current_date = self.kwargs['summary_date']
 
-
         lessons_today = Lesson.objects.filter(
             start_date=self.current_date).order_by('start_time').annotate(
                 students_detail_duration_sum=Sum('lessondetail__duration')
             )
-
 
         lesson_detail = LessonDetail.objects.filter(
             Q(lesson__in=lessons_today))
@@ -43,17 +43,12 @@ class LessonSummaryView(ListView):
             filter=Q(lessons__lessondetail__in=lesson_detail))
             )
 
-
-
         context['instructors_with_lessons'] = instructors_with_lessons
-
-
 
         context['profit'] = lesson_detail.values('duration','pay_rate','lesson_id').annotate(
             lesson_cost=ExpressionWrapper(
                 F('duration') * F('pay_rate'), output_field=FloatField())
                 ).aggregate(total_profit=Sum('lesson_cost'))
-
 
         # context['duration_sum'] = lessons_today.aggregate(sum=(Sum('duration')))
         context['duration_sum'] = lesson_detail.aggregate(sum=(Sum('duration')))
@@ -70,6 +65,13 @@ class LessonSummaryView(ListView):
         context['next_date'] = datetime.date(self.current_date + timedelta(days=1))
 
         return context
+
+class ShowDifferentSummaryRedirectView(View):
+    http_method_names = ['get']
+    def get(self, request):
+        request_date = request.GET['summary_date']
+        request_date_clean = datetime.strptime(request_date, '%Y-%m-%d').strftime('%d-%m-%Y')
+        return redirect('lesson:lesson_summary:lesson-summary', request_date_clean)
 
 
 

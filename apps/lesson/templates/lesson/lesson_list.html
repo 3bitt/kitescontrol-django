@@ -33,7 +33,7 @@
               <i class="fas fa-chevron-left"></i>
             </a>
           </div>
-          <div>{{current_date|date:"d-m-Y"}}</div>
+          <div><b>{{current_date|date:"d-m-Y"}}</b></div>
           <div>
             <a href="{% url 'lesson:lesson-list' %}{{next_date|date:"d-m-Y"}}">
               <i class="fas fa-chevron-right"></i>
@@ -257,6 +257,7 @@
               </div>
             </div>
           </div>
+          {% comment %} MODAL END {% endcomment %}
             
             <div class="row m-0">
               <div class="col-auto px-1">
