@@ -1,7 +1,6 @@
 
 .master-container{
   box-shadow: 1px 1px 5px 2px #cecece;
-  height: 100vh;
 }
 .bold{
   font-weight: bold;
@@ -42,4 +41,56 @@
   text-align: center;
   font-size: 2rem;
   color: green;
+}
+
+
+/* DETAILS */
+
+.summary-detail-master{
+  height: 100vh;
+}
+
+.summary-detail-instr-div{
+  padding: .4rem;
+  box-shadow: 1px 1px 4px 1px #c5d1d8;
+  margin: 0;
+}
+
+.det-lesson{
+  padding: .2rem;
+  margin-bottom: .2rem;
+  box-shadow: inset 0px 0px 10px 1px #c1c1c166;
+  border-bottom: 1px solid gray;
+  border-radius: .5rem;
+}
+.det-lesson:hover{
+  background-color: gainsboro;
+}
+.det-lesson-no{
+  display: flex;
+  flex-direction: row;
+  place-content: space-between;
+}
+
+.lesson-price-value{
+  color: #48a718;
+  font-weight: bold;
+}
+
+.instr-summary-row{
+  padding: .2rem;
+  margin-bottom: .2rem;
+  box-shadow: inset 0px 0px 10px 2px #b97e0073;
+  border: 1px solid gray;
+  border-radius: .5rem;
+}
+.instr-summary-row:hover{
+  background-color: #f3d29adc;
+}
+.instr-summary-detail-sum{
+  text-align: end;
+}
+
+.text-align-end{
+  text-align: center;
 }

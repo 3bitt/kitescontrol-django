@@ -32,11 +32,11 @@
               </div>
               <div class="d-flex space-between mt-3">
                 <div>Indywidualne:</div>
-                <div>{{single_lessons}}</div>
+                <div>{{single_lessons_count}}</div>
               </div>
               <div class="d-flex space-between">
                 <div>Grupowe:</div>
-                <div>{{group_lessons}}</div>
+                <div>{{group_lessons_count}}</div>
               </div>
             </div>
             <div class="col summary-lesson-count">
@@ -49,7 +49,7 @@
           <div class="row summary-lesson-tile justify-content-around p-2">
             <div class="col">
               <div class="summary-tile-title bold shadow-bot">
-                STATUS
+                INFO
               </div>
               <div class="d-flex space-between mt-3">
                 <div>Zakończonych:</div>
@@ -88,6 +88,99 @@
           Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
         </div>
       </div>
+    </div>
+
+    <div class="container mt-4 summary-detail-master">
+      {% for instructor in instructors_with_lessons %}
+        <div class="row mb-4 summary-detail-instr-div">
+          
+          <div class="col-2 align-self-center">
+            <div class="row">
+              <div class="col bold">
+                {{instructor}}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-8">
+            {% if instructor.lessons.all.count == 0 %}
+              <i>brak lekcji w tym dniu</i>
+            {% else %}           
+              {% for lesson in instructor.lessons.all %}
+                <div class="row det-lesson">
+
+                  <div class="col-2 det-lesson-no">
+                    <div>{{ forloop.counter }}</div>
+                    <div>{{lesson.start_time|time:'H:i'}}</div>
+                  </div>
+
+                  <div class="col-1 px-1 det-lesson-duration">
+                    <span>{{lesson.duration}}<span> h
+                  </div>
+
+                  <div class="col">
+                    {% if lesson.lessondetail_set.all.count == 0 %}
+                      <i>lekcja w trakcie</i>
+                    {% else %}
+                      {% for lesson_detail in lesson.lessondetail_set.all%}
+                        <div class="row">
+                          <div class="col-5">
+                            <a href="{{ lesson_detail.student.get_absolute_url }}">{{lesson_detail.student}}</a>
+                          </div>
+                          <div class="col-auto">
+                            {% if lesson.duration != lesson_detail.duration %}
+                              <span class="text-danger">{{lesson_detail.duration}}</span> h
+                            {% else %}
+                              <span class="text-success">{{lesson_detail.duration}}</span> h
+                            {% endif %}                    
+                          </div>
+                          <div class="col">
+                            {% if lesson.group_lesson %}
+                            {{lesson_detail.student.pay_rate_group}}
+                            {% else %}
+                            {{lesson_detail.student.pay_rate_single}}
+                            {% endif %}
+                            <small>zł/h</small>
+                          </div>
+                          <div class="col text-align-end">
+                            <span class="lesson-price-value">{{lesson_detail.price}} zł</span>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    {% endif %}
+                  </div>            
+                </div>
+              {% endfor %}
+              
+              {% comment %} Instructor lesson sum {% endcomment %}
+              <div class="row instr-summary-row">
+                <div class="col-2">
+                  <span class="bold">Suma:</span>  
+                </div>
+                <div class="col-1 px-1">
+                  <span class="bold">{{instructor.instructor_lessons_duration_sum}}</span> h
+
+                </div>
+                
+
+                <div class="col">
+                  <div class="row">
+                    <div class="col-5"></div>
+                    <div class="col-auto">
+                      <span class="bold">{{instructor.lessondetail_duration_sum|default_if_none:"--"}}</span> h
+                    </div>
+                    <div class="col"></div>
+                    <div class="col text-align-end">
+                      <span class="bold">{{instructor.lessons_price_sum|default_if_none:"--"}}</span> zł
+                    </div>
+                  </div>              
+                </div>
+
+              </div>
+            {% endif %}
+          </div>        
+        </div>
+      {% endfor %}    
     </div>
   </div>
 </div>
