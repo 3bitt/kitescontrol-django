@@ -67,7 +67,11 @@ class LessonDetail(models.Model):
     student = models.ForeignKey(Student, on_delete=DO_NOTHING)
     duration = models.FloatField(null=True, blank=True)
     pay_rate = models.IntegerField(null=True, blank=True)
+    price = models.FloatField(null=True, blank=True)
     iko_level_achieved = models.CharField(max_length=10, null=True, blank=True)
 
     class Meta:
         unique_together = ['lesson', 'student']
+
+    def __str__(self):
+        return f'Detail_ID: {self.id}'
