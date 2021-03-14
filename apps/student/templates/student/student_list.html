@@ -97,98 +97,87 @@
     </form>    
     </div>
   </div>
-
 </div>
 
-
-    </div>
 {% if student_list %}
-    <div class="row justify-content-md-center mt-5">
-        <div class="col-8">
-            <table class="table table-sm">
-            <thead>
-                <tr>
-                <th scope="col" title="Number">#</th>
-                <th scope="col" title="Name">Kursant</th>
-                <th scope="col" title="Weight">Data urodzenia</th>
-                <th scope="col" title="birthDate">Telefon</th>
-                <th scope="col" title="mobileNumber">Waga</th>
-                <th scope="col" title="ikoLevel">E-mail</th>
-                <th scope="col" title="ikoLevel">Pobyt</th>
-                <th scope="col" title="ikoLevel">Auto</th>
-                <th scope="col" title="ikoLevel">Wyjazdy</th>
-                <th scope="col" title="ikoLevel">IKO ID</th>
-                <th scope="col" title="ikoLevel">Poziom IKO</th>
-                <th scope="col" title="ikoLevel">Stawka ind.</th>
-                <th scope="col" title="ikoLevel">Stawka grup.</th>
-                <th scope="col" title="actions">Actions</th>
+<div class="row justify-content-md-center mt-5">
+  <div class="col-8">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+        <th scope="col" title="Number">#</th>
+        <th scope="col" title="Name">Kursant</th>
+        <th scope="col" title="Weight">Data urodzenia</th>
+        <th scope="col" title="birthDate">Telefon</th>
+        <th scope="col" title="mobileNumber">Waga</th>
+        <th scope="col" title="ikoLevel">E-mail</th>
+        <th scope="col" title="ikoLevel">Pobyt</th>
+        <th scope="col" title="ikoLevel">Auto</th>
+        <th scope="col" title="ikoLevel">Wyjazdy</th>
+        <th scope="col" title="ikoLevel">IKO ID</th>
+        <th scope="col" title="ikoLevel">Poziom IKO</th>
+        <th scope="col" title="ikoLevel">Stawka ind. / grup.</th>
+        <th scope="col" title="actions">Actions</th>
 
-                </tr>
-            </thead>
-            <tbody>
-                {% for student in student_list %}
-                <tr>
-                <th scope="col">{{forloop.counter}}</td>
-                <td>
-                    <a href="{{ student.get_absolute_url }}">{{student}}</a> 
-                </td>
-                <td>
-                    {{student.birth_date|date:"d-m-Y"}}
-                </td>
-                <td>
-                    {{student.mobile_number|default_if_none:"--"}}             
-                </td>
-                <td>
-                    {{student.weight|default_if_none:"--"}}
-                </td>
-                <td>
-                    {{student.email_address|default_if_none:"--"}}
-                </td>
-                <td>
-                    {{student.stay_location|default_if_none:"--"}}
-                </td>
-                <td>
-                    {% if student.own_car %}
-                    <i class="fas fa-check icon-true"></i>
-                    {%else%}
-                    <i class="fas fa-times icon-false"></i>
-                    {%endif%}
-                </td>
-                <td>
-                    {% if student.kite_elsewhere %}
-                    <i class="fas fa-check icon-true"></i>
-                    {%else%}
-                    <i class="fas fa-times icon-false"></i>
-                    {%endif%}
-                </td>
-                <td>
-                    {{student.iko_id|default_if_none:"--"}}
-                </td>
-                <td>
-                    {{student.iko_level|default_if_none:"--"}}
-                </td>
-                <td>
-                    {{student.pay_rate_single|default_if_none:"--"}}
-                </td>
-                <td>
-                    {{student.pay_rate_group|default_if_none:"--"}}
-                </td>
-                <td>
-                    ---
-                </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-            </table>
-        </div>
-    </div>
-{% endif %}
-{{ query }}
-{% if student_search %}
-    {% for stud in student_search %}
-        {{ stud.birth_date }}
-    {% endfor %}
-{% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in student_list %}
+        <tr>
+        <th scope="col">{{forloop.counter}}</td>
+        <td>
+            <a href="{{ student.get_absolute_url }}">{{student}}</a> 
+        </td>
+        <td>
+            {{student.birth_date|date:"d-m-Y"}}
+        </td>
+        <td>
+            {{student.mobile_number|default_if_none:"--"}}             
+        </td>
+        <td>
+            {{student.weight|default_if_none:"--"}}
+        </td>
+        <td>
+            {{student.email_address|default_if_none:"--"}}
+        </td>
+        <td>
+            {{student.stay_location|default_if_none:"--"}}
+        </td>
+        <td>
+            {% if student.own_car %}
+            <i class="fas fa-check icon-true"></i>
+            {%else%}
+            <i class="fas fa-times icon-false"></i>
+            {%endif%}
+        </td>
+        <td>
+            {% if student.kite_elsewhere %}
+            <i class="fas fa-check icon-true"></i>
+            {%else%}
+            <i class="fas fa-times icon-false"></i>
+            {%endif%}
+        </td>
+        <td>
+            {{student.iko_id|default_if_none:"--"}}
+        </td>
+        <td>
+            {{student.iko_level|default_if_none:"--"}}
+        </td>
+        <td>
+            {{student.pay_rate_single|default_if_none:"--"}} / 
+            {{student.pay_rate_group|default_if_none:"--"}}
+        </td>
+        <td>
+            ---
+        </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
+{% endif %}
+
+
 {% endblock content %}
 
