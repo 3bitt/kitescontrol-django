@@ -196,3 +196,11 @@ class LessonCompleteView(View):
 class LessonDeleteView(DeleteView):
     model = Lesson
     success_url = reverse_lazy('lesson:lesson-list')
+
+
+class FindScheduleRedirectView(View):
+    http_method_names = ['get']
+    def get(self, request):
+        request_date = request.GET['schedule_date']
+        request_date_clean = datetime.strptime(request_date, '%Y-%m-%d').strftime('%d-%m-%Y')
+        return redirect('lesson:lesson-list', request_date_clean)

@@ -10,6 +10,17 @@
 <div class="container-fluid m-2">
   <div class="row">
     <div class="col-auto">
+      <div><h3>{{current_date|date:"d-m-Y"}}</h3></div>
+    </div>
+    <div class="col-auto">
+      <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#searchSummary">
+        <i class="fas fa-search"></i>
+        Pokaż inny
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-auto">
       <a href="{% url 'lesson:lesson-create' %}">
         <button class="btn btn-success">Dodaj lekcje</button>
       </a>
@@ -18,7 +29,37 @@
       <a href="{% url 'lesson:lesson_summary:lesson-summary' %}{{current_date|date:"d-m-Y"}}">
         <button class="btn btn-info">Podsumowanie dnia</button>
       </a>
-    </div>  
+    </div>
+  </div>      
+</div>
+
+{% comment %} SEARCH OTHER SUMM MODAL {% endcomment %}
+<div class="modal fade" id="searchSummary" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="exampleModalLabel">Pokaż inny grafik</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-auto">
+            Data:
+          </div>
+          <div class="col-auto">
+            <form method="GET" action="{% url 'lesson:lesson-find-schedule'  %}">
+            <input type="date" name="schedule_date">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Powrót</button>
+        <input class="btn btn-info" type="submit" value="Pokaż">
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 
