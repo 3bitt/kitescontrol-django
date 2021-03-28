@@ -1,3 +1,5 @@
+from kitescontrol.settings_dev import TIME_ZONE
+from apps.rental.views import RentalView
 from django.shortcuts import redirect, render
 from django.urls.base import reverse
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
@@ -8,7 +10,7 @@ from instructor.instructor.models import Instructor
 from student.models import Student
 from .models import Lesson, LessonDetail
 import pytz
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 import datetime as datetimeModule
 from .forms import LessonCreateForm
 from django.urls import reverse_lazy
@@ -25,7 +27,7 @@ from django.db.models import Prefetch
 # 2 - COMPLETED
 
 class LessonListView(ListView):
-    current_date = datetime.today()
+    current_date = datetime.now(tz=pytz.timezone(TIME_ZONE))
     # current_date = date.today()
     queryset = Instructor.objects.filter(active=True)
     template_name = 'lesson/lesson_list.html'
@@ -48,6 +50,8 @@ class LessonListView(ListView):
 
         context['previous_date'] = self.current_date - timedelta(days=1)
         context['next_date'] = datetime.date(self.current_date + timedelta(days=1))
+
+        context['rentals_list'] = RentalView.getRentalsListByDate(self.current_date)
 
         return context
 
@@ -95,7 +99,6 @@ class LessonCreateView(CreateView):
 
         response = super(LessonCreateView, self).form_valid(form)
 
-        # return super().form_valid(form)
         return response
 
 class LessonUpdateView(UpdateView):
@@ -168,9 +171,9 @@ class LessonCompleteView(View):
                         student.save()
 
                         if lesson.group_lesson:
-                            pay_rate = student.pay_rate_group
+                            student_pay_rate = student.pay_rate_group
                         else:
-                            pay_rate = student.pay_rate_single
+                            student_pay_rate = student.pay_rate_single
 
                         student_lesson_time = float(request_dict[f'student_lesson_duration_{student_id}'])
 
@@ -180,8 +183,8 @@ class LessonCompleteView(View):
                                 'lesson': lesson,
                                 'student': student,
                                 'duration': student_lesson_time,
-                                'pay_rate': int(pay_rate),
-                                'price': int(pay_rate) * student_lesson_time,
+                                'pay_rate': int(student_pay_rate),
+                                'price': int(student_pay_rate) * student_lesson_time,
                                 'iko_level_achieved': request_dict[key]
                             }
                         )

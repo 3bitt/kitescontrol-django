@@ -37,13 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'dashboard',
-
     'instructor.instructor.apps.InstructorConfig',
     'instructor.task',
-
     'student',
     'lesson',
     'lesson_summary',
+    'rental'
 ]
 
 AUTH_USER_MODEL = 'account.User'
@@ -128,6 +127,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Warsaw'
+DATE_INPUT_FORMATS = ['%d-%m-%Y']
+DATETIME_INPUT_FORMATS = ['%d-%m-%Y %H:%M']
 
 USE_I18N = False
 

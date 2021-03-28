@@ -29,5 +29,6 @@ urlpatterns = [
     path('<int:pk>/complete/', login_required(LessonCompleteView.as_view()), name='lesson-complete', ),
     path('delete/<int:pk>/', login_required(LessonDeleteView.as_view()), name='lesson-delete'),
 
-    path('summary/', include('lesson_summary.urls'))
+    path('summary/', include('lesson_summary.urls')),
+    path('rental/', include('rental.urls'))
 ]

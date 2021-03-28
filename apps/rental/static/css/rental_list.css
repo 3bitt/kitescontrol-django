@@ -1,0 +1,42 @@
+
+.rentals-master-col{
+  background-color: #e7e7e7;
+  border-radius: .5rem;
+  box-shadow: 0px 0px 4px 1px #797979;
+}
+
+.rentals-title{
+  padding: .4rem;
+  background-color: #ffdd9d;
+  border-radius: .5rem;
+}
+
+
+
+.rental-list-item{
+  align-items: center;
+  border-radius: 1rem;
+  background-color: #d2d2d2;
+  margin: .4rem 0 .4rem 0;
+  border: 1px solid gray;
+}
+
+.rental-student-name{
+  font-size: 1rem;
+  font-weight: 500;
+}
+.rental-table-each-column:not(:first-child){
+  border-left: 2px solid gray;
+}
+
+.fa-circle{
+  font-size: .7rem;
+}
+
+.rental-items{
+  padding: .3rem 0 .3rem 0;
+}
+
+.rental-items:not(:last-child){
+  border-bottom: 1px solid gray;
+}

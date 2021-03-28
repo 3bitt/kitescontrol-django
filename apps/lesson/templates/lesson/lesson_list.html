@@ -8,26 +8,31 @@
 {% block content %}
 
 <div class="container-fluid m-2">
-  <div class="row">
+  <div class="row justify-content-center mt-3">
     <div class="col-auto">
       <div><h3>{{current_date|date:"d-m-Y"}}</h3></div>
     </div>
     <div class="col-auto">
-      <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#searchSummary">
+      <button type="button" class="btn btn-sm btn-info btn-custom" data-toggle="modal" data-target="#searchSummary">
         <i class="fas fa-search"></i>
         Pokaż inny
       </button>
     </div>
   </div>
-  <div class="row">
+  <div class="row my-3">
     <div class="col-auto">
       <a href="{% url 'lesson:lesson-create' %}">
-        <button class="btn btn-success">Dodaj lekcje</button>
+        <button class="btn btn-success btn-custom">Dodaj lekcje</button>
+      </a>
+    </div>
+    <div class="col-auto ml-5">
+      <a href="{% url 'lesson:rental:rental-create' %}">
+        <button class="btn btn-warning btn-custom">Dodaj renta</button>
       </a>
     </div>
     <div class="col-auto ml-5">
       <a href="{% url 'lesson:lesson_summary:lesson-summary' %}{{current_date|date:"d-m-Y"}}">
-        <button class="btn btn-info">Podsumowanie dnia</button>
+        <button class="btn btn-info btn-custom">Podsumowanie dnia</button>
       </a>
     </div>
   </div>      
@@ -335,12 +340,17 @@
   </div>
 </div>
 
-
-
-
-
-
 <script src="{% static 'js/lesson_settings.js' %}"></script>
+
+
+<div class="container-fluid">
+
+
+
+</div>
+  {%include 'rental/rental_list.html' %}
+
+
 
 {% endblock content %}
   

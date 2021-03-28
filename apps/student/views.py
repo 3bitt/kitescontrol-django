@@ -9,7 +9,7 @@ from account.views import UserAccessMixin
 
 class StudentListView(UserAccessMixin, ListView):
 
-    queryset = Student.objects.all().order_by('-register_date')[:30]
+    queryset = Student.objects.all().order_by('-id')[:10]
     context_object_name = 'student_list'
     # model = Student
     template_name = 'student/student_list.html'
