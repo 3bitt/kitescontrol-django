@@ -139,6 +139,10 @@ hr {
   width: 4rem;
 }
 
+.btn-custom{
+  box-shadow: 1px 1px 4px #797979;
+}
+
 
 /* Schedule hours */
 
@@ -339,9 +343,3 @@ hr {
 .H22{
   grid-column-start: H22;
 }
-
-
-
-/* background-color: #E5E5F7;
-opacity: 0.4;
-background: repeating-linear-gradient( -45deg, #444CF7, #444CF7 10px, #E5E5F7 10px, #E5E5F7 50px ); */

@@ -14,13 +14,62 @@
     <div class="container mt-4">
       <div class="row">
         <div class="col-auto">
-          <h3>Podsumowanie dnia:</h3>
+          <h3>Podsumowanie dnia</h3>
         </div>
-        <div class="col-auto">
-          <h3>{{current_date|date:"d-m-Y"}}</h3>
+        <div class="col summary-date-div">
+          <div>
+            <a href="{% url 'lesson:lesson_summary:lesson-summary' %}{{previous_date|date:"d-m-Y"}}">
+              <i class="fas fa-lg fa-chevron-left"></i>
+            </a>
+          </div>
+          <div>
+            <h3>{{current_date|date:"d-m-Y"}}</h3>
+          </div>
+          <div>
+            <a href="{% url 'lesson:lesson_summary:lesson-summary' %}{{next_date|date:"d-m-Y"}}">
+              <i class="fas fa-lg fa-chevron-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col show-other-summary-btn">
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#searchSummary">
+            <i class="fas fa-search"></i>
+            Pokaż inne
+          </button> 
         </div>
       </div>
     </div>
+
+    {% comment %} SEARCH OTHER SUMM MODAL {% endcomment %}
+    <div class="modal fade" id="searchSummary" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="exampleModalLabel">Pokaż inne podsumowanie</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-auto">
+                Data:
+              </div>
+              <div class="col-auto">
+                <form method="GET" action="{% url 'lesson:lesson_summary:lesson-summary-show'  %}">
+                <input type="date" name="summary_date">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Powrót</button>
+            <input class="btn btn-info" type="submit" value="Pokaż">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <div class="container mt-4">
       <div class="row justify-content-around">
@@ -80,17 +129,12 @@
     </div>
 
     <div class="container mt-4">
-      <a id="show_collapse_parent" >
-        Szczegóły
+      <a class="show-details" id="show_collapse_parent" >
+        <div>Szczegóły <i class="fas fa-chevron-down"></i></div>
       </a>
-      <div class="collapse summary_details" id="collapseExample">
-        <div class="card card-body">
-          Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-        </div>
-      </div>
     </div>
 
-    <div class="container mt-4 summary-detail-master">
+    <div class="container mt-4 summary-detail-master collapse summary_details" id="collapseExample">
       {% for instructor in instructors_with_lessons %}
         <div class="row mb-4 summary-detail-instr-div">
           
@@ -102,7 +146,7 @@
             </div>
           </div>
 
-          <div class="col-8">
+          <div class="col-10 det-instr-lessons">
             {% if instructor.lessons.all.count == 0 %}
               <i>brak lekcji w tym dniu</i>
             {% else %}           

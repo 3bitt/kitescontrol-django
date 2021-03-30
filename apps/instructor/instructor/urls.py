@@ -15,7 +15,7 @@ urlpatterns = [
     path('list', login_required(InstructorListView.as_view()), name='instructor-list'),
     path('create/', login_required(InstructorCreateView.as_view()), name='instructor-create'),
     path('<int:pk>/', login_required(InstructorDetailView.as_view()), name='instructor-detail'),
-    path('<int:pk>/edit/', login_required(InstructorUpdateView.as_view(editMode=True)), name='instructor-detail-edit' ),
+    path('<int:pk>/edit/', login_required(InstructorUpdateView.as_view(editMode=True)), name='instructor-detail-edit'),
     path('delete/<int:pk>/', login_required(InstructorDeleteView.as_view()), name='instructor-delete'),
     # path('q', StudentSearchView.as_view(), name='student-search'),
 
