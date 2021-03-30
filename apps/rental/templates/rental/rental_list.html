@@ -1,0 +1,124 @@
+{% load static %}
+{%block extra_css%}
+<link rel="stylesheet" href="{% static 'css/rental_list.css'%}">
+
+{%endblock extra_css%}
+
+
+
+<div class="container-fluid">
+  <div class="row mt-3 mb-5">
+    <div class="col-5 rentals-master-col mr-auto ml-2">
+      
+      <div class="row rentals-title">
+        <div class="col-auto">
+          <h4>Rentale</h4>
+        </div>
+      </div>
+
+      {% if rentals_list%}
+      {% for rental in rentals_list%}
+      <div class="row rental-list-item">
+
+        <div class="col-4 rental-table-each-column">
+
+          <div class="row">
+            <div class="col-auto rental-student-name">
+              <a href="{% url 'student:student-detail' rental.student.id %}">{{rental.student}}</a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-auto rental-table-each-column">
+
+          <div class="row">
+            <div class="col-auto">
+              <i class="fa fa-sm fa-circle text-success"></i>
+              {{rental.start_date|date:"d-m-Y H:m"}}
+            </div>
+          </div>
+        
+          <div class="row">
+            <div class="col-auto">
+              <i class="fa fa-sm fa-circle text-danger"></i>
+              {{rental.end_date|date:"d-m-Y H:m"|default:"?-?-?"}}
+            </div>
+          </div>
+        
+        </div>
+
+        <div class="col rental-table-each-column">
+
+          <div class="row">
+            <div class="col">
+              {% for rent_detail in rental.rentaldetail_set.all%}
+              <div class="row rental-items">
+                <div class="col-auto">
+                  <b>{{rent_detail.get_rent_item_display}}</b>
+                </div>
+                <div class="col">
+                  {{rent_detail.description}}
+                </div>
+                <div class="col-auto">
+                  x{{rent_detail.quantity}}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        
+        </div>
+
+        <div class="col-auto">
+          <div class="row">
+            <div class="col-auto">
+              {% if rental.paid%}
+                <i class="fa fa-coins text-warning" title="Zapłacony"></i>
+              {% else %}
+                <i class="fa fa-coins text-danger" title="Niezapłacony"></i>
+              {% endif %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto">
+              <a href="{% url 'rental:rental-detail' rental.id %}">
+                <i class="fa fa-sm fa-edit "></i>
+              </a>
+            </div>
+          </div>
+        
+        </div>
+
+        {% comment %} <div class="col-auto rental-table-each-column">
+
+          <div class="row">
+            <div class="col-auto">
+              {{rental.created_date|date:"d-m-Y H:m"}}
+            </div>
+          </div>
+        
+        </div> {% endcomment %}
+
+        
+
+        
+        
+        
+        
+      
+      </div>
+      {% endfor %}
+      {% else %}
+      <div class="row mt-3">
+        <div class="col">
+          <h5><i>Nikt nic nie rentuje</i></h5>
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+

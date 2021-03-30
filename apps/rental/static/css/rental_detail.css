@@ -1,0 +1,34 @@
+.master-container{
+  background-color: #eaeaea;
+  border-radius: .5rem;
+  box-shadow: 0 0 5px 0px grey;
+  padding: 1rem;
+}
+
+.page-title{
+  border-bottom: 1px solid grey;
+}
+
+.rental-boxes{
+  background-color: whitesmoke;
+  border: 1px solid rgb(170, 170, 170);
+  border-radius: .5rem;
+  padding: .6rem 0 .6rem .8rem;
+  overflow-y: hidden;
+}
+
+.who-when-col:not(:last-child){
+  border-right: 1px solid gray;
+}
+
+.rental-items-header{
+  margin-bottom: .2rem;
+  border-bottom: 1px solid gray;
+}
+
+.rental-items-col:not(:last-child){
+  border-right: 1px solid gray;
+}
+::-webkit-scrollbar {
+  display: none;
+}

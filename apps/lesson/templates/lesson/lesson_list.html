@@ -8,17 +8,63 @@
 {% block content %}
 
 <div class="container-fluid m-2">
-  <div class="row">
+  <div class="row justify-content-center mt-3">
+    <div class="col-auto">
+      <div><h3>{{current_date|date:"d-m-Y"}}</h3></div>
+    </div>
+    <div class="col-auto">
+      <button type="button" class="btn btn-sm btn-info btn-custom" data-toggle="modal" data-target="#searchSummary">
+        <i class="fas fa-search"></i>
+        Pokaż inny
+      </button>
+    </div>
+  </div>
+  <div class="row my-3">
     <div class="col-auto">
       <a href="{% url 'lesson:lesson-create' %}">
-        <button class="btn btn-success">Dodaj lekcje</button>
+        <button class="btn btn-success btn-custom">Dodaj lekcje</button>
+      </a>
+    </div>
+    <div class="col-auto ml-5">
+      <a href="{% url 'lesson:rental:rental-create' %}">
+        <button class="btn btn-warning btn-custom">Dodaj renta</button>
       </a>
     </div>
     <div class="col-auto ml-5">
       <a href="{% url 'lesson:lesson_summary:lesson-summary' %}{{current_date|date:"d-m-Y"}}">
-        <button class="btn btn-info">Podsumowanie dnia</button>
+        <button class="btn btn-info btn-custom">Podsumowanie dnia</button>
       </a>
-    </div>  
+    </div>
+  </div>      
+</div>
+
+{% comment %} SEARCH OTHER SUMM MODAL {% endcomment %}
+<div class="modal fade" id="searchSummary" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="exampleModalLabel">Pokaż inny grafik</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-auto">
+            Data:
+          </div>
+          <div class="col-auto">
+            <form method="GET" action="{% url 'lesson:lesson-find-schedule'  %}">
+            <input type="date" name="schedule_date">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Powrót</button>
+        <input class="btn btn-info" type="submit" value="Pokaż">
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -33,7 +79,7 @@
               <i class="fas fa-chevron-left"></i>
             </a>
           </div>
-          <div>{{current_date|date:"d-m-Y"}}</div>
+          <div><b>{{current_date|date:"d-m-Y"}}</b></div>
           <div>
             <a href="{% url 'lesson:lesson-list' %}{{next_date|date:"d-m-Y"}}">
               <i class="fas fa-chevron-right"></i>
@@ -257,6 +303,7 @@
               </div>
             </div>
           </div>
+          {% comment %} MODAL END {% endcomment %}
             
             <div class="row m-0">
               <div class="col-auto px-1">
@@ -293,12 +340,17 @@
   </div>
 </div>
 
-
-
-
-
-
 <script src="{% static 'js/lesson_settings.js' %}"></script>
+
+
+<div class="container-fluid">
+
+
+
+</div>
+  {%include 'rental/rental_list.html' %}
+
+
 
 {% endblock content %}
   

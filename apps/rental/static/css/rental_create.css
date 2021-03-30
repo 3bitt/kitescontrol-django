@@ -1,0 +1,85 @@
+.quantity-input{
+  width: 4rem;
+}
+.price-input{
+  width: 6rem;
+}
+
+.students-list{
+  list-style: none;
+}
+
+#id_student{
+  height: 12rem;
+  width: 20rem;
+  overflow-y: scroll;
+}
+
+.borders{
+border: 1px solid #b3b3b3;
+border-radius: 1rem;
+padding: 1rem;
+}
+
+.borders-sm{
+  border: 1px solid #b3b3b3;
+  border-radius: 1rem;
+  padding: .6rem;
+}
+
+.col, .col-auto > label{
+  font-weight: bold;
+}
+
+li > label{
+  font-weight: initial;
+}
+
+#search_result_list{
+  list-style: none;
+}
+
+.student-picked-list{
+  color: rgb(21, 158, 21);
+  font-weight: bold;
+  padding: 0;
+}
+
+.add-new-rental{
+  border: 1px solid #17a2b8;
+  border-radius: .5rem;
+  color: #17a2b8;
+  font-weight: initial;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none; 
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.add-new-rental:hover{
+  color: white;
+  background-color: #17a2b8;
+  cursor: pointer;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.remove-last-rental{
+  border: 1px solid #a70909;
+  border-radius: .5rem;
+  color: #a70909;
+  font-weight: initial;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none; 
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.remove-last-rental:hover{
+  color: white;
+  background-color: #b13737;
+  cursor: pointer;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+}

@@ -42,10 +42,10 @@ INSTALLED_APPS = [
     'dashboard',
     'instructor.instructor.apps.InstructorConfig',
     'instructor.task',
-
     'student',
     'lesson',
     'lesson_summary',
+    'rental'
 ]
 
 AUTH_USER_MODEL = 'account.User'
@@ -130,6 +130,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Warsaw'
+DATE_INPUT_FORMATS = ['%d-%m-%Y']
+DATETIME_INPUT_FORMATS = ['%d-%m-%Y %H:%M']
 
 USE_I18N = False
 
@@ -156,8 +158,16 @@ LOGOUT_REDIRECT_URL = 'account:login'
 
 # 3 days
 CSRF_COOKIE_AGE = 259200
+
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -182,5 +192,9 @@ if os.environ.get('DJANGO_DEVELOPMENT') is not None and os.environ.get('DJANGO_D
         EMAIL_PORT,
         EMAIL_USE_TLS,
         EMAIL_HOST_USER,
-        EMAIL_HOST_PASSWORD
+        EMAIL_HOST_PASSWORD,
+        SECURE_SSL_REDIRECT,
+        SECURE_HSTS_SECONDS,
+        SECURE_HSTS_PRELOAD,
+        SECURE_HSTS_INCLUDE_SUBDOMAINS,
     )

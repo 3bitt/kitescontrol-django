@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{%load static%}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/rental_create.css' %}">
+{% endblock extra_css %}
+
+
+{% block content %}
+
+
+<div class="container-fluid mt-3">
+  <div class="row">
+
+    <div class="col-1">
+      <a href="{{ request.META.HTTP_REFERER }}">
+        <button class="btn btn-sm btn-warning">Powrót</button>
+      </a>    
+    </div>
+
+    <div class="col mt-3">
+      <form method="post">
+      {%csrf_token%}
+        <div class="row">
+        
+          <div class="col-auto borders">
+            
+            <div class="row mb-3">
+              <div class="col">
+                <label>Od kiedy:</label>
+              </div>
+              <div class="col">
+                {{form.start_date}}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col">
+                <label>Do kiedy:</label>
+              </div>
+              <div class="col">
+                {{form.end_date}}
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label>Kursant:</label>
+              </div>
+              <div class="col">
+                <input class="picked-student-disabled-field" type="text" disabled>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col">
+                <label>Komentarz:</label>
+              </div>
+              <div class="col">
+                {{form.comment}}
+              </div>
+            </div>            
+
+          </div>
+          
+          <div class="col-auto borders ml-4">
+            <div class="row mb-2">
+              <div class="col">
+                <label>Kursant:</label>
+              </div>
+              <div class="col">
+                {{form.student}}
+              </div>
+            </div>            
+          </div>
+
+          <div class="col-auto">
+            <input type="text" id="student_search_input" placeholder="Szukaj kursanta">
+            <ul class="student-picked-list mb-1" id="search_result_list"></ul>
+          </div>
+
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-auto add-new-rental">
+            <span>Dodaj następny</span>
+          </div>
+          <div class="col-auto ml-5 remove-last-rental">
+            <span>Usuń</span>
+          </div>
+        </div>
+
+        <div class="row mt-3 rental-item" id="rental-item">
+
+          <div class="col-auto borders-sm">
+            <div class="row">
+
+              <div class="col-auto">
+                <label>Co:</label>
+              </div>
+              <div class="col-auto">
+                <select class="input select-rent-item" name="rent_item">
+                  <option value="WETSUIT">Pianka</option>
+                  <option value="HELMET">Kask</option>
+                  <option value="LIFE_JACKET">Kamizelka ratunkowa</option>
+                  <option value="HARNESS">Trapez</option>
+                  <option value="LEASH">Leash</option>
+                  <option value="BOARD">Deska</option>
+                  <option value="KITE">Kite</option>
+                </select>
+              </div>
+
+              <div class="col-auto">
+                <label>Ilość:</label>
+              </div>
+              <div class="col-auto">
+                <input required class="input quantity-input" type="number" name="quantity" value="1">
+              </div>
+
+              <div class="col-auto">
+                <label>Cena:</label>
+              </div>
+              <div class="col-auto">
+                <div class="input-group input-group-sm">
+                  <input required class="input price-input" type="decimal" name="item_price" >
+                  <div class="input-group-append">
+                    <span class="input-group-text">zł/h</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-auto">
+                <label>Opis:</label>
+              </div>
+              <div class="col-auto">
+                <input required type="text" name="description" placeholder="Oznaczenie, rozmiar...">
+              </div>
+
+            </div>
+          </div>
+    
+        </div>
+
+        
+
+        <div class="row mt-4">
+          <div class="col-auto offset-2">
+            <input class="btn btn-success" type="submit" value="Zatwierdź"></input>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script src="{% static 'js/rental_filter_students.js' %}"></script>
+<script src="{% static 'js/add_multi_rental_items.js' %}"></script>
+
+
+{% endblock content %}
+
+
+
