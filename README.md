@@ -19,7 +19,7 @@
     {"SECRET_KEY": "<your_key>"}
     ```
     
-4. ``` pip install requirements.txt ```
+4. ``` pip install -r requirements.txt ```
 5. ``` python manage.py makemigrations ```
 6. ``` python manage.py migrate ```
 7. ``` python manage.py createsuperuser ```
