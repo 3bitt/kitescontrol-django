@@ -70,6 +70,26 @@
         
         </div>
 
+        <div class="col-auto">
+          <div class="row">
+            <div class="col-auto">
+              {% if rental.paid%}
+                <i class="fa fa-coins text-warning" title="Zapłacony"></i>
+              {% else %}
+                <i class="fa fa-coins text-danger" title="Niezapłacony"></i>
+              {% endif %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto">
+              <a href="{% url 'rental:rental-detail' rental.id %}">
+                <i class="fa fa-sm fa-edit "></i>
+              </a>
+            </div>
+          </div>
+        
+        </div>
+
         {% comment %} <div class="col-auto rental-table-each-column">
 
           <div class="row">

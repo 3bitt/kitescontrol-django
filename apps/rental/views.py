@@ -1,5 +1,6 @@
 from datetime import datetime, tzinfo
 from django.utils import timezone
+from django.views.generic.edit import UpdateView
 from kitescontrol.settings import TIME_ZONE
 from django.db.models.query_utils import Q
 from rental.forms import RentalCreateForm
@@ -52,6 +53,17 @@ class RentalCreateView(CreateView):
 
         return redirect('lesson:lesson-list')
         # return super().form_valid(form)
+
+
+class RentalDetailView(DetailView):
+    template_name = 'rental/rental_detail.html'
+    model = Rental
+    context_object_name = 'rental'
+
+class RentalUpdateView(UpdateView):
+    template_name = 'rental/rental_edit.html'
+    model = Rental
+    fields = '__all__'
 
 
 # Class used in Lesson views.py

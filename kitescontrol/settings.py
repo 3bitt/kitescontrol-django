@@ -192,5 +192,9 @@ if os.environ.get('DJANGO_DEVELOPMENT') is not None and os.environ.get('DJANGO_D
         EMAIL_PORT,
         EMAIL_USE_TLS,
         EMAIL_HOST_USER,
-        EMAIL_HOST_PASSWORD
+        EMAIL_HOST_PASSWORD,
+        SECURE_SSL_REDIRECT,
+        SECURE_HSTS_SECONDS,
+        SECURE_HSTS_PRELOAD,
+        SECURE_HSTS_INCLUDE_SUBDOMAINS,
     )

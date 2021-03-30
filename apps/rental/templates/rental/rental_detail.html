@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/rental_detail.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="container mt-4 master-container">
+  <div class="row page-title">
+    <div class="col-auto">
+      <h4>Szczegóły renta</h4>
+    </div>
+    <div class="col-auto ml-3">
+      <a class="btn btn-sm btn-warning" href="{% url 'rental:rental-edit' rental.id %}">Edytuj</a>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+
+    <div class="col-7 rental-boxes">
+
+      <div class="row mx-1">
+        <div class="col-auto who-when-col pl-0">
+          <div class="row">
+            <div class="col">
+              <div><h5>Kto</h5></div>
+            </div> 
+          </div>
+          <div class="row">
+            <div class="col">
+              <div>
+                <b><a href="{% url 'student:student-detail' rental.student.id %}">{{rental.student}}</a></b>
+              </div>
+            </div>
+          </div>
+        </div>
+          
+        <div class="col-auto who-when-col">
+          <div class="row">
+            <div class="col">
+              <div><h5>Czas wypożyczenia</h5></div>
+            </div> 
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="d-inline-flex p-1">
+                <div><i class="fa fa-sm fa-circle text-success mr-3"></i></div>
+                <div>{{rental.start_date|date:"d-m-Y H:m"|default:"?-?-?"}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="d-inline-flex p-1">
+                <div><i class="fa fa-sm fa-circle text-danger mr-3"></i></div>
+                <div>{{rental.end_date|date:"d-m-Y H:m"|default:"?-?-?"}}</div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="col-auto who-when-col">
+          <div class="row">
+            <div class="col">
+              <div><h5>Dodano dnia</h5></div>
+            </div> 
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="d-inline-flex p-1">
+                <div>{{rental.created_date|date:"d-m-Y H:m"|default:"(data nieznana)"}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-7 rental-boxes">
+      <div class="row rental-items-header">
+        <div class="col-3">
+          <div><h6>Co</h6></div>
+        </div>
+        <div class="col-5">
+          <div><h6>Opis</h6></div>
+        </div>
+        <div class="col-auto px-2">
+          <div><h6>Ilość</h6></div>
+        </div>
+        <div class="col-auto">
+          <div><h6>Cena za godz.</h6></div>
+        </div>
+      </div>
+      {% for rent_detail in rental.rentaldetail_set.all%}
+        <div class="row rental-items mb-1">
+          <div class="col-3 rental-items-col">
+            <div>
+              {{forloop.counter}}.
+              <b>{{rent_detail.get_rent_item_display}}</b>
+            </div>
+          </div>
+          <div class="col-5 rental-items-col">
+            {{rent_detail.description}}
+          </div>
+          <div class="col-auto rental-items-col">
+            x{{rent_detail.quantity}}
+          </div>
+          <div class="col-auto rental-items-col ml-3">
+            {{rent_detail.price}} zł/h
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-auto">
+      <div class="row">
+        <div class="col-auto">
+          <div><b>Zapłacone</b></div>
+        </div>
+        <div class="col-auto">
+          {% if rental.paid %}
+            <i class="fa fa-check text-success"></i>
+          {% else %}
+            <i class="fa fa-times text-danger"></i>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-auto">
+      <div class="row">
+        <div class="col-auto">
+          <div><b>Komentarz</b></div>
+        </div>
+        <div class="col-auto">
+          <textarea cols="40" rows="3" disabled>{{rental.comment|default_if_none:"(brak komentarza)"}}</textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock content %}

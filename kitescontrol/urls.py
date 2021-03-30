@@ -21,5 +21,6 @@ urlpatterns = [
     path('instructor/', include('instructor.instructor.urls')),
     path('instructor/task/', include('instructor.task.urls')),
     path('lesson/', include('lesson.urls')),
+    path('rental/', include('rental.urls')),
     path('auth/', include('account.urls'))
 ]
