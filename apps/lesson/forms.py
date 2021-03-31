@@ -38,14 +38,6 @@ class LessonCreateForm(forms.ModelForm):
                 'max': '6',
                 'step': '0.5'
             }),
-            'start_time': forms.TimeInput(attrs={
-                'class': 'input',
-                'type': 'time',
-                'step': '900',
-                'min': '07:00',
-                'max': '21:00',
-                'required': False
-            }),
             'confirmed': forms.CheckboxInput(),
             'in_progress': forms.CheckboxInput(),
             'completed': forms.CheckboxInput(),
@@ -57,3 +49,16 @@ class LessonCreateForm(forms.ModelForm):
         help_texts = {
             'start_time': "min. 7:00 - max. 21:00"
         }
+
+    def __init__(self, *args, **kwargs):
+        # lesson_start_time = kwargs.get(
+        #     'instance').__getattribute__(
+        #         'start_time')
+        # lesson_start_time = lesson_start_time.strftime('%H:%S').split(':')
+        # print(lesson_start_time)
+
+        # kwargs.update(initial = {
+        #     'start_hour' : lesson_start_time[0],
+        #     'start_minute' : lesson_start_time[1],
+        # })
+        super(LessonCreateForm, self).__init__(*args, **kwargs)

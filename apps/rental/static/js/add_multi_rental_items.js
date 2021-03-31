@@ -1,13 +1,13 @@
 const rentalItem = document.querySelector('.rental-item')
 const addNewItemBtn = document.querySelector('.add-new-rental')
 const removeLastItemBtn = document.querySelector('.remove-last-rental')
-const rentItemList = document.querySelector('.select-rent-item')
+const availableRentItemsCount = document.querySelector('.select-rent-item').length
 
-// Currently user can rent max. 7 items
+maxRentItemsNo = availableRentItemsCount + 3
 
 addNewItemBtn.addEventListener('click', function(e){
   let rentalItemsList = document.querySelectorAll('.rental-item')  
-  if (rentalItemsList.length < rentItemList.length -1){
+  if (rentalItemsList.length < maxRentItemsNo){
     addHTMLnode();
   } else {
     addHTMLnode();
@@ -25,12 +25,13 @@ removeLastItemBtn.addEventListener('click', function(e){
       removeLastItemBtn.style.pointerEvents = 'none' // hidden
     }
   }
-  if (rentalItemsList.length === rentItemList.length){
+  if (rentalItemsList.length === maxRentItemsNo){
     addNewItemBtn.style.pointerEvents = 'auto' //remove hidden
   }  
 })
 
 function addHTMLnode(){
   const newNode = rentalItem.cloneNode(deep=true)
-  rentalItem.parentNode.insertBefore(newNode, rentalItem.nextSibling);
+  // rentalItem.parentNode.insertBefore(newNode, rentalItem.nextSibling);
+  rentalItem.parentNode.appendChild(newNode);
 }

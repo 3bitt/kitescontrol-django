@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.db.models.deletion import CASCADE, DO_NOTHING
 from student.models import Student
@@ -17,6 +18,12 @@ class Rental(models.Model):
 
     def __str__(self):
         return f'Rent item for {self.student}'
+
+    def save(self, *args, **kwargs):
+        if self.id and self.paid == True:
+            self.paid_date = datetime.datetime.now()
+        super().save(*args, **kwargs)
+
 
 class RentalDetail(models.Model):
 

@@ -14,20 +14,14 @@ from student.models import Student
 @receiver(m2m_changed, sender=Lesson.student.through)
 def student_changed(sender, instance, **kwargs):
 
-    if kwargs['action'] == 'pre_clear':
-        print('PRE_CLEAR ACTION !!!!!! -----------')
-
     if kwargs['action'] == 'post_remove':
-        print('PRE_REMOVE ACTION !!!!!! -----------')
         no_of_students = len(instance.student.all())
-        print(no_of_students)
         if no_of_students < 2:
             instance.group_lesson = False
             instance.save()
 
 
     if kwargs['action'] == 'post_add':
-        print('SIGNAL - ADD: pk_set:', kwargs['pk_set'])
         no_of_students = len(instance.student.all())
 
         if not instance.group_lesson and no_of_students > 1:

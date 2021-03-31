@@ -128,8 +128,7 @@
               <div class="col-auto px-1 lesson-settings-col">
                 <i class="fa fa-cog lesson-settings-icon"></i>
 
-                <div class="settings-menu
-                  {% if lesson.i_dont_wanna_js %} settings-menu-border {%endif%}"
+                <div class="settings-menu{% if lesson.i_dont_wanna_js %} settings-menu-border {%endif%}"
                   id="settings_menu_{{lesson.id}}" hidden="true">
                   <div class="lesson-edit-menu-item lesson-settings-menu-item">
                     <a class="lesson-edit-link" href="{% url 'lesson:lesson-edit' lesson.id %}">

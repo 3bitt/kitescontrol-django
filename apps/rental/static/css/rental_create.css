@@ -19,12 +19,14 @@
 border: 1px solid #b3b3b3;
 border-radius: 1rem;
 padding: 1rem;
+background-color: #f1f1f1;
 }
 
 .borders-sm{
   border: 1px solid #b3b3b3;
   border-radius: 1rem;
   padding: .6rem;
+  background-color: #f1f1f1;
 }
 
 .col, .col-auto > label{
