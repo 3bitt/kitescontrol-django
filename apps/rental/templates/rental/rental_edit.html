@@ -1,17 +1,182 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load tz %}
+
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/rental_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/rental_create.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
 
-<div class="container">
-  <div class="row mt-5">
-    <div class="col">
-      <h4>Strona w budowie...</h4>
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-auto">
+    <a href="{{ request.META.HTTP_REFERER }}">
+        <button class="btn btn-sm btn-warning">Powrót</button>
+      </a>
+    </div>
+    <div class="col-auto offset-1 align-center">
+      <h4>Edytujesz renta dla --> {{rental.student}}</h4>
     </div>
   </div>
+  <div class="row">
+
+    <div class="col offset-1 mt-3">
+      <form method="post">
+      {%csrf_token%}
+        <div class="row">
+        
+          <div class="col-auto borders">
+            
+            <div class="row mb-3">
+              <div class="col">
+                <label>Od kiedy:</label>
+              </div>
+              <div class="col">
+
+                {{form.start_date}}
+
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col">
+                <label>Do kiedy:</label>
+              </div>
+              <div class="col">
+                {{form.end_date}}
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label>Kursant:</label>
+              </div>
+              <div class="col">
+                <input class="picked-student-disabled-field" type="text" disabled value="{{rental.student}}">
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-auto">
+                <label>Zapłacone:</label>
+              </div>
+              <div class="col-auto offset-1">
+                {{form.paid}}
+              </div>
+            </div>         
+            
+            <div class="row">
+              <div class="col">
+                <label>Komentarz:</label>
+              </div>
+              <div class="col">
+                {{form.comment}}
+              </div>
+            </div>
+
+
+          </div>
+          
+          <div class="col-auto borders ml-4">
+            <div class="row mb-2">
+              <div class="col">
+                <label>Kursant:</label>
+              </div>
+              <div class="col">
+                {{form.student}}
+              </div>
+            </div>            
+          </div>
+
+          <div class="col-auto">
+            <input type="text" id="student_search_input" placeholder="Szukaj kursanta">
+            <ul class="student-picked-list mb-1" id="search_result_list"></ul>
+          </div>
+
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-auto add-new-rental">
+            <span>Dodaj następny</span>
+          </div>
+          <div class="col-auto ml-5 remove-last-rental">
+            <span>Usuń ostatni</span>
+          </div>
+        </div>
+
+        <div class="row mt-3 ">
+
+          <div class="col-auto borders-sm">
+          {% for rental_detail in rental_details%}
+            <div class="row my-1 rental-item">
+
+              <div class="col-auto">
+                <label>Co:</label>
+              </div>
+              <div class="col-auto">
+                <select class="input select-rent-item" name="rent_item">
+                  <option value="{{rental_detail.item}}" selected>{{rental_detail.get_rent_item_display}}</option>
+                  <option value="WETSUIT">Pianka</option>
+                  <option value="HELMET">Kask</option>
+                  <option value="LIFE_JACKET">Kamizelka ratunkowa</option>
+                  <option value="HARNESS">Trapez</option>
+                  <option value="LEASH">Leash</option>
+                  <option value="BOARD">Deska</option>
+                  <option value="KITE">Kite</option>
+                </select>
+              </div>
+
+              <div class="col-auto">
+                <label>Ilość:</label>
+              </div>
+              <div class="col-auto">
+                <input required class="input quantity-input" type="number" name="quantity" value="{{rental_detail.quantity}}">
+              </div>
+
+              <div class="col-auto">
+                <label>Cena:</label>
+              </div>
+              <div class="col-auto">
+                <div class="input-group input-group-sm">
+                  <input required class="input price-input" type="decimal" name="item_price" value="{{rental_detail.price}}" >
+                  <div class="input-group-append">
+                    <span class="input-group-text">zł/h</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-auto">
+                <label>Opis:</label>
+              </div>
+              <div class="col-auto">
+                <input required type="text" name="description" value="{{rental_detail.description}}" placeholder="Oznaczenie, rozmiar...">
+              </div>
+
+            </div>
+            {% endfor %}
+          </div>
+    
+        </div>
+
+        
+
+        <div class="row mt-4">
+          <div class="col-auto offset-2">
+            <input class="btn btn-success" type="submit" value="Zapisz"></input>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
 </div>
+
+
+<script src="{% static 'js/rental_filter_students.js' %}"></script>
+<script src="{% static 'js/add_multi_rental_items.js' %}"></script>
+
 {% endblock content %}

@@ -4,13 +4,6 @@ from django.db.models.deletion import CASCADE, DO_NOTHING
 from instructor.instructor.models import Instructor
 from student.models import Student
 
-# Create your models here.
-
-
-# LESSON STATUSES:
-# 0 - CREATED
-# 1 - CONFIRMED
-# 2 - COMPLETED
 
 class Lesson(models.Model):
 
@@ -41,13 +34,13 @@ class Lesson(models.Model):
         # Return string which will be used in template as class
         # to determine lesson tile offset (position) in timetable
         if 0 < self.start_time.minute <= 15:
-            return "H" + hour + "-Q1"
+            return 'H' + hour + '-Q1'
         elif 15 < self.start_time.minute < 45:
-            return "H" + hour + "-Q2"
+            return 'H' + hour + '-Q2'
         elif self.start_time.minute >= 45:
-            return "H" + hour + "-Q3"
+            return 'H' + hour + '-Q3'
         else:
-            return "H" + hour
+            return 'H' + hour
 
     # Func used in template - determine lesson tile span in timetable
     def get_column_span(self):
