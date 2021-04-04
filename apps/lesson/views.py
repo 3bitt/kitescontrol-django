@@ -1,7 +1,6 @@
 from kitescontrol.settings_dev import TIME_ZONE
 from apps.rental.views import RentalView
-from django.shortcuts import redirect, render
-from django.urls.base import reverse
+from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from django.db.models import Q
 from django.views.generic.base import View
@@ -14,11 +13,7 @@ from datetime import datetime, timedelta
 import datetime as datetimeModule
 from .forms import LessonCreateForm
 from django.urls import reverse_lazy
-from django.core import serializers
-import json
-
 from django.core.serializers import serialize
-from django.db.models import OuterRef, Subquery
 from django.db.models import Prefetch
 
 # LESSON STATUSES:
@@ -109,6 +104,11 @@ class LessonUpdateView(UpdateView):
     success_url = reverse_lazy('lesson:lesson-list')
 
     def form_valid(self, form: LessonCreateForm):
+        start_hour = int(self.request.POST['start_hour'])
+        start_minute = int(self.request.POST['start_minute'])
+        start_time = datetimeModule.time(start_hour,start_minute)
+        form.instance.start_time = start_time
+
         if form.cleaned_data['start_date'] != datetime.date(self.current_date):
             lesson_date = form.cleaned_data['start_date'].strftime('%d-%m-%Y')
             self.success_url = reverse_lazy('lesson:lesson-list', kwargs={'schedule_date': lesson_date})
@@ -205,5 +205,5 @@ class FindScheduleRedirectView(View):
     http_method_names = ['get']
     def get(self, request):
         request_date = request.GET['schedule_date']
-        request_date_clean = datetime.strptime(request_date, '%Y-%m-%d').strftime('%d-%m-%Y')
+        request_date_clean = datetime.strptime(request_date, '%Y-%m-%d').astimezone().strftime('%d-%m-%Y')
         return redirect('lesson:lesson-list', request_date_clean)

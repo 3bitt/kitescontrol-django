@@ -35,14 +35,14 @@
           <div class="row">
             <div class="col-auto">
               <i class="fa fa-sm fa-circle text-success"></i>
-              {{rental.start_date|date:"d-m-Y H:m"}}
+              {{rental.start_date|date:"d-m-Y H:i"}}
             </div>
           </div>
         
           <div class="row">
             <div class="col-auto">
               <i class="fa fa-sm fa-circle text-danger"></i>
-              {{rental.end_date|date:"d-m-Y H:m"|default:"?-?-?"}}
+              {{rental.end_date|date:"d-m-Y H:i"|default:"?-?-?"}}
             </div>
           </div>
         
@@ -74,7 +74,7 @@
           <div class="row">
             <div class="col-auto">
               {% if rental.paid%}
-                <i class="fa fa-coins text-warning" title="Zapłacony"></i>
+                <i class="fa fa-coins text-success" title="Zapłacony"></i>
               {% else %}
                 <i class="fa fa-coins text-danger" title="Niezapłacony"></i>
               {% endif %}

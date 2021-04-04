@@ -13,7 +13,14 @@
       <h4>Szczegóły renta</h4>
     </div>
     <div class="col-auto ml-3">
-      <a class="btn btn-sm btn-warning" href="{% url 'rental:rental-edit' rental.id %}">Edytuj</a>
+      <a class="btn btn-sm btn-warning"
+        href="{% url 'rental:rental-edit' rental.id %}">Edytuj</a>
+    </div>
+    <div class="col-auto ml-3">
+      <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteRentalModal">
+        <i class="fa fa-times"></i>
+        Usuń
+      </button>
     </div>
   </div>
 
@@ -47,7 +54,7 @@
             <div class="col">
               <div class="d-inline-flex p-1">
                 <div><i class="fa fa-sm fa-circle text-success mr-3"></i></div>
-                <div>{{rental.start_date|date:"d-m-Y H:m"|default:"?-?-?"}}</div>
+                <div>{{rental.start_date|date:"d-m-Y H:i"|default:"?-?-?"}}</div>
               </div>
             </div>
           </div>
@@ -55,7 +62,7 @@
             <div class="col">
               <div class="d-inline-flex p-1">
                 <div><i class="fa fa-sm fa-circle text-danger mr-3"></i></div>
-                <div>{{rental.end_date|date:"d-m-Y H:m"|default:"?-?-?"}}</div>
+                <div>{{rental.end_date|date:"d-m-Y H:i"|default:"?-?-?"}}</div>
               </div>
               
             </div>
@@ -71,7 +78,7 @@
           <div class="row">
             <div class="col">
               <div class="d-inline-flex p-1">
-                <div>{{rental.created_date|date:"d-m-Y H:m"|default:"(data nieznana)"}}</div>
+                <div>{{rental.created_date|date:"d-m-Y H:i"|default:"(data nieznana)"}}</div>
               </div>
             </div>
           </div>
@@ -150,6 +157,28 @@
     </div>
   </div>
 
+</div>
+
+{% comment %} DELETE RENTAL MODAL {% endcomment %}
+<div class="modal fade" id="deleteRentalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="exampleModalLabel">Czy na pewno chcesz usunąć ten rental ??</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Powrót</button>
+        <form method="POST" action="{% url 'rental:rental-delete' rental.id %}">
+          {% csrf_token %}<input class="btn btn-danger" type="submit" value="Usuń">
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock content %}

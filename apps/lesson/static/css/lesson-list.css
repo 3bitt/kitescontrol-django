@@ -64,12 +64,14 @@
   width: max-content;
   top: -1rem;
   left: 1.8rem;
-  /* padding: 5px; */
-  border: 2px solid;
+  padding: .2rem;
+  border: 3px dashed #004bda;
   background-color: lavender;
   border-radius: 4px;
   z-index: 1;
+  box-shadow: 3px 3px 9px 3px grey;
 }
+
 .settings-menu-border{
   transform: rotate3d(0, 0.0, 0.0, 180deg) translateX(-9rem);
 }

@@ -12,11 +12,16 @@
 2. Add environment variable
 
     ``` export DJANGO_DEVELOPMENT=True ```
-    
-3. Create secrets.json file containing:
+
+4. Create secrets.json file with your settings or set them manually in settings.py:
 
     ```json
-    {"SECRET_KEY": "<your_key>"}
+    {
+      "SECRET_KEY": "<your_key>",
+      "DB_PASSWORD": "<pswd>",
+      "EMAIL_HOST_USER": "<whatever>",
+      "EMAIL_HOST_PASS": "<whatever>"
+    }
     ```
     
 4. ``` pip install -r requirements.txt ```

@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.db.models.deletion import CASCADE, DO_NOTHING
 from student.models import Student
@@ -16,7 +17,13 @@ class Rental(models.Model):
     comment = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return f'Rent item for {self.student}'
+        return f'Rent for {self.student}'
+
+    def save(self, *args, **kwargs):
+        if self.id and self.paid == True:
+            self.paid_date = datetime.datetime.now()
+        super().save(*args, **kwargs)
+
 
 class RentalDetail(models.Model):
 
@@ -39,7 +46,7 @@ class RentalDetail(models.Model):
     description = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return f'Rent detail for {self.rental}'
+        return f'Detail for {self.item}'
 
     def get_rent_item_display(self):
 
