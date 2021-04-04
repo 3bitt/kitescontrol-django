@@ -38,15 +38,14 @@ class LessonSummaryView(ListView):
             Prefetch('lessons', lessons_today
             )
         ).annotate(lessondetail_duration_sum=Sum('lessons__lessondetail__duration',
-            filter=Q(lessons__lessondetail__in=lesson_detail) )
+            filter=Q(lessons__lessondetail__in=lesson_detail))
         ).annotate(instructor_lessons_duration_sum=Sum('lessons__duration',
-            filter=Q(lessons__in=lessons_today)
-        )).annotate(lessons_price_sum=Sum('lessons__lessondetail__price',
+            filter=Q(lessons__in=lessons_today))
+        ).annotate(lessons_price_sum=Sum('lessons__lessondetail__price',
             filter=Q(lessons__lessondetail__in=lesson_detail))
             )
 
         context['rentals'] = RentalView.getRentalsForSummary(self.current_date)
-
         context['instructors_with_lessons'] = instructors_with_lessons
 
         context['profit'] = lesson_detail.values('duration','pay_rate','lesson_id').annotate(
