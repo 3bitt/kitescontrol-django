@@ -17,7 +17,7 @@ class Rental(models.Model):
     comment = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return f'Rent item for {self.student}'
+        return f'Rent for {self.student}'
 
     def save(self, *args, **kwargs):
         if self.id and self.paid == True:
@@ -46,7 +46,7 @@ class RentalDetail(models.Model):
     description = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return f'Rent detail for {self.rental}'
+        return f'Detail for {self.item}'
 
     def get_rent_item_display(self):
 

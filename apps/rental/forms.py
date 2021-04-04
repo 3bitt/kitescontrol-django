@@ -82,9 +82,9 @@ class RentalUpdateForm(forms.ModelForm):
                 'end_date')
 
         rrental_start_date = rental_start_date.astimezone().strftime(
-                '%Y-%m-%dT%H:%m:%S') if rental_start_date else None
+                '%Y-%m-%dT%H:%M:%S') if rental_start_date else None
         rrental_end_date = rental_end_date.astimezone().strftime(
-                '%Y-%m-%dT%H:%m:%S') if rental_end_date else None
+                '%Y-%m-%dT%H:%M:%S') if rental_end_date else None
 
         kwargs.update(initial = {
             'start_date': rrental_start_date,
