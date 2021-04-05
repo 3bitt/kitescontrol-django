@@ -52,7 +52,7 @@ class LessonListView(ListView):
 
 
 class LessonCreateView(CreateView):
-    current_date = datetime.today()
+    current_date = datetime.now(tz=pytz.timezone(TIME_ZONE))
     model = Lesson
     template_name = 'lesson/lesson_create.html'
     form_class = LessonCreateForm
@@ -97,7 +97,7 @@ class LessonCreateView(CreateView):
         return response
 
 class LessonUpdateView(UpdateView):
-    current_date = datetime.today()
+    current_date = datetime.now(tz=pytz.timezone(TIME_ZONE))
     model = Lesson
     template_name = 'lesson/lesson_edit.html'
     form_class = LessonCreateForm
