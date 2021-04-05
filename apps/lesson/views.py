@@ -22,13 +22,15 @@ from django.db.models import Prefetch
 # 2 - COMPLETED
 
 class LessonListView(ListView):
-    current_date = datetime.now(tz=pytz.timezone(TIME_ZONE))
+    current_date = datetime.now(tz=pytz.timezone(TIME_ZONE)).astimezone()
+
     # current_date = date.today()
     queryset = Instructor.objects.filter(active=True)
     template_name = 'lesson/lesson_list.html'
     # context_object_name = 'instructors_all'
 
     def get_context_data(self, **kwargs):
+        print(self.current_date)
         context = super().get_context_data(**kwargs)
 
         if (self.kwargs):
@@ -52,7 +54,7 @@ class LessonListView(ListView):
 
 
 class LessonCreateView(CreateView):
-    current_date = datetime.now(tz=pytz.timezone(TIME_ZONE))
+    current_date = datetime.now(tz=pytz.timezone(TIME_ZONE)).astimezone()
     model = Lesson
     template_name = 'lesson/lesson_create.html'
     form_class = LessonCreateForm
@@ -97,7 +99,7 @@ class LessonCreateView(CreateView):
         return response
 
 class LessonUpdateView(UpdateView):
-    current_date = datetime.now(tz=pytz.timezone(TIME_ZONE))
+    current_date = datetime.now(tz=pytz.timezone(TIME_ZONE)).astimezone()
     model = Lesson
     template_name = 'lesson/lesson_edit.html'
     form_class = LessonCreateForm
