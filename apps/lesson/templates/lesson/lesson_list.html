@@ -189,13 +189,15 @@
                     <hr>
                   {%endif%}
           
-                  {% if lesson.in_progress and lesson.confirmed %}
+                  {% if lesson.in_progress and lesson.confirmed and lesson.group_lesson %}
                     <div class="lesson-settings-menu-item">                      
                       <button type="button" class="btn_rmv_stl" data-toggle="modal" data-target="#split_modal_{{lesson.id}}">
                         <i class="fas fa-code-branch"></i>
                         Rozdziel
                       </button>                      
                     </div>
+                  {% endif %}
+                  {% if lesson.in_progress and lesson.confirmed %}
                     <div class="lesson-settings-menu-item">                      
                       <button type="button" class="btn_rmv_stl" data-toggle="modal" data-target="#complete_modal_{{lesson.id}}">
                         <i class="fas fa-flag-checkered"></i>
