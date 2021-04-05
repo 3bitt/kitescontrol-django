@@ -127,17 +127,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'pl'
+LANGUAGE_CODE = 'en-us'
 USE_TZ = True
-# TIME_ZONE = 'Europe/Warsaw'
 TIME_ZONE = 'Etc/GMT-1'
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 DATETIME_INPUT_FORMATS = ['%d-%m-%Y %H:%M']
 
 USE_I18N = True
-
 USE_L10N = True
-
 
 
 # Static files (CSS, JavaScript, Images)
@@ -183,6 +180,11 @@ if os.environ.get('DJANGO_DEVELOPMENT') is not None and os.environ.get('DJANGO_D
         ALLOWED_HOSTS,
         INSTALLED_APPS,
         TEMPLATE_LOADERS,
+        LANGUAGE_CODE,
+        USE_TZ,
+        TIME_ZONE,
+        USE_I18N,
+        USE_L10N,
         STATIC_ROOT,
         STATIC_URL,
         CSRF_COOKIE_SECURE,
