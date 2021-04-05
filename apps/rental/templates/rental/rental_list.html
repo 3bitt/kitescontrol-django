@@ -8,7 +8,7 @@
 
 <div class="container-fluid">
   <div class="row mt-3 mb-5">
-    <div class="col-5 rentals-master-col mr-auto ml-2">
+    <div class="col-6 rentals-master-col mr-auto ml-2">
       
       <div class="row rentals-title">
         <div class="col-auto">
@@ -16,7 +16,7 @@
         </div>
       </div>
 
-      {% if rentals_list%}
+      {% if rentals_list %}
       {% for rental in rentals_list%}
       <div class="row rental-list-item">
 
@@ -89,23 +89,6 @@
           </div>
         
         </div>
-
-        {% comment %} <div class="col-auto rental-table-each-column">
-
-          <div class="row">
-            <div class="col-auto">
-              {{rental.created_date|date:"d-m-Y H:m"}}
-            </div>
-          </div>
-        
-        </div> {% endcomment %}
-
-        
-
-        
-        
-        
-        
       
       </div>
       {% endfor %}

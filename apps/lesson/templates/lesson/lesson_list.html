@@ -187,11 +187,17 @@
                       </form>
                     </div>
                     <hr>
-                  {%endif%}  
-                    
+                  {%endif%}
+          
                   {% if lesson.in_progress and lesson.confirmed %}
                     <div class="lesson-settings-menu-item">                      
-                      <button type="button" class="btn_rmv_stl" data-toggle="modal" data-target="#modal_{{lesson.id}}">
+                      <button type="button" class="btn_rmv_stl" data-toggle="modal" data-target="#split_modal_{{lesson.id}}">
+                        <i class="fas fa-code-branch"></i>
+                        Rozdziel
+                      </button>                      
+                    </div>
+                    <div class="lesson-settings-menu-item">                      
+                      <button type="button" class="btn_rmv_stl" data-toggle="modal" data-target="#complete_modal_{{lesson.id}}">
                         <i class="fas fa-flag-checkered"></i>
                         Zakończ
                       </button>                      
@@ -202,107 +208,9 @@
               </div>
             </div>
 
-            {% comment %} COMPLETE LESSON MODAL {% endcomment %}
-
-          <div class="modal fade" id="modal_{{lesson.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title text-danger" id="exampleModalLabel">Zakończ lekcje</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="row">
-                    <div class="col-3">
-                      Data:
-                    </div>
-                    <div class="col-auto">
-                      {{lesson.start_date|date:'d-m-Y'}}
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-3">
-                      Godzina:
-                    </div>
-                    <div class="col-auto">
-                      {{lesson.start_time|time:'H:i'}}
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-3">
-                      Instruktor:
-                    </div>
-                    <div class="col-auto">
-                      {%for instr in lesson.instructor.all%}
-                        <div>{{instr}}</div>
-                      {%endfor%}
-                    </div>
-                  </div>
-                  <hr class="complete-lesson-divider">
-
-                  <form method="POST" action="{% url 'lesson:lesson-complete' pk=lesson.id %}">
-                  {% csrf_token %}
-                  <div class="row mb-3 mx-1 align-items-center">
-                    <div class="col">
-                      <b>Czas trwania lekcji:</b>
-                    </div>
-                    <div class="col align-self-start">
-                      <input class="input lesson-complete-duration" type="number" id="id_duration" name="duration" value="{{lesson.duration}}" min="0.5" max="6" step="0.5" required>
-                    </div>
-                  </div>
-                  {% comment %} <div class="row my-3 align-items-center">
-                    <div class="col-auto">
-                      <b>Osiągnięty poziom IKO:</b>
-                    </div>
-                  </div> {% endcomment %}
-
-                  {%for student in lesson.student.all%}
-                  <div class="row mb-3 mx-1 pb-2 align-items-center lesson-complete-student-row">
-                    <div class="col-12 pt-1">
-                      <div>
-                        <span class="lesson-complete-student-name">{{student}}</span>
-                        <br>
-                        <span><small>Poziom: {{student.iko_level|default_if_none:"---"}}</small></span>
-                      </div>
-                    </div>                
-                  
-                    <div class="col-6">
-                      <div class="row">
-                        <div class="col pr-0">
-                          <span><b>Nowy poziom:</b></span>
-                        </div>
-                        <div class="col-auto">
-                          <input class="input lesson-complete-input" type="text" maxlength="10"
-                          name="new_iko_level_{{student.id}}" required>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="row">
-                        <div class="col pr-0">
-                          <span><b>Czas na lekcji:</b></span>
-                        </div>
-                        <div class="col-auto">
-                          <input class="input lesson-complete-input" type="number" value="{{lesson.duration}}" min="0.5" max="6" step="0.5" name="student_lesson_duration_{{student.id}}" required="">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {%endfor%}
-                  
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-warning" data-dismiss="modal">Anuluj</button>
-                    <input class="btn btn-success" type="submit" value="Zakończ">
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          {% comment %} MODAL END {% endcomment %}
+            {% comment %} Lesson settings modals include {% endcomment %}
+            {%include 'lesson/lesson_modals.html' with lesson=lesson %}
+          
             
             <div class="row m-0">
               <div class="col-auto px-1">
@@ -347,7 +255,8 @@
 
 
 </div>
-  {%include 'rental/rental_list.html' %}
+{%include 'rental/rental_list.html' %}
+
 
 
 
