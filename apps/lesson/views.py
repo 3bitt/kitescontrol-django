@@ -30,7 +30,6 @@ class LessonListView(ListView):
     # context_object_name = 'instructors_all'
 
     def get_context_data(self, **kwargs):
-        print(self.current_date)
         context = super().get_context_data(**kwargs)
 
         if (self.kwargs):
