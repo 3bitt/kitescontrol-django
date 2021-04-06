@@ -1,5 +1,5 @@
 from kitescontrol.settings_dev import TIME_ZONE
-from apps.rental.views import RentalView
+from rental.views import RentalView
 from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from django.db.models import Q
@@ -22,7 +22,7 @@ from django.db.models import Prefetch
 # 2 - COMPLETED
 
 class LessonListView(ListView):
-    current_date = datetime.now(tz=pytz.timezone(TIME_ZONE)).astimezone()
+    current_date = datetime.now()
 
     # current_date = date.today()
     queryset = Instructor.objects.filter(active=True)
@@ -53,7 +53,7 @@ class LessonListView(ListView):
 
 
 class LessonCreateView(CreateView):
-    current_date = datetime.now(tz=pytz.timezone(TIME_ZONE)).astimezone()
+    current_date = datetime.now()
     model = Lesson
     template_name = 'lesson/lesson_create.html'
     form_class = LessonCreateForm
@@ -98,7 +98,7 @@ class LessonCreateView(CreateView):
         return response
 
 class LessonUpdateView(UpdateView):
-    current_date = datetime.now(tz=pytz.timezone(TIME_ZONE)).astimezone()
+    current_date = datetime.now()
     model = Lesson
     template_name = 'lesson/lesson_edit.html'
     form_class = LessonCreateForm
