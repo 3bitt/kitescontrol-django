@@ -18,7 +18,7 @@ from django.shortcuts import redirect
 class LessonSummaryView(ListView):
     template_name = 'lesson_summary/lesson_summary.html'
     queryset = Instructor.objects.filter(active=True)
-    current_date = datetime.today()
+    current_date = datetime.now()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

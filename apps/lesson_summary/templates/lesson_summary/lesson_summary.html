@@ -122,13 +122,13 @@
               <div class="mt-2">
                 <div>
                   <span class="profit-label">Lekcje</span>
-                  <span class="profit">{{profit.total_profit|default_if_none:"0.00"}} zł</span>
+                  <span class="profit">{{profit.total_profit|default_if_none:"0.00"|floatformat:'-2'}} zł</span>
                 </div>
               </div>
               <div class="mt-2">
                 <div>
                   <span class="profit-label">Renty</span>
-                  <span class="profit">{{rentals.total_profit.sum|default_if_none:"0.00"}} zł</span>
+                  <span class="profit">{{rentals.total_profit.sum|default_if_none:"0.00"|floatformat:'-2'}} zł</span>
                 </div>
               </div>
             </div>        
@@ -225,7 +225,7 @@
                             <small>zł/h</small>
                           </div>
                           <div class="col text-align-center">
-                            <span class="bold">{{lesson_detail.price}} zł</span>
+                            <span class="bold">{{lesson_detail.price|floatformat:'-2'}} zł</span>
                           </div>
                         </div>
                       {% endfor %}
@@ -254,7 +254,7 @@
                     </div>
                     <div class="col"></div>
                     <div class="col text-align-center">
-                      <span class="green-bold">{{instructor.lessons_price_sum|default_if_none:"--"}}</span> zł
+                      <span class="green-bold">{{instructor.lessons_price_sum|default_if_none:"--"|floatformat:'-2'}}</span> zł
                     </div>
                   </div>              
                 </div>
@@ -335,7 +335,7 @@
                           <small>zł/h</small>
                         </div>
                         <div class="col text-align-center">
-                          <span class="bold">{{rent_detail.item_rent_gross_amt}} zł</span>
+                          <span class="bold">{{rent_detail.item_rent_gross_amt|floatformat:'-2'}} zł</span>
                         </div>
                       </div>
                     {% endfor %}
@@ -351,7 +351,7 @@
               </div>              
 
               <div class="col-auto ml-3">
-                <span class="green-bold">{{student.student_total_rent_amt|default_if_none:"--"}}</span> zł
+                <span class="green-bold">{{student.student_total_rent_amt|default_if_none:"--"|floatformat:'-2'}}</span> zł
               </div>
 
             </div>
