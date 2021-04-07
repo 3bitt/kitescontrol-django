@@ -85,15 +85,16 @@
                   </a>                                    
                 </div>
 
+                {% if not rental.paid %}
                 <hr>
-
                 <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
                   <button class="btn_rmv_stl rental-complete-btn-js" type="button"  data-toggle="modal"
                     data-target="#complete_rental_modal_{{rental.id}}">
                     <i class="fas fa-dollar-sign"></i>
                     Rozlicz
                   </button>
-                </div> 
+                </div>
+                {% endif %} 
 
                 {% comment %} <hr> {% endcomment %}
 

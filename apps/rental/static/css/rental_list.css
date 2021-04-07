@@ -56,8 +56,8 @@
 .rental-settings-menu{
   position: absolute;
   width: max-content;
-  top: -3rem;
-  left: 1.8rem;
+  top: -1rem;
+  left: 3rem;
   padding: .2rem;
   border: 3px dashed #004bda;
   background-color: lavender;
