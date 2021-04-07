@@ -6,6 +6,7 @@ from django.db.models import Count
 from django.db.models.expressions import ExpressionWrapper, F, OuterRef, Subquery, Value
 from django.db.models.fields import DecimalField, DurationField, FloatField, IntegerField
 from django.db.models import Prefetch
+from django.views.generic.base import View
 from django.views.generic.edit import UpdateView
 from django.db.models.query_utils import Q
 from django.urls import reverse_lazy
@@ -108,7 +109,6 @@ class RentalUpdateView(UpdateView):
         rental.student = fetch_student
         rental.paid = paid
         rental.comment = comment
-        print(rental.end_date)
         rental.save()
 
         RentalDetail.objects.filter(rental=rental).delete()
@@ -125,6 +125,25 @@ class RentalUpdateView(UpdateView):
 
         return redirect('rental:rental-detail', rental.id)
 
+
+class RentalCompleteView(View):
+
+    def post(self, *args, **kwargs):
+
+        rental_id = self.kwargs['pk']
+        rental = Rental.objects.get(id=rental_id)
+
+        start_date_input = self.request.POST['rental_start_date']
+        end_date_input = self.request.POST['rental_end_date']
+
+        # Naive dates
+        rental.start_date = start_date_input
+        rental.end_date = end_date_input
+        rental.paid = True
+
+        rental.save()
+
+        return redirect(self.request.META['HTTP_REFERER'])
 
 class RentalDeleteView(DeleteView):
     model = Rental

@@ -8,4 +8,86 @@
 
 {% block content %}
 
+<div class="container mb-3">
+  <div class="row mt-3">
+    <div class="col">
+      <h3>Ostatio dodane</h3>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-5">
+      <span><h5>Lekcje</h5></span>
+      <ul>
+        <li>
+        <span><b>Rozdzielanie lekcji grupowych</b></span><br>
+        <span><small>W przypadku gdy jeden z kursantów w trakcie lekcji zrezygnuje,
+        można taką lekcje rozdzielić, wówczas stara lekcja zostaje
+        zakończona i zapisana jako grupowa ze wszystkimi uczestnikami.<br>
+        Równocześnie powstaje nowa lekcja bez rezygnanta ze statusem "w trakcie".
+        W zależności od ilości pozostałych osób lekcja będzie naliczana jako grupowa lub indywidualna
+        </small></span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-5">
+      <span><h5>Renty</h5></span>
+      <ul>
+        <li>
+          <b>Dodawanie rentów, edycja i usuwanie</b><br>
+          <small>Na grafiku wyświetlane są tylko te renty których okres trwania (start-koniec) obejmuje
+          aktualną date lub data końca renta nie jest podana a data startu jest mniejsza niż aktualna.</small>
+
+        </li>
+        <li>
+          <b>Rozliczanie rentów</b><br>
+          <small>W trakcie rozliczania można dopasować czas trwania renta. <br>
+          Całkowity czas oraz cena renta wyliczane są dynamicznie jeśli data lub godzina zostanie zmieniona.
+          </small>
+        </li>
+        <li>
+        <b>Uwzględnienie rentów w podsumowaniu dnia</b><br>
+        <small>Uwzględnione zostają tylko te renty których data zakończenia jest taka sama
+        jak data wyświetlanego podsumowania</small>
+        
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<script id="wg_fwdg_500757_21_1617753651577">
+(function (window, document) {
+  var loader = function () {
+    var arg = ["s=500757" ,"m=21","uid=wg_fwdg_500757_21_1617753651577" ,"wj=knots" ,"tj=c" ,"waj=m" ,"odh=0" ,"doh=24" ,"fhours=180" ,"hrsm=2" ,"vt=forecasts" ,"lng=pl" ,"p=WINDSPD,GUST,MWINDSPD,SMER,TMP,APCP1s,CDC"];
+    var script = document.createElement("script");
+    var tag = document.getElementsByTagName("script")[0];
+    script.src = "https://www.windguru.cz/js/widget.php?"+(arg.join("&"));
+    tag.parentNode.insertBefore(script, tag);
+  };
+  window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+})(window, document);
+</script>
+
+<script id="wg_fwdg_500757_3_1617753370740">
+(function (window, document) {
+  var loader = function () {
+    var arg = ["s=500757" ,"m=3","uid=wg_fwdg_500757_3_1617753370740" ,"wj=knots" ,"tj=c" ,"waj=m" ,"odh=0" ,"doh=24" ,"fhours=240" ,"hrsm=3" ,"vt=forecasts" ,"lng=pl" ,"p=WINDSPD,GUST,MWINDSPD,SMER,TMPE,APCP1s,CDC"];
+    var script = document.createElement("script");
+    var tag = document.getElementsByTagName("script")[0];
+    script.src = "https://www.windguru.cz/js/widget.php?"+(arg.join("&"));
+    tag.parentNode.insertBefore(script, tag);
+  };
+  window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+})(window, document);
+</script>
+
+
+{% comment %} http://www.meteo.pl/um/metco/mgram_pict.php?ntype=0u&fdate=2021040618&row=318&col=213&lang=pl {% endcomment %}
+
+
+
+
 {% endblock content %}

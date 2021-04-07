@@ -1,8 +1,8 @@
-const root = document.getRootNode()
-const settingsButton = document.getElementsByClassName('lesson-settings-icon');
+const rootElement = document.getRootNode()
+const rentalSettingsBtn = document.getElementsByClassName('rental-settings-icon');
 
-root.addEventListener('click', (event) =>{
-  for (var btn of settingsButton){
+rootElement.addEventListener('click', (event) =>{
+  for (var btn of rentalSettingsBtn){
      if (event.target != btn.nextElementSibling &&
         !btn.nextElementSibling.getAttribute('hidden') &&
         event.target != btn){
@@ -12,9 +12,9 @@ root.addEventListener('click', (event) =>{
   } 
 });
 
-for (var btn of settingsButton){
+for (var btn of rentalSettingsBtn){
   btn.addEventListener('click', (event) => {
-    switchHidden(event.target);   
+    switchHidden(event.target);
   });
 }
 

@@ -1,0 +1,18 @@
+.complete-rent-header{
+  border-bottom: 2px solid gray;
+  margin-bottom: .5rem;
+}
+
+.complete-rent-items, .complete-rent-adjust-dates{
+  border-bottom: 2px solid gray;
+  margin-top: .7rem;
+  margin-bottom: .4rem;
+}
+
+.complete-rent-item-col:not(:last-child){
+  border-right: 1px solid gray;
+}
+
+.complete-rent-adjust-dates{
+  color: #007bff;
+}
