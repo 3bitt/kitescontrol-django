@@ -1,9 +1,9 @@
 {% load static %}
-{%block extra_css%}
+
+
+{% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/rental_list.css'%}">
-
-{%endblock extra_css%}
-
+{% endblock extra_css %}
 
 
 <div class="container-fluid">
@@ -35,7 +35,7 @@
           <div class="row">
             <div class="col-auto">
               <i class="fa fa-sm fa-circle text-success"></i>
-              {{rental.start_date|date:"d-m-Y H:i"}}
+              {{rental.start_date|date:"d-m-Y H:i"|default:"?-?-?"}}
             </div>
           </div>
         
@@ -72,6 +72,37 @@
 
         <div class="col-auto">
           <div class="row">
+            <div class="col-auto rental-settings-col">
+              <i class="fa fa-cog rental-settings-icon"></i>
+
+              <div class="rental-settings-menu"
+                id="settings_menu_{{rental.id}}" hidden="true">
+
+                <div class="rental-edit-menu-item rental-settings-menu-item">
+                  <a class="rental-edit-link" href="{% url 'rental:rental-detail' rental.id %}">
+                    <i class="no-decoration fa fa-edit fa-sm"></i>
+                    <span class="no-decoration">Edytuj</span>
+                  </a>                                    
+                </div>
+
+                <hr>
+
+                <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
+                  <button class="btn_rmv_stl rental-complete-btn-js" type="button"  data-toggle="modal"
+                    data-target="#complete_rental_modal_{{rental.id}}">
+                    <i class="fas fa-dollar-sign"></i>
+                    Rozlicz
+                  </button>
+                </div> 
+
+                {% comment %} <hr> {% endcomment %}
+
+              </div>
+              
+
+            </div>
+          </div>
+          <div class="row">
             <div class="col-auto">
               {% if rental.paid%}
                 <i class="fa fa-coins text-success" title="Zapłacony"></i>
@@ -79,16 +110,11 @@
                 <i class="fa fa-coins text-danger" title="Niezapłacony"></i>
               {% endif %}
             </div>
-          </div>
-          <div class="row">
-            <div class="col-auto">
-              <a href="{% url 'rental:rental-detail' rental.id %}">
-                <i class="fa fa-sm fa-edit "></i>
-              </a>
-            </div>
-          </div>
-        
+          </div>        
         </div>
+
+        {% comment %} Rental settings modals {% endcomment %}
+        {%include 'rental/rental_modals.html' with rental=rental %}
       
       </div>
       {% endfor %}
@@ -103,5 +129,8 @@
     </div>
   </div>
 </div>
+
+<script src="{% static 'js/rental_settings.js' %}"></script>
+<script src="{% static 'js/rental_complete_calc_sum.js' %}"></script>
 
 

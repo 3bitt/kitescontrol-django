@@ -21,7 +21,7 @@ class Rental(models.Model):
 
     def save(self, *args, **kwargs):
         if self.id and self.paid == True:
-            self.paid_date = datetime.datetime.now()
+            self.paid_date = datetime.datetime.now().astimezone()
         super().save(*args, **kwargs)
 
 

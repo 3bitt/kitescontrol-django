@@ -40,3 +40,44 @@
 .rental-items:not(:last-child){
   border-bottom: 1px solid gray;
 }
+
+
+/* SETTINGS MENU */
+
+.rental-settings-col{
+  position: relative;
+}
+
+.rental-settings-icon{
+  color: #49494d;
+  cursor: pointer;
+}
+
+.rental-settings-menu{
+  position: absolute;
+  width: max-content;
+  top: -3rem;
+  left: 1.8rem;
+  padding: .2rem;
+  border: 3px dashed #004bda;
+  background-color: lavender;
+  border-radius: 4px;
+  z-index: 10;
+  box-shadow: 3px 3px 9px 3px grey;
+}
+
+.settings-menu-border{
+  transform: rotate3d(0, 0.0, 0.0, 180deg) translateX(-9rem);
+}
+.rental-settings-menu-item{
+  padding: 2px 5px 2px 5px;
+}
+.rental-settings-menu-item:hover{
+  background-color: #bcd9f8;
+  border-radius: 4px;
+}
+
+.rental-edit-link > * {
+  text-decoration: none;
+  color: black;
+}

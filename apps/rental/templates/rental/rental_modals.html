@@ -1,0 +1,125 @@
+{% load static %}
+{% load tz %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/rental_modals.css' %}">
+{% endblock extra_css %}
+
+<div class="modal fade rental-complete-modal" id="complete_rental_modal_{{rental.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="exampleModalLabel">Rozliczasz renta</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-8 complete-rent-header">
+            <span><b>Rent</b></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            Start:
+          </div>
+          <div class="col-auto">
+            {{rental.start_date|date:'d-m-Y H:i'|default:"?-?-?"}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            Koniec:
+          </div>
+          <div class="col-auto">
+            {{rental.end_date|date:'d-m-Y H:i'|default:"?-?-?"}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            Klient:
+          </div>
+          <div class="col-auto">
+            {{rental.student}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8 complete-rent-items">
+            <span><b>Przedmioty</b>&emsp;<small>(co | opis | ilość | cena)</small></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            {%for rent_item in rental.rentaldetail_set.all%}
+              <div class="row rental-items">
+                <div class="col-auto pl-3 pr-0">
+                  {{forloop.counter}}.
+                </div>
+                <div class="col-3 pr-0 complete-rent-item-col">
+                  {{rent_item.get_rent_item_display}}
+                </div>
+                <div class="col complete-rent-item-col">
+                  {{rent_item.description}}
+                </div>
+                <div class="col-auto complete-rent-item-col">
+                  x<span class="rent-item-quantity">{{rent_item.quantity}}</span>
+                </div>
+                <div class="col-auto complete-rent-item-col">
+                  <span class="rent-item-price">{{rent_item.price}}</span> zł/h
+                </div>
+              </div>
+            {%endfor%}
+          </div>
+        </div>
+
+        <form method="POST" action="{% url 'rental:rental-complete' rental.id %}">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-8 complete-rent-adjust-dates">
+              <span><b>Dopasuj date i czas</b></span>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-2">
+              <span>Start:</span>
+            </div>
+            <div class="col">
+              <input class="modal-date-input rental-start-date" name="rental_start_date" type="datetime-local" value="{{rental.start_date|date:'Y-m-d\TH:i:s'}}" required>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-2">
+              <span>Koniec:</span>
+            </div>
+            <div class="col">
+              <input class="modal-date-input rental-end-date" name="rental_end_date" type="datetime-local" value="{{rental.end_date|date:'Y-m-d\TH:i:s'}}" required>
+            </div>
+          </div>
+          <hr class="mt-3">
+          <div class="row mt-2">
+            <div class="col-4">
+              <span>Całkowity czas:</span>              
+            </div>
+            <div class="col">
+              <div class="total-rent-time"></div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4">
+              <span>Do zapłaty:</span>
+            </div>
+            <div class="col">
+                <b><div class="total-rent-value text-success"></div></b>              
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Powrót</button>
+        <input class="btn btn-success" type="submit" value="Rozlicz">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

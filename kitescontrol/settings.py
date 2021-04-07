@@ -132,7 +132,7 @@ USE_TZ = True
 TIME_ZONE = 'Europe/Warsaw'
 # TIME_ZONE = 'Etc/GMT-1' - Gives error when querying with date filters
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
-DATETIME_INPUT_FORMATS = ['%d-%m-%Y %H:%M']
+DATETIME_INPUT_FORMATS = ['%d-%m-%Y %H:%M:%S']
 
 USE_I18N = False
 USE_L10N = True
@@ -185,18 +185,19 @@ if os.environ.get('DJANGO_DEVELOPMENT') is not None and os.environ.get('DJANGO_D
         TIME_ZONE,
         USE_I18N,
         USE_L10N,
+        SITE_ROOT,
         STATIC_ROOT,
         STATIC_URL,
         CSRF_COOKIE_SECURE,
         SESSION_COOKIE_SECURE,
+        SECURE_SSL_REDIRECT,
+        SECURE_HSTS_SECONDS,
+        SECURE_HSTS_PRELOAD,
+        SECURE_HSTS_INCLUDE_SUBDOMAINS,
         EMAIL_BACKEND,
         EMAIL_HOST,
         EMAIL_PORT,
         EMAIL_USE_TLS,
         EMAIL_HOST_USER,
         EMAIL_HOST_PASSWORD,
-        SECURE_SSL_REDIRECT,
-        SECURE_HSTS_SECONDS,
-        SECURE_HSTS_PRELOAD,
-        SECURE_HSTS_INCLUDE_SUBDOMAINS,
     )

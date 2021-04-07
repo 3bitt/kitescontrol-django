@@ -272,11 +272,6 @@ class LessonSplit(View):
         return redirect('lesson:lesson-list')
 
 
-
-
-
-
-
 class LessonDeleteView(DeleteView):
     model = Lesson
     success_url = reverse_lazy('lesson:lesson-list')
