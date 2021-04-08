@@ -157,46 +157,6 @@ class LessonConfirmView(View):
         lesson.save()
         return redirect('lesson:lesson-list')
 
-class LessonCompleteView(View):
-
-    def post(self, request, **kwargs):
-        lesson_id = self.kwargs['pk']
-        lesson: Lesson = Lesson.objects.get(id=lesson_id)
-        request_dict = self.request.POST
-
-        for key in request_dict:
-            if key.startswith('new_iko_level'):
-                student_id = key.split('_')[-1]
-                for student in lesson.student.all():
-                    if student.id == int(student_id):
-                        student.iko_level = request_dict[key]
-                        student.save()
-
-                        if lesson.group_lesson:
-                            student_pay_rate = student.pay_rate_group
-                        else:
-                            student_pay_rate = student.pay_rate_single
-
-                        # student_lesson_time = float(request_dict[f'student_lesson_duration_{student_id}'])
-                        student_lesson_time = float(request_dict['duration'])
-
-                        lesson_detail_object, created = LessonDetail.objects.update_or_create(
-                            lesson=lesson, student=student,
-                            defaults = {
-                                'lesson': lesson,
-                                'student': student,
-                                'duration': student_lesson_time,
-                                'pay_rate': int(student_pay_rate),
-                                'price': int(student_pay_rate) * student_lesson_time,
-                                'iko_level_achieved': request_dict[key]
-                            }
-                        )
-
-        lesson.duration = request_dict['duration']
-        lesson.completed = True
-        lesson.in_progress = False
-        lesson.save()
-        return redirect('lesson:lesson-list')
 
 # Only group lessons
 class LessonSplit(View):
@@ -270,6 +230,60 @@ class LessonSplit(View):
         new_lesson.save()
 
         return redirect('lesson:lesson-list')
+
+
+class LessonCompleteView(View):
+
+    def post(self, request, **kwargs):
+        lesson_id = self.kwargs['pk']
+        lesson: Lesson = Lesson.objects.get(id=lesson_id)
+        request_dict = self.request.POST
+
+        for key in request_dict:
+            if key.startswith('new_iko_level'):
+                student_id = key.split('_')[-1]
+                for student in lesson.student.all():
+                    if student.id == int(student_id):
+                        student.iko_level = request_dict[key]
+                        student.save()
+
+                        if lesson.group_lesson:
+                            student_pay_rate = student.pay_rate_group
+                        else:
+                            student_pay_rate = student.pay_rate_single
+
+                        # student_lesson_time = float(request_dict[f'student_lesson_duration_{student_id}'])
+                        student_lesson_time = float(request_dict['duration'])
+
+                        lesson_detail_object, created = LessonDetail.objects.update_or_create(
+                            lesson=lesson, student=student,
+                            defaults = {
+                                'lesson': lesson,
+                                'student': student,
+                                'duration': student_lesson_time,
+                                'pay_rate': int(student_pay_rate),
+                                'price': int(student_pay_rate) * student_lesson_time,
+                                'iko_level_achieved': request_dict[key]
+                            }
+                        )
+
+        lesson.duration = request_dict['duration']
+        lesson.completed = True
+        lesson.in_progress = False
+        lesson.save()
+        return redirect('lesson:lesson-list')
+
+
+class LessonMarkAsPaidView(View):
+
+    def post(self, *args, **kwargs):
+        lesson_id = self.kwargs['pk']
+        lesson = Lesson.objects.get(id=lesson_id)
+
+        lesson.paid = True
+        lesson.save()
+
+        return redirect(self.request.META['HTTP_REFERER'])
 
 
 class LessonDeleteView(DeleteView):

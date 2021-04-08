@@ -36,6 +36,7 @@
 
 .lesson-tile{
   /* padding: .3em; */
+  position: relative;
   margin: 0 .2em 0 .2em;
   height: max-content;
   border: 1px solid gray;
@@ -43,11 +44,23 @@
   background-color: lavender;
 }
 
+.exclamation-mark-icon{
+  position: absolute;
+  top: calc(50%);
+  left: calc(100% - 1rem);
+  font-size: 2rem;
+  color: #c33535;
+}
+
 .lesson-in-progress{
   background-color: #a5e0a5;
 }
 .lesson-completed{
-  background-color: #ecbea8;;
+  background: repeating-linear-gradient( 45deg, #ffffff, #ffffff 1rem, #fdd7d7 1rem, #fdd7d7 1.8rem );
+}
+
+.lesson-paid{
+  background-color: #f3c6c6;
 }
 
 .lesson-settings-col{
@@ -78,6 +91,12 @@
 .lesson-settings-menu-item{
   padding: 2px 5px 2px 5px;
 }
+
+.lesson-settings-menu-item:not(:last-child){
+  margin-bottom: .2rem;
+  border-bottom: 1px solid gray;
+}
+
 .lesson-settings-menu-item:hover{
   background-color: #bcd9f8;
   border-radius: 4px;
@@ -145,6 +164,18 @@ hr {
   box-shadow: 1px 1px 4px #797979;
 }
 
+
+/* MARK LESSON AS PAID MODAL */
+
+.mark-modal-student-div{
+  margin-right: .8rem;
+  margin-left: .8rem;
+  padding: .6rem;
+  border: 1px solid darkgrey;
+  border-radius: .3rem;
+  background-color: #b0c4de30;
+  box-shadow: 0px 0px 1px 1px #e8e8e8;
+}
 
 /* Schedule hours */
 
