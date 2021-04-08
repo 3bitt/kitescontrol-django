@@ -1,0 +1,99 @@
+<div class="col payroll-instr-div">
+  {%for instructor in instructors%}
+  <div class="row mb-4">
+    <div class="col payroll-instr-row-parent">
+
+      <div class="row payroll-instr-rows">
+
+        <div class="col payroll-instr-col d-flex">
+          <span class="align-self-center">{{instructor}}</span>
+        </div>
+        <div class="col payroll-instr-col">
+          <div class="row border-bottom">
+            <div class="col text-center">
+              <span><b>Lekcje</b></span>
+            </div>
+          </div>
+          <div class="row border-bottom border-dark">
+            <div class="col">
+              <small>Indywidualne</small>
+            </div>
+            <div class="col text-center">
+              <span>{{instructor.single_lessons_count}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <small>Grupowe</small>
+            </div>
+            <div class="col text-center">
+              <span>{{instructor.group_lessons_count}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col payroll-instr-col">
+          <div class="row border-bottom">
+            <div class="col text-center">
+              <span><b>Suma</b></span>
+            </div>
+            <div class="col text-center">
+              <span><b>Stawka</b></span>
+            </div>
+          </div>
+          <div class="row border-bottom border-dark">
+            <div class="col text-center">
+              <span>{{instructor.single_lessons_duration|default_if_none:'0'}}&nbsp;h</span>
+            </div>
+            <div class="col text-center">
+              <small>{{instructor.pay_rate_single|default_if_none:"0"}}&nbsp;zł/h</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col text-center">
+              <span>{{instructor.group_lessons_duration|default_if_none:'0'}}&nbsp;h</span>
+            </div>
+            <div class="col text-center">
+              <small>{{instructor.pay_rate_group|default_if_none:"0"}}&nbsp;zł/h</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col payroll-instr-col">
+          <div class="row border-bottom">
+            <div class="col text-center">
+              <span><b>Rozbicie</b></span>
+            </div>
+          </div>
+          <div class="row border-bottom border-dark">
+            <div class="col text-center">
+              <span>{{instructor.single_lessons_value|default_if_none:'0.00'}}&nbsp;zł</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col text-center">
+              <span>{{instructor.group_lessons_value|default_if_none:'0.00'}}&nbsp;zł</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col payroll-instr-col d-flex flex-column justify-content-around">
+          <div class="row text-center">
+            <div class="col">
+              <span><b>Wypłata</b></span>
+            </div>
+          </div>
+          <div class="row text-center">
+            <div class="col">
+            <span class="text-success payroll-total-amt">{{instructor.payroll_sum|default_if_none:'0.00'}}&nbsp;zł</span>
+            </div>
+          </div>          
+        </div>
+
+      </div>
+      </div>
+    </div>
+    
+  {%endfor%}
+</div>
+
