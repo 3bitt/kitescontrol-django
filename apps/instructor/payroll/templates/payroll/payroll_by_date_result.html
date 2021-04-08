@@ -6,7 +6,7 @@
       <div class="row payroll-instr-rows">
 
         <div class="col payroll-instr-col d-flex">
-          <span class="align-self-center">{{instructor}}</span>
+          <span class="align-self-center"><b>{{instructor}}</b></span>
         </div>
         <div class="col payroll-instr-col">
           <div class="row border-bottom">
@@ -14,7 +14,7 @@
               <span><b>Lekcje</b></span>
             </div>
           </div>
-          <div class="row border-bottom border-dark">
+          <div class="row border-bottom border-dark payroll-single-row-bckgrd">
             <div class="col">
               <small>Indywidualne</small>
             </div>
@@ -22,7 +22,7 @@
               <span>{{instructor.single_lessons_count}}</span>
             </div>
           </div>
-          <div class="row">
+          <div class="row payroll-group-row-bckgrd">
             <div class="col">
               <small>Grupowe</small>
             </div>
@@ -41,7 +41,7 @@
               <span><b>Stawka</b></span>
             </div>
           </div>
-          <div class="row border-bottom border-dark">
+          <div class="row border-bottom border-dark payroll-single-row-bckgrd">
             <div class="col text-center">
               <span>{{instructor.single_lessons_duration|default_if_none:'0'}}&nbsp;h</span>
             </div>
@@ -49,7 +49,7 @@
               <small>{{instructor.pay_rate_single|default_if_none:"0"}}&nbsp;zł/h</small>
             </div>
           </div>
-          <div class="row">
+          <div class="row payroll-group-row-bckgrd">
             <div class="col text-center">
               <span>{{instructor.group_lessons_duration|default_if_none:'0'}}&nbsp;h</span>
             </div>
@@ -65,12 +65,12 @@
               <span><b>Rozbicie</b></span>
             </div>
           </div>
-          <div class="row border-bottom border-dark">
+          <div class="row border-bottom border-dark payroll-single-row-bckgrd">
             <div class="col text-center">
               <span>{{instructor.single_lessons_value|default_if_none:'0.00'}}&nbsp;zł</span>
             </div>
           </div>
-          <div class="row">
+          <div class="row payroll-group-row-bckgrd">
             <div class="col text-center">
               <span>{{instructor.group_lessons_value|default_if_none:'0.00'}}&nbsp;zł</span>
             </div>

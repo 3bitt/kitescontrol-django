@@ -22,24 +22,24 @@
 
         <div class="col-4 rental-table-each-column">
 
-          <div class="row">
-            <div class="col-auto rental-student-name">
+          <div class="row h-100 align-items-center">
+            <div class="col rental-student-name">
               <a href="{% url 'student:student-detail' rental.student.id %}">{{rental.student}}</a>
             </div>
-          </div>
+          </div>        
 
         </div>
 
         <div class="col-auto rental-table-each-column">
 
-          <div class="row">
+          <div class="row h-50 align-items-center">
             <div class="col-auto">
               <i class="fa fa-sm fa-circle text-success"></i>
               {{rental.start_date|date:"d-m-Y H:i"|default:"?-?-?"}}
             </div>
           </div>
         
-          <div class="row">
+          <div class="row h-50 align-items-center">
             <div class="col-auto">
               <i class="fa fa-sm fa-circle text-danger"></i>
               {{rental.end_date|date:"d-m-Y H:i"|default:"?-?-?"}}

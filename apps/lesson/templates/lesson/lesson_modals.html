@@ -75,7 +75,7 @@
               </div>
             </div>
           </div>
-          <div class="col-6">
+          {% comment %} <div class="col-6">
             <div class="row">
               <div class="col pr-0">
                 <span><b>Czas na lekcji:</b></span>
@@ -84,7 +84,7 @@
                 <input class="input lesson-complete-input" type="number" value="{{lesson.duration}}" min="0.5" max="6" step="0.5" name="student_lesson_duration_{{student.id}}" required="">
               </div>
             </div>
-          </div>
+          </div> {% endcomment %}
         </div>
         
         {%endfor%}

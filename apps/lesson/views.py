@@ -177,7 +177,8 @@ class LessonCompleteView(View):
                         else:
                             student_pay_rate = student.pay_rate_single
 
-                        student_lesson_time = float(request_dict[f'student_lesson_duration_{student_id}'])
+                        # student_lesson_time = float(request_dict[f'student_lesson_duration_{student_id}'])
+                        student_lesson_time = float(request_dict['duration'])
 
                         lesson_detail_object, created = LessonDetail.objects.update_or_create(
                             lesson=lesson, student=student,

@@ -14,7 +14,6 @@
 
 
 .rental-list-item{
-  align-items: center;
   border-radius: 1rem;
   background-color: #d2d2d2;
   margin: .6rem 0 .6rem 0;
@@ -25,8 +24,8 @@
   font-size: 1rem;
   font-weight: 500;
 }
-.rental-table-each-column:not(:first-child){
-  border-left: 2px solid gray;
+.rental-table-each-column:not(:last-child){
+  border-right: 2px solid gray;
 }
 
 .fa-circle{
