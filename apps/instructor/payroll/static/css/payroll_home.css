@@ -1,3 +1,8 @@
 .instr-payroll-header{
   background-color: #fff8b9;
 }
+
+.payroll-dates-search{
+  border-bottom: 1px solid gray;
+  padding: 1rem;
+}
