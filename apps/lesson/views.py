@@ -1,4 +1,3 @@
-from kitescontrol.settings_dev import TIME_ZONE
 from rental.views import RentalView
 from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
@@ -9,7 +8,7 @@ from instructor.instructor.models import Instructor
 from student.models import Student
 from .models import Lesson, LessonDetail
 import pytz
-from datetime import datetime, time, timedelta
+from datetime import datetime, timedelta
 import datetime as datetimeModule
 from .forms import LessonCreateForm
 from django.urls import reverse_lazy

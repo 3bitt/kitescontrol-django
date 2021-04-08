@@ -8,13 +8,13 @@
 
 {% block sub_content %}
 
-<div class="row mb-5 border-bottom border-grey">
+<div class="row mb-5 border-bottom border-grey instr-task-header">
   <div class="col-auto">
     <h3>Zadania</h3>
   </div>
-  <div class="col-auto">
+  <div class="col-auto align-self-center">
     <div>
-    <a href="{% url 'task:task-create' %}">
+    <a href="{% url 'instructor:task:task-create' %}">
       <button class="btn btn-sm btn-success">
       <i class="fa fa-plus"></i> Dodaj zadanie</button>
     </a>
@@ -63,14 +63,14 @@
           <div class="col-auto">
             <div class="row mt-2">
               <div class="col-auto px-1 ml-auto">
-                <form action="{% url 'task:task-edit' task.id %}" method='get'>
+                <form action="{% url 'instructor:task:task-edit' task.id %}" method='get'>
                       <button type="submit" class="submit-button-edit" title="Edytuj">
                       <i class="fa fa-edit"></i>
                     </button>
                   </form>
               </div>
               <div class="col-auto px-1 ml-3 ">
-                <form action="{% url 'task:task-update-status' task.id %}" method='post'>
+                <form action="{% url 'instructor:task:task-update-status' task.id %}" method='post'>
                   {% csrf_token %}
                     <button type="submit" class="submit-button-done" title="Zakończ">
                       <i class="fa fa-check "></i>
@@ -126,7 +126,7 @@
         <tr>
         <td>{{task.id}}</td>
           <td>
-            <a class="task-link" href="{% url 'task:task-detail' task.id %}">
+            <a class="task-link" href="{% url 'instructor:task:task-detail' task.id %}">
             {{task.title}}
             </a>
           </td>

@@ -35,10 +35,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_ajax',
+
     'account',
     'dashboard',
     'instructor.instructor.apps.InstructorConfig',
     'instructor.task',
+    'instructor.payroll',
     'student',
     'lesson',
     'lesson_summary',

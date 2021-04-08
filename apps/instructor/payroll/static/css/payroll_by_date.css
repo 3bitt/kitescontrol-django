@@ -1,0 +1,21 @@
+.payroll-instr-row-parent{
+  border: 1px solid gray;
+  border-radius: .5rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  background-color: #e1f1f7;
+  box-shadow: 1px 1px 3px 1px #dedede;
+}
+
+.payroll-instr-row{
+  align-items: center;
+}
+
+.payroll-instr-col:not(:last-child){
+  border-right: 1px solid gray;
+}
+
+.payroll-total-amt{
+  font-size: 1.2rem;
+  font-weight: bold;
+}
