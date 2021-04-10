@@ -35,10 +35,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_ajax',
+
     'account',
     'dashboard',
     'instructor.instructor.apps.InstructorConfig',
     'instructor.task',
+    'instructor.payroll',
     'student',
     'lesson',
     'lesson_summary',
@@ -124,19 +127,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'pl'
+LANGUAGE_CODE = 'en-us'
 USE_TZ = True
-# TIME_ZONE = 'Europe/Warsaw'
-TIME_ZONE = 'Etc/GMT-1'
+TIME_ZONE = 'Europe/Warsaw'
+# TIME_ZONE = 'Etc/GMT-1' - Gives error when querying with date filters
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 DATETIME_INPUT_FORMATS = ['%d-%m-%Y %H:%M']
 
-USE_I18N = True
-
+USE_I18N = False
 USE_L10N = True
-
-
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

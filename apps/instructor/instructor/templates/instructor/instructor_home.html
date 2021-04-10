@@ -2,8 +2,7 @@
 {% load static %}
 
 {% block extra_css %}
-
-  <link rel="stylesheet" href="{% static '/css/instructor_home.css' %}">
+  <link rel="stylesheet" href="{% static 'css/instructor_home.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
@@ -23,7 +22,7 @@
         </div>
         
         <div class="div">
-          <a href="{% url 'task:task-list' %}">
+          <a href="{% url 'instructor:task:task-list' %}">
             <div class="instr-nav-tasks m-2 p-2 border border-success rounded d-flex align-items-center justify-content-between">
               <i class="fas fa-tasks fa-lg mr-1"></i>
               <strong class="ml-1">Zadania</strong>
@@ -31,9 +30,13 @@
           </a>
         </div>
         
-        <div class="instr-nav-pay m-2 p-2 border border-warning rounded d-flex align-items-center justify-content-between">
-          <i class="fas fa-dollar-sign fa-lg"></i>
-          <strong>Wypłaty</strong>
+        <div class="div">
+          <a href="{% url 'instructor:payroll:payroll-home' %}">
+            <div class="instr-nav-pay m-2 p-2 border border-warning rounded d-flex align-items-center justify-content-between">
+              <i class="fas fa-dollar-sign fa-lg mr-1"></i>
+              <strong class="ml-1">Wypłaty</strong>
+            </div>
+          </a>
         </div>
         <div class="instr-nav-stats m-2 p-2 border border-secondary rounded d-flex align-items-center justify-content-between">
           <i class="fas fa-chart-bar fa-lg mr-1"></i>
@@ -42,7 +45,7 @@
       </div>
     </div>
     <div class="col-sm-8 col-md">
-      <div class="container pt-3 border border-gray rounded shadow">
+      <div class="container pt-3 rounded border shadow">
         {%block sub_content%}
 
         {%endblock sub_content%}

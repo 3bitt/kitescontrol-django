@@ -1,5 +1,4 @@
-from kitescontrol.settings_dev import TIME_ZONE
-from apps.rental.views import RentalView
+from rental.views import RentalView
 from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from django.db.models import Q
@@ -22,7 +21,8 @@ from django.db.models import Prefetch
 # 2 - COMPLETED
 
 class LessonListView(ListView):
-    current_date = datetime.now(tz=pytz.timezone(TIME_ZONE))
+    current_date = datetime.now()
+
     # current_date = date.today()
     queryset = Instructor.objects.filter(active=True)
     template_name = 'lesson/lesson_list.html'
@@ -52,7 +52,7 @@ class LessonListView(ListView):
 
 
 class LessonCreateView(CreateView):
-    current_date = datetime.today()
+    current_date = datetime.now()
     model = Lesson
     template_name = 'lesson/lesson_create.html'
     form_class = LessonCreateForm
@@ -97,7 +97,7 @@ class LessonCreateView(CreateView):
         return response
 
 class LessonUpdateView(UpdateView):
-    current_date = datetime.today()
+    current_date = datetime.now()
     model = Lesson
     template_name = 'lesson/lesson_edit.html'
     form_class = LessonCreateForm
@@ -139,6 +139,7 @@ class LessonStartView(View):
         return redirect('lesson:lesson-list')
 
 class LessonConfirmView(View):
+
     def post(self,request, **kwargs):
         lesson_id = self.kwargs['pk']
         lesson: Lesson = Lesson.objects.get(id=lesson_id)
@@ -156,7 +157,83 @@ class LessonConfirmView(View):
         lesson.save()
         return redirect('lesson:lesson-list')
 
+
+# Only group lessons
+class LessonSplit(View):
+
+    def post(self, *args, **kwargs):
+
+        req_dict = self.request.POST
+        lesson_id = self.kwargs['pk']
+
+        student_time_spent = float(req_dict['time_spent'])
+        leave_stud_id =  req_dict['leaving_student_id']
+
+        target_lesson = Lesson.objects.get(id=lesson_id)
+        leaving_student = target_lesson.student.get(id=leave_stud_id)
+
+        #
+        # Update lesson which is being splitted
+        #
+        target_lesson.duration = student_time_spent
+        target_lesson.in_progress = False
+        target_lesson.completed = True
+        target_lesson.comment = ' '.join(filter(None, (target_lesson.comment, f'[SYSTEM]: Rozdzielona: Lekcje opuścił {leaving_student}')))
+        target_lesson.save()
+
+        students_staying = []
+
+        for student in target_lesson.student.all():
+
+            student_pay_rate = student.pay_rate_group
+
+            lesson_detail_object, created = LessonDetail.objects.update_or_create(
+                lesson=target_lesson, student=student,
+                defaults = {
+                    'lesson': target_lesson,
+                    'student': student,
+                    'duration': student_time_spent,
+                    'pay_rate': int(student_pay_rate),
+                    'price': int(student_pay_rate) * student_time_spent,
+                    'iko_level_achieved': student.iko_level
+                }
+            )
+
+            if not str(student.id) == leave_stud_id:
+                students_staying.append(student.id)
+
+        #
+        # Create new lesson
+        #
+        start_time_offset = (datetime.combine(
+                target_lesson.start_date,
+                target_lesson.start_time
+                ) + timedelta(hours=student_time_spent)
+            ).time()
+
+        new_lesson = Lesson.objects.create(
+            start_date = target_lesson.start_date,
+            start_time = start_time_offset,
+            group_lesson = True if len(students_staying) > 2 else False,
+            duration = 1,
+            paid = False,
+            kite_brand = target_lesson.kite_brand,
+            board = target_lesson.board,
+            comment = f'[SYSTEM]: Lekcja stworzona wskutek rozdzielenia',
+            confirmed = True,
+            in_progress = True,
+            completed = False
+        )
+
+        new_lesson.student.set(students_staying)
+        new_lesson.instructor.set(list(target_lesson.instructor.values_list(flat=True)))
+        new_lesson.save()
+
+        return redirect('lesson:lesson-list')
+
+
 class LessonCompleteView(View):
+
     def post(self, request, **kwargs):
         lesson_id = self.kwargs['pk']
         lesson: Lesson = Lesson.objects.get(id=lesson_id)
@@ -175,7 +252,8 @@ class LessonCompleteView(View):
                         else:
                             student_pay_rate = student.pay_rate_single
 
-                        student_lesson_time = float(request_dict[f'student_lesson_duration_{student_id}'])
+                        # student_lesson_time = float(request_dict[f'student_lesson_duration_{student_id}'])
+                        student_lesson_time = float(request_dict['duration'])
 
                         lesson_detail_object, created = LessonDetail.objects.update_or_create(
                             lesson=lesson, student=student,
@@ -194,6 +272,18 @@ class LessonCompleteView(View):
         lesson.in_progress = False
         lesson.save()
         return redirect('lesson:lesson-list')
+
+
+class LessonMarkAsPaidView(View):
+
+    def post(self, *args, **kwargs):
+        lesson_id = self.kwargs['pk']
+        lesson = Lesson.objects.get(id=lesson_id)
+
+        lesson.paid = True
+        lesson.save()
+
+        return redirect(self.request.META['HTTP_REFERER'])
 
 
 class LessonDeleteView(DeleteView):

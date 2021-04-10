@@ -14,7 +14,6 @@
 
 
 .rental-list-item{
-  align-items: center;
   border-radius: 1rem;
   background-color: #d2d2d2;
   margin: .6rem 0 .6rem 0;
@@ -25,8 +24,8 @@
   font-size: 1rem;
   font-weight: 500;
 }
-.rental-table-each-column:not(:first-child){
-  border-left: 2px solid gray;
+.rental-table-each-column:not(:last-child){
+  border-right: 2px solid gray;
 }
 
 .fa-circle{
@@ -39,4 +38,45 @@
 
 .rental-items:not(:last-child){
   border-bottom: 1px solid gray;
+}
+
+
+/* SETTINGS MENU */
+
+.rental-settings-col{
+  position: relative;
+}
+
+.rental-settings-icon{
+  color: #49494d;
+  cursor: pointer;
+}
+
+.rental-settings-menu{
+  position: absolute;
+  width: max-content;
+  top: -1rem;
+  left: 3rem;
+  padding: .2rem;
+  border: 3px dashed #004bda;
+  background-color: lavender;
+  border-radius: 4px;
+  z-index: 10;
+  box-shadow: 3px 3px 9px 3px grey;
+}
+
+.settings-menu-border{
+  transform: rotate3d(0, 0.0, 0.0, 180deg) translateX(-9rem);
+}
+.rental-settings-menu-item{
+  padding: 2px 5px 2px 5px;
+}
+.rental-settings-menu-item:hover{
+  background-color: #bcd9f8;
+  border-radius: 4px;
+}
+
+.rental-edit-link > * {
+  text-decoration: none;
+  color: black;
 }

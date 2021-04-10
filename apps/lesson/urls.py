@@ -2,7 +2,7 @@ from datetime import datetime
 from django.conf.urls import include, url
 from django.urls import path, re_path
 from django.urls.converters import register_converter
-from .views import FindScheduleRedirectView, LessonCompleteView, LessonConfirmView, LessonListView, LessonCreateView, LessonDeleteView, LessonStartView, LessonUpdateView
+from .views import FindScheduleRedirectView, LessonCompleteView, LessonConfirmView, LessonListView, LessonCreateView, LessonDeleteView, LessonMarkAsPaidView, LessonSplit, LessonStartView, LessonUpdateView
 from django.contrib.auth.decorators import login_required
 
 
@@ -26,7 +26,9 @@ urlpatterns = [
     path('<int:pk>/edit/', login_required(LessonUpdateView.as_view()), name='lesson-edit' ),
     path('<int:pk>/setInProgress/', login_required(LessonStartView.as_view()), name='lesson-set-in-progress' ),
     path('<int:pk>/confirm/', login_required(LessonConfirmView.as_view()), name='lesson-confirm' ),
+    path('<int:pk>/split/', login_required(LessonSplit.as_view()), name='lesson-split', ),
     path('<int:pk>/complete/', login_required(LessonCompleteView.as_view()), name='lesson-complete', ),
+    path('<int:pk>/markAsPaid/', login_required(LessonMarkAsPaidView.as_view()), name='lesson-mark-as-paid', ),
     path('delete/<int:pk>/', login_required(LessonDeleteView.as_view()), name='lesson-delete'),
 
     path('summary/', include('lesson_summary.urls')),

@@ -1,3 +1,7 @@
+.instr-task-header{
+  background-color: #beffdb;
+}
+
 .task-planned{
   border-bottom: 3px solid orange;
 }

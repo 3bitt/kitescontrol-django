@@ -104,235 +104,166 @@
         <div class="INSTR">
           {{instr}}  
         </div>
-          {% comment %} LESSON TILE {% endcomment %}
-          {%for lesson in instr.lessons.all%}
-          <div class="align-self-center lesson-tile 
-                    {{lesson.get_start_time_class}}                     
-                    {% if lesson.in_progress %} lesson-in-progress{%endif%}
-                    {% if lesson.completed %} lesson-completed {%endif%}"
-                    style="grid-column-end: span {{lesson.get_column_span}}">
+        {% comment %} LESSON TILE {% endcomment %}
+        {%for lesson in instr.lessons.all%}
+        <div class="align-self-center lesson-tile 
+                  {{lesson.get_start_time_class}}                     
+                  {% if lesson.in_progress %} lesson-in-progress{%endif%}
+                  {% if lesson.completed and not lesson.paid %} lesson-completed {%endif%}
+                  {% if lesson.paid %}lesson-paid {%endif%}"
+                  style="grid-column-end: span {{lesson.get_column_span}}">
+          
+          <div class="row m-0 justify-content-between">
             
-            <div class="row m-0 justify-content-between">
-              
-              <div class="col-auto px-1
-                {% if lesson.confirmed %} lessson-confirmed-corner-highlight {%endif%}">
-                {{lesson.start_time|time:'H:i'}}
-                {% if not lesson.confirmed %}
-                  <span class="ml-1"><i class="fas fa-question fa-sm text-danger"></i></span> 
-                {% elif lesson.confirmed %}
-                  <span class="ml-1"><i class="fas fa-check text-success"></i></span>
-                {%endif%}
-              </div>
-
-              {% comment %} LESSON SETTINGS (icon + hidden menu) {% endcomment %}
-              <div class="col-auto px-1 lesson-settings-col">
-                <i class="fa fa-cog lesson-settings-icon"></i>
-
-                <div class="settings-menu{% if lesson.i_dont_wanna_js %} settings-menu-border {%endif%}"
-                  id="settings_menu_{{lesson.id}}" hidden="true">
-                  <div class="lesson-edit-menu-item lesson-settings-menu-item">
-                    <a class="lesson-edit-link" href="{% url 'lesson:lesson-edit' lesson.id %}">
-                      <i class="no-decoration fa fa-edit fa-sm"></i>
-                      <span class="no-decoration">Edytuj</span>
-                    </a>
-                                      
-                  </div>
-
-                  <hr>
-
-                  {% if not lesson.confirmed %}
-                    <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
-                      <form method="post" action="{% url 'lesson:lesson-confirm' lesson.id %}">
-                        {%csrf_token%}
-                        <button class="btn_rmv_stl" type="submit">
-                          <i class="fa fa-check text-success"></i>
-                          <span>Potwierdź</span>
-                        </button>
-                      </form>
-                    </div>
-                    <hr>
-                  {% elif lesson.confirmed and not lesson.in_progress and not lesson.completed %}
-                    <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
-                      <form method="post" action="{% url 'lesson:lesson-confirm' lesson.id %}">
-                        {%csrf_token%}
-                        <button class="btn_rmv_stl" type="submit">
-                          <i class="fas fa-question text-danger"></i>
-                          <span>Niepotwierdzona</span>
-                        </button>
-                      </form>
-                    </div>
-                    <hr>
-                  {%endif%}                  
-                  
-                  {% if not lesson.in_progress and not lesson.completed %}
-                    <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
-                      <form method="post" action="{% url 'lesson:lesson-set-in-progress' lesson.id %}">
-                        {%csrf_token%}
-                        <button class="btn_rmv_stl" type="submit">
-                          <i class="fa fa-play fa-sm text-success"></i>
-                          <span>Start</span>
-                        </button>
-                      </form>
-                      
-                    </div>
-                    <!-- <hr> -->
-                  {%elif lesson.in_progress and not lesson.completed%}
-                    <div class="lesson-settings-menu-item">
-                      <form method="post" action="{% url 'lesson:lesson-set-in-progress' lesson.id %}">
-                        {%csrf_token%}
-                        <button class="btn_rmv_stl" type="submit">
-                          <i class="fas fa-pause fs-sm"></i>
-                          <span>Stop</span>
-                        </button>
-                      </form>
-                    </div>
-                    <hr>
-                  {%endif%}  
-                    
-                  {% if lesson.in_progress and lesson.confirmed %}
-                    <div class="lesson-settings-menu-item">                      
-                      <button type="button" class="btn_rmv_stl" data-toggle="modal" data-target="#modal_{{lesson.id}}">
-                        <i class="fas fa-flag-checkered"></i>
-                        Zakończ
-                      </button>                      
-                    </div>
-                  {%endif%}
-
-                </div>
-              </div>
+            <div class="col-auto px-1
+              {% if lesson.confirmed %} lessson-confirmed-corner-highlight {%endif%}">
+              {{lesson.start_time|time:'H:i'}}
+              {% if not lesson.confirmed %}
+                <span class="ml-1"><i class="fas fa-question fa-sm text-danger"></i></span> 
+              {% elif lesson.confirmed %}
+                <span class="ml-1"><i class="fas fa-check text-success"></i></span>
+              {%endif%}
             </div>
 
-            {% comment %} COMPLETE LESSON MODAL {% endcomment %}
+            {% comment %} LESSON SETTINGS (icon + hidden menu) {% endcomment %}
+            <div class="col-auto px-1 lesson-settings-col">
+              <i class="fa fa-cog lesson-settings-icon"></i>
 
-          <div class="modal fade" id="modal_{{lesson.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title text-danger" id="exampleModalLabel">Zakończ lekcje</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="row">
-                    <div class="col-3">
-                      Data:
-                    </div>
-                    <div class="col-auto">
-                      {{lesson.start_date|date:'d-m-Y'}}
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-3">
-                      Godzina:
-                    </div>
-                    <div class="col-auto">
-                      {{lesson.start_time|time:'H:i'}}
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-3">
-                      Instruktor:
-                    </div>
-                    <div class="col-auto">
-                      {%for instr in lesson.instructor.all%}
-                        <div>{{instr}}</div>
-                      {%endfor%}
-                    </div>
-                  </div>
-                  <hr class="complete-lesson-divider">
+              <div class="settings-menu{% if lesson.i_dont_wanna_js %} settings-menu-border {%endif%}"
+                id="settings_menu_{{lesson.id}}" hidden="true">
 
-                  <form method="POST" action="{% url 'lesson:lesson-complete' pk=lesson.id %}">
-                  {% csrf_token %}
-                  <div class="row mb-3 mx-1 align-items-center">
-                    <div class="col">
-                      <b>Czas trwania lekcji:</b>
-                    </div>
-                    <div class="col align-self-start">
-                      <input class="input lesson-complete-duration" type="number" id="id_duration" name="duration" value="{{lesson.duration}}" min="0.5" max="6" step="0.5" required>
-                    </div>
-                  </div>
-                  {% comment %} <div class="row my-3 align-items-center">
-                    <div class="col-auto">
-                      <b>Osiągnięty poziom IKO:</b>
-                    </div>
-                  </div> {% endcomment %}
+                {% if not lesson.completed %}
+                <div class="lesson-edit-menu-item lesson-settings-menu-item">
+                  <a class="lesson-edit-link" href="{% url 'lesson:lesson-edit' lesson.id %}">
+                    <i class="no-decoration fa fa-edit fa-sm"></i>
+                    <span class="no-decoration">Edytuj</span>
+                  </a>                    
+                </div>
+                {% endif %}
 
-                  {%for student in lesson.student.all%}
-                  <div class="row mb-3 mx-1 pb-2 align-items-center lesson-complete-student-row">
-                    <div class="col-12 pt-1">
-                      <div>
-                        <span class="lesson-complete-student-name">{{student}}</span>
-                        <br>
-                        <span><small>Poziom: {{student.iko_level|default_if_none:"---"}}</small></span>
-                      </div>
-                    </div>                
-                  
-                    <div class="col-6">
-                      <div class="row">
-                        <div class="col pr-0">
-                          <span><b>Nowy poziom:</b></span>
-                        </div>
-                        <div class="col-auto">
-                          <input class="input lesson-complete-input" type="text" maxlength="10"
-                          name="new_iko_level_{{student.id}}" required>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="row">
-                        <div class="col pr-0">
-                          <span><b>Czas na lekcji:</b></span>
-                        </div>
-                        <div class="col-auto">
-                          <input class="input lesson-complete-input" type="number" value="{{lesson.duration}}" min="0.5" max="6" step="0.5" name="student_lesson_duration_{{student.id}}" required="">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {%endfor%}
-                  
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-warning" data-dismiss="modal">Anuluj</button>
-                    <input class="btn btn-success" type="submit" value="Zakończ">
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          {% comment %} MODAL END {% endcomment %}
-            
-            <div class="row m-0">
-              <div class="col-auto px-1">
-                <small>
-                  <b>K:</b> {{lesson.kite_brand|default_if_none:"<span class='none-equipment'>?</span>"}}
-                </small>
-              </div>
                 
-              <div class="col-auto px-1">
-                <small>
-                  <b>D:</b> {{lesson.board|default_if_none:"<span class='none-equipment'>?</span>"}}
-                </small>
-              </div>              
+
+                {% if not lesson.confirmed %}
+                  <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
+                    <form method="post" action="{% url 'lesson:lesson-confirm' lesson.id %}">
+                      {%csrf_token%}
+                      <button class="btn_rmv_stl" type="submit">
+                        <i class="fa fa-check text-success"></i>
+                        <span>Potwierdź</span>
+                      </button>
+                    </form>
+                  </div>
+                  
+                {% elif lesson.confirmed and not lesson.in_progress and not lesson.completed %}
+                  <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
+                    <form method="post" action="{% url 'lesson:lesson-confirm' lesson.id %}">
+                      {%csrf_token%}
+                      <button class="btn_rmv_stl" type="submit">
+                        <i class="fas fa-question text-danger"></i>
+                        <span>Niepotwierdzona</span>
+                      </button>
+                    </form>
+                  </div>
+                  
+                {%endif%}                  
+                
+                {% if not lesson.in_progress and not lesson.completed %}
+                  <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
+                    <form method="post" action="{% url 'lesson:lesson-set-in-progress' lesson.id %}">
+                      {%csrf_token%}
+                      <button class="btn_rmv_stl" type="submit">
+                        <i class="fa fa-play fa-sm text-success"></i>
+                        <span>Start</span>
+                      </button>
+                    </form>
+                    
+                  </div>
+                  <!--  -->
+                {%elif lesson.in_progress and not lesson.completed%}
+                  <div class="lesson-settings-menu-item">
+                    <form method="post" action="{% url 'lesson:lesson-set-in-progress' lesson.id %}">
+                      {%csrf_token%}
+                      <button class="btn_rmv_stl" type="submit">
+                        <i class="fas fa-pause fs-sm"></i>
+                        <span>Stop</span>
+                      </button>
+                    </form>
+                  </div>
+                  
+                {%endif%}
+        
+                {% if lesson.in_progress and lesson.confirmed and lesson.group_lesson %}
+                  <div class="lesson-settings-menu-item">                      
+                    <button type="button" class="btn_rmv_stl" data-toggle="modal" data-target="#split_modal_{{lesson.id}}">
+                      <i class="fas fa-code-branch"></i>
+                      Rozdziel
+                    </button>                      
+                  </div>
+                  
+                {% endif %}
+                {% if lesson.in_progress and lesson.confirmed and not lesson.paid %}
+                  <div class="lesson-settings-menu-item">                      
+                    <button type="button" class="btn_rmv_stl" data-toggle="modal" data-target="#complete_modal_{{lesson.id}}">
+                      <i class="fas fa-flag-checkered"></i>
+                      Zakończ
+                    </button>                      
+                  </div>
+                {%endif%}
+                {% if lesson.completed and not lesson.paid %}
+                  <div class="lesson-settings-menu-item">                      
+                    <button type="button" class="btn_rmv_stl" data-toggle="modal" data-target="#mark_as_paid_{{lesson.id}}">
+                      <i class="fas fa-receipt"></i>
+                      Rozlicz lekcje
+                    </button>                      
+                  </div>
+                {% endif %}
+                {% if lesson.paid %}
+                  <div class="lesson-settings-menu-item">
+                    <i class="far fa-thumbs-up"></i>
+                    <span><i>lekcja rozliczona</i></span>                        
+                  </div>
+                {% endif %}
+              </div>
             </div>
-            
-            {%for student in lesson.student.all%}
-            <div class="row m-0">
-              <div class="col-auto px-1">
-                <b>{{student}}</b>
-              </div>  
-            </div>
-            {%endfor%}
-            
-            {% comment %} <form method="POST" action="{% url 'lesson:lesson-delete' lesson.id %}">
-            {% csrf_token %}<input class="btn btn-sm btn-danger" type="submit" value="Usuń">
-            </form> {% endcomment %}
           </div>
+
+          {% if lesson.completed and not lesson.paid %}
+          <i class="exclamation-mark-icon fas fa-exclamation"></i>
+          {% endif %}
+
+          {% comment %} Lesson settings modals include {% endcomment %}
+          {%include 'lesson/lesson_modals.html' with lesson=lesson %}
+        
+          
+          <div class="row m-0">
+            <div class="col-auto px-1">
+              <small>
+                <b>K:</b> {{lesson.kite_brand|default_if_none:"<span class='none-equipment'>?</span>"}}
+              </small>
+            </div>
+              
+            <div class="col-auto px-1">
+              <small>
+                <b>D:</b> {{lesson.board|default_if_none:"<span class='none-equipment'>?</span>"}}
+              </small>
+            </div>              
+          </div>
+          
+          {%for student in lesson.student.all%}
+          <div class="row m-0">
+            <div class="col-auto px-1">
+              <b>{{student}}</b>
+            </div>  
+          </div>
+          {%endfor%}
+          
+          {% comment %} <form method="POST" action="{% url 'lesson:lesson-delete' lesson.id %}">
+          {% csrf_token %}<input class="btn btn-sm btn-danger" type="submit" value="Usuń">
+          </form> {% endcomment %}
+          
+        </div>
         {%endfor%}
-      </div>
-      
+      </div>      
       
       {%endfor%}
     </div>
@@ -347,7 +278,8 @@
 
 
 </div>
-  {%include 'rental/rental_list.html' %}
+{%include 'rental/rental_list.html' %}
+
 
 
 

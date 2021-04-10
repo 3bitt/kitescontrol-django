@@ -1,0 +1,67 @@
+{% extends 'instructor/instructor_home.html' %}
+{% load static %}
+
+{% block extra_css %}
+  {{block.super}}
+  <link rel="stylesheet" href="{% static 'css/payroll_home.css' %}">
+  <link rel="stylesheet" href="{% static 'css/payroll_by_date.css' %}">
+
+{% endblock extra_css %}
+
+
+{% block sub_content %}
+
+
+<div class="row mb-3 instr-payroll-header">
+  <div class="col">
+    <h4>Wypłaty</h4>
+  </div>
+</div>
+
+<div class="row my-4 payroll-dates-search">
+
+  <div class="col-3">
+  <form id="payroll-by-date-form" action="{% url 'instructor:payroll:payroll-by-date' %}">
+    <div class="row">
+      <div class="col-auto">
+        <span><b>Od:</b></span>
+      </div>
+      <div class="col">
+        <input type="date" name="dateFrom">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-3">
+    <div class="row">
+      <div class="col-auto">
+        <span><b>Do:</b></span>
+      </div>
+      <div class="col">
+        <input type="date" name="dateTo">
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="row">
+      <div class="col-auto">
+        <button class="btn btn-info" id="trig_payroll_calc">Oblicz</button>
+      </div>
+    </div>
+    </form>
+  </div>
+
+</div>
+
+
+<div class="row my-4 instructor_payrolls">
+
+</div>
+
+
+<script src="{% static 'js/get_payroll_by_date.js' %}"></script>
+
+
+{% endblock sub_content %}
+
