@@ -6,9 +6,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon"href="{% static 'favicon.ico' %}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" integrity="sha512-OdEXQYCOldjqUEsuMKsZRj93Ht23QRlhIb8E/X0sbwZhme8eUw6g8q7AdxGJKakcBbv7+/PX0Gc2btf7Ru8cZA==" crossorigin="anonymous" />  <link rel="stylesheet" href="{% static 'fontawesome-free/css/brands.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" integrity="sha512-OdEXQYCOldjqUEsuMKsZRj93Ht23QRlhIb8E/X0sbwZhme8eUw6g8q7AdxGJKakcBbv7+/PX0Gc2btf7Ru8cZA==" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/solid.min.css" integrity="sha512-jQqzj2vHVxA/yCojT8pVZjKGOe9UmoYvnOuM/2sQ110vxiajBU+4WkyRs1ODMmd4AfntwUEV4J+VfM6DkfjLRg==" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/regular.min.css" integrity="sha512-Nqct4Jg8iYwFRs/C34hjAF5og5HONE2mrrUV1JZUswB+YU7vYSPyIjGMq+EAQYDmOsMuO9VIhKpRUa7GjRKVlg==" crossorigin="anonymous" /> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/regular.min.css" integrity="sha512-Nqct4Jg8iYwFRs/C34hjAF5og5HONE2mrrUV1JZUswB+YU7vYSPyIjGMq+EAQYDmOsMuO9VIhKpRUa7GjRKVlg==" crossorigin="anonymous" />
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -33,23 +33,23 @@
         <a class="nav-link"  href="{% url 'dashboard:dashboard-home' %}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link {% if 'student' in request.path%}text-warning{%endif%}" 
+        <a class="nav-link {% if 'student' in request.path%}text-warning{%endif%}"
           href="{% url 'student:student-list' %}">
           <span>Kursant</span>
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link {% if 'instructor' in request.path%}text-warning{%endif%}" 
+        <a class="nav-link {% if 'instructor' in request.path%}text-warning{%endif%}"
           href="{% url 'instructor:instructor-list' %}">
           <span>Instruktor</span>
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link {% if 'lesson' in request.path%}text-warning{%endif%}" 
+        <a class="nav-link {% if 'lesson' in request.path%}text-warning{%endif%}"
           href="{% url 'lesson:lesson-list' %}">
           <span>Grafik</span>
         </a>
-      </li>       
+      </li>
     </ul>
     <div class="ml-5 pl-5">
       <a class="nav-link" href="{% url 'account:logout' %}" >
