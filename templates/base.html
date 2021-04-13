@@ -49,6 +49,11 @@
           <span>Grafik</span>
         </a>
       </li>
+      <li class="nav-item active search-nav-item">
+        <a class="nav-link {% if 'search' in request.path%}text-warning{%endif%}" href="{% url 'lesson:lesson-list' %}">
+          <span>Szukaj</span>
+        </a>
+      </li>
     </ul>
     <div class="ml-5 pl-5">
       <a class="nav-link" href="{% url 'account:logout' %}" >
