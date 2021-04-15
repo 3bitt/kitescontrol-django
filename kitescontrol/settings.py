@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'student',
     'lesson',
     'lesson_summary',
-    'rental'
+    'rental',
+    'search'
 ]
 
 AUTH_USER_MODEL = 'account.User'

@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from django.views.generic import TemplateView
 
-# Create your views here.
+
+class SearchHomeView(TemplateView):
+    template_name = 'search/search_home.html'
+

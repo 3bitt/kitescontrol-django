@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'search/css/search_home.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-1 ">
+      <div class="inner-page-nav">
+        nav1
+      </div>
+      <div class="inner-page-nav">
+        nav2
+      </div>
+      <div class="inner-page-nav">
+        nav3
+      </div>
+
+    </div>
+
+    <div class="col">
+      <div class="row">
+        <div class="container main-container">
+
+          <div class="row mt-4 justify-content-center">
+            <div class="col-5 search-buttons">
+              <div class="row mb-3 justify-content-center search-buttons-title">
+                <div class="col-auto">
+                  <h5>Wybierz czego szukasz</h5>
+                </div>
+              </div>
+              <div class="row justify-content-between">
+                <!-- Buttons text content is used in js script (search_home.js) -->
+                <div class="col-auto">
+                  <button class="btn btn-outline-info student-show toogle-search-button">Kursant</button>
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-outline-info lesson-show toogle-search-button">Lekcja</button>
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-outline-info rental-show toogle-search-button">Rental</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row mt-4 not-visible student-search">
+            <div class="col">
+              <span>student</span>
+            </div>
+          </div>
+
+          <div class="row mt-4 not-visible lesson-search">
+            <div class="col">
+              <span>lekcja</span>
+            </div>
+          </div>
+
+          <div class="row mt-4 not-visible rental-search">
+            <div class="col">
+              <span>rental</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'search/js/search_home.js' %}"></script>
+
+{% endblock content %}
