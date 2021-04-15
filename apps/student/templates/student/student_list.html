@@ -7,10 +7,10 @@
 
 {% block content %}
 <div class="container-fluid">
-  <div class="row mt-2">       
+  <div class="row mt-2">
 
     <div class="col col-md-2">
-        <a href="{% url 'student:student-create' %}">    
+        <a href="{% url 'student:student-create' %}">
           <button type="button" class="btn btn-sm btn-success">
             <i class="fas fa-user-plus mr-1"></i>
             Dodaj Kursanta
@@ -22,7 +22,7 @@
     <form type="GET" action="{% url 'student:student-search' %}">
       <div class="row search-tile justify-content-start mb-2">
         <div class="col-auto border-bottom border-dark">
-            
+
           <b>Wyszukiwarka</b>
         </div>
       </div>
@@ -82,7 +82,7 @@
             </div>
           </div>
         </div>
-    
+
         <div class="col-auto align-items-center">
           <div class="flex-row align-self-start">
             <a href="{% url 'student:student-list' %}">
@@ -92,9 +92,9 @@
           <div class="flex-row align-self-end mt-4">
             <button type="submit" class="btn btn-info">Szukaj</button>
           </div>
-        </div>                
+        </div>
       </div>
-    </form>    
+    </form>
     </div>
   </div>
 </div>
@@ -126,13 +126,13 @@
         <tr>
         <th scope="col">{{forloop.counter}}</td>
         <td>
-            <a href="{{ student.get_absolute_url }}">{{student}}</a> 
+            <a href="{{ student.get_absolute_url }}">{{student}}</a>
         </td>
         <td>
             {{student.birth_date|date:"d-m-Y"}}
         </td>
         <td>
-            {{student.mobile_number|default_if_none:"--"}}             
+            {{student.mobile_number|default_if_none:"--"}}
         </td>
         <td>
             {{student.weight|default_if_none:"--"}}
@@ -164,7 +164,7 @@
             {{student.iko_level|default_if_none:"--"}}
         </td>
         <td>
-            {{student.pay_rate_single|default_if_none:"--"}} / 
+            {{student.pay_rate_single|default_if_none:"--"}} /
             {{student.pay_rate_group|default_if_none:"--"}}
         </td>
         <td>
@@ -174,6 +174,31 @@
         {% endfor %}
       </tbody>
     </table>
+    <div class="pagination">
+      <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a href="?page=1">
+          <i class="fas fa-lg fa-angle-double-left px-2"></i>
+        </a>
+        <a href="?page={{ page_obj.previous_page_number }}">
+          <i class="fas fa-lg fa-angle-left px-2"></i>
+        </a>
+        {% endif %}
+
+        <span class="current">
+          Strona {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">
+          <i class="fas fa-lg fa-angle-right px-2"></i>
+        </a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">
+          <i class="fas fa-lg fa-angle-double-right px-2"></i>
+        </a>
+        {% endif %}
+      </span>
+    </div>
   </div>
 </div>
 {% endif %}
