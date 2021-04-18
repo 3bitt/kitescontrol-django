@@ -1,0 +1,121 @@
+{% load static %}
+
+
+<link rel="stylesheet" href="{% static 'search/css/search_student.css' %}">
+
+<div class="row">
+  <div class="col-auto">
+    <h4>Kursant</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col student-search-div">
+    <form name="student-search-form" type="GET" >
+      <div class="row search-fields">
+
+        <div class="col-auto">
+          <div class="row justify-content-between">
+            <div class="col-auto ">
+              <label for="name">Imię lub nazwisko:</label>
+            </div>
+            <div class="col-auto">
+              <input class="text-field" type="text" name="name" id="name">
+            </div>
+          </div>
+
+          <div class="row justify-content-between">
+            <div class="col-auto ">
+              <label for="mobile">Nr telefonu:</label>
+            </div>
+            <div class="col-auto">
+              <input class="text-field" type="text" name="mobile" id="mobile">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-auto">
+          <div class="row justify-content-between">
+            <div class="col-auto ">
+              <label for="weight_gt">Waga powyżej:</label>
+              <i class="fas fa-level-up-alt"></i>
+            </div>
+            <div class="col-auto">
+              <input class="text-field form-weight-input" type="number" name="weight_gt" id="weight_gt">
+            </div>
+          </div>
+          <div class="row justify-content-between">
+            <div class="col-auto ">
+              <label for="weight_le">Waga poniżej:</label>
+              <i class="fas fa-level-down-alt"></i>
+            </div>
+            <div class="col-auto">
+              <input class="text-field form-weight-input" type="number" name="weight_le" id="weight_le">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-4">
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <label for="available_from">Dostępny od:</label>
+            </div>
+            <div class="col-auto">
+              <input type="date" name="available_from" id="available_from">
+            </div>
+          </div>
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <label for="available_to">Dostępny do:</label>
+            </div>
+            <div class="col-auto">
+              <input type="date" name="available_to" id="available_to">
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="row">
+            <div class="col-auto">
+              <label for="kite_trip">Wyjazdy:</label>
+            </div>
+            <div class="col-auto">
+              <input type="checkbox" name="trip" id="kite_trip" value="True">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto">
+              <label for="own_car">Mobilny:</label>
+            </div>
+            <div class="col-auto">
+              <input type="checkbox" name="car" id="own_car" value="True">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+      <div class="row mt-3">
+        <div class="col-auto">
+          <button type="submit" class="btn btn-info search-button">Szukaj</button>
+        </div>
+        <div class="col-auto ">
+          <button type="button" class="btn btn-outline-danger reset_button">Reset</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row student-search-results">
+
+</div>
+
+<!-- <script type="module" src="{% static 'js/axios.min.js' %}"></script> -->
+<script src="{% static 'search/js/search_student.js' %}"></script>

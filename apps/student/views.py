@@ -17,9 +17,7 @@ class StudentListView(UserAccessMixin, ListView):
     permission_required = ''
 
 class StudentSearchView(UserAccessMixin, ListView):
-
     permission_required = ''
-
     context_object_name = 'student_list'
     template_name = 'student/student_list.html'
 

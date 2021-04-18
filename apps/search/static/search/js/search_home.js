@@ -8,16 +8,15 @@ toogle_search_buttons.forEach((btn) => {
   btn.addEventListener('click', toogle_button)
 })
 
-
 function toogle_button(click_event){
   toogle_search_buttons.forEach((btn) => {
     if (btn == click_event.target ){
-      btn.classList.remove('btn-outline-info')
-      btn.classList.add('btn-info')
+      btn.classList.remove('btn-outline-secondary')
+      btn.classList.add('btn-primary')
       toogle_search_view(btn.textContent)
     } else {
-      btn.classList.remove('btn-info')
-      btn.classList.add('btn-outline-info')
+      btn.classList.remove('btn-primary')
+      btn.classList.add('btn-outline-secondary')
     }
   })
 }

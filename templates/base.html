@@ -13,6 +13,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+  <script src="{% static 'js/axios.min.js' %}"></script>
 
   <title>Kitescontrol</title>
   {% block extra_css %}
@@ -22,48 +23,49 @@
 <body>
 
   <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Kitescontrol</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link"  href="{% url 'dashboard:dashboard-home' %}">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link {% if 'student' in request.path%}text-warning{%endif%}"
-          href="{% url 'student:student-list' %}">
-          <span>Kursant</span>
+    <img src="{% static 'favicon.ico' %}" alt="KC-logo" style="height:3em;">
+    <a class="navbar-brand" href="#">Kitescontrol</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link"  href="{% url 'dashboard:dashboard-home' %}">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link {% if 'student' in request.path%}text-warning{%endif%}"
+            href="{% url 'student:student-list' %}">
+            <span>Kursant</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link {% if 'instructor' in request.path%}text-warning{%endif%}"
+            href="{% url 'instructor:instructor-list' %}">
+            <span>Instruktor</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link {% if 'lesson' in request.path%}text-warning{%endif%}"
+            href="{% url 'lesson:lesson-list' %}">
+            <span>Grafik</span>
+          </a>
+        </li>
+        <li class="nav-item active search-nav-item">
+          <a class="nav-link {% if 'search' in request.path%}text-warning{%endif%}" href="{% url 'search:search-home' %}">
+            <span>Szukaj</span>
+          </a>
+        </li>
+      </ul>
+      <div class="ml-5 pl-5">
+        <a class="nav-link" href="{% url 'account:logout' %}" >
+          <button class="btn btn-outline-warning" type="button">Wyloguj</button>
         </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link {% if 'instructor' in request.path%}text-warning{%endif%}"
-          href="{% url 'instructor:instructor-list' %}">
-          <span>Instruktor</span>
-        </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link {% if 'lesson' in request.path%}text-warning{%endif%}"
-          href="{% url 'lesson:lesson-list' %}">
-          <span>Grafik</span>
-        </a>
-      </li>
-      <li class="nav-item active search-nav-item">
-        <a class="nav-link {% if 'search' in request.path%}text-warning{%endif%}" href="{% url 'search:search-home' %}">
-          <span>Szukaj</span>
-        </a>
-      </li>
-    </ul>
-    <div class="ml-5 pl-5">
-      <a class="nav-link" href="{% url 'account:logout' %}" >
-        <button class="btn btn-outline-warning" type="button">Wyloguj</button>
-      </a>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-  {% block content %}
-  {% endblock content %}
+{% block content %}
+{% endblock content %}
 </body>
 </html>

@@ -1,0 +1,94 @@
+<div class="col">
+  {% if student_search_results %}
+  <div class="row justify-content-md-center mt-5">
+    <div class="col">
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col" title="Number">#</th>
+            <th scope="col" title="Name">Kursant</th>
+            <th scope="col" title="birthDate">Telefon</th>
+            <th scope="col" title="mobileNumber">Waga</th>
+            <th scope="col" title="ikoLevel">Pobyt</th>
+            <th scope="col" title="ikoLevel">Auto</th>
+            <th scope="col" title="ikoLevel">Wyjazdy</th>
+            <th scope="col" title="ikoLevel">Poziom IKO</th>
+            <th scope="col" title="ikoLevel">Stawka i./gr.</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in student_search_results %}
+          <tr>
+            <th scope="col">{{forloop.counter}}</td>
+            <td>
+              <a href="{{ student.get_absolute_url }}">{{student}}</a>
+            </td>
+            <td>
+              {{student.mobile_number|default_if_none:"--"}}
+            </td>
+            <td>
+              {{student.weight|default_if_none:"--"}}
+            </td>
+            <td>
+              {{student.stay_location|default_if_none:"--"}}
+            </td>
+            <td>
+              {% if student.own_car %}
+              <i class="fas fa-check text-success"></i>
+              {%else%}
+              <i class="fas fa-times text-danger"></i>
+              {%endif%}
+            </td>
+            <td>
+              {% if student.kite_elsewhere %}
+              <i class="fas fa-check text-success"></i>
+              {%else%}
+              <i class="fas fa-times text-danger"></i>
+              {%endif%}
+            </td>
+            <td>
+              {{student.iko_level|default_if_none:"--"}}
+            </td>
+            <td>
+              {{student.pay_rate_single|default_if_none:"--"}} /
+              {{student.pay_rate_group|default_if_none:"--"}}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="pagination">
+        <span class="step-links">
+          {% if page_obj.has_previous %}
+          <a href="?page=1">
+            <i class="fas fa-lg fa-angle-double-left px-2"></i>
+          </a>
+          <a href="?page={{ page_obj.previous_page_number }}">
+            <i class="fas fa-lg fa-angle-left px-2"></i>
+          </a>
+          {% endif %}
+
+          <span class="current">
+            Strona {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+          </span>
+
+          {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">
+            <i class="fas fa-lg fa-angle-right px-2"></i>
+          </a>
+          <a href="?page={{ page_obj.paginator.num_pages }}">
+            <i class="fas fa-lg fa-angle-double-right px-2"></i>
+          </a>
+          {% endif %}
+        </span>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="row">
+    <div class="col">
+      <h5>Brak wyników</h5>
+    </div>
+  </div>
+  {% endif %}
+</div>

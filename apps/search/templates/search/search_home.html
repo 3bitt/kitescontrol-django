@@ -36,13 +36,13 @@
               <div class="row justify-content-between">
                 <!-- Buttons text content is used in js script (search_home.js) -->
                 <div class="col-auto">
-                  <button class="btn btn-outline-info student-show toogle-search-button">Kursant</button>
+                  <button class="btn btn-outline-secondary font-weight-bold student-show toogle-search-button">Kursant</b></button>
                 </div>
                 <div class="col-auto">
-                  <button class="btn btn-outline-info lesson-show toogle-search-button">Lekcja</button>
+                  <button class="btn btn-outline-secondary font-weight-bold lesson-show toogle-search-button">Lekcja</button>
                 </div>
                 <div class="col-auto">
-                  <button class="btn btn-outline-info rental-show toogle-search-button">Rental</button>
+                  <button class="btn btn-outline-secondary font-weight-bold rental-show toogle-search-button">Rental</button>
                 </div>
               </div>
             </div>
@@ -51,7 +51,7 @@
 
           <div class="row mt-4 not-visible student-search">
             <div class="col">
-              <span>student</span>
+              {% include 'search/search_student.html' %}
             </div>
           </div>
 
