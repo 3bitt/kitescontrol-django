@@ -103,7 +103,6 @@ class RentalUpdateView(UpdateView):
         # ed = datetime.strptime(end_date, '%Y-%m-%dT%H:%M')
 
         rental = self.get_object()
-        # print(dir(rental.end_date))
         rental.start_date = start_date
         rental.end_date = end_date
         rental.student = fetch_student

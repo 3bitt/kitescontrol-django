@@ -6,11 +6,11 @@ const result_dump_target = document.querySelector('.instructor_payrolls')
 trigger_calc_btn.addEventListener('click', getPayroll)
 
 function getPayroll(clickEvent){
-  
+
   clickEvent.preventDefault()
   const dateFrom = document.getElementsByName('dateFrom')[0].value
   const dateTo = document.getElementsByName('dateTo')[0].value
-  
+
   if (!dateFrom && !dateTo){
     return
   }
@@ -31,7 +31,6 @@ function getPayroll(clickEvent){
     removeAllChildNodes(result_dump_target)
     result_dump_target.innerHTML = data.content
   }).catch((error) => {
-    console.log("Error: ", error);
   })
 
 }
