@@ -10,8 +10,8 @@
 
   <div class="row">
     <div class="col-auto">
-      <a href={% if view.editMode %}"{% url 'instructor:instructor-detail' instructor.id%}"
-        {% else %} "{% url 'instructor:instructor-list' %}" {% endif %}>
+      <a href="{% if view.editMode %}{% url 'instructor:instructor-detail' instructor.id %}
+        {% else %} {% url 'instructor:instructor-list' %} {% endif %}">
         <button class="btn btn-sm btn-warning">
           <i class="fas fa-undo-alt"></i>
           Powrót

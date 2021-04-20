@@ -26,9 +26,9 @@
       <form method="post">
       {%csrf_token%}
         <div class="row">
-        
+
           <div class="col-auto borders">
-            
+
             <div class="row mb-3">
               <div class="col">
                 <label>Od kiedy:</label>
@@ -56,7 +56,7 @@
                 <input class="picked-student-disabled-field" type="text" disabled value="{{rental.student}}">
               </div>
             </div>
-            
+
             <div class="row">
               <div class="col-auto">
                 <label>Zapłacone:</label>
@@ -64,8 +64,8 @@
               <div class="col-auto offset-1">
                 {{form.paid}}
               </div>
-            </div>         
-            
+            </div>
+
             <div class="row">
               <div class="col">
                 <label>Komentarz:</label>
@@ -77,7 +77,7 @@
 
 
           </div>
-          
+
           <div class="col-auto borders ml-4">
             <div class="row mb-2">
               <div class="col">
@@ -86,7 +86,7 @@
               <div class="col">
                 {{form.student}}
               </div>
-            </div>            
+            </div>
           </div>
 
           <div class="col-auto">
@@ -156,14 +156,14 @@
             </div>
             {% endfor %}
           </div>
-    
+
         </div>
 
-        
+
 
         <div class="row mt-4">
           <div class="col-auto offset-2">
-            <input class="btn btn-success" type="submit" value="Zapisz"></input>
+            <input class="btn btn-success" type="submit" value="Zapisz">
           </div>
         </div>
 

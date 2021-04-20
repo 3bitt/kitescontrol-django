@@ -1,4 +1,9 @@
-/* html, body{
-  background-image: url("wallpaper4.jpg");
-  background-size: cover;
-} */
+.search-nav-item:hover{
+position: relative;
+}
+
+.search-hidden{
+  background-color: antiquewhite;
+  border: 1px solid gray;
+  position: absolute;
+}

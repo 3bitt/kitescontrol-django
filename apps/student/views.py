@@ -9,16 +9,15 @@ from account.views import UserAccessMixin
 
 class StudentListView(UserAccessMixin, ListView):
 
-    queryset = Student.objects.all().order_by('-id')[:10]
+    queryset = Student.objects.all().order_by('-id')
+    paginate_by = 20
     context_object_name = 'student_list'
     # model = Student
     template_name = 'student/student_list.html'
     permission_required = ''
 
 class StudentSearchView(UserAccessMixin, ListView):
-
     permission_required = ''
-
     context_object_name = 'student_list'
     template_name = 'student/student_list.html'
 

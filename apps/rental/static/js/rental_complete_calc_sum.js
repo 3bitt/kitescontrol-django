@@ -67,11 +67,9 @@ function calcRentValue(pricesList, quantitiesList, rentDuration) {
 
 function watchDateInputChanges(modal) {
   const date_inputs = modal.querySelectorAll('.modal-date-input')
-  console.log(date_inputs);
   date_inputs.forEach((input) => {
 
     input.addEventListener('change', (event) => {
-      console.log(event.target);
       event.preventDefault()
       calcRentTimeAndValueOnModalInit(modal)
     },true)

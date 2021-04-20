@@ -49,16 +49,3 @@ class LessonCreateForm(forms.ModelForm):
         help_texts = {
             'start_time': "min. 7:00 - max. 21:00"
         }
-
-    def __init__(self, *args, **kwargs):
-        # lesson_start_time = kwargs.get(
-        #     'instance').__getattribute__(
-        #         'start_time')
-        # lesson_start_time = lesson_start_time.strftime('%H:%S').split(':')
-        # print(lesson_start_time)
-
-        # kwargs.update(initial = {
-        #     'start_hour' : lesson_start_time[0],
-        #     'start_minute' : lesson_start_time[1],
-        # })
-        super(LessonCreateForm, self).__init__(*args, **kwargs)

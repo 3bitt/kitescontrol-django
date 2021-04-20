@@ -9,8 +9,6 @@ from .validators import (
 )
 
 
-
-
 class Student(models.Model):
 
     WETSUIT_SIZES = (
