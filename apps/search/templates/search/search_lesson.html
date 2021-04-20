@@ -1,0 +1,95 @@
+{% load static %}
+
+
+<!-- <link rel="stylesheet" href="{% static 'search/css/search_lesson.css' %}"> -->
+
+<div class="row">
+  <div class="col-auto">
+    <h4>Lekcja</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col search-filters-div">
+    <form name="lesson-search-form" type="GET">
+      <div class="row search-fields">
+
+        <div class="col-auto">
+          <div class="row mb-2 justify-content-between">
+            <div class="col-auto ">
+              <label for="lesson_student">Kursant:</label>
+            </div>
+            <div class="col-auto">
+              <input class="text-field" type="text" name="lesson_student" id="lesson_student">
+            </div>
+          </div>
+
+          <div class="row justify-content-between">
+            <div class="col-auto ">
+              <label for="lesson_instructor">Instruktor:</label>
+            </div>
+            <div class="col-auto">
+              <input class="text-field" type="text" name="lesson_instructor" id="lesson_instructor">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-auto">
+          <div class="row justify-content-between mb-2">
+            <div class="col-auto">
+              <label for="date_from">Data od:</label>
+            </div>
+            <div class="col-auto">
+              <input type="date" name="date_from" id="date_from">
+            </div>
+          </div>
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <label for="date_to">Data do:</label>
+            </div>
+            <div class="col-auto">
+              <input type="date" name="date_to" id="date_to">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-auto">
+          <div class="row">
+            <div class="col-auto">
+              <label for="is_single">Indywidualna:</label>
+            </div>
+            <div class="col-auto">
+              <input type="checkbox" name="is_single" id="is_single" value="True">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto">
+              <label for="is_group">Grupowa:</label>
+            </div>
+            <div class="col-auto">
+              <input type="checkbox" name="is_group" id="is_group" value="True">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-auto">
+          <button type="submit" class="btn btn-info lesson-search-button">Szukaj</button>
+        </div>
+        <div class="col-auto ">
+          <button type="button" class="btn btn-outline-danger lesson-reset-button">Reset</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row lesson-search-results">
+
+</div>
+
+<script src="{% static 'search/js/search_lesson.js' %}"></script>

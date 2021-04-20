@@ -1,6 +1,7 @@
 from django.db.models.query_utils import Q
 from django.views.generic import TemplateView, ListView
 from student.models import Student
+from lesson.models import Lesson
 
 
 class SearchHomeView(TemplateView):
@@ -41,5 +42,51 @@ class SearchStudentAjaxView(ListView):
             available_from_filter,
             available_to_filter
         ).order_by('-register_date')
+        return qs
+
+
+class SearchLessonAjaxView(ListView):
+    template_name = 'search/search_lesson_res.html'
+    context_object_name = 'lesson_search_results'
+    paginate_by = 20
+
+    def get_queryset(self):
+
+        lesson_student = self.request.GET.get('lesson_student', '')
+        lesson_instructor = self.request.GET.get('lesson_instructor', '')
+        lesson_date_from = self.request.GET.get('lesson_date_from', '')
+        lesson_date_to = self.request.GET.get('lesson_date_to', '')
+        lesson_is_single = self.request.GET.get('lesson_is_single', False)
+        lesson_is_group = self.request.GET.get('lesson_is_group', False)
+
+        date_from = Q()
+        date_to = Q()
+        group_filter = Q()
+
+        if lesson_date_from:
+            date_from = Q(start_date__gte=lesson_date_from)
+        if lesson_date_to:
+            date_to = Q(start_date__lte=lesson_date_to)
+
+        if (lesson_is_single == 'True') and (lesson_is_group == 'True'):
+            pass
+        elif lesson_is_single == 'True':
+            group_filter = Q(group_lesson=False)
+        elif lesson_is_group == 'True':
+            group_filter = Q(group_lesson=True)
+        else:
+            pass
+
+        qs = Lesson.objects.filter(
+            Q(student__name__contains=lesson_student) | Q(
+                student__surname__contains=lesson_student),
+            Q(instructor__name__contains=lesson_instructor) | Q(
+                instructor__surname__contains=lesson_instructor),
+            group_filter,
+            date_from,
+            date_to
+        ).distinct(
+        ).order_by('-start_date')
+
         return qs
 

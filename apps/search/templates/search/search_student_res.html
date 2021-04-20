@@ -5,11 +5,10 @@
       <table class="table table-sm">
         <thead>
           <tr>
-            <th scope="col" title="Number">#</th>
-            <th scope="col" title="Name">Kursant</th>
-            <th scope="col" title="birthDate">Telefon</th>
-            <th scope="col" title="mobileNumber">Waga</th>
-            <th scope="col" title="ikoLevel">Pobyt</th>
+            <th scope="col" title="student">Kursant</th>
+            <th scope="col" title="student_mobile">Telefon</th>
+            <th scope="col" title="student_weight">Waga</th>
+            <th scope="col" title="student_stay_location">Pobyt</th>
             <th scope="col" title="ikoLevel">Auto</th>
             <th scope="col" title="ikoLevel">Wyjazdy</th>
             <th scope="col" title="ikoLevel">Poziom IKO</th>
@@ -19,7 +18,6 @@
         <tbody>
           {% for student in student_search_results %}
           <tr>
-            <th scope="col">{{forloop.counter}}</td>
             <td>
               <a href="{{ student.get_absolute_url }}">{{student}}</a>
             </td>
