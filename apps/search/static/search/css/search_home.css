@@ -36,21 +36,24 @@
 
 /* LESSON SEARCH SUB-PAGE */
 
-.lesson-group-bckg-clr{
+/* .lesson-group-bckg-clr{
   background-color: #8a2be214;
-}
+} */
+
 .lesson-group-icon{
   color: blueviolet;
 }
 
-.lesson-single-bckg-clr{
+/* .lesson-single-bckg-clr{
   background-color: #045f5f1f;
-}
+}  */
+
 .lesson-single-icon{
   color: teal;
 }
 
-.lesson-pagination{
+.pagination-icon{
   color: #007bff;
   cursor: pointer;
+  padding: 0 .2rem 0 .2rem;
 }

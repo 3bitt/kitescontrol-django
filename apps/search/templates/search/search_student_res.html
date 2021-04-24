@@ -2,7 +2,7 @@
   {% if student_search_results %}
   <div class="row justify-content-md-center mt-5">
     <div class="col">
-      <table class="table table-sm">
+      <table class="table  table-sm table-bordered table-hover table-striped">
         <thead>
           <tr>
             <th scope="col" title="student">Kursant</th>
@@ -12,7 +12,7 @@
             <th scope="col" title="ikoLevel">Auto</th>
             <th scope="col" title="ikoLevel">Wyjazdy</th>
             <th scope="col" title="ikoLevel">Poziom IKO</th>
-            <th scope="col" title="ikoLevel">Stawka i./gr.</th>
+            <th scope="col" title="ikoLevel">Stawka ind./gr.</th>
           </tr>
         </thead>
         <tbody>
@@ -58,12 +58,9 @@
       <div class="pagination">
         <span class="step-links">
           {% if page_obj.has_previous %}
-          <a href="?page=1">
-            <i class="fas fa-lg fa-angle-double-left px-2"></i>
-          </a>
-          <a href="?page={{ page_obj.previous_page_number }}">
-            <i class="fas fa-lg fa-angle-left px-2"></i>
-          </a>
+          <i class="fas fa-lg fa-angle-double-left px-2 pagination-icon student-pagination paginator-next-page" id="1"></i>
+          <i class="fas fa-lg fa-angle-left px-2 pagination-icon student-pagination paginator-next-page"
+            id="{{ page_obj.previous_page_number }}"></i>
           {% endif %}
 
           <span class="current">
@@ -71,12 +68,10 @@
           </span>
 
           {% if page_obj.has_next %}
-          <a href="?page={{ page_obj.next_page_number }}">
-            <i class="fas fa-lg fa-angle-right px-2"></i>
-          </a>
-          <a href="?page={{ page_obj.paginator.num_pages }}">
-            <i class="fas fa-lg fa-angle-double-right px-2"></i>
-          </a>
+          <i class="fas fa-lg fa-angle-right px-2 pagination-icon student-pagination paginator-next-page"
+            id="{{ page_obj.next_page_number }}"></i>
+          <i class="fas fa-lg fa-angle-double-right px-2 pagination-icon student-pagination paginator-next-page"
+            id="{{ page_obj.paginator.num_pages }}"></i>
           {% endif %}
         </span>
       </div>

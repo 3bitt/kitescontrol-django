@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/lesson_detail.css' %}">
+{% endblock extra_css %}
+
+{% block content%}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-auto ">
+      <div class="inner-page-nav">
+        nav1
+      </div>
+      <div class="inner-page-nav">
+        nav2
+      </div>
+      <div class="inner-page-nav">
+        nav3
+      </div>
+
+    </div>
+
+    <div class="col">
+
+      <div class="row">
+        <div class="container main-card">
+          <div class="row mt-3">
+            <div class="col">
+              <h4>Lekcja nr {{lesson.id}}</h4>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-8 detail-parent">
+
+              <div class="row">
+                <div class="col detail-column">
+
+                  <div class="row detail-item-row">
+                    <div class="col">
+                      <div>Data</div>
+                    </div>
+                    <div class="col-auto">
+                      <div><b>{{lesson.start_date|date:"d-m-Y"}}</b></div>
+                    </div>
+                  </div>
+
+                  <div class="row detail-item-row">
+                    <div class="col">
+                      <div>Godzina</div>
+                    </div>
+                    <div class="col-auto">
+                      <div><b>{{lesson.start_time|time:"H:i"}}</b> </div>
+                    </div>
+                    <div class="col-auto">
+                      <div><b>{{lesson.duration}}&nbsp;h</b> </div>
+                    </div>
+                  </div>
+
+                  <div class="row detail-item-row">
+                    <div class="col">
+                      <div>Instruktor</div>
+                    </div>
+                    <div class="col-auto">
+                      {% for instructor in lesson.instructor.all %}
+                        <div><b>{{instructor}}</b></div>
+                      {%endfor%}
+                    </div>
+                  </div>
+
+                  <div class="row detail-item-row">
+                    <div class="col">
+                      <div>Kursant</div>
+                    </div>
+                    <div class="col-auto student-item">
+                      {% if lesson.lessondetail_set.all %}
+
+                        {% for lesson_detail in lesson.lessondetail_set.all%}
+                        <div class="mb-2">
+                        <div><b>{{lesson_detail.student}}</b></div>
+                        <div><small>osiągnięty poziom: {{lesson_detail.iko_level_achieved}}</small></div>
+                        <div><small>stawka: {{lesson_detail.pay_rate}}&nbsp;zł/h</small></div>
+                        </div>
+                        {%endfor%}
+                      {% else %}
+                        {% for student in lesson.student.all %}
+                        <div class="mb-2"><b>{{student}}</b></div>
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="col detail-column">
+                  <div class="row detail-item-row">
+                    <div class="col">
+                      <div>Sprzęt [K / D]</div>
+                    </div>
+                    <div class="col-auto">
+                      <div>
+                        <b>
+                          {{lesson.kite_brand|default_if_none:"<i>nie podano</i>"}}&nbsp;/&nbsp;
+                          {{lesson.board|default_if_none:"<i>nie podano</i>"}}
+                        </b>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row detail-item-row">
+                    <div class="col">
+                      <div>Grupowa</div>
+                    </div>
+                    <div class="col-auto">
+                      {% if lesson.group_lesson %}
+                        <i class="fa fa-check text-success"></i>
+                      {% else %}
+                        <i class="fa fa-times text-danger"></i>
+                       {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="row detail-item-row">
+                    <div class="col">
+                      <div>Potwierdzona</div>
+                    </div>
+                    <div class="col-auto">
+                      {% if lesson.confirmed %}
+                      <i class="fa fa-check text-success"></i>
+                      {% else %}
+                      <i class="fa fa-times text-danger"></i>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="row detail-item-row">
+                    <div class="col">
+                      <div>W trakcie</div>
+                    </div>
+                    <div class="col-auto">
+                      {% if lesson.in_progress %}
+                      <i class="fa fa-check text-success"></i>
+                      {% else %}
+                      <i class="fa fa-times text-danger"></i>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="row detail-item-row">
+                    <div class="col">
+                      <div>Zakończona</div>
+                    </div>
+                    <div class="col-auto">
+                      {% if lesson.completed %}
+                      <i class="fa fa-check text-success"></i>
+                      {% else %}
+                      <i class="fa fa-times text-danger"></i>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="row detail-item-row">
+                    <div class="col">
+                      <div>Zapłacona</div>
+                    </div>
+                    <div class="col-auto">
+                      {% if lesson.paid %}
+                      <i class="fa fa-check text-success"></i>
+                      {% else %}
+                      <i class="fa fa-times text-danger"></i>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col detail-column">
+                  <div class="row">
+                    <div class="col">
+                      <div><b>Komentarz</b></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div>{{lesson.comment|default_if_none:"<i>brak komentarza</i>"}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock content%}
