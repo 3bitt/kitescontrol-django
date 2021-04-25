@@ -10,6 +10,7 @@ const student_kite_trip = document.getElementById('kite_trip');
 const student_own_car = document.getElementById('own_car');
 const student_available_from = document.getElementById('available_from');
 const student_available_to = document.getElementById('available_to');
+const student_available_now = document.getElementById('available_now_flag');
 
 
 student_search_master.addEventListener('click', (e) => {
@@ -37,6 +38,7 @@ function geStudenttData(page=1){
         own_car: student_own_car.checked ? 'True' : 'False',
         available_from: student_available_from.value,
         available_to: student_available_to.value,
+        student_available_now: student_available_now.checked ? 'True' : 'False'
       }
     }).then(response => {
       student_search_results.innerHTML = response.data

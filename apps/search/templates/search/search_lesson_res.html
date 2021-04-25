@@ -63,8 +63,13 @@
               {% endif %}
             </td>
             <td>
-              <a href="{% url 'lesson:lesson-detail' lesson.id %}">Szczegóły</a><br>
-              <a href="{% url 'lesson:lesson-list' lesson.get_date_formatted %}">Pokaż na grafiku</a>
+              <a href="{% url 'lesson:lesson-detail' lesson.id %}">
+                <i class="fas fa-info"></i>&nbsp;Szczegóły
+              </a>
+              <br>
+              <a href="{% url 'lesson:lesson-list' lesson.get_date_formatted %}">
+                <i class="far fa-calendar-alt"></i>&nbsp;Pokaż na grafiku
+              </a>
             </td>
           </tr>
           {% endfor %}

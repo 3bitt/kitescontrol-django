@@ -1,0 +1,108 @@
+{% load static %}
+
+
+<!-- <link rel="stylesheet" href="{% static 'search/css/search_rental.css' %}"> -->
+
+<div class="row">
+  <div class="col-auto">
+    <h4>Rental</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col search-filters-div">
+    <form name="rental-search-form" type="GET">
+      <div class="row search-fields">
+
+        <div class="col-auto">
+          <div class="row mb-2 justify-content-between">
+            <div class="col-auto ">
+              <label for="rental_student">Kursant:</label>
+            </div>
+            <div class="col-auto">
+              <input class="text-field" type="text" name="rental_student" id="rental_student" placeholder="Imię lub nazwisko">
+            </div>
+          </div>
+
+          <div class="row justify-content-between mb-2">
+            <div class="col-auto">
+              <label for="start_date">Rozpoczęcie:</label>
+            </div>
+            <div class="col-auto">
+              <input type="date" name="start_date" id="start_date">
+            </div>
+          </div>
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <label for="end_date">Zakończenie:</label>
+            </div>
+            <div class="col-auto">
+              <input type="date" name="end_date" id="end_date">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-auto">
+          <div class="row justify-content-between mb-2">
+            <div class="col-auto">
+              <label for="created_date">Data dodania:</label>
+            </div>
+            <div class="col-auto">
+              <input type="date" name="created_date" id="created_date">
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-auto">
+              <label>Zapłacone:</label>
+            </div>
+            <div class="col-auto">
+              <label for="paid_yes">Tak</label>
+              <input type="radio" name="paid" id="paid_yes" value="True">
+            </div>
+            <div class="col-auto">
+              <label for="paid_no">Nie</label>
+              <input type="radio" name="paid" id="paid_no" value="False">
+            </div>
+            <div class="col-auto">
+              <label for="paid_all">Wszystkie</label>
+              <input type="radio" name="paid" id="paid_all" value="">
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-auto">
+              <label for="rent_item">Przedmiot:</label>
+            </div>
+            <div class="col-auto">
+              <select class="input select-rent-item" name="rent_item" id="rent_item">
+                <option value="" selected="selected">-----</option>
+                <option value="WETSUIT">Pianka</option>
+                <option value="HELMET">Kask</option>
+                <option value="LIFE_JACKET">Kamizelka ratunkowa</option>
+                <option value="HARNESS">Trapez</option>
+                <option value="LEASH">Leash</option>
+                <option value="BOARD">Deska</option>
+                <option value="KITE">Kite</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-auto">
+          <button type="submit" class="btn btn-info rental-search-button">Szukaj</button>
+        </div>
+        <div class="col-auto ">
+          <button type="button" class="btn btn-outline-danger rental-reset-button">Reset</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row rental-search-results">
+
+</div>
+
+<script src="{% static 'search/js/search_rental.js' %}"></script>
