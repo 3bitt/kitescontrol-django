@@ -1,5 +1,4 @@
-const student_search_button = document.querySelector('.student-search-button');
-const student_reset_button = document.querySelector('.student-reset-button');
+const student_search_master = document.querySelector('.student-search');
 const student_search_form = document.forms.namedItem('student-search-form');
 const student_search_results = document.querySelector('.student-search-results');
 
@@ -11,22 +10,26 @@ const student_kite_trip = document.getElementById('kite_trip');
 const student_own_car = document.getElementById('own_car');
 const student_available_from = document.getElementById('available_from');
 const student_available_to = document.getElementById('available_to');
+const student_available_now = document.getElementById('available_now_flag');
 
 
-student_reset_button.addEventListener('click', (e) => {
-  student_search_form.reset()
+student_search_master.addEventListener('click', (e) => {
+  if (e.target && e.target.classList.contains('student-reset-button')) {
+    student_search_form.reset();
+  } else if (e.target && e.target.classList.contains('student-search-button')) {
+    e.preventDefault();
+    geStudenttData();
+  } else if (e.target && e.target.classList.contains('student-pagination')) {
+    e.preventDefault();
+    geStudenttData(e.target.id)
+  }
 })
 
-student_search_button.addEventListener('click', (e) => {
-  e.preventDefault();
-  geStudenttData();
-});
-
-
-function geStudenttData(){
+function geStudenttData(page=1){
   axios.get(
     'student/', {
       params: {
+        page: page,
         name: student_name.value,
         mobile: student_mobile.value,
         weight_gt: student_weight_gt.value,
@@ -35,6 +38,7 @@ function geStudenttData(){
         own_car: student_own_car.checked ? 'True' : 'False',
         available_from: student_available_from.value,
         available_to: student_available_to.value,
+        student_available_now: student_available_now.checked ? 'True' : 'False'
       }
     }).then(response => {
       student_search_results.innerHTML = response.data

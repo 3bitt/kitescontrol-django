@@ -1,4 +1,5 @@
 import datetime
+from django.urls import reverse
 from django.db import models
 from django.db.models.deletion import CASCADE, DO_NOTHING
 from student.models import Student
@@ -17,12 +18,15 @@ class Rental(models.Model):
     comment = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return f'Rent for {self.student}'
+        return f'Rent {self.id}'
 
     def save(self, *args, **kwargs):
         if self.id and self.paid == True:
             self.paid_date = datetime.datetime.now().astimezone()
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("rental:rental-detail", kwargs={"pk": self.pk})
 
 
 class RentalDetail(models.Model):

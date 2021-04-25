@@ -4,6 +4,14 @@
   padding-bottom: 2rem;
 }
 
+.row > div:first-child > label{
+  font-weight: bolder;
+}
+
+hr{
+  margin: 0;
+}
+
 .search-buttons{
   padding: .8rem;
   border-radius: 1rem;
@@ -18,7 +26,6 @@
 .not-visible{
   display: none;
 }
-
 
 .search-filters-div{
   border: 1px solid gray;
@@ -36,21 +43,34 @@
 
 /* LESSON SEARCH SUB-PAGE */
 
-.lesson-group-bckg-clr{
+/* .lesson-group-bckg-clr{
   background-color: #8a2be214;
-}
+} */
+
 .lesson-group-icon{
   color: blueviolet;
 }
 
-.lesson-single-bckg-clr{
+/* .lesson-single-bckg-clr{
   background-color: #045f5f1f;
-}
+}  */
+
 .lesson-single-icon{
   color: teal;
 }
 
-.lesson-pagination{
+.pagination-icon{
   color: #007bff;
   cursor: pointer;
+  padding: 0 .2rem 0 .2rem;
+}
+
+
+
+.rent-item-cell{
+  white-space: nowrap;
+}
+
+.rent-item-cell:not(:last-child){
+  border-bottom: 1px solid #bdbbbb;
 }

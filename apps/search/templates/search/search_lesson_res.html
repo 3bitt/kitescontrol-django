@@ -2,25 +2,27 @@
   {% if lesson_search_results %}
   <div class="row justify-content-md-center mt-5">
     <div class="col">
-      <table class="table table-sm">
+      <table class="table table-sm table-bordered table-hover">
         <thead>
           <tr>
+            <th scope="col" title="Numer">#</th>
             <th scope="col" title="Data">Data i godzina</th>
             <th scope="col" title="Czas trwania">Czas</th>
             <th scope="col" title="Instruktor">Instruktor</th>
             <th scope="col" title="Kursant">Kursant</th>
-            <th scope="col" title="mobileNumber">Ind./Gr.</th>
-            <th scope="col" title="ikoLevel">Sprzęt</th>
-            <th scope="col" title="ikoLevel">Auto</th>
-            <th scope="col" title="ikoLevel">Wyjazdy</th>
-            <th scope="col" title="ikoLevel">Poziom IKO</th>
-            <th scope="col" title="ikoLevel">Stawka i./gr.</th>
+            <th scope="col" title="Ind./Gr.">Ind./Gr.</th>
+            <th scope="col" title="Sprzet">Sprzęt</th>
+            <th scope="col" title="Zakonczona">Zakończona</th>
+            <th scope="col" title="Zaplacona">Zapłacona</th>
+            <th scope="col" title="ikoLevel">Akcje</th>
           </tr>
         </thead>
         <tbody>
           {% for lesson in lesson_search_results %}
           <tr class="{% if lesson.group_lesson %}lesson-group-bckg-clr{% else %}lesson-single-bckg-clr{% endif %}">
             <td>
+              {{forloop.counter}}
+            </td><td>
               {{lesson.start_date|date:"d-m-Y"}} {{lesson.start_time|time:"H:i"}}
             </td>
             <td>
@@ -48,24 +50,26 @@
               Deska: {{lesson.board|default_if_none:"--"}}
             </td>
             <td>
-              {{student.stay_location|default_if_none:"--"}}
-            </td>
-            <td>
-              {% if student.own_car %}
+              {% if lesson.completed %}
               <i class="fas fa-check text-success"></i>
-              {%else%}
+              {% else %}
               <i class="fas fa-times text-danger"></i>
-              {%endif%}
-            </td>
-            <td>
-              {% if student.kite_elsewhere %}
+              {% endif %}
+            </td><td>
+              {% if lesson.paid %}
               <i class="fas fa-check text-success"></i>
-              {%else%}
+              {% else %}
               <i class="fas fa-times text-danger"></i>
-              {%endif%}
+              {% endif %}
             </td>
             <td>
-              {{student.iko_level|default_if_none:"--"}}
+              <a href="{% url 'lesson:lesson-detail' lesson.id %}">
+                <i class="fas fa-info"></i>&nbsp;Szczegóły
+              </a>
+              <br>
+              <a href="{% url 'lesson:lesson-list' lesson.get_date_formatted %}">
+                <i class="far fa-calendar-alt"></i>&nbsp;Pokaż na grafiku
+              </a>
             </td>
           </tr>
           {% endfor %}
@@ -74,9 +78,9 @@
       <div class="pagination">
         <span class="step-links">
           {% if page_obj.has_previous %}
-            <i class="fas fa-lg fa-angle-double-left px-2 lesson-pagination paginator-next-page"
+            <i class="fas fa-lg fa-angle-double-left px-2 pagination-icon lesson-pagination paginator-next-page"
             id="1"></i>
-            <i class="fas fa-lg fa-angle-left px-2 lesson-pagination paginator-next-page"
+            <i class="fas fa-lg fa-angle-left px-2 pagination-icon lesson-pagination paginator-next-page"
             id="{{ page_obj.previous_page_number }}"></i>
           {% endif %}
 
@@ -85,9 +89,9 @@
           </span>
 
           {% if page_obj.has_next %}
-            <i class="fas fa-lg fa-angle-right px-2 lesson-pagination paginator-next-page"
+            <i class="fas fa-lg fa-angle-right px-2 pagination-icon lesson-pagination paginator-next-page"
             id="{{ page_obj.next_page_number }}"></i>
-            <i class="fas fa-lg fa-angle-double-right px-2 lesson-pagination paginator-next-page"
+            <i class="fas fa-lg fa-angle-double-right px-2 pagination-icon lesson-pagination paginator-next-page"
             id="{{ page_obj.paginator.num_pages }}"></i>
           {% endif %}
         </span>

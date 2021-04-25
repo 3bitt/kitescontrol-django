@@ -1,5 +1,9 @@
+from datetime import datetime
+import pytz
+from django.conf import settings
 from django.db.models.query_utils import Q
 from django.views.generic import TemplateView, ListView
+from rental.models import Rental
 from student.models import Student
 from lesson.models import Lesson
 
@@ -23,14 +27,21 @@ class SearchStudentAjaxView(ListView):
         student_own_car = self.request.GET.get('own_car', False)
         student_available_from = self.request.GET.get('available_from', '')
         student_available_to = self.request.GET.get('available_to', '')
+        student_available_now = self.request.GET.get(
+            'student_available_now', False)
 
         available_from_filter = Q()
         available_to_filter = Q()
 
-        if student_available_from:
-            available_from_filter = Q(arrival_date__lte=student_available_from)
-        if student_available_to:
-            available_to_filter = Q(leave_date__gte=student_available_to)
+        if student_available_now == 'True':
+            current_date = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
+            available_from_filter = Q(arrival_date__lte=current_date)
+            available_to_filter = Q(leave_date__gte=current_date)
+        else:
+            if student_available_from:
+                available_from_filter = Q(arrival_date__lte=student_available_from)
+            if student_available_to:
+                available_to_filter = Q(leave_date__gte=student_available_to)
 
         qs = Student.objects.filter(
             Q(name__contains=student_name) | Q(surname__contains=student_name),
@@ -90,3 +101,45 @@ class SearchLessonAjaxView(ListView):
 
         return qs
 
+
+class SearchRentalAjaxView(ListView):
+    template_name = 'search/search_rental_res.html'
+    context_object_name = 'rental_search_results'
+    paginate_by = 20
+
+    def get_queryset(self):
+
+        rental_student = self.request.GET.get('rental_student', '')
+        rental_start_date = self.request.GET.get('rental_start_date', '')
+        rental_end_date = self.request.GET.get('rental_end_date', '')
+        rental_created_date = self.request.GET.get('rental_created_date', '')
+        rental_paid = self.request.GET.get('rental_paid', '')
+        rental_item = self.request.GET.get('rental_item', '')
+
+        rental_created_filter = Q()
+        rental_start_filter = Q()
+        rental_end_filter = Q()
+
+        rental_paid_filter = Q()
+
+        if rental_created_date:
+            rental_created_filter = Q(created_date__date=rental_created_date)
+        if rental_start_date:
+            rental_start_filter = Q(start_date__date__gte=rental_start_date)
+        if rental_end_date:
+            rental_end_filter = Q(end_date__date__lte=rental_end_date)
+
+        if rental_paid != '':
+            rental_paid_filter = Q(paid=rental_paid)
+
+        qs = Rental.objects.filter(
+            Q(student__name__contains=rental_student) | Q(
+                student__surname__contains=rental_student),
+            rental_created_filter,
+            rental_paid_filter,
+            Q(rentaldetail__item__contains=rental_item),
+            rental_start_filter,
+            rental_end_filter
+        ).distinct().order_by('-created_date')
+
+        return qs

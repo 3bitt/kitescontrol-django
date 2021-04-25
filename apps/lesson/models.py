@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from django.db.models.deletion import CASCADE, DO_NOTHING
 
@@ -53,6 +54,9 @@ class Lesson(models.Model):
             return True
         else:
             return False
+
+    def get_date_formatted(self):
+        return self.start_date.strftime('%d-%m-%Y')
 
 
 class LessonDetail(models.Model):

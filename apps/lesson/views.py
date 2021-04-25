@@ -51,6 +51,12 @@ class LessonListView(ListView):
         return context
 
 
+class LessonDetailView(DetailView):
+    queryset = Lesson.objects.all()
+    template_name = 'lesson/lesson_detail.html'
+    context_object_name = 'lesson'
+
+
 class LessonCreateView(CreateView):
     current_date = datetime.now()
     model = Lesson
@@ -178,7 +184,7 @@ class LessonSplit(View):
         target_lesson.duration = student_time_spent
         target_lesson.in_progress = False
         target_lesson.completed = True
-        target_lesson.comment = ' '.join(filter(None, (target_lesson.comment, f'[SYSTEM]: Rozdzielona: Lekcje opuścił {leaving_student}')))
+        target_lesson.comment = ' '.join(filter(None, (target_lesson.comment, f'[SYSTEM]: Lekcja została rozdzielona: {leaving_student} opuścił lekcje')))
         target_lesson.save()
 
         students_staying = []
