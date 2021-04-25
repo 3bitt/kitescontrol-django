@@ -53,7 +53,6 @@ class SearchStudentAjaxView(ListView):
             available_from_filter,
             available_to_filter
         ).order_by('-register_date')
-        print(qs.query)
         return qs
 
 
