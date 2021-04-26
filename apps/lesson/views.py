@@ -67,11 +67,11 @@ class LessonCreateView(CreateView):
     students_query = Student.objects.filter(
             Q(arrival_date__lte=current_date),
             Q(leave_date__gte=current_date)
-        ).order_by('-register_date', '-name')
+        ).order_by('-register_date', '-surname')
 
     def get_form(self, *args, **kwargs):
         form = super().get_form(*args, **kwargs)  # Get the form as usual
-        form.fields['instructor'].queryset = Instructor.objects.filter(active=True).order_by('-register_date', '-name')
+        form.fields['instructor'].queryset = Instructor.objects.filter(active=True).order_by('surname')
         form.fields['student'].queryset = self.students_query
         form.fields['duration'].initial = 2
         return form

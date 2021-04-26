@@ -41,8 +41,12 @@ class LessonCreateForm(forms.ModelForm):
             'confirmed': forms.CheckboxInput(),
             'in_progress': forms.CheckboxInput(),
             'completed': forms.CheckboxInput(),
-            'instructor': forms.CheckboxSelectMultiple,
-            'student': forms.CheckboxSelectMultiple
+            'comment': forms.Textarea(attrs={
+                'cols': 20,
+                'rows': 3
+            }),
+            'instructor': forms.CheckboxSelectMultiple(),
+            'student': forms.CheckboxSelectMultiple()
 
         }
 

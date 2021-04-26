@@ -9,13 +9,13 @@ parentListElement.forEach((item) => {
       if (event.target.checked) {
         addStudent(item)
       } else {
-        
+
         for (let node of studentTakenList.children) {
           if (node.innerText.trim() === item.innerText.trim()) {
-            studentTakenList.removeChild(node)            
-          }          
+            studentTakenList.removeChild(node)
+          }
         }
-      }   
+      }
     })
   }
 })
@@ -69,7 +69,7 @@ searchInput.addEventListener('input', (event) => {
         person.setAttribute('hidden', true)
       } else {
         person.removeAttribute('hidden')
-      }      
+      }
     }));
   } else {
     clearOrigList()

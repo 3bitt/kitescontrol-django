@@ -1,3 +1,11 @@
+.input-column{
+  border-right: 2px solid #adadad;
+}
+
+.input-row{
+  margin-bottom: .5rem;
+}
+
 #id_instructor, #id_student, .list-group{
   list-style: none;
 }
@@ -7,14 +15,16 @@ div > label{
 }
 
 #id_duration{
-  width: 4rem;
+  width: 3rem;
 }
+
 #id_kite_brand{
-  width: 6rem;
+  max-width: 10em;
 }
 #id_board{
-  width: 6rem;
+  max-width: 10em;
 }
+
 
 #id_student{
   height: 12rem;
@@ -22,21 +32,23 @@ div > label{
   overflow-y: scroll;
 }
 #id_instructor{
-  height: 12rem;
+  border: 1px solid rgb(167, 167, 167);
+  height: 17rem;
   width: 20rem;
   overflow-y: scroll;
-
 }
+
 .lesson-details-col{
   border: 1px solid gray;
-  padding: 10px;
-  border-radius: 2%;
+  padding: 1rem;
+  background-color: #ececec;
+  border-radius: .7rem;
 }
 .instr-col{
   border: 1px solid gray;
   padding: 10px;
   margin-left: 20px;
-  border-radius: 2%;
+  border-radius: .7rem;
 }
 .student-col{
   border: 1px solid gray;
@@ -59,6 +71,30 @@ div > label{
 .student-picked{
   color: rgb(21, 158, 21);
   font-weight: bold;
+}
+
+.instructor-picked{
+  display: flex;
+  padding: .1rem;
+  margin-bottom: .1rem;
+  color: rgb(19, 138, 19);
+  font-weight: bold;
+}
+
+.instructor-picked:hover{
+  background-color: lightgray;
+  border-radius: .3rem;
+}
+
+.remove-icon{
+  margin-left: auto;
+  margin-right: .6rem;
+  align-self: center;
+  color: #dc3545;
+}
+
+.remove-icon:hover{
+  cursor: pointer;
 }
 
 
