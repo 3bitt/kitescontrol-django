@@ -39,7 +39,8 @@ class SearchStudentAjaxView(ListView):
             available_to_filter = Q(leave_date__gte=current_date)
         else:
             if student_available_from:
-                available_from_filter = Q(arrival_date__lte=student_available_from)
+                available_from_filter = Q(
+                    arrival_date__lte=student_available_from)
             if student_available_to:
                 available_to_filter = Q(leave_date__gte=student_available_to)
 

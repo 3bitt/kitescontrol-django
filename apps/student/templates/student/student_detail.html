@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block extra_css  %}
+{% block extra_css %}
 <link rel="stylesheet" href="{% static 'student/css/student_detail.css' %}">
 {% endblock extra_css %}
 
@@ -12,11 +12,11 @@
     <div class="col-auto">
       <a href=
       {% if view.editMode %}
-        "{{request.META.HTTP_REFERER|escape}}" 
-        {% elif not view.editMode and 'student' not in request.META.HTTP_REFERER %} 
-          "{{request.META.HTTP_REFERER|escape}}"
-        {% else %}
-        "{% url 'student:student-list' %}"         
+      "{{request.META.HTTP_REFERER|escape}}"
+      {% elif not view.editMode and 'student' not in request.META.HTTP_REFERER %}
+      "{{request.META.HTTP_REFERER|escape}}"
+      {% else %}
+      "{% url 'student:student-list' %}"
       {% endif %}>
         <button class="btn btn-sm btn-warning">
           <i class="fas fa-undo-alt"></i>
@@ -34,7 +34,7 @@
     </div>
     <div class="col-auto ml-5">
       <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal"
-        {% if view.editMode %}hidden{%endif%}>
+      {% if view.editMode %}hidden{% endif %}>
         <i class="fa fa-times"></i>
         Usuń
       </button>
@@ -67,32 +67,32 @@
 
   {% if not view.editMode %}
   <div class="row mt-4">
-    <div class="col">
+    <div class="col-3 border-right border-dark">
       <dl class="row">
 
-        <dt class="col-5 col-sm-3 col-lg-2">Imię i nazwisko:</dt>
+        <dt class="col-6">Imię i nazwisko:</dt>
         <dd class="col-auto">{{student.name}} {{student.surname}}</dd>
         <div class="w-100"></div>
 
-        <dt class="col-5 col-sm-3 col-lg-2">Data urodzenia:</dt>
+        <dt class="col-6">Data urodzenia:</dt>
         <dd class="col-auto">
           <span>{{student.birth_date}}</span>
         </dd>
         <div class="w-100"></div>
 
-        <dt class="col-5 col-sm-3 col-lg-2">Nr telefonu:</dt>
+        <dt class="col-6">Nr telefonu:</dt>
         <dd class="col-auto">
           <span>{{student.mobile_number|default_if_none:"--"}}</span>
         </dd>
         <div class="w-100"></div>
 
-        <dt class="col-5 col-sm-3 col-lg-2">Waga:</dt>
+        <dt class="col-6">Waga:</dt>
         <dd class="col-auto">
           <span>{{student.weight|default_if_none:"--"}}</span>
         </dd>
         <div class="w-100"></div>
 
-        <dt class="col-5 col-sm-3 col-lg-2">E-mail:
+        <dt class="col-6">E-mail:
           <hr />
         </dt>
         <dd class="col-auto">
@@ -100,25 +100,25 @@
         </dd>
         <div class="w-100"></div>
 
-        <dt class="col-5 col-sm-3 col-lg-2">Data przyjazdu:</dt>
+        <dt class="col-6">Data przyjazdu:</dt>
         <dd class="col-auto">
           <span>{{student.arrival_date|default_if_none:"--"}}</span>
         </dd>
         <div class="w-100"></div>
 
-        <dt class="col-5 col-sm-3 col-lg-2">Data odjazdu:</dt>
+        <dt class="col-6">Data odjazdu:</dt>
         <dd class="col-auto">
           <span>{{student.leave_date|default_if_none:"--"}}</span>
         </dd>
         <div class="w-100"></div>
 
-        <dt class="col-5 col-sm-3 col-lg-2">Miejsce pobytu:</dt>
+        <dt class="col-6">Miejsce pobytu:</dt>
         <dd class="col-auto">
           <span>{{student.stay_location|default_if_none:"--"}}</span>
         </dd>
         <div class="w-100"></div>
 
-        <dt class="col-5 col-sm-3 col-lg-2">Samochód:</dt>
+        <dt class="col-6">Samochód:</dt>
         <dd class="col-auto">
           {% if student.own_car %}
           <i class="fas fa-check icon-true"></i>
@@ -128,7 +128,7 @@
         </dd>
         <div class="w-100"></div>
 
-        <dt class="col-5 col-sm-3 col-lg-2">Wyjazdy:
+        <dt class="col-6">Wyjazdy:
         </dt>
         <dd class="col-auto">
           {% if student.kite_elsewhere %}
@@ -139,14 +139,14 @@
         </dd>
         <div class="w-100"></div>
 
-        <dt class="col-5 col-sm-3 col-lg-2">Stawka indywidualna:
+        <dt class="col-6">Stawka indywidualna:
         </dt>
         <dd class="col-auto">
           <span>{{student.pay_rate_single|default_if_none:"--"}}</span>
         </dd>
         <div class="w-100"></div>
 
-        <dt class="col-5 col-sm-3 col-lg-2">Stawka grupowa:
+        <dt class="col-6">Stawka grupowa:
           <hr />
         </dt>
         <dd class="col-auto">
@@ -154,29 +154,64 @@
         </dd>
         <div class="w-100"></div>
 
-        <dt class="col-5 col-sm-3 col-lg-2">Rozmiar pianki:</dt>
+        <dt class="col-6">Rozmiar pianki:</dt>
         <dd class="col-auto">
           <span>{{student.wetsuit_size|default_if_none:"--"}}</span>
         </dd>
         <div class="w-100"></div>
 
-        <dt class="col-5 col-sm-3 col-lg-2">Rozmiar trapezu:</dt>
+        <dt class="col-6">Rozmiar trapezu:</dt>
         <dd class="col-auto">
           <span>{{student.harness_size|default_if_none:"--"}}</span>
         </dd>
         <div class="w-100"></div>
 
-        <dt class="col-5 col-sm-3 col-lg-2">Numer IKO:</dt>
+        <dt class="col-6">Numer IKO:</dt>
         <dd class="col-auto">
           <span>{{student.iko_id|default_if_none:"--"}}</span>
         </dd>
         <div class="w-100"></div>
 
-        <dt class="col-5 col-sm-3 col-lg-2">Poziom IKO:</dt>
+        <dt class="col-6">Poziom IKO:</dt>
         <dd class="col-auto">
           <span>{{student.iko_level|default_if_none:"--"}}</span>
         </dd>
       </dl>
+    </div>
+    <div class="col-auto">
+      <div class="row mb-3">
+        <div class="col">
+          <b>Ostatnie 5 lekcji</b>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+        {% for lesson in student.lessons.all|slice:":5" %}
+        <div class="d-flex">
+          <div class="pr-2">
+            {{lesson.start_date|date:"d-m-Y"}}
+            {{lesson.start_time|time:"H:i"}}
+          </div>
+          <div class="px-2 border-left">
+            {{lesson.duration}}&nbsp;h
+          </div>
+          <div class="level-achieved px-2 border-left">
+            {% for detail in lesson.lessondetail_set.all %}
+            {% if student.id == detail.student.id %}
+            {{ detail.iko_level_achieved|default_if_none:"--" }}
+            {% endif %}
+            {% endfor %}
+          </div>
+          <div class="px-2 border-left text-danger">
+            {% for instructor in lesson.instructor.all %}
+            {{ instructor }}
+            {% endfor %}
+          </div>
+
+        </div>
+        {% endfor %}
+        </div>
+      </div>
     </div>
   </div>
   {% comment %} If in Edit Mode {% endcomment %}

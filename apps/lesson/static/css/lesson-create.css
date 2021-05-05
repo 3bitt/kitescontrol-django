@@ -1,79 +1,87 @@
-.input-column{
+.input-column-1 {
   border-right: 2px solid #adadad;
+  /* margin-right: 1rem; */
 }
 
-.input-row{
+.input-row {
   margin-bottom: .5rem;
 }
 
-#id_instructor, #id_student, .list-group{
+#id_instructor, #id_student {
   list-style: none;
 }
 
-div > label{
+div>label {
   font-weight: bold;
 }
 
-#id_duration{
+#id_duration {
   width: 3rem;
 }
 
-#id_kite_brand{
-  max-width: 10em;
-}
-#id_board{
+#id_kite_brand {
   max-width: 10em;
 }
 
+#id_board {
+  max-width: 10em;
+}
 
-#id_student{
-  height: 12rem;
+#id_student {
+  height: 15rem;
   width: 25rem;
   overflow-y: scroll;
 }
-#id_instructor{
-  border: 1px solid rgb(167, 167, 167);
+
+#id_instructor {
+  /* border: 1px solid rgb(167, 167, 167); */
   height: 17rem;
   width: 20rem;
   overflow-y: scroll;
 }
 
-.lesson-details-col{
+.lesson-details-col {
   border: 1px solid gray;
   padding: 1rem;
   background-color: #ececec;
   border-radius: .7rem;
 }
-.instr-col{
+
+.instr-col {
   border: 1px solid gray;
   padding: 10px;
   margin-left: 20px;
   border-radius: .7rem;
 }
-.student-col{
+
+.student-col {
   border: 1px solid gray;
   padding: 10px;
   margin-left: 20px;
   border-radius: 2%;
 }
-.instr-label{
+
+.instr-label {
   text-align: center;
   font-size: 1.2em;
 }
-.student-label{
+
+.student-label {
   text-align: center;
   font-size: 1.2em;
 }
-.student-picked-list{
+
+.student-picked-list {
   min-height: 2em;
   max-height: fit-content;
 }
-.student-picked{
+
+.student-picked {
   color: rgb(21, 158, 21);
   font-weight: bold;
 }
 
-.instructor-picked{
+.instructor-picked {
   display: flex;
   padding: .1rem;
   margin-bottom: .1rem;
@@ -81,21 +89,18 @@ div > label{
   font-weight: bold;
 }
 
-.instructor-picked:hover{
+.instructor-picked:hover {
   background-color: lightgray;
   border-radius: .3rem;
 }
 
-.remove-icon{
+.remove-icon {
   margin-left: auto;
   margin-right: .6rem;
   align-self: center;
   color: #dc3545;
 }
 
-.remove-icon:hover{
+.remove-icon:hover {
   cursor: pointer;
 }
-
-
-

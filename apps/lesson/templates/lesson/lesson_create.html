@@ -20,203 +20,211 @@
       </div>
     </div>
 
-    <div class="col-auto">
-      <form method="post">
-      {%csrf_token%}
-      <div class="row">
-
-        <div class="col-6 lesson-details-col">
-          <div class="row">
-
-            <div class="col input-column">
-
-              <div class="row input-row">
-                <div class="col-5">
-                  <label>Data:</label>
-                </div>
-                <div class="col">
-                  {{form.start_date}}
-                </div>
-              </div>
-
-              <div class="row input-row">
-                <div class="col-5">
-                  <label>Godzina:</label>
-                </div>
-                <div class="col">
-                  <div class="row">
-                    <div class="col-auto">
-                      <select name="start_hour" class="input">
-                        <option value="07">07</option>
-                        <option value="08">08</option>
-                        <option value="09">09</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                        <option value="21">21</option>
-                      </select>
-                    </div>
-                    <div class="col-auto">
-                      <select name="start_minute" class="input">
-                        <option value="00">00</option>
-                        <option value="15">15</option>
-                        <option value="30">30</option>
-                        <option value="45">45</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row input-row ">
-                <div class="col-5">
-                  <label>Czas trwania:</label>
-                </div>
-                <div class="col">
-                  {{form.duration}}&nbsp;godzin
-                </div>
-              </div>
-
-              <div class="row input-row">
-                <div class="col-5">
-                  <label>Potwierdzona:</label>
-                </div>
-                <div class="col">
-                  {{form.confirmed}}
-                </div>
-              </div>
-
-            </div>
-            <div class="col">
-
-              <div class="row input-row">
-                <div class="col-5">
-                  <label>Kite:</label>
-                </div>
-                <div class="col-auto">
-                  {{form.kite_brand}}
-                </div>
-              </div>
-
-              <div class="row input-row">
-                <div class="col-5">
-                  <label>Deska:</label>
-                </div>
-                <div class="col-auto">
-                  {{form.board}}
-                </div>
-              </div>
-
-              <div class="row input-row">
-                <div class="col-5">
-                  <label>Komentarz:</label>
-                </div>
-                <div class="col-auto">
-                  {{form.comment}}
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="row mt-3">
-            <div class="col">
-              <div class="row">
-
-                <div class="col border-right border-dark">
-                  <div class="row input-row mx-2 border-top border-dark justify-content-center">
-                    <div class="col-auto">
-                      <label class="m-0">Instruktor</label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col instructor-picked-list">
-                      <div class="instructor-not-picked text-danger"><i>-- Nie wybrano --</i></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="row input-row mx-2 border-top border-dark justify-content-center">
-                    <div class="col-auto">
-                      <label class="m-0">Kursant</label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col student-picked-list">
-                      <div class="student-not-picked text-danger"><i>-- Nie wybrano --</i></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row mt-4 mx-auto border-top border-dark">
-            <div class="col-auto mt-3">
-              <input class="btn btn-success" type="submit" value="Dodaj">
-            </div>
-            <div class="col mt-3 text-danger">
-              {% if form.errors %}
-              <ul>
-                {% for error in form.errors %}
-                  {% if error == 'student' %}
-                    <li><strong>Kursant nie został wybrany</strong></li>
-                  {% endif %}
-                  {% if error == 'instructor' %}
-                    <li><strong>Instruktor nie został wybrany</strong></li>
-                  {% endif %}
-                {% endfor %}
-              </ul>
-              {% endif %}
-            </div>
-          </div>
-
-        </div>
-
-        <div class="col-auto instr-col">
-          <div class="row">
-            <div class="col instr-label">
-              <label>Wybierz instruktora:</label>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-auto instr-list">
-              {{form.instructor}}
-            </div>
-          </div>
-        </div>
-
-        <div class="col-auto student-col">
-          <div class="row">
-            <div class="col student-label">
-              <label>Wybierz studenta:</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <input type="text" id="student_search_input" placeholder="Szukaj kursanta">
-              <ul class="student-picked-list mb-1" id="search_result_list"></ul>
-            </div>
-          </div>
-
-
-          <div class="row mt-2">
-
-            <div class="col-auto elo">
-              {{form.student}}
-            </div>
-          </div>
+    <div class="col-10">
+      <div class="row mb-3">
+        <div class="col">
+          <h3>Nowa lekcja</h3>
         </div>
       </div>
+      <form method="post">
+        {%csrf_token%}
+        <div class="row">
+
+          <div class="col-6 lesson-details-col">
+            <div class="row">
+
+              <div class="col input-column-1">
+
+                <div class="row input-row">
+                  <div class="col-5">
+                    <label>Data:</label>
+                  </div>
+                  <div class="col">
+                    {{form.start_date}}
+                  </div>
+                </div>
+
+                <div class="row input-row">
+                  <div class="col-5">
+                    <label>Godzina:</label>
+                  </div>
+                  <div class="col">
+                    <div class="row">
+                      <div class="col-auto">
+                        <select name="start_hour" class="input">
+                          <option value="07">07</option>
+                          <option value="08">08</option>
+                          <option value="09">09</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                          <option value="13">13</option>
+                          <option value="14">14</option>
+                          <option value="15">15</option>
+                          <option value="16">16</option>
+                          <option value="17">17</option>
+                          <option value="18">18</option>
+                          <option value="19">19</option>
+                          <option value="20">20</option>
+                          <option value="21">21</option>
+                        </select>
+                      </div>
+                      <div class="col-auto">
+                        <select name="start_minute" class="input">
+                          <option value="00">00</option>
+                          <option value="15">15</option>
+                          <option value="30">30</option>
+                          <option value="45">45</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row input-row ">
+                  <div class="col-5">
+                    <label>Czas trwania:</label>
+                  </div>
+                  <div class="col">
+                    {{form.duration}}&nbsp;godzin
+                  </div>
+                </div>
+
+                <div class="row input-row">
+                  <div class="col-5">
+                    <label>Potwierdzona:</label>
+                  </div>
+                  <div class="col">
+                    {{form.confirmed}}
+                  </div>
+                </div>
+
+              </div>
+              <div class="col input-column-2">
+
+                <div class="row input-row">
+                  <div class="col-4">
+                    <label>Kite:</label>
+                  </div>
+                  <div class="col-auto">
+                    {{form.kite_brand}}
+                  </div>
+                </div>
+
+                <div class="row input-row">
+                  <div class="col-4">
+                    <label>Deska:</label>
+                  </div>
+                  <div class="col-auto">
+                    {{form.board}}
+                  </div>
+                </div>
+
+                <div class="row input-row">
+                  <div class="col-4">
+                    <label>Komentarz:</label>
+                  </div>
+                  <div class="col-auto">
+                    {{form.comment}}
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="row mt-3">
+              <!-- <div class="col">
+                <div class="row"> -->
+
+              <div class="col border-right border-dark">
+                <div class="row input-row mx-2 border-top border-dark justify-content-center">
+                  <div class="col-auto">
+                    <label class="m-0">Instruktor</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col instructor-picked-list">
+                    <div class="instructor-not-picked text-danger"><i>-- Nie wybrano --</i></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="row input-row mx-2 border-top border-dark justify-content-center">
+                  <div class="col-auto">
+                    <label class="m-0">Kursant</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col student-picked-list">
+                    <div class="student-not-picked text-danger"><i>-- Nie wybrano --</i></div>
+                  </div>
+                </div>
+              </div>
+              <!-- </div>
+              </div> -->
+            </div>
+
+            <div class="row mt-4 mx-auto border-top border-dark">
+              <div class="col-auto mt-3">
+                <input class="btn btn-success" type="submit" value="Dodaj">
+              </div>
+              <div class="col mt-3 text-danger">
+                {% if form.errors %}
+                <ul>
+                  {% for error in form.errors %}
+                  {% if error == 'student' %}
+                  <li><strong>Kursant nie został wybrany</strong></li>
+                  {% endif %}
+                  {% if error == 'instructor' %}
+                  <li><strong>Instruktor nie został wybrany</strong></li>
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+                {% endif %}
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="row mt-3">
+          <div class="col-auto instr-col">
+            <div class="row">
+              <div class="col instr-label">
+                <label>Wybierz instruktora:</label>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-auto instr-list">
+                {{form.instructor}}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-auto student-col">
+            <div class="row">
+              <div class="col student-label">
+                <label>Wybierz kursanta:</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input type="text" id="student_search_input" placeholder="Filtruj liste">
+                <ul class="student-picked-list mb-1" id="search_result_list"></ul>
+              </div>
+            </div>
+
+
+            <div class="row mt-2">
+
+              <div class="col-auto elo">
+                {{form.student}}
+              </div>
+            </div>
+          </div>
+
+        </div>
       </form>
     </div>
 

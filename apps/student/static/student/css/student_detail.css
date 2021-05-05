@@ -5,16 +5,23 @@ hr {
     border-top: 1px solid rgba(0, 0, 0, 0.733);
 }
 
-label{
+label {
     font-weight: bold;
     margin: 0;
 }
-.icon-true{
+
+.icon-true {
     color: green;
 }
-.icon-false{
+
+.icon-false {
     color: rgb(177, 0, 0);
 }
-.short-field{
-  width: 5rem;
+
+.short-field {
+    width: 5rem;
+}
+
+.level-achieved {
+    min-width: 2.5rem;
 }

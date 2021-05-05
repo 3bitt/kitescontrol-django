@@ -2,6 +2,7 @@ from django import forms
 from .models import Lesson
 from account.models import User
 
+
 class LessonCreateForm(forms.ModelForm):
 
     class Meta:
@@ -12,7 +13,7 @@ class LessonCreateForm(forms.ModelForm):
             'kite_size',
             'start_time',
 
-            ]
+        ]
         fields = [
             'start_date',
             'student',
@@ -41,9 +42,16 @@ class LessonCreateForm(forms.ModelForm):
             'confirmed': forms.CheckboxInput(),
             'in_progress': forms.CheckboxInput(),
             'completed': forms.CheckboxInput(),
+            'kite_brand': forms.TextInput(attrs={
+                'placeholder': 'Sygnatura kajta'
+            }),
+            'board': forms.TextInput(attrs={
+                'placeholder': 'Sygnatura deski'
+            }),
             'comment': forms.Textarea(attrs={
-                'cols': 20,
-                'rows': 3
+                'cols': 26,
+                'rows': 3,
+                'placeholder': 'Dodatkowe informacje'
             }),
             'instructor': forms.CheckboxSelectMultiple(),
             'student': forms.CheckboxSelectMultiple()
