@@ -69,6 +69,10 @@ div>label {
 .student-label {
   text-align: center;
   font-size: 1.2em;
+  /* line-height: 1rem; */
+}
+.student-label label{
+  margin-bottom: 0;
 }
 
 .student-picked-list {
@@ -81,7 +85,7 @@ div>label {
   font-weight: bold;
 }
 
-.instructor-picked {
+.instructor-picked, .student-picked {
   display: flex;
   padding: .1rem;
   margin-bottom: .1rem;
@@ -89,7 +93,7 @@ div>label {
   font-weight: bold;
 }
 
-.instructor-picked:hover {
+.instructor-picked:hover, .student-picked:hover {
   background-color: lightgray;
   border-radius: .3rem;
 }
