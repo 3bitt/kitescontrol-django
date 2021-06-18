@@ -10,14 +10,9 @@
 
   <div class="row">
     <div class="col-auto">
-      <a href=
-      {% if view.editMode %}
-      "{{request.META.HTTP_REFERER|escape}}"
-      {% elif not view.editMode and 'student' not in request.META.HTTP_REFERER %}
-      "{{request.META.HTTP_REFERER|escape}}"
-      {% else %}
-      "{% url 'student:student-list' %}"
-      {% endif %}>
+      <a href={% if view.editMode %} "{{request.META.HTTP_REFERER|escape}}" {% elif not view.editMode and 'student' not
+        in request.META.HTTP_REFERER %} "{{request.META.HTTP_REFERER|escape}}" {% else
+        %} "{% url 'student:student-list' %}" {% endif %}>
         <button class="btn btn-sm btn-warning">
           <i class="fas fa-undo-alt"></i>
           Powrót
@@ -181,35 +176,40 @@
     <div class="col-auto">
       <div class="row mb-3">
         <div class="col">
-          <b>Ostatnie 5 lekcji</b>
+          {% if not student.lessons.all %}
+            <p>Kursant nie odbył jeszcze żadnych lekcji</p>
+          {% else %}
+          <b>Lekcje kursanta:</b>
         </div>
       </div>
       <div class="row">
         <div class="col">
-        {% for lesson in student.lessons.all|slice:":5" %}
-        <div class="d-flex">
-          <div class="pr-2">
-            {{lesson.start_date|date:"d-m-Y"}}
-            {{lesson.start_time|time:"H:i"}}
-          </div>
-          <div class="px-2 border-left">
-            {{lesson.duration}}&nbsp;h
-          </div>
-          <div class="level-achieved px-2 border-left">
-            {% for detail in lesson.lessondetail_set.all %}
-            {% if student.id == detail.student.id %}
-            {{ detail.iko_level_achieved|default_if_none:"--" }}
-            {% endif %}
-            {% endfor %}
-          </div>
-          <div class="px-2 border-left text-danger">
-            {% for instructor in lesson.instructor.all %}
-            {{ instructor }}
-            {% endfor %}
-          </div>
 
-        </div>
-        {% endfor %}
+          {% for lesson in student.lessons.all %}
+          <div class="d-flex">
+            <div class="pr-2">
+              {{lesson.start_date|date:"d-m-Y"}}
+              {{lesson.start_time|time:"H:i"}}
+            </div>
+            <div class="px-2 border-left">
+              {{lesson.duration}}&nbsp;h
+            </div>
+            <div class="level-achieved px-2 border-left">
+              {% for detail in lesson.lessondetail_set.all %}
+              {% if student.id == detail.student.id %}
+              {{ detail.iko_level_achieved|default_if_none:"--" }}
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div class="px-2 border-left text-danger">
+              {% for instructor in lesson.instructor.all %}
+              {{ instructor }}
+              {% endfor %}
+            </div>
+
+          </div>
+          {% endfor %}
+          {% endif %}
         </div>
       </div>
     </div>

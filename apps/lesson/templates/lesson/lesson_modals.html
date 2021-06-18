@@ -51,7 +51,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col">              
+            <div class="col">
               {% for student in lesson.student.all%}
                 <div class="row">
                   <div class="col">
@@ -148,16 +148,52 @@
               <br>
               <span><small>Poziom: {{student.iko_level|default_if_none:"---"}}</small></span>
             </div>
-          </div>                
-        
+          </div>
+
           <div class="col-6">
             <div class="row">
               <div class="col pr-0">
                 <span><b>Nowy poziom:</b></span>
               </div>
               <div class="col-auto">
-                <input class="input lesson-complete-input" type="text" maxlength="10"
-                name="new_iko_level_{{student.id}}" required>
+                <!-- <input class="input lesson-complete-input" type="text" maxlength="10"
+                name="new_iko_level_{{student.id}}" required> -->
+                <select name="new_iko_level_{{student.id}}" required>
+                  <optgroup label="Level 1 - Discovery">
+                    <option value="">--Wybierz poziom--</option>
+                    <option value="1A">1A</option>
+                    <option value="1B">1B</option>
+                    <option value="1C">1C</option>
+                    <option value="1D">1D</option>
+                    <option value="1E">1E</option>
+                  </optgroup>
+                  <optgroup label="Level 2 - Intermediate">
+                    <option value="2F">2F</option>
+                    <option value="2G">2G</option>
+                    <option value="2H">2H</option>
+                    <option value="2I">2I</option>
+                  </optgroup>
+                  <optgroup label="Level 3 - Independent">
+                    <option value="3J">3J</option>
+                    <option value="3K">3K</option>
+                    <option value="3L">3L</option>
+                    <option value="3M">3M</option>
+                    <option value="3N">3N</option>
+                  </optgroup>
+                  <optgroup label="Level 4 - Advanced">
+                    <option value="4O">4O</option>
+                    <option value="4P">4P</option>
+                    <option value="4Q">4Q</option>
+                    <option value="4R">4R</option>
+                    <option value="4S">4S</option>
+                    <option value="4T">4T</option>
+                    <option value="4U">4U</option>
+                    <option value="4V">4V</option>
+                    <option value="4W">4W</option>
+                    <option value="4X">4X</option>
+                    <option value="4Y">4Y</option>
+                  </optgroup>
+                </select>
               </div>
             </div>
           </div>
@@ -172,9 +208,9 @@
             </div>
           </div> {% endcomment %}
         </div>
-        
+
         {%endfor%}
-        
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-warning" data-dismiss="modal">Anuluj</button>
@@ -233,7 +269,7 @@
             <b>{{lesson.duration}}&nbsp;h</b>
           </div>
         </div>
-        
+
         <hr class="complete-lesson-divider">
 
         <div class="row mb-3">
@@ -266,7 +302,7 @@
                       <b class="text-success">{{lesson_detail.price}}&nbsp;zł</b>
                     </div>
                   </div>
-                </div>                  
+                </div>
               </div>
             {%endfor%}
           </div>

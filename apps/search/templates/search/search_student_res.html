@@ -67,10 +67,11 @@
                 ({{student.lessons.count}})</a>
             </td>
           <tr id="collapse_{{student.id}}" class="collapse">
-            <td></td>
-            <td colspan="8">
-              <div><b>Ostatnie 5 lekcji</b></div>
 
+            <td colspan="4">
+
+              <div><b>Ostatnie 5 lekcji</b></div>
+<hr>
               {% for lesson in student.lessons.all|slice:":5" %}
               <div class="d-flex">
                 <div class="pr-2">
