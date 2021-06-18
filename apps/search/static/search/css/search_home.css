@@ -1,33 +1,33 @@
-.main-container{
+.main-container {
   min-height: 100vh;
   box-shadow: 0px 0px 12px 1px #dedede;
   padding-bottom: 2rem;
 }
 
-.row > div:first-child > label{
+.row>div:first-child>label {
   font-weight: bolder;
 }
 
-hr{
+hr {
   margin: 0;
 }
 
-.search-buttons{
+.search-buttons {
   padding: .8rem;
   border-radius: 1rem;
   box-shadow: 0px 0px 20px 2px #e7e7e7;
   border: 1px solid #d8d8d8;
 }
 
-.search-buttons-title{
+.search-buttons-title {
   border-bottom: 1px solid rgb(204, 204, 204);
 }
 
-.not-visible{
+.not-visible {
   display: none;
 }
 
-.search-filters-div{
+.search-filters-div {
   border: 1px solid gray;
   border-radius: 1rem;
   padding: 1rem;
@@ -36,41 +36,48 @@ hr{
   box-shadow: 0px 0px 20px 2px #e7e7e7cc;
 }
 
-.form-weight-input{
+.form-weight-input {
   width: 4em;
 }
 
-
-/* LESSON SEARCH SUB-PAGE */
-
-/* .lesson-group-bckg-clr{
-  background-color: #8a2be214;
-} */
-
-.lesson-group-icon{
-  color: blueviolet;
-}
-
-/* .lesson-single-bckg-clr{
-  background-color: #045f5f1f;
-}  */
-
-.lesson-single-icon{
-  color: teal;
-}
-
-.pagination-icon{
+.pagination-icon {
   color: #007bff;
   cursor: pointer;
   padding: 0 .2rem 0 .2rem;
 }
 
+/* STUDENT SEARCH SUB-PAGE */
 
+.level-achieved {
+  min-width: 2.5rem;
+}
 
-.rent-item-cell{
+/* LESSON SEARCH SUB-PAGE */
+
+.squeeze-lines {
+  line-height: 1;
+}
+
+.squeeze-lines:not(:last-child) {
+  border-bottom: 1px solid rgb(209, 209, 209);
+  margin-bottom: .5rem;
+  padding-bottom: .5rem;
+}
+
+.lesson-group-icon {
+  color: blueviolet;
+}
+
+.lesson-single-icon {
+  color: teal;
+}
+
+/* RENTAL SEARCH SUB-PAGE */
+
+.rent-item-cell {
   white-space: nowrap;
 }
 
-.rent-item-cell:not(:last-child){
+.rent-item-cell:not(:last-child) {
   border-bottom: 1px solid #bdbbbb;
 }

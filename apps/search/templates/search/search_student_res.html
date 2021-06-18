@@ -2,7 +2,7 @@
   {% if student_search_results %}
   <div class="row justify-content-md-center mt-5">
     <div class="col">
-      <table class="table  table-sm table-bordered table-hover table-striped">
+      <table class="table table-sm table-bordered table-hover table-striped">
         <thead>
           <tr>
             <th scope="col" title="Kursant">Kursant</th>
@@ -15,6 +15,7 @@
             <th scope="col" title="Wyjazdy">Wyjazdy</th>
             <th scope="col" title="Poziom IKO">Poziom IKO</th>
             <th scope="col" title="Stawki">Stawka ind./gr.</th>
+            <th scope="col" title="Akcje">Akcje</th>
           </tr>
         </thead>
         <tbody>
@@ -54,11 +55,53 @@
             </td>
             <td>
               {{student.iko_level|default_if_none:"--"}}
+
             </td>
             <td>
               {{student.pay_rate_single|default_if_none:"--"}} /
               {{student.pay_rate_group|default_if_none:"--"}}
+
             </td>
+            <td>
+              <a href="#collapse_{{student.id}}" data-toggle="collapse" role="button">Lekcje
+                ({{student.lessons.count}})</a>
+            </td>
+          <tr id="collapse_{{student.id}}" class="collapse">
+
+            <td colspan="4">
+
+              <div><b>Ostatnie 5 lekcji</b></div>
+<hr>
+              {% for lesson in student.lessons.all|slice:":5" %}
+              <div class="d-flex">
+                <div class="pr-2">
+                  {{lesson.start_date|date:"d-m-Y"}}
+                  {{lesson.start_time|time:"H:i"}}
+                </div>
+                <div class="px-2 border-left">
+                  {{lesson.duration}}&nbsp;h
+                </div>
+                <div class="level-achieved px-2 border-left">
+                  {% for detail in lesson.lessondetail_set.all %}
+                  {% if student.id == detail.student.id %}
+                  {{ detail.iko_level_achieved|default_if_none:"--" }}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="px-2 border-left text-danger">
+                  {% for instructor in lesson.instructor.all %}
+                  {{ instructor }}
+                  {% endfor %}
+                </div>
+
+              </div>
+              {% endfor %}
+            </td>
+          <tr>
+
+          </tr>
+
+          </tr>
           </tr>
           {% endfor %}
         </tbody>
@@ -66,7 +109,8 @@
       <div class="pagination">
         <span class="step-links">
           {% if page_obj.has_previous %}
-          <i class="fas fa-lg fa-angle-double-left px-2 pagination-icon student-pagination paginator-next-page" id="1"></i>
+          <i class="fas fa-lg fa-angle-double-left px-2 pagination-icon student-pagination paginator-next-page"
+            id="1"></i>
           <i class="fas fa-lg fa-angle-left px-2 pagination-icon student-pagination paginator-next-page"
             id="{{ page_obj.previous_page_number }}"></i>
           {% endif %}

@@ -11,6 +11,46 @@ from .validators import (
 
 class Student(models.Model):
 
+    IKO_LEVELS = (
+        ('Level 1 - Discovery', (
+            ('1A', '1A'),
+            ('1B', '1B'),
+            ('1C', '1C'),
+            ('1D', '1D'),
+            ('1E', '1E'),
+        )
+        ),
+        ('Level 2 - Intermediate', (
+            ('2F', '2F'),
+            ('2G', '2G'),
+            ('2H', '2H'),
+            ('2I', '2I'),
+        )
+        ),
+        ('Level 3 - Independent', (
+            ('3J', '3J'),
+            ('3K', '3K'),
+            ('3L', '3L'),
+            ('3M', '3M'),
+            ('3N', '3N'),
+        )
+        ),
+        ('Level 4 - Advanced', (
+            ('4O', '4O'),
+            ('4P', '4P'),
+            ('4Q', '4Q'),
+            ('4R', '4R'),
+            ('4S', '4S'),
+            ('4T', '4T'),
+            ('4U', '4U'),
+            ('4V', '4V'),
+            ('4W', '4W'),
+            ('4X', '4X'),
+            ('4Y', '4Y'),
+        )
+        ),
+    )
+
     WETSUIT_SIZES = (
         ('XS', 'XS'),
         ('S', 'S'),
@@ -74,7 +114,7 @@ class Student(models.Model):
         choices=HARNESS_SIZES)
 
     iko_id = models.IntegerField(null=True, blank=True, unique=True)
-    iko_level = models.CharField(max_length=30, null=True, blank=True)
+    iko_level = models.CharField(max_length=30, null=True, blank=True, choices=IKO_LEVELS)
     comment = models.CharField(max_length=255, null=True, blank=True)
     pay_rate_single = models.IntegerField(null=False, blank=False)
     pay_rate_group = models.IntegerField(null=False, blank=False)

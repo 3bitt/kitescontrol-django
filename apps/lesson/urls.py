@@ -26,7 +26,7 @@ urlpatterns = [
     path('schedule/find/', login_required(FindScheduleRedirectView.as_view()),
          name='lesson-find-schedule'),
     path('create/', login_required(LessonCreateView.as_view()),
-          name='lesson-create'),
+         name='lesson-create'),
     path('<int:pk>/edit/', login_required(LessonUpdateView.as_view()),
          name='lesson-edit'),
     path('<int:pk>/detail/', login_required(LessonDetailView.as_view()),

@@ -9,7 +9,7 @@
 <div class="container-fluid">
   <div class="row mt-3 mb-5">
     <div class="col-6 rentals-master-col mr-auto ml-2">
-      
+
       <div class="row rentals-title">
         <div class="col-auto">
           <h4>Rentale</h4>
@@ -26,7 +26,7 @@
             <div class="col rental-student-name">
               <a href="{% url 'student:student-detail' rental.student.id %}">{{rental.student}}</a>
             </div>
-          </div>        
+          </div>
 
         </div>
 
@@ -38,14 +38,14 @@
               {{rental.start_date|date:"d-m-Y H:i"|default:"?-?-?"}}
             </div>
           </div>
-        
+
           <div class="row h-50 align-items-center">
             <div class="col-auto">
               <i class="fa fa-sm fa-circle text-danger"></i>
               {{rental.end_date|date:"d-m-Y H:i"|default:"?-?-?"}}
             </div>
           </div>
-        
+
         </div>
 
         <div class="col rental-table-each-column">
@@ -67,7 +67,7 @@
               {% endfor %}
             </div>
           </div>
-        
+
         </div>
 
         <div class="col-auto">
@@ -76,13 +76,13 @@
               <i class="fa fa-cog rental-settings-icon"></i>
 
               <div class="rental-settings-menu"
-                id="settings_menu_{{rental.id}}" hidden="true">
+                id="rental_settings_menu_{{rental.id}}" hidden="true">
 
                 <div class="rental-edit-menu-item rental-settings-menu-item">
                   <a class="rental-edit-link" href="{% url 'rental:rental-detail' rental.id %}">
                     <i class="no-decoration fa fa-edit fa-sm"></i>
                     <span class="no-decoration">Edytuj</span>
-                  </a>                                    
+                  </a>
                 </div>
 
                 {% if not rental.paid %}
@@ -94,12 +94,12 @@
                     Rozlicz
                   </button>
                 </div>
-                {% endif %} 
+                {% endif %}
 
                 {% comment %} <hr> {% endcomment %}
 
               </div>
-              
+
 
             </div>
           </div>
@@ -111,12 +111,12 @@
                 <i class="fa fa-coins text-danger" title="Niezapłacony"></i>
               {% endif %}
             </div>
-          </div>        
+          </div>
         </div>
 
         {% comment %} Rental settings modals {% endcomment %}
         {%include 'rental/rental_modals.html' with rental=rental %}
-      
+
       </div>
       {% endfor %}
       {% else %}

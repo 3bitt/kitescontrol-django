@@ -67,11 +67,11 @@ class LessonCreateView(CreateView):
     students_query = Student.objects.filter(
             Q(arrival_date__lte=current_date),
             Q(leave_date__gte=current_date)
-        ).order_by('-register_date', '-name')
+        ).order_by('-register_date', '-surname')
 
     def get_form(self, *args, **kwargs):
         form = super().get_form(*args, **kwargs)  # Get the form as usual
-        form.fields['instructor'].queryset = Instructor.objects.filter(active=True).order_by('-register_date', '-name')
+        form.fields['instructor'].queryset = Instructor.objects.filter(active=True).order_by('surname')
         form.fields['student'].queryset = self.students_query
         form.fields['duration'].initial = 2
         return form
@@ -118,7 +118,6 @@ class LessonUpdateView(UpdateView):
         if form.cleaned_data['start_date'] != datetime.date(self.current_date):
             lesson_date = form.cleaned_data['start_date'].strftime('%d-%m-%Y')
             self.success_url = reverse_lazy('lesson:lesson-list', kwargs={'schedule_date': lesson_date})
-
         response = super(LessonUpdateView, self).form_valid(form)
 
         # return super().form_valid(form)
@@ -126,6 +125,26 @@ class LessonUpdateView(UpdateView):
 
     # def get_success_url(self):
     #     return reverse_lazy('lesson:lesson-list')
+
+
+class LessonConfirmView(View):
+
+    def post(self, request, **kwargs):
+        lesson_id = self.kwargs['pk']
+        lesson: Lesson = Lesson.objects.get(id=lesson_id)
+
+        if (lesson.confirmed):
+            lesson.confirmed = False
+        elif (not lesson.confirmed):
+            lesson.confirmed = True
+        else:
+            pass
+        lesson.save()
+
+        lesson_date = lesson.start_date.strftime('%d-%m-%Y')
+
+        return redirect('lesson:lesson-list', lesson_date)
+
 
 class LessonStartView(View):
 
@@ -142,26 +161,10 @@ class LessonStartView(View):
             lesson.in_progress = False
             lesson.confirmed = False
         lesson.save()
-        return redirect('lesson:lesson-list')
 
-class LessonConfirmView(View):
+        lesson_date = lesson.start_date.strftime('%d-%m-%Y')
 
-    def post(self,request, **kwargs):
-        lesson_id = self.kwargs['pk']
-        lesson: Lesson = Lesson.objects.get(id=lesson_id)
-
-        # LESSON STATUSES:
-        # 0 - CREATED
-        # 1 - CONFIRMED
-        # 2 - COMPLETED
-        if (lesson.confirmed ):
-            lesson.confirmed = False
-        elif (not lesson.confirmed):
-            lesson.confirmed = True
-        else:
-            pass
-        lesson.save()
-        return redirect('lesson:lesson-list')
+        return redirect('lesson:lesson-list', lesson_date)
 
 
 # Only group lessons
@@ -235,7 +238,9 @@ class LessonSplit(View):
         new_lesson.instructor.set(list(target_lesson.instructor.values_list(flat=True)))
         new_lesson.save()
 
-        return redirect('lesson:lesson-list')
+        lesson_date = target_lesson.start_date.strftime('%d-%m-%Y')
+
+        return redirect('lesson:lesson-list', lesson_date)
 
 
 class LessonCompleteView(View):
@@ -277,7 +282,10 @@ class LessonCompleteView(View):
         lesson.completed = True
         lesson.in_progress = False
         lesson.save()
-        return redirect('lesson:lesson-list')
+
+        lesson_date = lesson.start_date.strftime('%d-%m-%Y')
+
+        return redirect('lesson:lesson-list', lesson_date)
 
 
 class LessonMarkAsPaidView(View):

@@ -9,7 +9,7 @@ rootElement.addEventListener('click', (event) =>{
           btn.nextElementSibling.setAttribute('hidden', 'true')
           // btn.nextElementSibling.removeAttribute('hidden')
         }
-  } 
+  }
 });
 
 for (var btn of rentalSettingsBtn){

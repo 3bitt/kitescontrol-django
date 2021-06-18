@@ -9,12 +9,12 @@ root.addEventListener('click', (event) =>{
           btn.nextElementSibling.setAttribute('hidden', 'true')
           // btn.nextElementSibling.removeAttribute('hidden')
         }
-  } 
+  }
 });
 
 for (var btn of settingsButton){
   btn.addEventListener('click', (event) => {
-    switchHidden(event.target);   
+    switchHidden(event.target);
   });
 }
 
