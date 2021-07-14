@@ -6,7 +6,7 @@ from django.db.models.functions.comparison import Coalesce
 from django.db.models.query_utils import Q
 from django.views.generic import TemplateView
 from django_ajax.mixin import AJAXMixin
-from instructor.instructor.models import Instructor
+from crew.instructor.models import Instructor
 from lesson.models import Lesson
 
 

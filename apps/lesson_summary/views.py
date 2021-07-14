@@ -7,7 +7,7 @@ from django.db.models.fields import FloatField
 from django.db.models.query import Prefetch
 from django.views.generic.base import View
 from lesson.models import Lesson, LessonDetail
-from instructor.instructor.models import Instructor
+from crew.instructor.models import Instructor
 from rental.models import Rental, RentalDetail
 from django.views.generic import ListView
 from django.shortcuts import redirect

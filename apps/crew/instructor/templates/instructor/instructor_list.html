@@ -8,22 +8,31 @@
 
 {% block sub_content %}
   <div class="row mb-3 border-bottom border-grey instr-list-header">
-    <div class="col-auto">
-      <h3>Instruktorzy</h3>
+    <div class="col-auto align-self-center">
+      <h3 class="my-2">Zespół</h3>
     </div>
     <div class="col-auto align-self-center">
+      {% if user.type == 'MANAGER' %}
       <a href="{% url 'instructor:instructor-create' %}">
         <button type="button" class="btn btn-sm btn-success sm">
           <i class="fas fa-user-plus mr-1"></i>
-          Dodaj instruktora
+          Dodaj osobę
         </button>
       </a>
+      {% endif %}
     </div>
   </div>
 
   <div class="row mb-3">
     <div class="col">
       <div class="row">
+
+        {% if not instructor_list %}
+          <div class="col">
+            <i>Halo ? Gdzie są wszyscy ? - Dodaj osobę aby zaludnić to pustkowie </i>
+          </div>
+        {%endif%}
+
         {%for instr in instructor_list%}
 
           <div class="instr-tile border rounded shadow-sm mx-3 p-2 mt-3">

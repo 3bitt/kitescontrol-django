@@ -3,7 +3,7 @@
 
 **Used:**
 * Python 3.6.9
-* Django 3.1.2
+* Django 3.2.5
 * Currently working with built-in SQLite for convenience, will be switching to PostgreSQL in near future
 
 **Run:**
@@ -23,7 +23,7 @@
       "EMAIL_HOST_PASS": "<whatever>"
     }
     ```
-    
+
 4. ``` pip install -r requirements.txt ```
 5. ``` python manage.py makemigrations ```
 6. ``` python manage.py migrate ```

@@ -1,5 +1,5 @@
 from django.db import models
-from instructor.instructor.models import Instructor
+from crew.instructor.models import Instructor
 # Create your models here.
 
 class Task(models.Model):

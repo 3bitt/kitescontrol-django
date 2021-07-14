@@ -42,9 +42,9 @@ INSTALLED_APPS = [
 
     'account',
     'dashboard',
-    'instructor.instructor.apps.InstructorConfig',
-    'instructor.task',
-    'instructor.payroll',
+    'crew.instructor',
+    'crew.task',
+    'crew.payroll',
     'student',
     'lesson',
     'lesson_summary',

@@ -4,7 +4,7 @@ from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from django.db.models import Q
 from django.views.generic.base import View
 from django.views.generic.edit import UpdateView
-from instructor.instructor.models import Instructor
+from crew.instructor.models import Instructor
 from student.models import Student
 from .models import Lesson, LessonDetail
 import pytz

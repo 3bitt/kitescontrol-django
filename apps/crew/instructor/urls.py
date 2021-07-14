@@ -19,7 +19,7 @@ urlpatterns = [
     path('<int:pk>/edit/', login_required(InstructorUpdateView.as_view(editMode=True)), name='instructor-detail-edit'),
     path('delete/<int:pk>/', login_required(InstructorDeleteView.as_view()), name='instructor-delete'),
 
-    path('task/', include('instructor.task.urls')),
-    path('payroll/', include('instructor.payroll.urls')),
+    path('task/', include('crew.task.urls')),
+    path('payroll/', include('crew.payroll.urls')),
 
 ]

@@ -2,7 +2,7 @@ from datetime import datetime
 from django.db import models
 from django.db.models.deletion import CASCADE, DO_NOTHING
 
-from instructor.instructor.models import Instructor
+from crew.instructor.models import Instructor
 from student.models import Student
 
 
