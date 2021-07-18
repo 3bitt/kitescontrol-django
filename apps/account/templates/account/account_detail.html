@@ -1,0 +1,92 @@
+{% extends 'crew_adm/crew_base.html' %}
+{% load static %}
+
+{% block extra_css %}
+{{block.super}}
+<link rel="stylesheet" href="{% static '/css/account_detail.css' %}">
+{% endblock extra_css %}
+
+{% block sub_content %}
+
+<div class="row mb-3">
+  <div class="col">
+    <div class="row mb-3">
+      <div class="col-auto">
+        <a href="{% url 'crew_adm:crew-list' %}">
+          <button class="btn btn-sm btn-warning">Powrót</button>
+        </a>
+      </div>
+      <div class="col-auto offset-1">
+        <a href="{% url 'account:update-user' user.id %}">
+          <button class="btn btn-sm btn-warning">
+            Edytuj
+          </button>
+        </a>
+      </div>
+      <div class="col-auto">
+        <form method="POST" action="{% url 'account:deactivate-user' user.id %}">
+          {% csrf_token %}
+          {% if user.is_active %}
+          <button type="submit" class="btn btn-sm btn-info">Nieaktywny</button>
+          {% else %}
+          <button type="submit" class="btn btn-sm btn-info">Aktywny</button>
+          {% endif %}
+
+        </form>
+      </div>
+      <div class="col-auto">
+        <a href="#">
+          <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUserModal">
+            Usuń
+          </button>
+        </a>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-auto">
+        <div>
+          <span>
+            <h4>{{user.name}} {{user.surname}}</h4>
+            {% if user.is_active %}
+            <span class="badge badge-sm badge-success">Aktywny</span>
+            {% else %}
+            <span class="badge badge-sm badge-danger">Nieaktywny</span>
+            {% endif %}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-auto">
+        <span>{{user.email}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="exampleModalLabel">Usuwasz</h5>
+        <h5 class="modal-title ml-2"> {{user.name}} {{user.surname}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Czy na pewno chcesz usunąć to konto ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Powrót</button>
+        <form method="POST" action="{% url 'account:delete-user' user.id %}">
+          {% csrf_token %}<input class="btn btn-danger" type="submit" value="Usuń">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock sub_content %}

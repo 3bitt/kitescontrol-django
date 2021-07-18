@@ -1,0 +1,55 @@
+{% extends 'crew_adm/crew_base.html' %}
+{% load static %}
+
+<!-- {% block extra_css %}
+{{block.super}}
+<link rel="stylesheet" href="{% static '/css/account_detail.css' %}">
+{% endblock extra_css %} -->
+
+{% block sub_content %}
+
+<div class="row mb-3">
+  <div class="col">
+    <div class="row mb-3">
+      <div class="col-auto">
+        <a href="{% url 'account:detail-user' user.id %}">
+          <button class="btn btn-sm btn-warning">Powrót</button>
+        </a>
+      </div>
+    </div>
+    <hr>
+    <form method="POST">
+      {% csrf_token %}
+    <div class="row">
+      <div class="col-2">
+        <label for="name">Imię:</label>
+      </div>
+      <div class="col-auto">
+        <input type="text" name="name" id="name" value="{{user.name}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <label for="surname">Nazwisko:</label>
+      </div>
+      <div class="col-auto">
+        <input type="text" name="surname" id="surname" value="{{user.surname}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <label for="email">Email:</label>
+      </div>
+      <div class="col-auto">
+        <input type="email" name="email" id="email" value="{{user.email}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-auto">
+        <button type="submit" class="btn btn-success">Zapisz</button>
+      </div>
+    </div>
+    </form>
+  </div>
+
+  {% endblock sub_content %}
