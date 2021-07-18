@@ -10,9 +10,10 @@
 
   <div class="row">
     <div class="col-auto">
-      <a href={% if view.editMode %} "{{request.META.HTTP_REFERER|escape}}" {% elif not view.editMode and 'student' not
-        in request.META.HTTP_REFERER %} "{{request.META.HTTP_REFERER|escape}}" {% else
-        %} "{% url 'student:student-list' %}" {% endif %}>
+      {{request.META.HTTP_REFERER|escape}}
+      <a href= "{% if view.editMode %}{% url 'student:student-detail' student.id %}
+      {% elif not view.editMode and 'edit' not in request.META.HTTP_REFERER %} {{request.META.HTTP_REFERER|escape}}
+      {% else %} {% url 'student:student-list' %} {% endif %}">
         <button class="btn btn-sm btn-warning">
           <i class="fas fa-undo-alt"></i>
           Powrót
@@ -20,7 +21,7 @@
       </a>
     </div>
     <div class="col-auto">
-      <a href={% if view.editMode %} "#" {% else %} "{% url 'student:student-detail-edit' student.id %}" {% endif %}>
+      <a href="{% url 'student:student-detail-edit' student.id %}">
         <button class="btn btn-sm btn-info hidden" {% if view.editMode %}hidden{%endif%}>
           <i class="far fa-edit"></i>
           Edytuj

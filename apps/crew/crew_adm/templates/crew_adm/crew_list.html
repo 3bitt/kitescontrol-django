@@ -75,7 +75,7 @@
       <div class="user-tile col-3 m-2">
         <div class="row justify-content-center">
           <div class="col-auto text-truncate">
-            <a href="{% url 'crew_adm:crew-list' %}">
+            <a href="{% url 'account:detail-user' clerk.id %}">
               <span class="m-name-label" title="{{clerk.name}} {{clerk.surname}}">
                 <strong>{{clerk.name}} {{clerk.surname}}</strong>
               </span>

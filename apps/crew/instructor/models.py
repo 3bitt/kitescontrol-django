@@ -68,6 +68,7 @@ class Instructor(models.Model):
                 name = self.name,
                 surname = self.surname,
                 password = User.objects.make_random_password(length=30),
+                # type = 'INSTRUCTOR'
                 type = userType
             )
             self.user = user
