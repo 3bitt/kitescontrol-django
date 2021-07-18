@@ -5,84 +5,79 @@ from django.contrib.auth.models import (
 from django.db.models.fields import proxy
 from django.db.models.manager import BaseManager
 
+from crew.instructor.validators import validate_name
+
 class UserManager(BaseUserManager):
-    def create_user(self, email, password=None, is_active=True, is_staff=False, is_admin=False):
+    def create_user(self, email, name, surname, password=None, type='INSTRUCTOR'):
         if not email:
             raise ValueError('Email is required')
         if not password:
             raise ValueError('Password is required')
-        # if not full_name:
-        #     raise ValueError('Name is required')
+        if not name:
+            raise ValueError('Name is required')
+        if not surname:
+            raise ValueError('Surname is required')
 
-        user_obj = self.model(
-            email = self.normalize_email(email)
+        user = self.model(
+            email = self.normalize_email(email),
+            name = name,
+            surname = surname,
+            type = type
         )
-        user_obj.set_password(password)
-        user_obj.is_active = is_active
-        user_obj.staff = is_staff
-        user_obj.admin = is_admin
 
-        user_obj.save(using=self._db)
-        return user_obj
-
-    def create_staffuser(self, email, password=None):
-        user = self.create_user(
-            email,
-            password=password,
-        )
-        user.staff = True
+        user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password=None):
-        user = self.create_user(
-            email,
-            password=password,
+    def create_superuser(self, email, name, surname, password):
+        user = self.model(
+            email = self.normalize_email(email),
+            name = name,
+            surname = surname,
         )
-        user.staff = True
-        user.admin = True
-        user.type = User.Types.MANAGER
+        user.set_password(password)
+        user.is_staff = True
+        user.is_admin = True
+        user.is_superuser = True
+        user.type = User.Types.ADMIN
         user.save(using=self._db)
         return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser):
 
     class Types(models.TextChoices):
         CLERK = 'CLERK', 'Biuro'
         INSTRUCTOR = 'INSTRUCTOR', 'Instruktor'
         MANAGER = 'MANAGER', 'Manager'
+        ADMIN = 'ADMIN', 'Admin'
 
     objects = UserManager()
 
-    type = models.CharField('type', max_length=50, choices=Types.choices, default=Types.INSTRUCTOR)
     email = models.EmailField(max_length=100, unique=True)
-    is_active = models.BooleanField(default=False)
-    # staff = models.BooleanField(default=False)
-    # admin = models.BooleanField(default=False)
+    name = models.CharField(max_length=30, null=False,
+                            blank=False, validators=[validate_name])
+    surname = models.CharField(
+        max_length=30, null=False, blank=False, validators=[validate_name])
+    type = models.CharField('type', max_length=50, choices=Types.choices, default=Types.INSTRUCTOR)
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    last_login = models.DateTimeField(auto_now=True)
     created_date = models.DateTimeField(auto_now_add=True)
 
     USERNAME_FIELD = 'email'
-    # REQUIRED_FIELDS = ['full_name']
-
-    # objects = UserManager()
+    REQUIRED_FIELDS = ['name', 'surname']
 
     def __str__(self):
         return self.email
 
-    # def has_perm(self, perm, obj=None):
-    #     return True
+    def has_perm(self, perm, obj=None):
+        return self.is_admin
 
-    # def has_module_perms(self,app_label):
-    #     return True
-
-    # @property
-    # def is_staff(self):
-    #     return self.staff
-
-    # @property
-    # def is_admin(self):
-    #     return self.admin
+    def has_module_perms(self,app_label):
+        return True
 
 
 class ClerkManager(models.Manager):

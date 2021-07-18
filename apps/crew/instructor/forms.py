@@ -91,12 +91,31 @@ class InstructorCreateForm(ModelForm):
             'mobile_number': "minimum 9 cyfr"
         }
 
+    def save(self, userType, commit=True):
+        if self.errors:
+            raise ValueError(
+                "The %s could not be %s because the data didn't validate." % (
+                    self.instance._meta.object_name,
+                    'created' if self.instance._state.adding else 'changed',
+                )
+            )
+        if commit:
+            # If committing, save the instance and the m2m data immediately.
+            self.instance.save(userType)
+            self._save_m2m()
+        else:
+            # If not committing, add a method to the form to allow deferred
+            # saving of m2m data.
+            self.save_m2m = self._save_m2m
+        return self.instance
+
 class InstructorEditForm(ModelForm):
     class Meta:
         model = Instructor
         exclude = [
             'tc_accepted_date',
-            'register_date'
+            'register_date',
+            'user'
             ]
 
         widgets = {
@@ -181,4 +200,22 @@ class InstructorEditForm(ModelForm):
         help_texts = {
             'mobile_number': "minimum 9 cyfr"
         }
+
+    def save(self, userType=None, commit=True):
+        if self.errors:
+            raise ValueError(
+                "The %s could not be %s because the data didn't validate." % (
+                    self.instance._meta.object_name,
+                    'created' if self.instance._state.adding else 'changed',
+                )
+            )
+        if commit:
+            # If committing, save the instance and the m2m data immediately.
+            self.instance.save(userType)
+            self._save_m2m()
+        else:
+            # If not committing, add a method to the form to allow deferred
+            # saving of m2m data.
+            self.save_m2m = self._save_m2m
+        return self.instance
 

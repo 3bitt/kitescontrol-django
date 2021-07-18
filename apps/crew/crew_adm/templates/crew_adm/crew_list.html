@@ -1,0 +1,149 @@
+{% extends 'crew_adm/crew_base.html' %}
+{% load static %}
+
+{% block extra_css %}
+{{block.super}}
+<link rel="stylesheet" href="{% static '/css/crew_list.css' %}">
+{% endblock extra_css %}
+
+{% block sub_content %}
+<div class="row mb-3 border-bottom border-grey instr-list-header">
+  <div class="col-auto align-self-center">
+    <h3 class="my-2">Zespół</h3>
+  </div>
+  <div class="col-auto align-self-center">
+    {% if user.type == 'MANAGER' or user.type == 'ADMIN' %}
+    <a href="{% url 'crew_adm:crew-create-person' %}">
+      <button type="button" class="btn btn-sm btn-success sm">
+        <i class="fas fa-user-plus mr-1"></i>
+        Dodaj osobę
+      </button>
+    </a>
+    {% endif %}
+  </div>
+</div>
+
+{% if not all_users %}
+<div class="col">
+  <i>Halo ? Gdzie są wszyscy ? - Dodaj osobę aby zaludnić to pustkowie </i>
+</div>
+{%endif%}
+
+<div class="row mb-3">
+
+  <div class="col">
+
+    <div class="row manager-row row-cols-3 justify-content-center">
+      {% for manager in manager_users %}
+      <div class="user-tile col-3 m-2">
+        <div class="row justify-content-center">
+          <div class="col-auto text-truncate">
+            <a href="{% url 'crew_adm:crew-list' %}">
+              <span class="m-name-label" title="{{manager.name}} {{manager.surname}}">
+                <strong>{{manager.name}} {{manager.surname}}</strong>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <small>
+            {% if manager.is_active %}
+            <i class="fa fa-check fa-sm text-success"></i>
+            {% else %}
+            <i class="fa fa-times fa-sm text-danger"></i>
+            {% endif %}
+            ({{manager.email}})
+          </small>
+        </div>
+        <div class="d-flex justify-content-center mt-1">
+          <span class="badge badge-warning">{{manager.get_type_display}}</span>
+          {% if manager.instructor %}
+          <span class="badge badge-primary ml-2">{{manager.instructor.iko_level}}</span>
+          {% endif %}
+        </div>
+
+      </div>
+      {% endfor %}
+    </div>
+
+    <hr class="split-line my-4">
+
+    <div class="row clerk-row row-cols-3 justify-content-center">
+      {% for clerk in clerk_users %}
+      <div class="user-tile col-3 m-2">
+        <div class="row justify-content-center">
+          <div class="col-auto text-truncate">
+            <a href="{% url 'crew_adm:crew-list' %}">
+              <span class="m-name-label" title="{{clerk.name}} {{clerk.surname}}">
+                <strong>{{clerk.name}} {{clerk.surname}}</strong>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <small>
+            {% if clerk.is_active %}
+            <i class="fa fa-check fa-sm text-success"></i>
+            {% else %}
+            <i class="fa fa-times fa-sm text-danger"></i>
+            {% endif %}
+            ({{clerk.email}})
+          </small>
+        </div>
+        <div class="d-flex justify-content-center">
+          <span class="badge badge-danger">{{clerk.get_type_display}}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+
+    <hr class="split-line my-4">
+
+    <div class="row instr-row justify-content-center">
+
+      {%for instr_user in instructor_users%}
+
+      <div class="col-2 user-tile m-2">
+        <div class="row justify-content-center">
+          <div class="col-auto text-truncate">
+            <a href="{% url 'instructor:instructor-detail' instr_user.instructor.id %}">
+              <span class="i-name-label" title="{{instr_user.instructor}}"><strong>{{instr_user.instructor}}</strong></span>
+            </a>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center mb-1">
+          <span class="badge badge-primary">{{instr_user.instructor.iko_level|default_if_none:'---'}}</span>
+        </div>
+        <div class="d-flex justify-content-center">
+          {% if instr_user %}
+          <small>
+            {% if instr_user.is_active %}
+            <i class="fa fa-check fa-sm text-success"></i>
+            {% else %}
+            <i class="fa fa-times fa-sm text-danger"></i>
+            {% endif %}
+            ({{instr_user}})
+          </small>
+          {%endif%}
+        </div>
+        <!-- <div class="d-flex justify-content-center">
+          <div>
+            <i class="fas fa-plane-arrival fa-sm text-success pr-1"></i>
+            <span class="detail-text">{{instr_user.instructor.available_from|date:"d-m-Y"|default:'---'}}</span>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <div>
+            <i class="fas fa-plane-departure fa-sm text-danger pr-1"></i>
+            <span class="detail-text">{{instr_user.instructor.available_to|date:"d-m-Y"|default:'---'}}</span>
+          </div>
+        </div> -->
+      </div>
+
+      {%endfor%}
+    </div>
+  </div>
+</div>
+
+{% endblock sub_content %}

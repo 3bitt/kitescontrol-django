@@ -1,0 +1,36 @@
+.instr-nav-crew{
+  background-color: #bbe0ff;
+  box-shadow:1px 1px 3px 1px #b7bfc4;
+}
+.instr-nav-tasks{
+  background-color: #beffdb;
+  box-shadow:1px 1px 3px 1px #b7bfc4;
+}
+.instr-nav-pay{
+  background-color: #fff8b9;
+  box-shadow:1px 1px 3px 1px #b7bfc4;
+}
+.instr-nav-stats{
+  background-color: #c0c0c0;
+  box-shadow:1px 1px 3px 1px #b7bfc4;
+}
+a,a:hover{
+  text-decoration: none;
+  color: initial;
+}
+
+.sub-page-border-list{
+  border: 1px solid #007bff;
+  box-shadow: 0px 0px 30px 1px #0062ccc7;
+}
+
+.sub-page-border-task{
+  border: 1px solid #28a745;
+  box-shadow: 0px 0px 30px 1px #1d7b3299;
+}
+
+.sub-page-border-payroll{
+  border: 1px solid #ffc107;
+  box-shadow: 0px 0px 30px 1px #ffc1079c;
+}
+

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crew.instructor',
     'crew.task',
     'crew.payroll',
+    'crew.crew_adm',
     'student',
     'lesson',
     'lesson_summary',

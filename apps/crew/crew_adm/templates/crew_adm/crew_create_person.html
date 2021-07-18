@@ -1,0 +1,56 @@
+{% extends 'crew_adm/crew_base.html' %}
+{% load static %}
+
+{% block extra_css %}
+{{block.super}}
+<link rel="stylesheet" href="{% static '/css/crew_create_person.css' %}">
+{% endblock extra_css %}
+
+{% block sub_content %}
+
+<div class="row">
+  <div class="col-auto">
+    <a href="{% url 'crew_adm:crew-list' %}">
+      <button class="btn btn-sm btn-warning">Powrót</button>
+    </a>
+  </div>
+  <div class="col">
+    <h3>Nowa osoba</h3>
+  </div>
+</div>
+
+<hr>
+
+<div class="row mt-5 mb-3">
+  <div class="col-auto align-self-center">
+    <label class="custom-input-label" for="user_profile">Wybierz profil</label>
+  </div>
+  <div class="col-auto">
+    <select class="custom-select" name="user_profile" id="user_profile">
+      <option value="" selected>----</option>
+      <option value="MANAGER">Menadżer</option>
+      <option value="CLERK">Biuro</option>
+      <option value="INSTRUCTOR">Instruktor</option>
+    </select>
+  </div>
+</div>
+
+<div class="row mt-3 is-instructor-question" hidden>
+  <div class="col-auto align-self-center">
+    <label class="custom-input-label" for="manager_is_instructor">Będzie również instruktorem ?</label>
+  </div>
+  <div class="col-auto align-self-center">
+    <label><input type="radio" name="manager_is_instructor" id="manager_is_instructor" value="True">&nbsp;Tak</label>
+    &emsp;
+    <label><input type="radio" name="manager_is_instructor" id="manager_is_instructor" value="False">&nbsp;Nie</label>
+  </div>
+</div>
+
+<div class="row mt-3 create-user-form-zone">
+
+</div>
+
+
+<script src="{% static 'js/crew_create_person.js' %}"></script>
+
+{% endblock sub_content %}

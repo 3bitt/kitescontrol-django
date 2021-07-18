@@ -89,10 +89,11 @@ class StudentCreateForm(ModelForm):
             'mobile_number': "minimum 9 cyfr"
         }
 
-    # def clean_name(self):
-    #         given_name = self.cleaned_data.get('name')
-    #         if not given_name.isalpha():
-    #             raise forms.ValidationError("Name can contain only letters")
-    #         else:
-    #             return given_name
+    def clean(self):
+        cleaned_data = super().clean()
+        arrival_date = cleaned_data.get('arrival_date')
+        leave_date = cleaned_data.get('leave_date')
+        if leave_date < arrival_date:
+            raise forms.ValidationError(
+                "Leave date can't be less than arrival date")
 

@@ -3,7 +3,7 @@ from decimal import Decimal, ROUND_HALF_EVEN
 from django.db.models.aggregates import Aggregate, Sum
 from django.db.models.functions import Cast
 from django.db.models import Count
-from django.db.models.expressions import ExpressionWrapper, F, OuterRef, Subquery, Value
+from django.db.models.expressions import CombinedExpression, ExpressionWrapper, F, OuterRef, Subquery, Value
 from django.db.models.fields import DecimalField, DurationField, FloatField, IntegerField
 from django.db.models import Prefetch
 from django.views.generic.base import View
@@ -174,13 +174,15 @@ class RentalView():
         paid_filter = Q(paid=True)
         unpaid_filter = Q(Q(paid=False) | Q(paid__isnull=True))
 
+
         rentals = Rental.objects.filter(
             ends_today_filter).annotate(
             rent_duration=ExpressionWrapper(
-                ( (F('end_date')  - F('start_date')) * 0.000001 \
-                / Value('3600', IntegerField() )),
-                output_field=DecimalField(decimal_places=1)
-            )
+            # ZEPSUTE
+            # ZEPSUTE
+                # ZEPSUTE
+                (F('end_date') - F('start_date')) + Value('3600', FloatField()), output_field=FloatField())
+
         )
 
         rent_subquery = rentals.filter(rentaldetail=OuterRef('id'))
@@ -194,7 +196,7 @@ class RentalView():
             )
         ).annotate(
             item_rent_gross_amt=ExpressionWrapper(
-                F('rent_duration') * F('price') * F('quantity'),
+                (F('rent_duration') * F('price') * F('quantity')),
                 output_field=FloatField()
             )
         )

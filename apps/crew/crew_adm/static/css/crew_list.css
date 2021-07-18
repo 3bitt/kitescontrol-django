@@ -1,0 +1,45 @@
+.instr-list-header {
+  background-color: #bbe0ff;
+}
+
+.split-line {
+  border-top: 1px solid rgba(0, 0, 0, 0.486);
+}
+
+.manager-row {
+  background: linear-gradient( 90deg, #ffc10744, #ffffff, #ffffff, #ffffff, #ffc10744);
+}
+
+.clerk-row {
+  background: linear-gradient( 90deg, #dc354623, #ffffff, #ffffff, #ffffff, #dc354623);
+}
+
+.instr-row {
+  background: linear-gradient( 90deg, #007bff2a, #ffffff, #ffffff, #ffffff, #007bff2a);
+}
+
+.user-tile {
+  background-color: whitesmoke;
+  border-radius: .3rem;
+  border: 1px solid #c5c5c5;
+  padding: .5rem;
+}
+
+.m-name-label {
+  font-size: 1.2rem;
+}
+
+.i-name-label {
+  font-size: 1.1rem;
+  max-width: 100%;
+  text-overflow: ellipsis;
+}
+
+[class$="-name-label"]:hover {
+  text-decoration: underline;
+  color: rgb(40, 115, 201);
+}
+
+.detail-text {
+  font-size: .9rem;
+}

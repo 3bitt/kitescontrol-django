@@ -1,6 +1,7 @@
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.urls import path, reverse, reverse_lazy
-from .views import (MainLoginView)
+from .views import (AccountCreateUserView, AccountDetailUserView, MainLoginView)
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
 
@@ -9,6 +10,10 @@ app_name = 'account'
 urlpatterns = [
     path('', MainLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
+
+    path('create-user/', login_required(AccountCreateUserView.as_view()), name='create-user'),
+    path('user/<int:pk>/', login_required(AccountDetailUserView.as_view()), name='detail-user'),
+
 
     path('reset_password/',
             auth_views.PasswordResetView.as_view(

@@ -1,0 +1,57 @@
+<div class="col-6 mb-3">
+  <form method="POST" action="{% url 'account:create-user' %}">
+    {% csrf_token %}
+    <input type="hidden" name="type" id="type" value="{{request.GET.userType}}">
+    <div class="row">
+      <div class="col-3">
+        <label for="name">Imię:</label>
+      </div>
+      <div class="col align-self-center">
+        {{form.name}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <label for="surname">Nazwisko:</label>
+      </div>
+      <div class="col align-self-center">
+        {{form.surname}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <label for="email">Email:</label>
+      </div>
+      <div class="col align-self-center">
+        {{form.email}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <label for="password">Hasło:</label>
+      </div>
+      <div class="col align-self-center">
+        {{form.password}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <label for="password2">Powtórz hasło:</label>
+      </div>
+      <div class="col align-self-center">
+        {{form.password2}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-success submit-btn" type="submit">
+          <i class="fas fa-plus"></i>
+          Dodaj
+        </button>
+      </div>
+    </div>
+
+  </form>
+</div>

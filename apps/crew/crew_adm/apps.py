@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class UserAdmConfig(AppConfig):
+class CrewAdmConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'crew.user_adm'
+    name = 'crew.crew_adm'

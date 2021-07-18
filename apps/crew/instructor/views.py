@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 from django.views.generic import (
     CreateView, DeleteView, DetailView, ListView, UpdateView)
 from django.views.generic.base import TemplateView
@@ -21,7 +22,14 @@ class InstructorCreateView(CreateView):
     model = Instructor
     template_name = 'instructor/instructor_create.html'
     form_class = InstructorCreateForm
-    success_url = reverse_lazy('instructor:instructor-list')
+    success_url = reverse_lazy('crew_adm:crew-list')
+
+    def form_valid(self, form: InstructorCreateForm):
+        userType = self.request.POST['userType']
+        self.object = form.save(userType)
+        return HttpResponseRedirect(self.get_success_url())
+
+
 
 
 class InstructorDetailView(DetailView):
@@ -43,4 +51,4 @@ class InstructorUpdateView(UpdateView):
 
 class InstructorDeleteView(DeleteView):
     model = Instructor
-    success_url = reverse_lazy('instructor:instructor-list')
+    success_url = reverse_lazy('crew_adm:crew-list')

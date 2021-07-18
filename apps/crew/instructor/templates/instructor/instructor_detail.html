@@ -11,7 +11,7 @@
   <div class="row">
     <div class="col-auto">
       <a href="{% if view.editMode %}{% url 'instructor:instructor-detail' instructor.id %}
-        {% else %} {% url 'instructor:instructor-list' %} {% endif %}">
+        {% else %} {% url 'crew_adm:crew-list' %} {% endif %}">
         <button class="btn btn-sm btn-warning">
           <i class="fas fa-undo-alt"></i>
           Powrót
@@ -20,7 +20,7 @@
     </div>
     <div class="col-auto">
       <a href="{% url 'instructor:instructor-detail-edit' instructor.id %}">
-        <button class="btn btn-sm btn-info hidden" 
+        <button class="btn btn-sm btn-info hidden"
         {% if view.editMode %}hidden{%endif%}>
           <i class="far fa-edit"></i>
           Edytuj
@@ -128,7 +128,7 @@
           {%endif%}
         </dd>
         <div class="w-100"></div>
-        
+
 
         <dt class="col-5 col-sm-3 col-lg-2">Lekcje po angielsku:
         </dt>
@@ -205,7 +205,7 @@
   <form method="post">
     {% csrf_token %}
     <div class="row mt-4">
-      
+
       <div class="col-auto">
         <div class="row mb-2">
           <div class="col">
@@ -380,6 +380,7 @@
 
 </div>
 </form>
+{{form.as_p}}
 {% endif %}
 </div>
 {% endblock content %}

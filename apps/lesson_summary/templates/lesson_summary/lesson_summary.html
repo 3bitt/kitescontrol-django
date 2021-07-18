@@ -35,7 +35,7 @@
           <button type="button" class="btn btn-info" data-toggle="modal" data-target="#searchSummary">
             <i class="fas fa-sm fa-search"></i>
             Pokaż inne
-          </button> 
+          </button>
         </div>
       </div>
     </div>
@@ -110,7 +110,7 @@
                 <div>Suma godzin:</div>
                 <div>{{duration_sum.sum|default_if_none:"0"}} godzin</div>
               </div>
-            </div>        
+            </div>
           </div>
         </div>
         <div class="col-3">
@@ -131,7 +131,7 @@
                   <span class="profit">{{rentals.total_profit.sum|default_if_none:"0.00"|floatformat:'-2'}} zł</span>
                 </div>
               </div>
-            </div>        
+            </div>
           </div>
         </div>
       </div>
@@ -141,7 +141,7 @@
           <div class="row summary-lesson-tile justify-content-around p-2">
             <div class="col">
               <div class="summary-tile-title bold shadow-bot">
-                RENTY
+                <span>RENTY</span><br><span class="text-danger">(aktualnie nie działa)</span>
               </div>
               {% comment %} <div class="d-flex space-between mt-3">
                 <div>Kończą się tego dnia:</div>
@@ -155,10 +155,10 @@
                   {{rentals.count.paid}} / {{rentals.count.ends_today}}
                 </div>
               </div>
-            </div>        
+            </div>
           </div>
         </div>
-      </div>      
+      </div>
     </div>
 
     <div class="container my-4">
@@ -171,11 +171,11 @@
       <div class="row mb-3">
         <div class="col-2 detail-section-lesson-title">
           <h4>Lekcje</h4>
-        </div>  
+        </div>
       </div>
       {% for instructor in instructors_with_lessons %}
         <div class="row mb-4 summary-detail-instr-div">
-          
+
           <div class="col-2 align-self-center">
             <div class="row">
               <div class="col bold">
@@ -187,7 +187,7 @@
           <div class="col-10 det-instr-lessons">
             {% if instructor.lessons.all.count == 0 %}
               <i>brak lekcji w tym dniu</i>
-            {% else %}           
+            {% else %}
               {% for lesson in instructor.lessons.all %}
                 <div class="row det-lesson">
 
@@ -214,7 +214,7 @@
                               <span class="text-danger">{{lesson_detail.duration}}</span> h
                             {% else %}
                               <span class="text-success">{{lesson_detail.duration}}</span> h
-                            {% endif %}                    
+                            {% endif %}
                           </div>
                           <div class="col">
                             {% if lesson.group_lesson %}
@@ -230,21 +230,21 @@
                         </div>
                       {% endfor %}
                     {% endif %}
-                  </div>            
+                  </div>
                 </div>
               {% endfor %}
-              
+
               {% comment %} Instructor lesson sum {% endcomment %}
               <div class="row instr-summary-row">
                 <div class="col-2">
-                  <span class="bold">Suma:</span>  
+                  <span class="bold">Suma:</span>
                 </div>
                 <div class="col-1 px-1">
                 {% comment %} TEMPORARILY DISABLED DUE TO MISCALCULATION - TO BE DEBUGGED {% endcomment %}
                   {% comment %} <span class="bold">{{instructor.instructor_lessons_duration_sum}}</span> h {% endcomment %}
 
                 </div>
-                
+
 
                 <div class="col">
                   <div class="row">
@@ -256,21 +256,21 @@
                     <div class="col text-align-center">
                       <span class="green-bold">{{instructor.lessons_price_sum|default_if_none:"--"|floatformat:'-2'}}</span> zł
                     </div>
-                  </div>              
+                  </div>
                 </div>
 
               </div>
             {% endif %}
-          </div>        
+          </div>
         </div>
-      {% endfor %}    
+      {% endfor %}
     </div>
 
     <div class="container mt-2 summary-detail-master summary_details summary-rental-master collapse  " id="collapseExample">
       <div class="row my-3">
-        <div class="col-2 detail-section-rental-title">
-          <h4>Rentale</h4>
-        </div>  
+        <div class="col-auto detail-section-rental-title">
+          <h4>Rentale - <span class="text-danger">(Aktualnie nie działa poprawnie)</span></h4>
+        </div>
       </div>
       {% if rentals.students.all.count == 0 %}
         <div class="row mb-4">
@@ -281,7 +281,7 @@
       {% else %}
       {% for student in rentals.students %}
         <div class="row mb-4 summary-detail-instr-div summary-student-rental-div">
-          
+
           <div class="col-2 align-self-center">
             <div class="row">
               <div class="col bold">
@@ -291,7 +291,7 @@
           </div>
 
           <div class="col-10 det-instr-lessons">
-           
+
             {% for rent in student.rental_set.all %}
               <div class="row det-lesson">
 
@@ -328,7 +328,7 @@
                           <span>{{rent_detail.get_rent_item_display}}</span>
                         </div>
                         <div class="col-auto">
-                          <span>x{{rent_detail.quantity}}</span>                    
+                          <span>x{{rent_detail.quantity}}</span>
                         </div>
                         <div class="col-5">
                           {{rent_detail.price}}
@@ -340,25 +340,25 @@
                       </div>
                     {% endfor %}
                   {% endif %}
-                </div>            
+                </div>
               </div>
             {% endfor %}
-            
+
             {% comment %} Instructor lesson sum {% endcomment %}
             <div class="row instr-summary-row">
               <div class="col-10">
-                <span class="bold">Suma:</span>  
-              </div>              
+                <span class="bold">Suma:</span>
+              </div>
 
               <div class="col-auto ml-3">
                 <span class="green-bold">{{student.student_total_rent_amt|default_if_none:"--"|floatformat:'-2'}}</span> zł
               </div>
 
             </div>
-          </div>        
+          </div>
         </div>
       {% endfor %}
-      {% endif %}    
+      {% endif %}
     </div>
 
 

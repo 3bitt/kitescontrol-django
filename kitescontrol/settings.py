@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'crew.instructor',
     'crew.task',
     'crew.payroll',
+    'crew.crew_adm',
     'student',
     'lesson',
     'lesson_summary',
@@ -86,7 +87,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',
+                # 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',

@@ -3,9 +3,7 @@ from django.urls import reverse
 from .validators import (
     validate_name,
     validate_mobile,
-    validate_weight,
-    validate_arrival_date,
-    validate_leave_date,
+    validate_weight
 )
 
 
@@ -95,8 +93,8 @@ class Student(models.Model):
 
     email_address = models.CharField(max_length=40, null=True, blank=True)
     weight = models.FloatField(null=True, blank=True, default=0, validators=[validate_weight])
-    arrival_date = models.DateField(null=True, blank=True, validators=[validate_arrival_date])
-    leave_date = models.DateField(null=True, blank=True, validators=[validate_leave_date])
+    arrival_date = models.DateField(null=True, blank=True)
+    leave_date = models.DateField(null=True, blank=True)
     stay_location = models.CharField(max_length=40, null=True, blank=True)
     own_car = models.BooleanField(null=True,blank=True, default=False)
     kite_elsewhere = models.BooleanField(null=True,blank=True,default=False)
