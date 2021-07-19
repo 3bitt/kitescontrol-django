@@ -63,13 +63,19 @@ class Instructor(models.Model):
             instr_user.surname = self.surname
             instr_user.save()
         else:
+            if userType == 'MANAGER':
+                is_active = True
+            else:
+                is_active = False
+
             user = User.objects.create_user(
                 email = User.objects.normalize_email(self.email_address),
                 name = self.name,
                 surname = self.surname,
                 password = User.objects.make_random_password(length=30),
                 # type = 'INSTRUCTOR'
-                type = userType
+                type = userType,
+                is_active = is_active
             )
             self.user = user
         super().save(*args, **kwargs)

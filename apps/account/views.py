@@ -1,18 +1,20 @@
-from django.contrib.auth.views import LoginView, redirect_to_login
-from django.http.request import HttpRequest
-from django.http.response import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView
+from django.core.exceptions import ValidationError
+from django.http.response import HttpResponseRedirect
 from django.urls.base import reverse, reverse_lazy
-from django.views.generic.base import RedirectView, View
+from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from django.views.generic import TemplateView
-from account.forms import RegisterForm
+from account.forms import CustomAuthenticationForm, RegisterForm
 from account.models import User
 
 
 class MainLoginView(LoginView):
     template_name = 'account/login.html'
     success_url = '/'
+    form_class = CustomAuthenticationForm
+
 
 
 class AccountCreateUserView(CreateView):

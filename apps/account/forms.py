@@ -1,7 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import ReadOnlyPasswordHashField, UserCreationForm
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.forms import AuthenticationForm
-from django.forms import widgets
 
 from .models import User
 
@@ -83,5 +82,15 @@ class UserAdminChangeForm(forms.ModelForm):
         # field does not have access to the initial value
         return self.initial["password"]
 
-class LoginAuthenticateForm(AuthenticationForm):
-    pass
+class CustomAuthenticationForm(AuthenticationForm):
+
+    error_messages = {
+        'invalid_login':
+            "Niepoprawne dane logowania",
+        'inactive': "Nie masz tu wjazdu",
+    }
+
+    def confirm_login_allowed(self, user):
+        if not user.is_active:
+            raise forms.ValidationError('Nie masz tu wjazdu', code='inactive')
+

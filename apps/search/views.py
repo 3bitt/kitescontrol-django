@@ -64,16 +64,37 @@ class SearchLessonAjaxView(ListView):
 
     def get_queryset(self):
 
-        lesson_student = self.request.GET.get('lesson_student', '')
-        lesson_instructor = self.request.GET.get('lesson_instructor', '')
+        lesson_student = self.request.GET.get('lesson_student', None)
+        lesson_instructor = self.request.GET.get('lesson_instructor', None)
         lesson_date_from = self.request.GET.get('lesson_date_from', '')
         lesson_date_to = self.request.GET.get('lesson_date_to', '')
         lesson_is_single = self.request.GET.get('lesson_is_single', False)
         lesson_is_group = self.request.GET.get('lesson_is_group', False)
 
+        lesson_student_filter = Q()
+        lesson_instructor_filter = Q()
+        group_filter = Q()
         date_from = Q()
         date_to = Q()
-        group_filter = Q()
+
+        if lesson_student:
+            student_split = lesson_student.split(' ')
+            if len(student_split) > 1:
+                lesson_student_filter = Q(student__name__contains=student_split[0]) | Q(
+                    student__surname__contains=student_split[1])
+            else:
+                lesson_student_filter = Q(student__name__contains=lesson_student) | Q(
+                    student__surname__contains=lesson_student)
+
+        if lesson_instructor:
+            instructor_split = lesson_instructor.split(' ')
+            if len(instructor_split) > 1:
+                instr_full_name = lesson_instructor
+                lesson_instructor_filter = Q(instructor__name__contains=instructor_split[0]) | Q(
+                    instructor__surname__contains=instructor_split[1])
+            else:
+                lesson_instructor_filter = Q(instructor__name__contains=lesson_instructor) | Q(
+                    instructor__surname__contains=lesson_instructor)
 
         if lesson_date_from:
             date_from = Q(start_date__gte=lesson_date_from)
@@ -90,10 +111,8 @@ class SearchLessonAjaxView(ListView):
             pass
 
         qs = Lesson.objects.filter(
-            Q(student__name__contains=lesson_student) | Q(
-                student__surname__contains=lesson_student),
-            Q(instructor__name__contains=lesson_instructor) | Q(
-                instructor__surname__contains=lesson_instructor),
+            lesson_student_filter,
+            lesson_instructor_filter,
             group_filter,
             date_from,
             date_to

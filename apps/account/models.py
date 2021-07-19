@@ -8,7 +8,7 @@ from django.db.models.manager import BaseManager
 from crew.instructor.validators import validate_name
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, name, surname, password=None, type='INSTRUCTOR'):
+    def create_user(self, email, name, surname, password=None, is_active=True, type='INSTRUCTOR'):
         if not email:
             raise ValueError('Email is required')
         if not password:
@@ -22,6 +22,7 @@ class UserManager(BaseUserManager):
             email = self.normalize_email(email),
             name = name,
             surname = surname,
+            is_active = is_active,
             type = type
         )
 
