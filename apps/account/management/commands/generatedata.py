@@ -43,7 +43,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         # self.create_managers(3)
         # self.create_clerks(3)
-        # self.create_instructors(10) #CHANGE userType in instructor.models.save() to 'INSTRUCTOR'
+        self.create_instructors(10) #CHANGE userType in instructor.models.save() to 'INSTRUCTOR'
         # self.create_students(100)
         # self.create_lessons()
         pass
@@ -221,7 +221,7 @@ class Command(BaseCommand):
 
                         # print(lesson_students_list)
 
-                        if (lesson.completed and not lesson.paid):
+                        if (lesson.completed):
                             is_group_lesson = lesson.group_lesson
 
                             for student in lesson.student.all():

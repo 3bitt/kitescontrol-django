@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, CreateView
+from django.db.models.query_utils import Q
 from account.forms import RegisterForm
 
 from account.models import User
@@ -11,7 +12,7 @@ from crew.instructor.models import Instructor
 
 class CrewListView(ListView):
     template_name = 'crew_adm/crew_list.html'
-    queryset = User.objects.all().order_by('-created_date')
+    queryset = User.objects.filter(~Q(type='ADMIN')).order_by('-created_date')
     context_object_name = 'all_users'
 
     def get_context_data(self, **kwargs):

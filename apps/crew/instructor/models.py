@@ -52,7 +52,7 @@ class Instructor(models.Model):
     def get_absolute_url(self):
         return reverse("instructor:instructor-detail", kwargs={"pk": self.pk})
 
-    def save(self, userType=None, * args, **kwargs):
+    def save(self, userType='INSTRUCTOR', * args, **kwargs):
         # When creating or updating instructor check if user with the same email already exists
         # If not, then create it, if User exists take it
         if self.id:
