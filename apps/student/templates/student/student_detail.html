@@ -10,7 +10,6 @@
 
   <div class="row">
     <div class="col-auto">
-      {{request.META.HTTP_REFERER|escape}}
       <a href= "{% if view.editMode %}{% url 'student:student-detail' student.id %}
       {% elif not view.editMode and 'edit' not in request.META.HTTP_REFERER %} {{request.META.HTTP_REFERER|escape}}
       {% else %} {% url 'student:student-list' %} {% endif %}">

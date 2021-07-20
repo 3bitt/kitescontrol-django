@@ -1,4 +1,5 @@
-from django.forms import ModelForm, SelectDateWidget
+from django.core.exceptions import ValidationError
+from django.forms import ModelForm
 from django import forms
 from .models import Student
 
@@ -93,7 +94,7 @@ class StudentCreateForm(ModelForm):
         cleaned_data = super().clean()
         arrival_date = cleaned_data.get('arrival_date')
         leave_date = cleaned_data.get('leave_date')
-        if leave_date < arrival_date:
-            raise forms.ValidationError(
-                "Leave date can't be less than arrival date")
+        if arrival_date and leave_date and leave_date < arrival_date:
+            raise ValidationError(
+                {'leave_date': "Odjeżdza wcześniej niż przyjechał ? Chyba nie..."})
 
