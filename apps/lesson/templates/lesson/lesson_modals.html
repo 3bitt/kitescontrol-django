@@ -70,7 +70,7 @@
           </div>
           <div class="row mt-1">
             <div class="col">
-              <input class="input" type="number" min="0.5" max="6" step="0.5" name="time_spent" required>
+              <input class="input" type="number" min="0.5" max="6" step="0.25" name="time_spent" required>
             </div>
           </div>
       </div>
@@ -131,7 +131,7 @@
             <b>Czas trwania lekcji:</b>
           </div>
           <div class="col align-self-start">
-            <input class="input lesson-complete-duration" type="number" id="id_duration" name="duration" value="{{lesson.duration}}" min="0.5" max="6" step="0.5" required>
+            <input class="input lesson-complete-duration" type="number" id="id_duration" name="duration" value="{{lesson.duration}}" min="0.5" max="6" step="0.25" required>
           </div>
         </div>
         {% comment %} <div class="row my-3 align-items-center">
@@ -203,7 +203,7 @@
                 <span><b>Czas na lekcji:</b></span>
               </div>
               <div class="col-auto">
-                <input class="input lesson-complete-input" type="number" value="{{lesson.duration}}" min="0.5" max="6" step="0.5" name="student_lesson_duration_{{student.id}}" required="">
+                <input class="input lesson-complete-input" type="number" value="{{lesson.duration}}" min="0.5" max="6" step="0.25" name="student_lesson_duration_{{student.id}}" required="">
               </div>
             </div>
           </div> {% endcomment %}

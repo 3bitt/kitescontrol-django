@@ -88,7 +88,6 @@ class Student(models.Model):
         max_length=20,
         null=True,
         blank=False,
-        unique=True,
         validators=[validate_mobile])
 
     email_address = models.CharField(max_length=40, null=True, blank=True)

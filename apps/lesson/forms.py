@@ -37,7 +37,7 @@ class LessonCreateForm(forms.ModelForm):
                 'class': 'input',
                 'min': '0.5',
                 'max': '6',
-                'step': '0.5'
+                'step': '0.25'
             }),
             'confirmed': forms.CheckboxInput(),
             'in_progress': forms.CheckboxInput(),
