@@ -13,7 +13,7 @@
     <div class="col-auto">
       <div class="row">
         <div class="col">
-          <a href="{% url 'lesson:lesson-list' lesson.start_date|date:'d-m-Y'%}">
+          <a href="{% url 'lesson:lesson-list' lesson.start_date|date:'d-m-Y' %}">
             <button class="btn btn-sm btn-warning">Powrót</button>
           </a>
         </div>
@@ -22,17 +22,20 @@
 
     <div class="col-auto">
       <div class="row">
+        {{form.errors}}
+
 
         <div class="col-auto lesson-details-col">
           <form method="post">
             {%csrf_token%}
+
 
             <div class="row justify-content-between">
               <div class="col-auto">
                 <label>Data:</label>
               </div>
               <div class="col-auto">
-                {{form.start_date}}
+                {{lesson.start_date|date:'d-m-Y'}}
               </div>
             </div>
 
@@ -41,53 +44,16 @@
                 <label>Godzina:</label>
               </div>
               <div class="col-auto">
-                <select name="start_hour" class="input">
-                  <option value="{{lesson.start_time|time:" H"}}">{{lesson.start_time|time:"H"}}</option>
-                  <option value="07">07</option>
-                  <option value="08">08</option>
-                  <option value="09">09</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                  <option value="13">13</option>
-                  <option value="14">14</option>
-                  <option value="15">15</option>
-                  <option value="16">16</option>
-                  <option value="17">17</option>
-                  <option value="18">18</option>
-                  <option value="19">19</option>
-                  <option value="20">20</option>
-                  <option value="21">21</option>
-                </select>
+                {{lesson.start_time|time:"H:i"}}
               </div>
-              <div class="col-auto">
-                <select name="start_minute" class="input">
-                  <option value="{{lesson.start_time|time:" i"}}">{{lesson.start_time|time:"i"}}</option>
-                  <option value="00">00</option>
-                  <option value="15">15</option>
-                  <option value="30">30</option>
-                  <option value="45">45</option>
-                </select>
-              </div>
-
             </div>
-
-            {% comment %} <div class="row justify-content-between">
-              <div class="col-auto">
-                <label>Godzina:</label>
-              </div>
-              <div class="col-auto">
-                {{form.start_time}} <br>
-                <small>{{form.start_time.help_text}}</small>
-              </div>
-            </div> {% endcomment %}
 
             <div class="row justify-content-between">
               <div class="col-auto">
                 <label>Czas trwania <small>[godzin]</small>:</label>
               </div>
               <div class="col-auto">
-                {{form.duration}}
+                <input type="number" name="duration" id="duration" min="0.5" max="6" step="0.25" value="{{lesson.duration}}">
               </div>
             </div>
 
@@ -96,7 +62,7 @@
                 <label>Kite:</label>
               </div>
               <div class="col-auto">
-                {{form.kite_brand}}
+                {{lesson.kite_brand|default_if_none:'---'}}
               </div>
             </div>
 
@@ -105,7 +71,7 @@
                 <label>Deska:</label>
               </div>
               <div class="col-auto">
-                {{form.board}}
+                {{lesson.board|default_if_none:'---'}}
               </div>
             </div>
 
@@ -114,37 +80,9 @@
                 <label>Komentarz:</label>
               </div>
               <div class="col-auto">
-                {{form.comment}}
+                {{lesson.comment|default_if_none:'---'}}
               </div>
             </div>
-
-            <div class="row justify-content-between">
-              <div class="col-auto">
-                <label>Potwierdzona:</label>
-              </div>
-              <div class="col-auto">
-                {{form.confirmed}}
-              </div>
-            </div>
-
-            <div class="row justify-content-between">
-              <div class="col-auto">
-                <label>W trakcie:</label>
-              </div>
-              <div class="col-auto">
-                {{form.in_progress}}
-              </div>
-            </div>
-
-            <div class="row justify-content-between">
-              <div class="col-auto">
-                <label>Zakończona:</label>
-              </div>
-              <div class="col-auto">
-                {{form.completed}}
-              </div>
-            </div>
-
 
             <div class="row mt-5 justify-content-between">
               <div class="col-auto">
@@ -170,7 +108,9 @@
           </div>
           <div class="row mt-2">
             <div class="col-auto instr-list">
-              {{form.instructor}}
+              {%for instr in lesson.instructor.all%}
+              <div>{{instr}}</div><br>
+              {%endfor%}
             </div>
           </div>
         </div>
@@ -182,17 +122,10 @@
             </div>
           </div>
           <div class="row">
-            <div class="col">
-              <input type="text" id="student_search_input" placeholder="Szukaj kursanta">
-              <ul class="student-picked-list mb-1" id="search_result_list"></ul>
-            </div>
-          </div>
-
-
-          <div class="row mt-2">
-
-            <div class="col-auto elo">
-              {{form.student}}
+            <div class="col-auto">
+              {%for student in lesson.student.all%}
+              <div>{{student}}</div><br>
+              {%endfor%}
             </div>
           </div>
         </div>

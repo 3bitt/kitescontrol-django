@@ -31,7 +31,7 @@
       </a>
     </div>
     <div class="col-auto ml-5">
-      <a href="{% url 'lesson:lesson_summary:lesson-summary' %}{{current_date|date:"d-m-Y"}}">
+      <a href="{% url 'lesson:lesson_summary:lesson-summary' %}{{current_date|date:'d-m-Y'}}">
         <button class="btn btn-info btn-custom">Podsumowanie dnia</button>
       </a>
     </div>
@@ -139,6 +139,14 @@
                     <span class="no-decoration">Edytuj</span>
                   </a>
                 </div>
+                {% elif lesson.completed and not lesson.paid %}
+                <div class="lesson-edit-menu-item lesson-settings-menu-item">
+                  <a class="lesson-edit-link" href="{% url 'lesson:lesson-edit-after-complete' lesson.id %}">
+                    <i class="no-decoration fa fa-edit fa-sm"></i>
+                    <span class="no-decoration">Edytuj</span>
+                  </a>
+                </div>
+
                 {% endif %}
 
 

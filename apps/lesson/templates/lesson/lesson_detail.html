@@ -64,7 +64,7 @@
                     </div>
                     <div class="col-auto">
                       {% for instructor in lesson.instructor.all %}
-                        <div><b>{{instructor}}</b></div>
+                      <div><b>{{instructor}}</b></div>
                       {%endfor%}
                     </div>
                   </div>
@@ -76,17 +76,17 @@
                     <div class="col-auto student-item">
                       {% if lesson.lessondetail_set.all %}
 
-                        {% for lesson_detail in lesson.lessondetail_set.all%}
-                        <div class="mb-2">
+                      {% for lesson_detail in lesson.lessondetail_set.all%}
+                      <div class="mb-2">
                         <div><b>{{lesson_detail.student}}</b></div>
                         <div><small>osiągnięty poziom: {{lesson_detail.iko_level_achieved}}</small></div>
                         <div><small>stawka: {{lesson_detail.pay_rate}}&nbsp;zł/h</small></div>
-                        </div>
-                        {%endfor%}
+                      </div>
+                      {%endfor%}
                       {% else %}
-                        {% for student in lesson.student.all %}
-                        <div class="mb-2"><b>{{student}}</b></div>
-                        {% endfor %}
+                      {% for student in lesson.student.all %}
+                      <div class="mb-2"><b>{{student}}</b></div>
+                      {% endfor %}
                       {% endif %}
                     </div>
                   </div>
@@ -114,10 +114,10 @@
                     </div>
                     <div class="col-auto">
                       {% if lesson.group_lesson %}
-                        <i class="fa fa-check text-success"></i>
+                      <i class="fa fa-check text-success"></i>
                       {% else %}
-                        <i class="fa fa-times text-danger"></i>
-                       {% endif %}
+                      <i class="fa fa-times text-danger"></i>
+                      {% endif %}
                     </div>
                   </div>
 
@@ -191,15 +191,9 @@
                   </div>
                 </div>
               </div>
-
-
-
             </div>
           </div>
-
-
         </div>
-
       </div>
     </div>
 

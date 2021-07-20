@@ -1,8 +1,8 @@
 from datetime import datetime
-from django.conf.urls import include, url
-from django.urls import path, re_path
+from django.conf.urls import include
+from django.urls import path
 from django.urls.converters import register_converter
-from .views import FindScheduleRedirectView, LessonCompleteView, LessonConfirmView, LessonDetailView, LessonListView, LessonCreateView, LessonDeleteView, LessonMarkAsPaidView, LessonSplit, LessonStartView, LessonUpdateView
+from .views import FindScheduleRedirectView, LessonCompleteView, LessonConfirmView, LessonDetailView, LessonEditAfterComplete, LessonListView, LessonCreateView, LessonDeleteView, LessonMarkAsPaidView, LessonSplit, LessonStartView, LessonUpdateView
 from django.contrib.auth.decorators import login_required
 
 
@@ -42,6 +42,8 @@ urlpatterns = [
          name='lesson-split', ),
     path('<int:pk>/complete/', login_required(LessonCompleteView.as_view()),
          name='lesson-complete', ),
+    path('<int:pk>/edit-after-complete/', login_required(LessonEditAfterComplete.as_view()),
+         name='lesson-edit-after-complete', ),
     path('<int:pk>/markAsPaid/', login_required(LessonMarkAsPaidView.as_view()),
          name='lesson-mark-as-paid', ),
 

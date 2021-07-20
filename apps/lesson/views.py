@@ -1,5 +1,5 @@
 from rental.views import RentalView
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from django.db.models import Q
 from django.views.generic.base import View
@@ -7,7 +7,6 @@ from django.views.generic.edit import UpdateView
 from crew.instructor.models import Instructor
 from student.models import Student
 from .models import Lesson, LessonDetail
-import pytz
 from datetime import datetime, timedelta
 import datetime as datetimeModule
 from .forms import LessonCreateForm
@@ -287,6 +286,38 @@ class LessonCompleteView(View):
 
         return redirect('lesson:lesson-list', lesson_date)
 
+
+class LessonEditAfterComplete(View):
+    http_method_names = ['get', 'post']
+    template_name = 'lesson/lesson_edit_after_complete.html'
+
+    def get(self, request, *args, **kwargs):
+
+        lesson_id = self.kwargs.get('pk')
+        if lesson_id:
+            lesson = Lesson.objects.get(id=lesson_id)
+            context = {'lesson': lesson}
+            return render(request, self.template_name, context)
+        return
+
+    def post(self, request, *args, **kwargs):
+
+        lesson_id = self.kwargs.get('pk')
+        if lesson_id:
+            lesson = Lesson.objects.get(id=lesson_id)
+            new_duration = request.POST.get('duration')
+            lesson.duration = new_duration
+
+            detail = LessonDetail.objects.filter(lesson=lesson)
+            for detail in detail:
+                detail.duration = new_duration
+                detail.price = float(new_duration) * int(detail.pay_rate)
+                detail.save()
+
+            lesson.save()
+            lesson_date = lesson.start_date.strftime('%d-%m-%Y')
+            return redirect('lesson:lesson-list', lesson_date)
+        return
 
 class LessonMarkAsPaidView(View):
 
