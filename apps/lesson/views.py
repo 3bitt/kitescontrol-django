@@ -63,10 +63,7 @@ class LessonCreateView(CreateView):
     form_class = LessonCreateForm
     success_url = reverse_lazy('lesson:lesson-list')
 
-    students_query = Student.objects.filter(
-            Q(arrival_date__lte=current_date),
-            Q(leave_date__gte=current_date)
-        ).order_by('-register_date', '-surname')
+    students_query = Student.objects.all().order_by('-register_date', '-surname')
 
     def get_form(self, *args, **kwargs):
         form = super().get_form(*args, **kwargs)  # Get the form as usual
@@ -227,7 +224,7 @@ class LessonSplit(View):
             paid = False,
             kite_brand = target_lesson.kite_brand,
             board = target_lesson.board,
-            comment = f'[SYSTEM]: Lekcja stworzona wskutek rozdzielenia',
+            comment = f'[SYSTEM]: Lekcja stworzona w wyniku rozdzielenia',
             confirmed = True,
             in_progress = True,
             completed = False

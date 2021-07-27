@@ -28,6 +28,7 @@ class Instructor(models.Model):
     birth_date = models.DateField(null=False, blank=False)
     mobile_number = models.CharField(max_length=20, null=True, blank=True, unique=True, validators=[validate_mobile])
     email_address = models.CharField(max_length=60, null=False, blank=False, unique=True)
+    # WEIGHT - NOT USED CURRENTLY
     weight = models.FloatField(null=True, blank=True, validators=[validate_weight])
     available_from = models.DateField(null=True, blank=True, validators=[validate_available_from])
     available_to = models.DateField(null=True, blank=True, validators=[validate_available_to])

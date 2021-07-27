@@ -53,7 +53,8 @@ class StudentCreateForm(ModelForm):
             }),
             'stay_location': forms.TextInput(attrs = {
                 'class': 'input',
-                'type': 'text'
+                'type': 'text',
+                'style': 'width: 154px;'
             }),
             'own_car': forms.CheckboxInput(attrs = {
                 'class': 'input',

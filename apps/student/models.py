@@ -70,6 +70,16 @@ class Student(models.Model):
         ('XXL', 'XXL')
     )
 
+
+    class _PAY_RATES_SINGLE:
+        IKO_I = 160
+        IKO_II = 140
+        IKO_III = 130
+
+    class _PAY_RATES_GROUP:
+        IKO_I = 130
+        IKO_II = 120
+
     name = models.CharField(
         max_length=30,
         null=False,
@@ -115,6 +125,8 @@ class Student(models.Model):
     comment = models.CharField(max_length=255, null=True, blank=True)
     pay_rate_single = models.IntegerField(null=False, blank=False)
     pay_rate_group = models.IntegerField(null=False, blank=False)
+    # HOURS_SUM - updated by LessonDetail signal
+    lesson_hours_sum = models.FloatField(default=0.0)
     register_date = models.DateTimeField(auto_now_add=True)
     # https://stackoverflow.com/questions/34275588/djangorestframework-modelserializer-datetimefield-only-converting-to-current-tim
 

@@ -9,6 +9,7 @@ class InstructorCreateForm(ModelForm):
         exclude = [
             'tc_accepted_date',
             'active',
+            'weight',
             'register_date'
             ]
 
@@ -31,10 +32,6 @@ class InstructorCreateForm(ModelForm):
             'email_address': forms.EmailInput(attrs = {
                 'class': 'input',
                 'type': 'email'
-            }),
-            'weight': forms.NumberInput(attrs = {
-                'class': 'input',
-                'type': 'number'
             }),
             'available_from': forms.DateInput(attrs = {
                 'class': 'input',
@@ -115,6 +112,7 @@ class InstructorEditForm(ModelForm):
         exclude = [
             'tc_accepted_date',
             'register_date',
+            'weight',
             'user'
             ]
 
@@ -137,10 +135,6 @@ class InstructorEditForm(ModelForm):
             'email_address': forms.EmailInput(attrs = {
                 'class': 'input',
                 'type': 'email'
-            }),
-            'weight': forms.NumberInput(attrs = {
-                'class': 'input',
-                'type': 'number'
             }),
             'available_from': forms.DateInput(attrs = {
                 'class': 'input',

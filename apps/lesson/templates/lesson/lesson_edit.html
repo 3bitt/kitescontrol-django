@@ -42,7 +42,7 @@
               </div>
               <div class="col-auto">
                 <select name="start_hour" class="input">
-                  <option value="{{lesson.start_time|time:" H"}}">{{lesson.start_time|time:"H"}}</option>
+                  <option value="{{lesson.start_time|time:'H'}}">{{lesson.start_time|time:"H"}}</option>
                   <option value="07">07</option>
                   <option value="08">08</option>
                   <option value="09">09</option>
@@ -62,7 +62,7 @@
               </div>
               <div class="col-auto">
                 <select name="start_minute" class="input">
-                  <option value="{{lesson.start_time|time:" i"}}">{{lesson.start_time|time:"i"}}</option>
+                  <option value="{{lesson.start_time|time:'i'}}">{{lesson.start_time|time:"i"}}</option>
                   <option value="00">00</option>
                   <option value="15">15</option>
                   <option value="30">30</option>
@@ -71,16 +71,6 @@
               </div>
 
             </div>
-
-            {% comment %} <div class="row justify-content-between">
-              <div class="col-auto">
-                <label>Godzina:</label>
-              </div>
-              <div class="col-auto">
-                {{form.start_time}} <br>
-                <small>{{form.start_time.help_text}}</small>
-              </div>
-            </div> {% endcomment %}
 
             <div class="row justify-content-between">
               <div class="col-auto">

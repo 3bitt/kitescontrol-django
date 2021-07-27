@@ -41,11 +41,18 @@ class StudentSearchView(ListView):
         context['trip_input'] = self.request.GET.get('trip', False)
         return context
 
+
 class StudentCreateView(CreateView):
     model = Student
     template_name = 'student/student_create.html'
     form_class = StudentCreateForm
     success_url = reverse_lazy('student:student-list')
+
+    def get_form_kwargs(self):
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs['initial']['pay_rate_single'] = Student._PAY_RATES_SINGLE.IKO_I
+        form_kwargs['initial']['pay_rate_group'] = Student._PAY_RATES_GROUP.IKO_I
+        return form_kwargs
 
 
 class StudentDetailView(DetailView):
