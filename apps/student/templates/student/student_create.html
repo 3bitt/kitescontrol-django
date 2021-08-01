@@ -11,6 +11,7 @@
   <form method='POST'>
     {% csrf_token %}
     <div class="row mt-3 form-box">
+      {{form.errors}}
       <div class="col">
         <div class="col section form-student-details-section">
           <div class="row form-section-title">

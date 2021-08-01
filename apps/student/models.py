@@ -70,6 +70,9 @@ class Student(models.Model):
         ('XXL', 'XXL')
     )
 
+    class _HOURS_REQUIRED_FOR_DISCOUNT:
+        LEVEL_I = 5 # qualified for pay rate IKO_II if above 5
+        LEVEL_II = 10 # qualified for pay rate IKO_III if above 10
 
     class _PAY_RATES_SINGLE:
         IKO_I = 160
@@ -126,7 +129,7 @@ class Student(models.Model):
     pay_rate_single = models.IntegerField(null=False, blank=False)
     pay_rate_group = models.IntegerField(null=False, blank=False)
     # HOURS_SUM - updated by LessonDetail signal
-    lesson_hours_sum = models.FloatField(default=0.0)
+    lesson_hours_sum = models.FloatField(null=True, blank=True, default=0.0)
     register_date = models.DateTimeField(auto_now_add=True)
     # https://stackoverflow.com/questions/34275588/djangorestframework-modelserializer-datetimefield-only-converting-to-current-tim
 

@@ -245,6 +245,7 @@ class LessonCompleteView(View):
         lesson_id = self.kwargs['pk']
         lesson: Lesson = Lesson.objects.get(id=lesson_id)
         request_dict = self.request.POST
+        lesson_duration = float(request_dict['duration'])
 
         for key in request_dict:
             if key.startswith('new_iko_level'):
@@ -259,22 +260,19 @@ class LessonCompleteView(View):
                         else:
                             student_pay_rate = student.pay_rate_single
 
-                        # student_lesson_time = float(request_dict[f'student_lesson_duration_{student_id}'])
-                        student_lesson_time = float(request_dict['duration'])
-
                         lesson_detail_object, created = LessonDetail.objects.update_or_create(
                             lesson=lesson, student=student,
                             defaults = {
                                 'lesson': lesson,
                                 'student': student,
-                                'duration': student_lesson_time,
+                                'duration': lesson_duration,
                                 'pay_rate': int(student_pay_rate),
-                                'price': int(student_pay_rate) * student_lesson_time,
+                                'price': int(student_pay_rate) * lesson_duration,
                                 'iko_level_achieved': request_dict[key]
                             }
                         )
 
-        lesson.duration = request_dict['duration']
+        lesson.duration = lesson_duration
         lesson.completed = True
         lesson.in_progress = False
         lesson.save()

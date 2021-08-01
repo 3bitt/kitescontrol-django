@@ -75,13 +75,13 @@
 
         <div class=" schedule-date-div INSTR">
           <div>
-            <a href="{% url 'lesson:lesson-list' %}{{previous_date|date:"d-m-Y"}}">
+            <a href="{% url 'lesson:lesson-list' %}{{previous_date|date:'d-m-Y'}}">
               <i class="fas fa-chevron-left"></i>
             </a>
           </div>
           <div><b>{{current_date|date:"d-m-Y"}}</b></div>
           <div>
-            <a href="{% url 'lesson:lesson-list' %}{{next_date|date:"d-m-Y"}}">
+            <a href="{% url 'lesson:lesson-list' %}{{next_date|date:'d-m-Y'}}">
               <i class="fas fa-chevron-right"></i>
             </a>
           </div>
@@ -115,8 +115,7 @@
 
           <div class="row m-0 justify-content-between">
 
-            <div class="col-auto px-1
-              {% if lesson.confirmed %} lessson-confirmed-corner-highlight {%endif%}">
+            <div class="col-auto px-1">
               {{lesson.start_time|time:'H:i'}}
               {% if not lesson.confirmed %}
                 <span class="ml-1"><i class="fas fa-question fa-sm text-danger"></i></span>
@@ -175,7 +174,9 @@
 
                 {%endif%}
 
-                {% if not lesson.in_progress and not lesson.completed %}
+                <!-- -- START / STOP SETTINGS MENU OPTIONS DISABLED FOR NOW
+
+                  {% if not lesson.in_progress and not lesson.completed %}
                   <div class="lesson-in-progress-menu-item lesson-settings-menu-item">
                     <form method="post" action="{% url 'lesson:lesson-set-in-progress' lesson.id %}">
                       {%csrf_token%}
@@ -186,7 +187,7 @@
                     </form>
 
                   </div>
-                  <!--  -->
+
                 {%elif lesson.in_progress and not lesson.completed%}
                   <div class="lesson-settings-menu-item">
                     <form method="post" action="{% url 'lesson:lesson-set-in-progress' lesson.id %}">
@@ -198,9 +199,9 @@
                     </form>
                   </div>
 
-                {%endif%}
+                {%endif%} -->
 
-                {% if lesson.in_progress and lesson.confirmed and lesson.group_lesson %}
+                {% if lesson.group_lesson and not lesson.completed %}
                   <div class="lesson-settings-menu-item">
                     <button type="button" class="btn_rmv_stl" data-toggle="modal" data-target="#split_modal_{{lesson.id}}">
                       <i class="fas fa-code-branch"></i>
@@ -209,7 +210,7 @@
                   </div>
 
                 {% endif %}
-                {% if lesson.in_progress and lesson.confirmed and not lesson.paid %}
+                {% if not lesson.paid and not lesson.completed%}
                   <div class="lesson-settings-menu-item">
                     <button type="button" class="btn_rmv_stl" data-toggle="modal" data-target="#complete_modal_{{lesson.id}}">
                       <i class="fas fa-flag-checkered"></i>
@@ -241,21 +242,6 @@
 
           {% comment %} Lesson settings modals include {% endcomment %}
           {%include 'lesson/lesson_modals.html' with lesson=lesson %}
-
-
-          <div class="row m-0">
-            <div class="col-auto px-1">
-              <small>
-                <b>K:</b> {{lesson.kite_brand|default_if_none:"<span class='none-equipment'>?</span>"}}
-              </small>
-            </div>
-
-            <div class="col-auto px-1">
-              <small>
-                <b>D:</b> {{lesson.board|default_if_none:"<span class='none-equipment'>?</span>"}}
-              </small>
-            </div>
-          </div>
 
           {%for student in lesson.student.all%}
           <div class="row m-0">

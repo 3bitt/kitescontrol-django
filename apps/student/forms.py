@@ -9,7 +9,7 @@ class StudentCreateForm(ModelForm):
 
     class Meta:
         model = Student
-        exclude = ['register_date']
+        exclude = ['lesson_hours_sum', 'register_date']
 
         widgets = {
             'name': forms.TextInput(attrs = {
