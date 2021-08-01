@@ -49,7 +49,6 @@ class StudentCreateForm(ModelForm):
             'mobile_number': forms.NumberInput(attrs = {
                 'class': 'input',
                 'type': 'text',
-                'placeholder': '+48 123456789'
             }),
             'stay_location': forms.TextInput(attrs = {
                 'class': 'input',
