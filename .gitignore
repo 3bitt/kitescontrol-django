@@ -10,3 +10,9 @@ staticfiles/
 /secrets.json
 TODO.txt
 TODO2.txt
+
+.venv/
+.idea/
+.envs/
+
+app/static
