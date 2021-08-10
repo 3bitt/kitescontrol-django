@@ -1,34 +1,18 @@
-import os, sys, json
-from django.core.exceptions import ImproperlyConfigured
-# from pathlib import Path
+import os
+
+from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Modification to make /apps subfolder work
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ['SECRET_KEY']
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1')
 
-try:
-    with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
-        secrets = json.load(secrets_file)
-except FileNotFoundError:
-    raise FileNotFoundError('Configuration file is missing')
-
-def get_secret(setting, secrets=secrets):
-    """Get secret setting or fail with ImproperlyConfigured"""
-    try:
-        return secrets[setting]
-    except KeyError:
-        raise ImproperlyConfigured("Set the {} setting".format(setting))
-
-
-DEBUG = False
-SECRET_KEY = get_secret('SECRET_KEY')
-
-ALLOWED_HOSTS = ['batoniczny.pythonanywhere.com']
-
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -39,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_ajax',
+    'corsheaders',
 
     'account',
     'dashboard',
@@ -54,12 +39,14 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = 'account.User'
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.AllowAllUsersModelBackend']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -152,7 +139,7 @@ SITE_ROOT = os.path.dirname(os.path.dirname(__file__))
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/staticfiles/'
 STATICFILES_DIRS = [
-    os.path.join(SITE_ROOT, 'static'),
+    # os.path.join(SITE_ROOT, 'static'),  TODO
     ]
 
 LOGIN_URL = 'account:login'
@@ -172,39 +159,9 @@ SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = get_secret('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASS')
-
-if os.environ.get('DJANGO_DEVELOPMENT') is not None and os.environ.get('DJANGO_DEVELOPMENT') == 'True':
-    from .settings_dev import (
-        SECRET_KEY,
-        DEBUG,
-        ALLOWED_HOSTS,
-        INSTALLED_APPS,
-        TEMPLATE_LOADERS,
-        LANGUAGE_CODE,
-        USE_TZ,
-        TIME_ZONE,
-        USE_I18N,
-        USE_L10N,
-        SITE_ROOT,
-        STATIC_ROOT,
-        STATIC_URL,
-        CSRF_COOKIE_SECURE,
-        SESSION_COOKIE_SECURE,
-        SECURE_SSL_REDIRECT,
-        SECURE_HSTS_SECONDS,
-        SECURE_HSTS_PRELOAD,
-        SECURE_HSTS_INCLUDE_SUBDOMAINS,
-        EMAIL_BACKEND,
-        EMAIL_HOST,
-        EMAIL_PORT,
-        EMAIL_USE_TLS,
-        EMAIL_HOST_USER,
-        EMAIL_HOST_PASSWORD,
-    )
+EMAIL_HOST = os.environ['EMAIL_HOST']
+EMAIL_PORT = os.environ['EMAIL_PORT']
+EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASS']

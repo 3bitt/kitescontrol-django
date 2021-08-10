@@ -1,0 +1,47 @@
+version: '3'
+
+
+volumes:
+  db_data: {}
+  static_data: {}
+
+
+services:
+  app: &app
+    build:
+      context: .
+      dockerfile: compose/app/Dockerfile
+    command: >
+      sh -c "python manage.py migrate"
+    volumes:
+      - ./app:/app
+    env_file:
+      - .envs/.develop
+    depends_on:
+      - db
+
+  kite:
+    <<: *app
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
+    ports:
+      - 0.0.0.0:8080:8000
+
+  db:
+    image: postgres:latest
+    env_file:
+      - .envs/.develop
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  nginx:
+    build:
+      context: .
+      dockerfile: compose/nginx/Dockerfile
+    volumes:
+      - ./app/static:/static
+    ports:
+      - 0.0.0.0:8000:8000
+    depends_on:
+      - kite

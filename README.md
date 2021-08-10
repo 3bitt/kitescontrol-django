@@ -29,3 +29,24 @@
 6. ``` python manage.py migrate ```
 7. ``` python manage.py createsuperuser ```
 8. Have fun
+
+
+DEPLOY
+======
+
+Create envs dir:
+
+   $ mkdir .envs
+
+Copy envs from example.envs:
+
+   $ cp example.envs .envs/.develop
+   
+Build project:
+
+   $ docker-compose build
+
+Run 
+
+   $ docker-compose up
+   
