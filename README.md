@@ -36,17 +36,45 @@ DEPLOY
 
 Create envs dir:
 
-   $ mkdir .envs
+      $ mkdir .envs
 
 Copy envs from example.envs:
 
-   $ cp example.envs .envs/.develop
+      $ cp example.envs .envs/.develop
    
 Build project:
 
-   $ docker-compose build
+      $ docker-compose build
 
 Run 
 
-   $ docker-compose up
+      $ docker-compose up
    
+App run on:
+
+      http://0.0.0.0:8000
+
+
+COMMANDS
+========
+
+Make migrations:
+
+      $ docker-compose run --rm app python manage.py makemigrations
+
+Migrate:
+
+      $ docker-compose run --rm app python manage.py migrate
+
+Any manage.py command:
+
+      $ docker-compose run --rm app python manage.py <ur_manage_py_command>
+
+Shut down:
+
+      $ docker-compose down --remove-orphans
+
+Yolo Shut down (remove DB data):
+
+      $ docker-compose down --volume --remove-orphans
+

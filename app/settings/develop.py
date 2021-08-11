@@ -5,13 +5,13 @@ from settings.base import *
 
 ALLOWED_HOSTS = ['*']
 
-CORS_ALLOWED_ORIGINS = [
-    'http://0.0.0.0',
-]
-CORS_ALLOW_HEADERS = ['*']
-CORS_ALLOW_METHODS = ['*']
-
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
 SECURE_SSL_REDIRECT = False
+
+SECURE_HSTS_SECONDS = 0
+SECURE_HSTS_PRELOAD = False
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -33,4 +33,3 @@ DATABASES = {
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
