@@ -19,4 +19,4 @@ COPY ./compose/app/entrypoint.sh /entrypoint
 RUN chmod +x /entrypoint/entrypoint.sh
 
 
-ENTRYPOINT ["/entrypoint/entrypoint.sh"]
+ENTRYPOINT ["bash", "/entrypoint/entrypoint.sh"]
