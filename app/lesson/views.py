@@ -19,6 +19,7 @@ from django.db.models import Prefetch
 # 1 - CONFIRMED
 # 2 - COMPLETED
 
+
 class LessonListView(ListView):
     current_date = datetime.now()
 
@@ -30,15 +31,17 @@ class LessonListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        if (self.kwargs):
+        if self.kwargs:
             self.current_date = self.kwargs['schedule_date']
 
-        lessons_today = Lesson.objects.filter(start_date=self.current_date).order_by('start_time')
+        lessons_today = Lesson.objects.filter(start_date=self.current_date).order_by(
+            'start_time'
+        )
         context['instructors_with_lessons'] = self.queryset.prefetch_related(
             Prefetch('lessons', lessons_today)
         )
 
-        context['hours'] = range(7,22)
+        context['hours'] = range(7, 22)
         context['current_date'] = self.current_date
         context['current_time'] = datetime.today().hour
 
@@ -67,22 +70,25 @@ class LessonCreateView(CreateView):
 
     def get_form(self, *args, **kwargs):
         form = super().get_form(*args, **kwargs)  # Get the form as usual
-        form.fields['instructor'].queryset = Instructor.objects.filter(active=True).order_by('surname')
+        form.fields['instructor'].queryset = Instructor.objects.filter(
+            active=True
+        ).order_by('surname')
         form.fields['student'].queryset = self.students_query
         form.fields['duration'].initial = 2
         return form
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["students_query"] = serialize('json',
+        context["students_query"] = serialize(
+            'json',
             self.students_query,
-            )
+        )
         return context
 
     def form_valid(self, form: LessonCreateForm):
         start_hour = int(self.request.POST['start_hour'])
         start_minute = int(self.request.POST['start_minute'])
-        start_time = datetimeModule.time(start_hour,start_minute)
+        start_time = datetimeModule.time(start_hour, start_minute)
         form.instance.start_time = start_time
 
         if len(form.cleaned_data['student']) > 1:
@@ -92,11 +98,14 @@ class LessonCreateView(CreateView):
 
         if form.cleaned_data['start_date'] != datetime.date(self.current_date):
             lesson_date = form.cleaned_data['start_date'].strftime('%d-%m-%Y')
-            self.success_url = reverse_lazy('lesson:lesson-list', kwargs={'schedule_date': lesson_date})
+            self.success_url = reverse_lazy(
+                'lesson:lesson-list', kwargs={'schedule_date': lesson_date}
+            )
 
         response = super(LessonCreateView, self).form_valid(form)
 
         return response
+
 
 class LessonUpdateView(UpdateView):
     current_date = datetime.now()
@@ -108,12 +117,14 @@ class LessonUpdateView(UpdateView):
     def form_valid(self, form: LessonCreateForm):
         start_hour = int(self.request.POST['start_hour'])
         start_minute = int(self.request.POST['start_minute'])
-        start_time = datetimeModule.time(start_hour,start_minute)
+        start_time = datetimeModule.time(start_hour, start_minute)
         form.instance.start_time = start_time
 
         if form.cleaned_data['start_date'] != datetime.date(self.current_date):
             lesson_date = form.cleaned_data['start_date'].strftime('%d-%m-%Y')
-            self.success_url = reverse_lazy('lesson:lesson-list', kwargs={'schedule_date': lesson_date})
+            self.success_url = reverse_lazy(
+                'lesson:lesson-list', kwargs={'schedule_date': lesson_date}
+            )
         response = super(LessonUpdateView, self).form_valid(form)
 
         # return super().form_valid(form)
@@ -124,14 +135,13 @@ class LessonUpdateView(UpdateView):
 
 
 class LessonConfirmView(View):
-
     def post(self, request, **kwargs):
         lesson_id = self.kwargs['pk']
         lesson: Lesson = Lesson.objects.get(id=lesson_id)
 
-        if (lesson.confirmed):
+        if lesson.confirmed:
             lesson.confirmed = False
-        elif (not lesson.confirmed):
+        elif not lesson.confirmed:
             lesson.confirmed = True
         else:
             pass
@@ -143,14 +153,13 @@ class LessonConfirmView(View):
 
 
 class LessonStartView(View):
-
     def post(self, request, **kwargs):
         lesson_id = self.kwargs['pk']
         lesson = Lesson.objects.get(id=lesson_id)
-        if (lesson.in_progress):
+        if lesson.in_progress:
             lesson.in_progress = False
             lesson.confirmed = False
-        elif (not lesson.in_progress):
+        elif not lesson.in_progress:
             lesson.in_progress = True
             lesson.confirmed = True
         else:
@@ -165,14 +174,13 @@ class LessonStartView(View):
 
 # Only group lessons
 class LessonSplit(View):
-
     def post(self, *args, **kwargs):
 
         req_dict = self.request.POST
         lesson_id = self.kwargs['pk']
 
         student_time_spent = float(req_dict['time_spent'])
-        leave_stud_id =  req_dict['leaving_student_id']
+        leave_stud_id = req_dict['leaving_student_id']
 
         target_lesson = Lesson.objects.get(id=lesson_id)
         leaving_student = target_lesson.student.get(id=leave_stud_id)
@@ -183,7 +191,15 @@ class LessonSplit(View):
         target_lesson.duration = student_time_spent
         target_lesson.in_progress = False
         target_lesson.completed = True
-        target_lesson.comment = ' '.join(filter(None, (target_lesson.comment, f'[SYSTEM]: Lekcja została rozdzielona: {leaving_student} opuścił lekcje')))
+        target_lesson.comment = ' '.join(
+            filter(
+                None,
+                (
+                    target_lesson.comment,
+                    f'[SYSTEM]: Lekcja została rozdzielona: {leaving_student} opuścił lekcje',
+                ),
+            )
+        )
         target_lesson.save()
 
         students_staying = []
@@ -193,15 +209,16 @@ class LessonSplit(View):
             student_pay_rate = student.pay_rate_group
 
             lesson_detail_object, created = LessonDetail.objects.update_or_create(
-                lesson=target_lesson, student=student,
-                defaults = {
+                lesson=target_lesson,
+                student=student,
+                defaults={
                     'lesson': target_lesson,
                     'student': student,
                     'duration': student_time_spent,
                     'pay_rate': int(student_pay_rate),
                     'price': int(student_pay_rate) * student_time_spent,
-                    'iko_level_achieved': student.iko_level
-                }
+                    'iko_level_achieved': student.iko_level,
+                },
             )
 
             if not str(student.id) == leave_stud_id:
@@ -210,24 +227,23 @@ class LessonSplit(View):
         #
         # Create new lesson
         #
-        start_time_offset = (datetime.combine(
-                target_lesson.start_date,
-                target_lesson.start_time
-                ) + timedelta(hours=student_time_spent)
-            ).time()
+        start_time_offset = (
+            datetime.combine(target_lesson.start_date, target_lesson.start_time)
+            + timedelta(hours=student_time_spent)
+        ).time()
 
         new_lesson = Lesson.objects.create(
-            start_date = target_lesson.start_date,
-            start_time = start_time_offset,
-            group_lesson = True if len(students_staying) > 2 else False,
-            duration = 1,
-            paid = False,
-            kite_brand = target_lesson.kite_brand,
-            board = target_lesson.board,
-            comment = f'[SYSTEM]: Lekcja stworzona w wyniku rozdzielenia',
-            confirmed = True,
-            in_progress = True,
-            completed = False
+            start_date=target_lesson.start_date,
+            start_time=start_time_offset,
+            group_lesson=True if len(students_staying) > 2 else False,
+            duration=1,
+            paid=False,
+            kite_brand=target_lesson.kite_brand,
+            board=target_lesson.board,
+            comment=f'[SYSTEM]: Lekcja stworzona w wyniku rozdzielenia',
+            confirmed=True,
+            in_progress=True,
+            completed=False,
         )
 
         new_lesson.student.set(students_staying)
@@ -240,7 +256,6 @@ class LessonSplit(View):
 
 
 class LessonCompleteView(View):
-
     def post(self, request, **kwargs):
         lesson_id = self.kwargs['pk']
         lesson: Lesson = Lesson.objects.get(id=lesson_id)
@@ -260,16 +275,20 @@ class LessonCompleteView(View):
                         else:
                             student_pay_rate = student.pay_rate_single
 
-                        lesson_detail_object, created = LessonDetail.objects.update_or_create(
-                            lesson=lesson, student=student,
-                            defaults = {
+                        (
+                            lesson_detail_object,
+                            created,
+                        ) = LessonDetail.objects.update_or_create(
+                            lesson=lesson,
+                            student=student,
+                            defaults={
                                 'lesson': lesson,
                                 'student': student,
                                 'duration': lesson_duration,
                                 'pay_rate': int(student_pay_rate),
                                 'price': int(student_pay_rate) * lesson_duration,
-                                'iko_level_achieved': request_dict[key]
-                            }
+                                'iko_level_achieved': request_dict[key],
+                            },
                         )
 
         lesson.duration = lesson_duration
@@ -314,8 +333,8 @@ class LessonEditAfterComplete(View):
             return redirect('lesson:lesson-list', lesson_date)
         return
 
-class LessonMarkAsPaidView(View):
 
+class LessonMarkAsPaidView(View):
     def post(self, *args, **kwargs):
         lesson_id = self.kwargs['pk']
         lesson = Lesson.objects.get(id=lesson_id)
@@ -333,7 +352,10 @@ class LessonDeleteView(DeleteView):
 
 class FindScheduleRedirectView(View):
     http_method_names = ['get']
+
     def get(self, request):
         request_date = request.GET['schedule_date']
-        request_date_clean = datetime.strptime(request_date, '%Y-%m-%d').astimezone().strftime('%d-%m-%Y')
+        request_date_clean = (
+            datetime.strptime(request_date, '%Y-%m-%d').astimezone().strftime('%d-%m-%Y')
+        )
         return redirect('lesson:lesson-list', request_date_clean)

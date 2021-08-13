@@ -7,6 +7,7 @@ from student.models import Student
 
 # To be extended in future
 
+
 class Rental(models.Model):
 
     created_date = models.DateTimeField(auto_now_add=True)
@@ -30,7 +31,6 @@ class Rental(models.Model):
 
 
 class RentalDetail(models.Model):
-
     class RentItem(models.TextChoices):
         WETSUIT = 'WETSUIT', 'Pianka'
         HELMET = 'HELMET', 'Kask'
@@ -40,8 +40,7 @@ class RentalDetail(models.Model):
         BOARD = 'BOARD', 'Deska'
         KITE = 'KITE', 'Kite'
 
-        __empty__ = ('UNKNOWN')
-
+        __empty__ = 'UNKNOWN'
 
     rental = models.ForeignKey(Rental, on_delete=CASCADE)
     item = models.CharField(max_length=12, choices=RentItem.choices)
@@ -61,5 +60,5 @@ class RentalDetail(models.Model):
             'HARNESS': 'Trapez',
             'LEASH': 'Leash',
             'BOARD': 'Deska',
-            'KITE': 'Kite'
+            'KITE': 'Kite',
         }.get(self.item, f'Błąd - nie znam takiej rzeczy jak {self.item}')

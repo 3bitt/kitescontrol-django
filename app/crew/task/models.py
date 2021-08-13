@@ -1,11 +1,15 @@
 from django.db import models
 from crew.instructor.models import Instructor
+
 # Create your models here.
+
 
 class Task(models.Model):
     title = models.CharField(max_length=100, null=False)
     description = models.CharField(max_length=255, null=False)
-    instructor = models.ManyToManyField(Instructor, related_name='task', related_query_name='task')
+    instructor = models.ManyToManyField(
+        Instructor, related_name='task', related_query_name='task'
+    )
     value = models.FloatField(default=0)
     deadline_date = models.DateField(null=False)
     completed_date = models.DateField(null=True, blank=True)

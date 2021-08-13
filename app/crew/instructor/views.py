@@ -1,7 +1,6 @@
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from django.views.generic import (
-    CreateView, DeleteView, DetailView, ListView, UpdateView)
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 from django.views.generic.base import TemplateView
 
 from .forms import InstructorCreateForm, InstructorEditForm
@@ -30,8 +29,6 @@ class InstructorCreateView(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-
-
 class InstructorDetailView(DetailView):
     queryset = Instructor.objects.order_by('-register_date')
     template_name = 'instructor/instructor_detail.html'
@@ -46,7 +43,9 @@ class InstructorUpdateView(UpdateView):
     form_class = InstructorEditForm
 
     def get_success_url(self):
-        return reverse_lazy('instructor:instructor-detail', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy(
+            'instructor:instructor-detail', kwargs={'pk': self.kwargs['pk']}
+        )
 
 
 class InstructorDeleteView(DeleteView):

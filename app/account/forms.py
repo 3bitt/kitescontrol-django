@@ -8,9 +8,10 @@ from .models import User
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
+
     class Meta:
         model = User
-        fields = ('email','name', 'surname', 'type')
+        fields = ('email', 'name', 'surname', 'type')
 
     def clean_username(self):
         email = self.cleaned_data.get('email')
@@ -40,12 +41,18 @@ class UserAdminCreationForm(forms.ModelForm):
     A form for creating new users. Includes all the required
     fields, plus a repeated password.
     """
+
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ('name', 'surname', 'email', 'type',)
+        fields = (
+            'name',
+            'surname',
+            'email',
+            'type',
+        )
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -69,12 +76,12 @@ class UserAdminChangeForm(forms.ModelForm):
     the user, but replaces the password field with admin's
     password hash display field.
     """
+
     password = ReadOnlyPasswordHashField()
 
     class Meta:
         model = User
         fields = ('name', 'surname', 'email', 'password')
-
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -82,15 +89,14 @@ class UserAdminChangeForm(forms.ModelForm):
         # field does not have access to the initial value
         return self.initial["password"]
 
+
 class CustomAuthenticationForm(AuthenticationForm):
 
     error_messages = {
-        'invalid_login':
-            "Niepoprawne dane logowania",
+        'invalid_login': "Niepoprawne dane logowania",
         'inactive': "Nie masz tu wjazdu",
     }
 
     def confirm_login_allowed(self, user):
         if not user.is_active:
             raise forms.ValidationError('Nie masz tu wjazdu', code='inactive')
-
