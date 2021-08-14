@@ -5,6 +5,7 @@ from .forms import TaskCreateForm
 from django.urls import reverse_lazy
 from datetime import date
 
+
 class TaskListView(ListView):
     queryset = Task.objects.all().order_by('-created_date')
     context_object_name = 'tasks'
@@ -13,19 +14,24 @@ class TaskListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["current_date"] = date.today()
-        context["tasks_complete_statuses"] = self.queryset.values_list('completed_flag',flat=True).distinct()
-        context["tasks_completed"] = self.queryset.filter(completed_flag = True)
+        context["tasks_complete_statuses"] = self.queryset.values_list(
+            'completed_flag', flat=True
+        ).distinct()
+        context["tasks_completed"] = self.queryset.filter(completed_flag=True)
         return context
+
 
 class TaskDetailView(DetailView):
     model = Task
     template_name = 'task/task_detail.html'
+
 
 class TaskCreateView(CreateView):
     model = Task
     template_name = 'task/task_create.html'
     form_class = TaskCreateForm
     success_url = reverse_lazy('task:task-list')
+
 
 class TaskUpdateView(UpdateView):
     model = Task
@@ -58,8 +64,6 @@ class TaskUpdateView(UpdateView):
             return super().post(self, request, *args, **kwargs)
 
 
-
 class TaskDeleteView(DeleteView):
     model = Task
     success_url = reverse_lazy('task:task-list')
-

@@ -23,36 +23,51 @@ class LessonSummaryView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        if (self.kwargs):
+        if self.kwargs:
             self.current_date = self.kwargs['summary_date']
 
-        lessons_today = Lesson.objects.filter(
-            start_date=self.current_date).order_by('start_time')
-            # .annotate(
-            #                 students_detail_duration_sum=Sum('lessondetail__duration')
-            #             )
+        lessons_today = Lesson.objects.filter(start_date=self.current_date).order_by(
+            'start_time'
+        )
+        # .annotate(
+        #                 students_detail_duration_sum=Sum('lessondetail__duration')
+        #             )
 
-        lesson_detail = LessonDetail.objects.filter(
-            Q(lesson__in=lessons_today))
+        lesson_detail = LessonDetail.objects.filter(Q(lesson__in=lessons_today))
 
-        instructors_with_lessons = self.queryset.prefetch_related(
-            Prefetch('lessons', lessons_today
+        instructors_with_lessons = (
+            self.queryset.prefetch_related(Prefetch('lessons', lessons_today))
+            .annotate(
+                lessondetail_duration_sum=Sum(
+                    'lessons__lessondetail__duration',
+                    filter=Q(lessons__lessondetail__in=lesson_detail),
+                )
             )
-        ).annotate(lessondetail_duration_sum=Sum('lessons__lessondetail__duration',
-            filter=Q(lessons__lessondetail__in=lesson_detail))
-        ).annotate(instructor_lessons_duration_sum=Sum('lessons__duration',
-            filter=Q(lessons__in=lessons_today))
-        ).annotate(lessons_price_sum=Sum('lessons__lessondetail__price',
-            filter=Q(lessons__lessondetail__in=lesson_detail))
+            .annotate(
+                instructor_lessons_duration_sum=Sum(
+                    'lessons__duration', filter=Q(lessons__in=lessons_today)
+                )
             )
+            .annotate(
+                lessons_price_sum=Sum(
+                    'lessons__lessondetail__price',
+                    filter=Q(lessons__lessondetail__in=lesson_detail),
+                )
+            )
+        )
 
         context['rentals'] = RentalView.getRentalsForSummary(self.current_date)
         context['instructors_with_lessons'] = instructors_with_lessons
 
-        context['profit'] = lesson_detail.values('duration','pay_rate','lesson_id').annotate(
-            lesson_cost=ExpressionWrapper(
-                F('duration') * F('pay_rate'), output_field=FloatField())
-                ).aggregate(total_profit=Sum('lesson_cost'))
+        context['profit'] = (
+            lesson_detail.values('duration', 'pay_rate', 'lesson_id')
+            .annotate(
+                lesson_cost=ExpressionWrapper(
+                    F('duration') * F('pay_rate'), output_field=FloatField()
+                )
+            )
+            .aggregate(total_profit=Sum('lesson_cost'))
+        )
 
         # context['duration_sum'] = lessons_today.aggregate(sum=(Sum('duration')))
         context['duration_sum'] = lesson_detail.aggregate(sum=(Sum('duration')))
@@ -70,12 +85,13 @@ class LessonSummaryView(ListView):
 
         return context
 
+
 class ShowDifferentSummaryRedirectView(View):
     http_method_names = ['get']
+
     def get(self, request):
         request_date = request.GET['summary_date']
-        request_date_clean = datetime.strptime(request_date, '%Y-%m-%d').strftime('%d-%m-%Y')
+        request_date_clean = datetime.strptime(request_date, '%Y-%m-%d').strftime(
+            '%d-%m-%Y'
+        )
         return redirect('lesson:lesson_summary:lesson-summary', request_date_clean)
-
-
-

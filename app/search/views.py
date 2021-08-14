@@ -27,8 +27,7 @@ class SearchStudentAjaxView(ListView):
         student_own_car = self.request.GET.get('own_car', False)
         student_available_from = self.request.GET.get('available_from', '')
         student_available_to = self.request.GET.get('available_to', '')
-        student_available_now = self.request.GET.get(
-            'student_available_now', False)
+        student_available_now = self.request.GET.get('student_available_now', False)
 
         available_from_filter = Q()
         available_to_filter = Q()
@@ -39,8 +38,7 @@ class SearchStudentAjaxView(ListView):
             available_to_filter = Q(leave_date__gte=current_date)
         else:
             if student_available_from:
-                available_from_filter = Q(
-                    arrival_date__lte=student_available_from)
+                available_from_filter = Q(arrival_date__lte=student_available_from)
             if student_available_to:
                 available_to_filter = Q(leave_date__gte=student_available_to)
 
@@ -52,7 +50,7 @@ class SearchStudentAjaxView(ListView):
             Q(own_car=student_own_car) | Q(own_car=True),
             Q(kite_elsewhere=student_kite_trip) | Q(kite_elsewhere=True),
             available_from_filter,
-            available_to_filter
+            available_to_filter,
         ).order_by('-register_date')
         return qs
 
@@ -81,20 +79,24 @@ class SearchLessonAjaxView(ListView):
             student_split = lesson_student.split(' ')
             if len(student_split) > 1:
                 lesson_student_filter = Q(student__name__contains=student_split[0]) | Q(
-                    student__surname__contains=student_split[1])
+                    student__surname__contains=student_split[1]
+                )
             else:
                 lesson_student_filter = Q(student__name__contains=lesson_student) | Q(
-                    student__surname__contains=lesson_student)
+                    student__surname__contains=lesson_student
+                )
 
         if lesson_instructor:
             instructor_split = lesson_instructor.split(' ')
             if len(instructor_split) > 1:
                 instr_full_name = lesson_instructor
-                lesson_instructor_filter = Q(instructor__name__contains=instructor_split[0]) | Q(
-                    instructor__surname__contains=instructor_split[1])
+                lesson_instructor_filter = Q(
+                    instructor__name__contains=instructor_split[0]
+                ) | Q(instructor__surname__contains=instructor_split[1])
             else:
-                lesson_instructor_filter = Q(instructor__name__contains=lesson_instructor) | Q(
-                    instructor__surname__contains=lesson_instructor)
+                lesson_instructor_filter = Q(
+                    instructor__name__contains=lesson_instructor
+                ) | Q(instructor__surname__contains=lesson_instructor)
 
         if lesson_date_from:
             date_from = Q(start_date__gte=lesson_date_from)
@@ -110,14 +112,17 @@ class SearchLessonAjaxView(ListView):
         else:
             pass
 
-        qs = Lesson.objects.filter(
-            lesson_student_filter,
-            lesson_instructor_filter,
-            group_filter,
-            date_from,
-            date_to
-        ).distinct(
-        ).order_by('-start_date')
+        qs = (
+            Lesson.objects.filter(
+                lesson_student_filter,
+                lesson_instructor_filter,
+                group_filter,
+                date_from,
+                date_to,
+            )
+            .distinct()
+            .order_by('-start_date')
+        )
 
         return qs
 
@@ -152,14 +157,18 @@ class SearchRentalAjaxView(ListView):
         if rental_paid != '':
             rental_paid_filter = Q(paid=rental_paid)
 
-        qs = Rental.objects.filter(
-            Q(student__name__contains=rental_student) | Q(
-                student__surname__contains=rental_student),
-            rental_created_filter,
-            rental_paid_filter,
-            Q(rentaldetail__item__contains=rental_item),
-            rental_start_filter,
-            rental_end_filter
-        ).distinct().order_by('-created_date')
+        qs = (
+            Rental.objects.filter(
+                Q(student__name__contains=rental_student)
+                | Q(student__surname__contains=rental_student),
+                rental_created_filter,
+                rental_paid_filter,
+                Q(rentaldetail__item__contains=rental_item),
+                rental_start_filter,
+                rental_end_filter,
+            )
+            .distinct()
+            .order_by('-created_date')
+        )
 
         return qs

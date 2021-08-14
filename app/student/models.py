@@ -1,51 +1,55 @@
 from django.db import models
 from django.urls import reverse
-from .validators import (
-    validate_name,
-    validate_mobile,
-    validate_weight
-)
+from .validators import validate_name, validate_mobile, validate_weight
 
 
 class Student(models.Model):
 
     IKO_LEVELS = (
-        ('Level 1 - Discovery', (
-            ('1A', '1A'),
-            ('1B', '1B'),
-            ('1C', '1C'),
-            ('1D', '1D'),
-            ('1E', '1E'),
-        )
+        (
+            'Level 1 - Discovery',
+            (
+                ('1A', '1A'),
+                ('1B', '1B'),
+                ('1C', '1C'),
+                ('1D', '1D'),
+                ('1E', '1E'),
+            ),
         ),
-        ('Level 2 - Intermediate', (
-            ('2F', '2F'),
-            ('2G', '2G'),
-            ('2H', '2H'),
-            ('2I', '2I'),
-        )
+        (
+            'Level 2 - Intermediate',
+            (
+                ('2F', '2F'),
+                ('2G', '2G'),
+                ('2H', '2H'),
+                ('2I', '2I'),
+            ),
         ),
-        ('Level 3 - Independent', (
-            ('3J', '3J'),
-            ('3K', '3K'),
-            ('3L', '3L'),
-            ('3M', '3M'),
-            ('3N', '3N'),
-        )
+        (
+            'Level 3 - Independent',
+            (
+                ('3J', '3J'),
+                ('3K', '3K'),
+                ('3L', '3L'),
+                ('3M', '3M'),
+                ('3N', '3N'),
+            ),
         ),
-        ('Level 4 - Advanced', (
-            ('4O', '4O'),
-            ('4P', '4P'),
-            ('4Q', '4Q'),
-            ('4R', '4R'),
-            ('4S', '4S'),
-            ('4T', '4T'),
-            ('4U', '4U'),
-            ('4V', '4V'),
-            ('4W', '4W'),
-            ('4X', '4X'),
-            ('4Y', '4Y'),
-        )
+        (
+            'Level 4 - Advanced',
+            (
+                ('4O', '4O'),
+                ('4P', '4P'),
+                ('4Q', '4Q'),
+                ('4R', '4R'),
+                ('4S', '4S'),
+                ('4T', '4T'),
+                ('4U', '4U'),
+                ('4V', '4V'),
+                ('4W', '4W'),
+                ('4X', '4X'),
+                ('4Y', '4Y'),
+            ),
         ),
     )
 
@@ -67,12 +71,12 @@ class Student(models.Model):
         ('M', 'M'),
         ('L', 'L'),
         ('XL', 'XL'),
-        ('XXL', 'XXL')
+        ('XXL', 'XXL'),
     )
 
     class _HOURS_REQUIRED_FOR_DISCOUNT:
-        LEVEL_I = 5 # qualified for pay rate IKO_II if above 5
-        LEVEL_II = 10 # qualified for pay rate IKO_III if above 10
+        LEVEL_I = 5  # qualified for pay rate IKO_II if above 5
+        LEVEL_II = 10  # qualified for pay rate IKO_III if above 10
 
     class _PAY_RATES_SINGLE:
         IKO_I = 160
@@ -84,44 +88,36 @@ class Student(models.Model):
         IKO_II = 120
 
     name = models.CharField(
-        max_length=30,
-        null=False,
-        blank=False,
-        validators=[validate_name])
+        max_length=30, null=False, blank=False, validators=[validate_name]
+    )
 
     surname = models.CharField(
-        max_length=30,
-        null=False,
-        blank=False,
-        validators=[validate_name])
+        max_length=30, null=False, blank=False, validators=[validate_name]
+    )
 
     birth_date = models.DateField(null=True, blank=False)
 
     mobile_number = models.CharField(
-        max_length=20,
-        null=True,
-        blank=False,
-        validators=[validate_mobile])
+        max_length=20, null=True, blank=False, validators=[validate_mobile]
+    )
 
     email_address = models.CharField(max_length=40, null=True, blank=True)
-    weight = models.FloatField(null=True, blank=True, default=0, validators=[validate_weight])
+    weight = models.FloatField(
+        null=True, blank=True, default=0, validators=[validate_weight]
+    )
     arrival_date = models.DateField(null=True, blank=True)
     leave_date = models.DateField(null=True, blank=True)
     stay_location = models.CharField(max_length=40, null=True, blank=True)
-    own_car = models.BooleanField(null=True,blank=True, default=False)
-    kite_elsewhere = models.BooleanField(null=True,blank=True,default=False)
+    own_car = models.BooleanField(null=True, blank=True, default=False)
+    kite_elsewhere = models.BooleanField(null=True, blank=True, default=False)
 
     wetsuit_size = models.CharField(
-        max_length=6,
-        null=True,
-        blank=True,
-        choices=WETSUIT_SIZES)
+        max_length=6, null=True, blank=True, choices=WETSUIT_SIZES
+    )
 
     harness_size = models.CharField(
-        max_length=3,
-        null=True,
-        blank=True,
-        choices=HARNESS_SIZES)
+        max_length=3, null=True, blank=True, choices=HARNESS_SIZES
+    )
 
     iko_id = models.IntegerField(null=True, blank=True, unique=True)
     iko_level = models.CharField(max_length=30, null=True, blank=True, choices=IKO_LEVELS)

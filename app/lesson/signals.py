@@ -21,6 +21,7 @@ def student_changed(sender, instance, **kwargs):
             instance.group_lesson = True
             instance.save()
 
+
 @receiver(pre_save, sender=LessonDetail)
 def update_student_pay_rate_signal(sender, instance, **kwargs):
 
@@ -44,14 +45,17 @@ def update_student_pay_rate_signal(sender, instance, **kwargs):
         else:
             check_for_discount_grant(instance, student, lesson_duration_change)
 
+
 # Purpose of this signal is to distinguish type of signal being sent -> is_delete_signal flag
 @receiver(pre_delete, sender=LessonDetail)
 def update_student_pay_rate_delete_signal(sender, instance, **kwargs):
     update_student_pay_rate_signal(sender, instance, is_delete_signal=True)
 
 
-def check_for_discount_grant(lesson_detail: LessonDetail, student: Student, calculated_lesson_duration):
-    """ As title says else save student model to update new hours sum"""
+def check_for_discount_grant(
+    lesson_detail: LessonDetail, student: Student, calculated_lesson_duration
+):
+    """As title says else save student model to update new hours sum"""
     hr_threshold_1 = Student._HOURS_REQUIRED_FOR_DISCOUNT.LEVEL_I
     hr_threshold_2 = Student._HOURS_REQUIRED_FOR_DISCOUNT.LEVEL_II
 
@@ -59,22 +63,41 @@ def check_for_discount_grant(lesson_detail: LessonDetail, student: Student, calc
     student.lesson_hours_sum += calculated_lesson_duration
     new_student_hours_sum = student.lesson_hours_sum
 
-    if (hr_threshold_1 < new_student_hours_sum < hr_threshold_2) and (old_student_hours_sum <= hr_threshold_1):
+    if (hr_threshold_1 < new_student_hours_sum < hr_threshold_2) and (
+        old_student_hours_sum <= hr_threshold_1
+    ):
         """
         Check if student is eligible for discount LVL 1.
         """
         # update_student_pay_rate(student, new_student_hours_sum)
-        set_lesson_price_and_pay_rate(lesson_detail, student, hr_threshold_1, new_student_hours_sum, old_student_hours_sum)
+        set_lesson_price_and_pay_rate(
+            lesson_detail,
+            student,
+            hr_threshold_1,
+            new_student_hours_sum,
+            old_student_hours_sum,
+        )
 
-    elif (new_student_hours_sum > hr_threshold_2) and (old_student_hours_sum <= hr_threshold_2):
+    elif (new_student_hours_sum > hr_threshold_2) and (
+        old_student_hours_sum <= hr_threshold_2
+    ):
         """
         Check if student is eligible for discount LVL 2.
         """
         # update_student_pay_rate(student, new_student_hours_sum)
-        set_lesson_price_and_pay_rate(lesson_detail, student, hr_threshold_2, new_student_hours_sum, old_student_hours_sum)
+        set_lesson_price_and_pay_rate(
+            lesson_detail,
+            student,
+            hr_threshold_2,
+            new_student_hours_sum,
+            old_student_hours_sum,
+        )
 
-    elif (new_student_hours_sum <= hr_threshold_1 and old_student_hours_sum > hr_threshold_1) or \
-            (new_student_hours_sum <= hr_threshold_2 and old_student_hours_sum > hr_threshold_2):
+    elif (
+        new_student_hours_sum <= hr_threshold_1 and old_student_hours_sum > hr_threshold_1
+    ) or (
+        new_student_hours_sum <= hr_threshold_2 and old_student_hours_sum > hr_threshold_2
+    ):
         """
         Condition if lesson was edited and duration shortened so that student
         is no longer eligible for discount so pay_rate and lesson price should be updated.
@@ -90,7 +113,7 @@ def check_for_discount_grant(lesson_detail: LessonDetail, student: Student, calc
         lesson_detail.price = float(lesson_detail.duration) * int(lesson_detail.pay_rate)
 
     else:
-        """ Save new lesson_hours_sum value """
+        """Save new lesson_hours_sum value"""
         student.save()
 
 
@@ -101,7 +124,11 @@ def update_student_pay_rate(student_obj, hours_sum):
         student_obj.pay_rate_single = Student._PAY_RATES_SINGLE.IKO_I
         student_obj.pay_rate_group = Student._PAY_RATES_GROUP.IKO_I
 
-    elif Student._HOURS_REQUIRED_FOR_DISCOUNT.LEVEL_I < hours_sum <= Student._HOURS_REQUIRED_FOR_DISCOUNT.LEVEL_II:
+    elif (
+        Student._HOURS_REQUIRED_FOR_DISCOUNT.LEVEL_I
+        < hours_sum
+        <= Student._HOURS_REQUIRED_FOR_DISCOUNT.LEVEL_II
+    ):
         student_obj.pay_rate_single = Student._PAY_RATES_SINGLE.IKO_II
         student_obj.pay_rate_group = Student._PAY_RATES_GROUP.IKO_II
 
@@ -113,7 +140,14 @@ def update_student_pay_rate(student_obj, hours_sum):
         raise AttributeError("Student pay_rate update fail")
     student_obj.save()
 
-def set_lesson_price_and_pay_rate(lesson_detail: LessonDetail, student: Student, threshold, new_student_hours_sum, old_student_hours_sum):
+
+def set_lesson_price_and_pay_rate(
+    lesson_detail: LessonDetail,
+    student: Student,
+    threshold,
+    new_student_hours_sum,
+    old_student_hours_sum,
+):
     """
     Calculate lesson_detail price using two different pay_rates.
     This is happening when student reaches next discount level when completing one lesson.
@@ -136,4 +170,3 @@ def set_lesson_price_and_pay_rate(lesson_detail: LessonDetail, student: Student,
 
     price_after_discount = float(time_after_discount) * int(lesson_detail.pay_rate)
     lesson_detail.price = price_before_discount + price_after_discount
-

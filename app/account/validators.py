@@ -1,6 +1,7 @@
-from django.core.exceptions import ValidationError
 import re
-from datetime import date
+from datetime import datetime
+
+from django.core.exceptions import ValidationError
 
 
 def validate_name(value):
@@ -21,4 +22,18 @@ def validate_mobile(value):
 def validate_weight(value):
     if value < 0:
         raise ValidationError('Weight can\'t be negative!')
+    return value
+
+
+def validate_available_from(value):
+    return value  # TODO
+    # available_from = datetime.date(datetime.now())
+    # available_from = value
+    # return value
+
+
+def validate_available_to(value):
+    available_from = datetime.date(datetime.now())
+    if value < available_from:
+        raise ValidationError('Leave date can\'t be less than arrival date')
     return value

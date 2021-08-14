@@ -24,7 +24,7 @@ class Lesson(models.Model):
     kite_size = models.FloatField(null=True, blank=True)
     board = models.CharField(max_length=30, null=True, blank=True)
     comment = models.CharField(max_length=255, null=True, blank=True)
-    confirmed = models.BooleanField(default=False, null=True,blank=True)
+    confirmed = models.BooleanField(default=False, null=True, blank=True)
     in_progress = models.BooleanField(default=False, null=True, blank=True)
     completed = models.BooleanField(default=False, null=True, blank=True)
 
@@ -48,9 +48,11 @@ class Lesson(models.Model):
         return int(self.duration * 4)
 
     def i_dont_wanna_js(self):
-        if (self.start_time.hour >= 20) or \
-            (self.start_time.hour >= 19 and self.duration >= 2.5) or \
-            (self.start_time.hour >= 18 and self.duration > 3):
+        if (
+            (self.start_time.hour >= 20)
+            or (self.start_time.hour >= 19 and self.duration >= 2.5)
+            or (self.start_time.hour >= 18 and self.duration > 3)
+        ):
             return True
         else:
             return False

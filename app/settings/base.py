@@ -23,7 +23,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_ajax',
-
     'account',
     'dashboard',
     'crew.instructor',
@@ -34,13 +33,12 @@ INSTALLED_APPS = [
     'lesson',
     'lesson_summary',
     'rental',
-    'search'
+    'search',
 ]
 
 AUTH_USER_MODEL = 'account.User'
 
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.AllowAllUsersModelBackend']
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,8 +51,8 @@ MIDDLEWARE = [
 ]
 
 STATICFILES_FINDERS = [
-  'django.contrib.staticfiles.finders.FileSystemFinder',
-  'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
 ROOT_URLCONF = 'kitescontrol.urls'
@@ -62,15 +60,12 @@ ROOT_URLCONF = 'kitescontrol.urls'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-
 )
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'templates')
-        ],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,7 +122,7 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/staticfiles/'
 STATICFILES_DIRS = [
     # os.path.join(SITE_ROOT, 'static'),  TODO
-    ]
+]
 
 LOGIN_URL = 'account:login'
 LOGIN_REDIRECT_URL = '/'
