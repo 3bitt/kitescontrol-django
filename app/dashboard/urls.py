@@ -3,6 +3,4 @@ from django.urls import path
 from .views import HomeView
 
 app_name = 'dashboard'
-urlpatterns = [
-    path('', login_required(HomeView.as_view()), name='dashboard-home')
-]
+urlpatterns = [path('', login_required(HomeView.as_view()), name='dashboard-home')]

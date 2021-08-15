@@ -1,10 +1,11 @@
-from django.views.generic import CreateView, ListView, DetailView, DeleteView,UpdateView
+from django.views.generic import CreateView, ListView, DetailView, DeleteView, UpdateView
 from django.shortcuts import get_object_or_404
 from .forms import StudentCreateForm
 from .models import Student
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.db.models.functions import Trim
+
 
 class StudentListView(ListView):
     queryset = Student.objects.all().order_by('-id')
@@ -22,12 +23,14 @@ class StudentSearchView(ListView):
     def get_queryset(self):
         q = Student.objects.filter(
             Q(mobile_number__contains=self.request.GET['mobile']),
-            Q(name__contains=self.request.GET['name']) | Q(surname__contains=self.request.GET['name']),
+            Q(name__contains=self.request.GET['name'])
+            | Q(surname__contains=self.request.GET['name']),
             Q(weight__gte=self.request.GET['weight_gt'] or 0),
             Q(weight__lte=self.request.GET['weight_le'] or 1000),
             Q(own_car=self.request.GET.get('car', False)) | Q(own_car=True),
-            Q(kite_elsewhere=self.request.GET.get('trip', False)) | Q(kite_elsewhere=True)
-            ).order_by('-register_date')
+            Q(kite_elsewhere=self.request.GET.get('trip', False))
+            | Q(kite_elsewhere=True),
+        ).order_by('-register_date')
         return q
 
     # Populate context with user input so template can display it in search fields
@@ -70,6 +73,7 @@ class StudentUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('student:student-detail', kwargs={'pk': self.kwargs['pk']})
+
 
 class StudentDeleteView(DeleteView):
     model = Student

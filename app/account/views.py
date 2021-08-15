@@ -16,7 +16,6 @@ class MainLoginView(LoginView):
     form_class = CustomAuthenticationForm
 
 
-
 class AccountCreateUserView(CreateView):
     template_name = 'account/account_create_user.html'
     model = User
@@ -31,6 +30,7 @@ class AccountDetailUserView(DetailView):
     template_name = 'account/account_detail.html'
     queryset = User.objects.all()
     context_object_name = 'user'
+
 
 class AccountUpdateUserView(UpdateView):
     template_name = 'account/account_update.html'
@@ -59,7 +59,3 @@ class AccountChangeActiveStatus(RedirectView):
             user.is_active = True
         user.save()
         return HttpResponseRedirect(reverse('account:detail-user', args=[user_id]))
-
-
-
-

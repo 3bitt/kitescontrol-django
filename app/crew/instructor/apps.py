@@ -8,4 +8,3 @@ class InstructorConfig(AppConfig):
     def ready(self):
         # signals are imported, so that they are defined and can be used
         import crew.instructor.signals
-

@@ -1,14 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import (
-    AbstractBaseUser, BaseUserManager, PermissionsMixin, UserManager
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+    UserManager,
 )
 from django.db.models.fields import proxy
 from django.db.models.manager import BaseManager
 
 from crew.instructor.validators import validate_name
 
+
 class UserManager(BaseUserManager):
-    def create_user(self, email, name, surname, password=None, is_active=True, type='INSTRUCTOR'):
+    def create_user(
+        self, email, name, surname, password=None, is_active=True, type='INSTRUCTOR'
+    ):
         if not email:
             raise ValueError('Email is required')
         if not password:
@@ -19,11 +25,11 @@ class UserManager(BaseUserManager):
             raise ValueError('Surname is required')
 
         user = self.model(
-            email = self.normalize_email(email),
-            name = name,
-            surname = surname,
-            is_active = is_active,
-            type = type
+            email=self.normalize_email(email),
+            name=name,
+            surname=surname,
+            is_active=is_active,
+            type=type,
         )
 
         user.set_password(password)
@@ -32,9 +38,9 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, name, surname, password):
         user = self.model(
-            email = self.normalize_email(email),
-            name = name,
-            surname = surname,
+            email=self.normalize_email(email),
+            name=name,
+            surname=surname,
         )
         user.set_password(password)
         user.is_staff = True
@@ -46,7 +52,6 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-
     class Types(models.TextChoices):
         CLERK = 'CLERK', 'Biuro'
         INSTRUCTOR = 'INSTRUCTOR', 'Instruktor'
@@ -56,11 +61,15 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     email = models.EmailField(max_length=100, unique=True)
-    name = models.CharField(max_length=30, null=False,
-                            blank=False, validators=[validate_name])
+    name = models.CharField(
+        max_length=30, null=False, blank=False, validators=[validate_name]
+    )
     surname = models.CharField(
-        max_length=30, null=False, blank=False, validators=[validate_name])
-    type = models.CharField('type', max_length=50, choices=Types.choices, default=Types.INSTRUCTOR)
+        max_length=30, null=False, blank=False, validators=[validate_name]
+    )
+    type = models.CharField(
+        'type', max_length=50, choices=Types.choices, default=Types.INSTRUCTOR
+    )
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -77,7 +86,7 @@ class User(AbstractBaseUser):
     def has_perm(self, perm, obj=None):
         return self.is_admin
 
-    def has_module_perms(self,app_label):
+    def has_module_perms(self, app_label):
         return True
 
 
@@ -94,7 +103,6 @@ class InstructorkManager(models.Manager):
 class ManagerManager(models.Manager):
     def get_queryset(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(type=User.Types.MANAGER)
-
 
 
 class Clerk(User):

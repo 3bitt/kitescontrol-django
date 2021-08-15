@@ -7,6 +7,7 @@ from account.forms import RegisterForm
 from account.models import User
 from crew.instructor.forms import InstructorCreateForm
 from crew.instructor.models import Instructor
+
 # Create your views here.
 
 
@@ -18,11 +19,14 @@ class CrewListView(ListView):
     def get_context_data(self, **kwargs):
         context_data_dict = super().get_context_data(**kwargs)
         context_data_dict['manager_users'] = context_data_dict['all_users'].filter(
-            type='MANAGER')
+            type='MANAGER'
+        )
         context_data_dict['clerk_users'] = context_data_dict['all_users'].filter(
-            type='CLERK')
+            type='CLERK'
+        )
         context_data_dict['instructor_users'] = context_data_dict['all_users'].filter(
-            type='INSTRUCTOR')
+            type='INSTRUCTOR'
+        )
         return context_data_dict
 
 

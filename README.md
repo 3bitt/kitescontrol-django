@@ -78,3 +78,6 @@ Yolo Shut down (remove DB data):
 
       $ docker-compose down --volume --remove-orphans
 
+Black format:
+
+      $ black -S --config black.conf app/

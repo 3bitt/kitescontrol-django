@@ -23,37 +23,74 @@ class PayrollByDate(TemplateView):
         payroll_end_date = self.request.GET['dateTo']
 
         filtered_lessons = Lesson.objects.filter(
-            Q(start_date__gte=payroll_start_date,
-                start_date__lte=payroll_end_date),
-            Q(instructor=F('instructor'))
+            Q(start_date__gte=payroll_start_date, start_date__lte=payroll_end_date),
+            Q(instructor=F('instructor')),
         )
 
-        instructors = Instructor.objects.filter(
-            Q(active=True),
-            Q(lessons=F('lessons')),
-            Q(lessons__start_date__gte=payroll_start_date,
-              lessons__start_date__lte=payroll_end_date)
-        ).prefetch_related(
-            Prefetch('lessons', filtered_lessons)
-        ).annotate(
-            single_lessons_count=Count(
-                'lessons', filter=Q(lessons__group_lesson=False), output_field=FloatField()),
-            single_lessons_duration=Sum(
-                'lessons__duration', filter=Q(lessons__group_lesson=False), output_field=FloatField()),
-            group_lessons_count=Count(
-                'lessons', filter=Q(lessons__group_lesson=True), output_field=FloatField()),
-            group_lessons_duration=Sum(
-                'lessons__duration', filter=Q(lessons__group_lesson=True), output_field=FloatField()),
-            single_lessons_value=ExpressionWrapper(
-                Coalesce(F('single_lessons_duration'), Value(0.0, output_field=FloatField()), output_field=FloatField()
-                         ) * Coalesce(F('pay_rate_single'), Value(0.0, output_field=FloatField()), output_field=FloatField()),
-                output_field=FloatField()),
-            group_lessons_value=ExpressionWrapper(
-                Coalesce(F('group_lessons_duration'), Value(0.0, output_field=FloatField()), output_field=FloatField()
-                         ) * Coalesce(F('pay_rate_group'), Value(0.0, output_field=FloatField()), output_field=FloatField()),
-                output_field=FloatField())
-        ).annotate(
-            payroll_sum=ExpressionWrapper(F('single_lessons_value') + F('group_lessons_value'), output_field=FloatField())
+        instructors = (
+            Instructor.objects.filter(
+                Q(active=True),
+                Q(lessons=F('lessons')),
+                Q(
+                    lessons__start_date__gte=payroll_start_date,
+                    lessons__start_date__lte=payroll_end_date,
+                ),
+            )
+            .prefetch_related(Prefetch('lessons', filtered_lessons))
+            .annotate(
+                single_lessons_count=Count(
+                    'lessons',
+                    filter=Q(lessons__group_lesson=False),
+                    output_field=FloatField(),
+                ),
+                single_lessons_duration=Sum(
+                    'lessons__duration',
+                    filter=Q(lessons__group_lesson=False),
+                    output_field=FloatField(),
+                ),
+                group_lessons_count=Count(
+                    'lessons',
+                    filter=Q(lessons__group_lesson=True),
+                    output_field=FloatField(),
+                ),
+                group_lessons_duration=Sum(
+                    'lessons__duration',
+                    filter=Q(lessons__group_lesson=True),
+                    output_field=FloatField(),
+                ),
+                single_lessons_value=ExpressionWrapper(
+                    Coalesce(
+                        F('single_lessons_duration'),
+                        Value(0.0, output_field=FloatField()),
+                        output_field=FloatField(),
+                    )
+                    * Coalesce(
+                        F('pay_rate_single'),
+                        Value(0.0, output_field=FloatField()),
+                        output_field=FloatField(),
+                    ),
+                    output_field=FloatField(),
+                ),
+                group_lessons_value=ExpressionWrapper(
+                    Coalesce(
+                        F('group_lessons_duration'),
+                        Value(0.0, output_field=FloatField()),
+                        output_field=FloatField(),
+                    )
+                    * Coalesce(
+                        F('pay_rate_group'),
+                        Value(0.0, output_field=FloatField()),
+                        output_field=FloatField(),
+                    ),
+                    output_field=FloatField(),
+                ),
+            )
+            .annotate(
+                payroll_sum=ExpressionWrapper(
+                    F('single_lessons_value') + F('group_lessons_value'),
+                    output_field=FloatField(),
+                )
+            )
         )
 
         context['instructors'] = instructors

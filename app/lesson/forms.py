@@ -4,7 +4,6 @@ from account.models import User
 
 
 class LessonCreateForm(forms.ModelForm):
-
     class Meta:
         model = Lesson
         exclude = [
@@ -12,7 +11,6 @@ class LessonCreateForm(forms.ModelForm):
             'paid',
             'kite_size',
             'start_time',
-
         ]
         fields = [
             'start_date',
@@ -26,38 +24,23 @@ class LessonCreateForm(forms.ModelForm):
             'comment',
             'confirmed',
             'in_progress',
-            'completed'
+            'completed',
         ]
         widgets = {
-            'start_date': forms.DateInput(attrs={
-                'class': 'input',
-                'type': 'date'
-            }),
-            'duration': forms.NumberInput(attrs={
-                'class': 'input',
-                'min': '0.5',
-                'max': '6',
-                'step': '0.25'
-            }),
+            'start_date': forms.DateInput(attrs={'class': 'input', 'type': 'date'}),
+            'duration': forms.NumberInput(
+                attrs={'class': 'input', 'min': '0.5', 'max': '6', 'step': '0.25'}
+            ),
             'confirmed': forms.CheckboxInput(),
             'in_progress': forms.CheckboxInput(),
             'completed': forms.CheckboxInput(),
-            'kite_brand': forms.TextInput(attrs={
-                'placeholder': 'Sygnatura kajta'
-            }),
-            'board': forms.TextInput(attrs={
-                'placeholder': 'Sygnatura deski'
-            }),
-            'comment': forms.Textarea(attrs={
-                'cols': 26,
-                'rows': 3,
-                'placeholder': 'Dodatkowe informacje'
-            }),
+            'kite_brand': forms.TextInput(attrs={'placeholder': 'Sygnatura kajta'}),
+            'board': forms.TextInput(attrs={'placeholder': 'Sygnatura deski'}),
+            'comment': forms.Textarea(
+                attrs={'cols': 26, 'rows': 3, 'placeholder': 'Dodatkowe informacje'}
+            ),
             'instructor': forms.CheckboxSelectMultiple(),
-            'student': forms.CheckboxSelectMultiple()
-
+            'student': forms.CheckboxSelectMultiple(),
         }
 
-        help_texts = {
-            'start_time': "min. 7:00 - max. 21:00"
-        }
+        help_texts = {'start_time': "min. 7:00 - max. 21:00"}

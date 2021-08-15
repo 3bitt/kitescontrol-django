@@ -3,7 +3,14 @@ from decimal import Decimal, ROUND_HALF_EVEN
 from django.db.models.aggregates import Aggregate, Sum
 from django.db.models.functions import Cast
 from django.db.models import Count
-from django.db.models.expressions import CombinedExpression, ExpressionWrapper, F, OuterRef, Subquery, Value
+from django.db.models.expressions import (
+    CombinedExpression,
+    ExpressionWrapper,
+    F,
+    OuterRef,
+    Subquery,
+    Value,
+)
 from django.db.models.fields import DecimalField, DurationField, FloatField, IntegerField
 from django.db.models import Prefetch
 from django.views.generic.base import View
@@ -41,20 +48,20 @@ class RentalCreateView(CreateView):
         rent_items = [item for item in zip(rent_item, item_price, quantity, description)]
 
         rental = Rental.objects.create(
-            start_date = start_date,
-            end_date = end_date,
-            student = fetch_student,
-            comment = comment
+            start_date=start_date,
+            end_date=end_date,
+            student=fetch_student,
+            comment=comment,
         )
         rental.save()
 
         for item in rent_items:
             rental_detail = RentalDetail.objects.create(
-                rental = rental,
-                item = item[0],
-                price = item[1],
-                quantity = item[2],
-                description = item[3]
+                rental=rental,
+                item=item[0],
+                price=item[1],
+                quantity=item[2],
+                description=item[3],
             )
             rental_detail.save()
 
@@ -67,6 +74,7 @@ class RentalDetailView(DetailView):
     model = Rental
     context_object_name = 'rental'
 
+
 class RentalUpdateView(UpdateView):
     template_name = 'rental/rental_edit.html'
     model = Rental
@@ -76,7 +84,7 @@ class RentalUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         rental_id = self.get_object().id
-        rental_details = RentalDetail.objects.filter(rental = rental_id)
+        rental_details = RentalDetail.objects.filter(rental=rental_id)
 
         context['rental_details'] = rental_details
         return context
@@ -114,11 +122,11 @@ class RentalUpdateView(UpdateView):
 
         for item in rent_items:
             rental_detail = RentalDetail.objects.create(
-                rental = rental,
-                item = item[0],
-                price = item[1],
-                quantity = item[2],
-                description = item[3]
+                rental=rental,
+                item=item[0],
+                price=item[1],
+                quantity=item[2],
+                description=item[3],
             )
             rental_detail.save()
 
@@ -126,7 +134,6 @@ class RentalUpdateView(UpdateView):
 
 
 class RentalCompleteView(View):
-
     def post(self, *args, **kwargs):
 
         rental_id = self.kwargs['pk']
@@ -144,23 +151,21 @@ class RentalCompleteView(View):
 
         return redirect(self.request.META['HTTP_REFERER'])
 
+
 class RentalDeleteView(DeleteView):
     model = Rental
     success_url = reverse_lazy('lesson:lesson-list')
 
 
 # Class used in Lesson views.py
-class RentalView():
+class RentalView:
     @staticmethod
-    def getRentalsListByDate(rentals_date=None): # rentals_date is usually current_date
+    def getRentalsListByDate(rentals_date=None):  # rentals_date is usually current_date
         rentals = Rental.objects.filter(
-            Q(created_date__date=rentals_date) |
-            Q(start_date__date__lte=rentals_date) &
-            Q(
-                Q(end_date__date__gte=rentals_date) |
-                Q(end_date__isnull=True)
-                )
-            ).order_by('-created_date')
+            Q(created_date__date=rentals_date)
+            | Q(start_date__date__lte=rentals_date)
+            & Q(Q(end_date__date__gte=rentals_date) | Q(end_date__isnull=True))
+        ).order_by('-created_date')
 
         return rentals
 
@@ -174,52 +179,56 @@ class RentalView():
         paid_filter = Q(paid=True)
         unpaid_filter = Q(Q(paid=False) | Q(paid__isnull=True))
 
-
-        rentals = Rental.objects.filter(
-            ends_today_filter).annotate(
+        rentals = Rental.objects.filter(ends_today_filter).annotate(
             rent_duration=ExpressionWrapper(
-            # ZEPSUTE
-            # ZEPSUTE
                 # ZEPSUTE
-                (F('end_date') - F('start_date')) + Value('3600', FloatField()), output_field=FloatField())
-
+                # ZEPSUTE
+                # ZEPSUTE
+                (F('end_date') - F('start_date')) + Value('3600', FloatField()),
+                output_field=FloatField(),
+            )
         )
 
         rent_subquery = rentals.filter(rentaldetail=OuterRef('id'))
 
-        rentals_detail = RentalDetail.objects.filter(
-            rental__in=rentals
-        ).select_related('rental'
-        ).annotate(
-            rent_duration=Subquery(
-                rent_subquery.values('rent_duration')
-            )
-        ).annotate(
-            item_rent_gross_amt=ExpressionWrapper(
-                (F('rent_duration') * F('price') * F('quantity')),
-                output_field=FloatField()
+        rentals_detail = (
+            RentalDetail.objects.filter(rental__in=rentals)
+            .select_related('rental')
+            .annotate(rent_duration=Subquery(rent_subquery.values('rent_duration')))
+            .annotate(
+                item_rent_gross_amt=ExpressionWrapper(
+                    (F('rent_duration') * F('price') * F('quantity')),
+                    output_field=FloatField(),
+                )
             )
         )
 
-        rent_detail_subquery = rentals_detail.filter(rental_id=OuterRef('id')).values('item_rent_gross_amt')
-        test = rent_detail_subquery.values('rental_id').annotate(total=Sum('item_rent_gross_amt')).values('total')
+        rent_detail_subquery = rentals_detail.filter(rental_id=OuterRef('id')).values(
+            'item_rent_gross_amt'
+        )
+        test = (
+            rent_detail_subquery.values('rental_id')
+            .annotate(total=Sum('item_rent_gross_amt'))
+            .values('total')
+        )
 
         rentals = rentals.prefetch_related(
             Prefetch('rentaldetail_set', rentals_detail)
-        ).annotate(
-            total_rent_amt=Subquery(test)
-        )
+        ).annotate(total_rent_amt=Subquery(test))
 
-        students_with_rentals =  Student.objects.filter(
-            Q(rental__in=rentals)
-            ).prefetch_related(
-                Prefetch('rental_set', rentals)
-            ).annotate(
+        students_with_rentals = (
+            Student.objects.filter(Q(rental__in=rentals))
+            .prefetch_related(Prefetch('rental_set', rentals))
+            .annotate(
                 student_total_rent_amt=Subquery(
-                    rentals.values('student_id').annotate(
-                        total_amt=Sum('total_rent_amt')).values('total_amt')
+                    rentals.values('student_id')
+                    .annotate(total_amt=Sum('total_rent_amt'))
+                    .values('total_amt')
                 )
-            ).order_by('name').distinct()
+            )
+            .order_by('name')
+            .distinct()
+        )
 
         # Aggregates used for overall summary
 
@@ -227,9 +236,7 @@ class RentalView():
             ends_today=Count('*'),
             paid=Count('paid', filter=paid_filter),
         )
-        total_rentals_value = rentals_detail.aggregate(
-            sum=Sum('item_rent_gross_amt')
-        )
+        total_rentals_value = rentals_detail.aggregate(sum=Sum('item_rent_gross_amt'))
 
         result_dict['count'] = rentals_counts
         result_dict['total_profit'] = total_rentals_value

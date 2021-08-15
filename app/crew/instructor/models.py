@@ -5,9 +5,10 @@ from .validators import (
     validate_mobile,
     validate_weight,
     validate_available_from,
-    validate_available_to
+    validate_available_to,
 )
 from account.models import User
+
 # Create your models here.
 
 
@@ -22,16 +23,26 @@ class Instructor(models.Model):
         ('Coach', 'Coach'),
     )
 
-    name = models.CharField(max_length=30, null=False, blank=False, validators=[validate_name])
-    surname = models.CharField(max_length=30, null=False, blank=False, validators=[validate_name])
+    name = models.CharField(
+        max_length=30, null=False, blank=False, validators=[validate_name]
+    )
+    surname = models.CharField(
+        max_length=30, null=False, blank=False, validators=[validate_name]
+    )
     nickname = models.CharField(max_length=30, null=True, blank=True)
     birth_date = models.DateField(null=False, blank=False)
-    mobile_number = models.CharField(max_length=20, null=True, blank=True, unique=True, validators=[validate_mobile])
+    mobile_number = models.CharField(
+        max_length=20, null=True, blank=True, unique=True, validators=[validate_mobile]
+    )
     email_address = models.CharField(max_length=60, null=False, blank=False, unique=True)
     # WEIGHT - NOT USED CURRENTLY
     weight = models.FloatField(null=True, blank=True, validators=[validate_weight])
-    available_from = models.DateField(null=True, blank=True, validators=[validate_available_from])
-    available_to = models.DateField(null=True, blank=True, validators=[validate_available_to])
+    available_from = models.DateField(
+        null=True, blank=True, validators=[validate_available_from]
+    )
+    available_to = models.DateField(
+        null=True, blank=True, validators=[validate_available_to]
+    )
     iko_id = models.IntegerField(null=True, blank=True, unique=True)
     iko_level = models.CharField(max_length=30, null=True, blank=True, choices=IKO_LEVELS)
     driving_licence = models.BooleanField(null=True, default=False)
@@ -53,7 +64,7 @@ class Instructor(models.Model):
     def get_absolute_url(self):
         return reverse("instructor:instructor-detail", kwargs={"pk": self.pk})
 
-    def save(self, userType='INSTRUCTOR', * args, **kwargs):
+    def save(self, userType='INSTRUCTOR', *args, **kwargs):
         # When creating or updating instructor check if user with the same email already exists
         # If not, then create it, if User exists take it
         if self.id:
@@ -70,13 +81,13 @@ class Instructor(models.Model):
                 is_active = False
 
             user = User.objects.create_user(
-                email = User.objects.normalize_email(self.email_address),
-                name = self.name,
-                surname = self.surname,
-                password = User.objects.make_random_password(length=30),
+                email=User.objects.normalize_email(self.email_address),
+                name=self.name,
+                surname=self.surname,
+                password=User.objects.make_random_password(length=30),
                 # type = 'INSTRUCTOR'
-                type = userType,
-                is_active = is_active
+                type=userType,
+                is_active=is_active,
             )
             self.user = user
         super().save(*args, **kwargs)
